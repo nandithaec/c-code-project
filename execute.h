@@ -5,7 +5,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
 	int i=0;
-
+	i = 0;
 	switch(i1-> instr_mnemonic_enum)
 	{
 
