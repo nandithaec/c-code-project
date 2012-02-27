@@ -1,11 +1,11 @@
-//Execute.h
+//Execute.h 
 
 int instruction_execute(struct registers *r1, struct instructions *i1)
 {
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
 	int i=0;
-	int twos_comp=0, temp_sub= 0, temp_add=0;
+	int twos_comp=0, temp_sub= 0, temp_add=0, temp_rotate=0, original_regfile=0;
 	switch(i1-> instr_mnemonic_enum)
 	{
 
@@ -489,6 +489,242 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("\n");
 	
 	break;
+
+	case 15: //COMF
+		
+		printf("Contents of reg file before execution (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		printf("COMF instruction\n");
+		
+		
+		if (i1-> d==0) //d=0 means- destination is W register i.e., accumulator 
+		{
+
+			r1-> W = ~(r1-> GP_Reg[i1-> reg_index]) & 0x000000FF ; //limit to 8 bits
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		
+		}
+
+	else if (i1-> d==1) //d=1 means- destination is the file register
+		{
+		
+		r1-> GP_Reg[i1-> reg_index] = ~(r1-> GP_Reg[i1-> reg_index]) & 0x000000FF;  //limit to 8 bits
+
+		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		if( r1-> GP_Reg[i1-> reg_index] ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		}
+
+		
+		printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+
+	break;
+
+	case 16: //INCF
+
+	
+	printf("INCF instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+		
+	printf("After execution:\n");
+	
+	if (i1-> d==0) //	d=0 means- destination is W register i.e., accumulator 
+		{
+
+			r1-> W = (r1-> GP_Reg[i1-> reg_index] + 1) & 0x000000FF; //Keep only 8 bits
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		
+		}
+
+	else if (i1-> d==1) //d=1 means- destination is the file register
+		{
+		
+		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] + 1) & 0x000000FF; //Keep only 8 bits
+
+		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		if( r1-> GP_Reg[i1-> reg_index] ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		}
+
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	
+	break;
+
+
+	case 17: //DECFSZ
+
+	
+	printf("DECFSZ instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+		
+	printf("After execution:\n");
+	
+	if (i1-> d==0) //	d=0 means- destination is W register i.e., accumulator 
+		{
+
+			r1-> W = (r1-> GP_Reg[i1-> reg_index] -1) & 0x000000FF; //Keep only 8 bits
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+
+		
+		}
+
+	else if (i1-> d==1) //d=1 means- destination is the file register
+		{
+		
+		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] -1) & 0x000000FF; //Keep only 8 bits
+
+		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		if( r1-> GP_Reg[i1-> reg_index] ==0)
+			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+
+		}
+
+//Status register not affected
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+		
+		printf("Program counter: PC= %d\n",r1->PC);
+	
+	break;
+
+
+	case 18: //RRF
+
+	
+	printf("RRF instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	
+	original_regfile= r1-> GP_Reg[i1-> reg_index];
+	printf("After execution:\n");
+	
+	if (i1-> d==0) //	d=0 means- destination is W register i.e., accumulator 
+		{
+
+			temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) & 0x000000FF) >> 1; //Keep only 8 bits
+			if(r1-> status_reg[7]==0) //Carry=0
+				r1->W = temp_rotate;
+			else //Carry = 1
+				r1->W = temp_rotate | 0x80;
+
+		printf("Contents of destination after right shift is W (hex)= %x \n", r1-> W);
+
+
+		
+		}
+
+	else if (i1-> d==1) //d=1 means- destination is the file register
+		{
+		
+		temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) & 0x000000FF) >> 1; //Keep only 8 bits
+			if(r1-> status_reg[7]==0) //Carry=0
+				r1-> GP_Reg[i1-> reg_index] = temp_rotate;
+			else //Carry = 1
+				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x80;
+
+		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+
+
+		}
+
+
+	r1-> status_reg[7] = original_regfile & 0x00000001; // LSB of reg file will go to carry through right shift
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+		
+	
+	break;
+
+	case 19: //RLF
+
+	
+	printf("RLF instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	
+	original_regfile= r1-> GP_Reg[i1-> reg_index];
+	printf("After execution:\n");
+	
+	if (i1-> d==0) //	d=0 means- destination is W register i.e., accumulator 
+		{
+
+			temp_rotate = ((r1-> GP_Reg[i1-> reg_index])  << 1) & 0x000000FF; //Keep only 8 bits
+			if(r1-> status_reg[7]==0) //Carry=0
+				r1->W = temp_rotate;
+			else //Carry = 1
+				r1->W = temp_rotate | 0x01;
+
+		printf("Contents of destination after left shift is W (hex)= %x \n", r1-> W);
+
+
+		
+		}
+
+	else if (i1-> d==1) //d=1 means- destination is the file register
+		{
+		
+		temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) <<1 ) & 0x000000FF; //Keep only 8 bits
+			if(r1-> status_reg[7]==0) //Carry=0
+				r1-> GP_Reg[i1-> reg_index] = temp_rotate;
+			else //Carry = 1
+				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x01;
+
+		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+
+
+		}
+
+
+	r1-> status_reg[7] = (original_regfile & 0x80) >>7; // MSB of reg file will go to carry through right shift
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+		
+	
+	break;
+
 
 	default: 
 		PRINT ("INVALID instruction!\n"); 
