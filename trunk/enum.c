@@ -14,13 +14,13 @@ enum Mnemonic
 	IORWF,
 	ANDWF,
 	XORWF,
-
 	ADDWF,
 	MOVF,
 	COMF,
 	INCF,
 	DECFSZ,
 	RRF,
+
 	RLF,
 	SWAPF,
 	INCFSZ,

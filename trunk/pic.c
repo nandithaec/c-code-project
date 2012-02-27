@@ -39,12 +39,19 @@ int main()
 		pic_registers.stack_pointer = 1;
 		pic_registers.stack[0] = 0x62; //98
 	//Assigning some value to the reg file location 
-		pic_registers.GP_Reg[reg_index]= 0x09; //90
+		pic_registers.status_reg[7]=1;
+		pic_registers.GP_Reg[reg_index]= 0xFF; //90
 		pic_registers.W = 0x0F; //18
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 
-	program_memory[0] = 0x070C; //ADDWF or 0x078C
+	program_memory[0] = 0x0D0C; //RLF or 0x0D8C
+//	program_memory[0] = 0x0C0C; //RRF or 0x0C8C
+//	program_memory[0] = 0x0B0C; //DECFSZ or 0x0B8C
+//	program_memory[0] = 0x0A0C; //INCF or 0x0A8C
+//	program_memory[0] = 0x090C; //COMF or 0x098C
+//	program_memory[0] = 0x080C; //MOVF or 0x088C
+//	program_memory[0] = 0x070C; //ADDWF or 0x078C
 //	program_memory[0] = 0x068C; //XORWF or 0x068C
 //	program_memory[0] = 0x050C; //ANDWF or 0x050C
 //	program_memory[0] = 0x040C; //IORWF or 0x048C
@@ -58,7 +65,7 @@ int main()
 //	program_memory[0] = 0x0008; //RETURN
 //	program_memory[0] = 0x0064; //CLRWDT
 //	program_memory[0] = 0x0063; //SLEEP
-//	program_memory[0] = 0x080C; //MOVF or 0x088C
+
 
 	
 	//Instruction fetch	
