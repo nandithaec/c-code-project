@@ -14,6 +14,7 @@ enum Mnemonic
 	IORWF,
 	ANDWF,
 	XORWF,
+
 	ADDWF,
 	MOVF,
 	COMF,

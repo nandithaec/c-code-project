@@ -21,12 +21,12 @@ int main()
 	
 	struct registers pic_registers;
 //-------------------------------Initialising registers------------------------------------
+//Max register content= 255 (dec) or FF (hex)
 	pic_registers.configuration_word[11]= 1; //WDT Enabler bit
 
 	for(i=0;i<REG_MAX;++i)
 		pic_registers.GP_Reg[i]=0;
-	//Assigning some value to the reg file location to demonstrate MVF operation
-	pic_registers.GP_Reg[reg_index]= 0x03; //90
+	
 
 	for(i=0;i<REG_WIDTH;++i)
 		pic_registers.status_reg[i]=0;
@@ -38,20 +38,27 @@ int main()
 		pic_registers.PC=0;
 		pic_registers.stack_pointer = 1;
 		pic_registers.stack[0] = 0x62; //98
-		pic_registers.W = 0x02; //18
+	//Assigning some value to the reg file location 
+		pic_registers.GP_Reg[reg_index]= 0x09; //90
+		pic_registers.W = 0x0F; //18
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 
-	program_memory[0] = 0x028C; //SUBWF
+	program_memory[0] = 0x070C; //ADDWF or 0x078C
+//	program_memory[0] = 0x068C; //XORWF or 0x068C
+//	program_memory[0] = 0x050C; //ANDWF or 0x050C
+//	program_memory[0] = 0x040C; //IORWF or 0x048C
+//	program_memory[0] = 0x038C; //DECF or 0x030C
+//	program_memory[0] = 0x028C; //SUBWF or 0x020C
 //	program_memory[0] = 0x018C; //CLRF
 //	program_memory[0] = 0x010C; //CLRW
-//	program_memory[0] = 0x008C; //MOVWF
+//	program_memory[0] = 0x008C; //MOVWF or 0x000C
 //	program_memory[0] = 0x0000; //NOP
 //	program_memory[0] = 0x0009; //RETFIE
 //	program_memory[0] = 0x0008; //RETURN
 //	program_memory[0] = 0x0064; //CLRWDT
 //	program_memory[0] = 0x0063; //SLEEP
-//	program_memory[0] = 0x080C; //MOVF
+//	program_memory[0] = 0x080C; //MOVF or 0x088C
 
 	
 	//Instruction fetch	
