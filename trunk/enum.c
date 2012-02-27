@@ -20,10 +20,10 @@ enum Mnemonic
 	INCF,
 	DECFSZ,
 	RRF,
-
 	RLF,
 	SWAPF,
 	INCFSZ,
+
 	BCF,
 	BSF,
 	BTFSC,
