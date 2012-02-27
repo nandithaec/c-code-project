@@ -29,10 +29,10 @@ struct registers
 	int option_reg[REG_WIDTH];
 	int INTCON_reg[REG_WIDTH];
 	int EECON1_reg[REG_WIDTH];
-	int configuration_word[CONFIG_WORD_SIZE];
-	int WDT[REG_WIDTH];
-	int WDT_prescaler[REG_WIDTH];
-	int stack[REG_WIDTH]; //8-level deep stack of 13-bit wide
+	int configuration_word[CONFIG_WORD_SIZE]; //Actually each bit has been configured as an int byte
+	int WDT; //8 bit wide
+	int WDT_prescaler; //8-bit counter
+	int stack[REG_WIDTH]; //8-level deep stack of 13-bit wide. Max number to enter is 8192
 	int stack_pointer; //max length = 8
 };
 
