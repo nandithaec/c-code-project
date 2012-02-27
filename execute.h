@@ -5,7 +5,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
 	int i=0;
-
+	int twos_comp=0, temp_sub= 0;
 	switch(i1-> instr_mnemonic_enum)
 	{
 
@@ -103,13 +103,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	
 	break;
 
-	case 4:
+	case 4: //NOP
+	
 		printf("NOP instruction\n");
 
 	break;
 
 
-	case 5:
+	case 5: //MOVWF
+	
 		printf("MOVWF instruction\n");
 		
 		r1-> GP_Reg[i1-> reg_index]= r1-> W;
@@ -117,8 +119,111 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("Contents of destination is reg_file= %d \n", r1-> GP_Reg[i1-> reg_index]);
 
 	break;
+
+	case 6: //CLRW
 		
-	case 14:
+		printf("Contents of W before execution= %d \n", r1-> W);
+		printf("CLRW instruction\n");
+		
+		r1-> W =0;
+		printf("Contents of W cleared after execution= %d \n", r1-> W);
+
+		r1-> status_reg[5] = 1; //Z flag set
+		printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+
+	break;
+		
+	case 7: //CLRF
+		
+		printf("Contents of reg file before execution= %d \n", r1-> GP_Reg[i1-> reg_index]);
+		printf("CLRF instruction\n");
+		
+		r1-> GP_Reg[i1-> reg_index] = 0;
+		printf("Contents of reg file cleared after execution= %d \n", r1-> GP_Reg[i1-> reg_index]);
+
+		r1-> status_reg[5] = 1; //Z flag set
+		printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+
+	break;
+
+	case 8: //SUBWF
+
+	
+	printf("SUBWF instruction\n");
+
+	/*	W is the accumulator and d is the destination bit
+	d=0 means- destination is W register i.e., accumulator 
+	d=1 means- destination is the file register */
+	printf("Before execution: Contents of Reg file= %d, W= %d\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);		
+		
+	printf("After execution:\n");
+	
+	if (i1-> d==0)
+		{
+
+	twos_comp = (~(r1-> W) + 1) & 0x000000FF; //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
+
+	PRINT("~W: %x\n", twos_comp);
+		temp_sub = (r1-> GP_Reg[i1-> reg_index] + twos_comp);
+		r1-> W = temp_sub & 0x000000FF;
+
+		printf("Contents of destination is W= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		if (((temp_sub & 0x100) >>8) == 0)
+			{	
+				printf("Result is negative\n");
+				r1-> status_reg[7] = 0; //C flag reset
+			}
+		else 
+			{
+				printf("Result is positive\n");
+				r1-> status_reg[7] = 1; //C flag set
+			}
+		}
+
+	else if (i1-> d==1)
+		{
+		twos_comp = (~(r1-> W) + 1) & 0x000000FF; //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
+
+	PRINT("~W: %x\n", twos_comp);
+		temp_sub = (r1-> GP_Reg[i1-> reg_index] + twos_comp);
+		r1-> GP_Reg[i1-> reg_index] = temp_sub & 0x000000FF; //Keep only 8 bits
+
+		printf("Contents of destination is Reg file= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		if( r1-> GP_Reg[i1-> reg_index] ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		if (((temp_sub & 0x100) >>8) == 0)
+			{	
+				printf("Result is negative\n");
+				r1-> status_reg[7] = 0; //C flag reset
+			}
+		else 
+			{
+				printf("Result is positive\n");
+				r1-> status_reg[7] = 1; //C flag set
+			}
+		}
+
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	break;
+
+	case 14: //MOVF
 		
 		printf("MOVF instruction\n");
 		

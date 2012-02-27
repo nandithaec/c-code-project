@@ -22,11 +22,11 @@ int main()
 	struct registers pic_registers;
 //-------------------------------Initialising registers------------------------------------
 	pic_registers.configuration_word[11]= 1; //WDT Enabler bit
-	//Assigning some value to the reg file location to demonstrate MVF operation*/
-	pic_registers.GP_Reg[reg_index]= 90;
-	
+
 	for(i=0;i<REG_MAX;++i)
 		pic_registers.GP_Reg[i]=0;
+	//Assigning some value to the reg file location to demonstrate MVF operation
+	pic_registers.GP_Reg[reg_index]= 0x03; //90
 
 	for(i=0;i<REG_WIDTH;++i)
 		pic_registers.status_reg[i]=0;
@@ -37,12 +37,15 @@ int main()
 	//for(i=0;i<MEM_WIDTH;++i)
 		pic_registers.PC=0;
 		pic_registers.stack_pointer = 1;
-		pic_registers.stack[0] = 98;
-		pic_registers.W = 18;
+		pic_registers.stack[0] = 0x62; //98
+		pic_registers.W = 0x02; //18
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 
-	program_memory[0] = 0x008C; //MOVWF
+	program_memory[0] = 0x028C; //SUBWF
+//	program_memory[0] = 0x018C; //CLRF
+//	program_memory[0] = 0x010C; //CLRW
+//	program_memory[0] = 0x008C; //MOVWF
 //	program_memory[0] = 0x0000; //NOP
 //	program_memory[0] = 0x0009; //RETFIE
 //	program_memory[0] = 0x0008; //RETURN
