@@ -31,12 +31,21 @@ int main()
 	for(i=0;i<REG_WIDTH;++i)
 		pic_registers.status_reg[i]=0;
 
+	for(i=0;i<REG_WIDTH;++i)
+		pic_registers.INTCON_reg[i]=0;
+
 	//for(i=0;i<MEM_WIDTH;++i)
 		pic_registers.PC=0;
+		pic_registers.stack_pointer = 1;
+		pic_registers.stack[0] = 98;
+		pic_registers.W = 18;
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 
-	program_memory[0] = 0x0008; //RETURN
+	program_memory[0] = 0x008C; //MOVWF
+//	program_memory[0] = 0x0000; //NOP
+//	program_memory[0] = 0x0009; //RETFIE
+//	program_memory[0] = 0x0008; //RETURN
 //	program_memory[0] = 0x0064; //CLRWDT
 //	program_memory[0] = 0x0063; //SLEEP
 //	program_memory[0] = 0x080C; //MOVF

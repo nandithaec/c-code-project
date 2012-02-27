@@ -12,25 +12,17 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	case 0: //SLEEP
 	
 		printf("SLEEP instruction\n");
-		if (r1-> configuration_word[11]== 1) //Watch dog timer Enable bit in configuration word
+		if (r1-> configuration_word[11]== 1) //Watch dog timer Enable bit in configuration word.
 			{
-				for (i=0;i<=7;i++)	
-				{
-					r1-> WDT[i] = 0; //Reset Watch dog timer
-					r1-> WDT_prescaler[i]= 0; //Reset WDT prescaler
-				}
+				r1-> WDT = 0; //Reset Watch dog timer
+				r1-> WDT_prescaler= 0; //Reset WDT prescaler
 			
-			printf("Watch dog timer cleared: ");
-			for (i=0;i<=7;i++)
-				printf("%d", r1-> WDT[i]);
-			printf("\n");
+			
+			printf("Watch dog timer cleared: %d \n", r1-> WDT);
 
-			printf("Watch dog prescaler cleared: ");
-			for (i=0;i<=7;i++)
-				printf("%d", r1-> WDT_prescaler[i]);
-			printf("\n");
+			printf("Watch dog prescaler cleared: %d \n",r1-> WDT_prescaler );
+			
 			}
-
 		else PRINT("WDT Enable bit not set, Watchdog timer cannot be cleared\n");	
 
 		r1-> status_reg[4] = 0; //PD bar bit in status reg
@@ -51,21 +43,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("CLRWDT instruction\n");
 		if (r1-> configuration_word[11]== 1) //Watch dog timer Enable bit in configuration word
 			{
-				for (i=0;i<=7;i++)	
-				{
-					r1-> WDT[i] = 0; //Reset Watch dog timer
-					r1-> WDT_prescaler[i]= 0; //Reset WDT prescaler
-				}
+				r1-> WDT = 0; //Reset Watch dog timer
+				r1-> WDT_prescaler= 0; //Reset WDT prescaler
 			
-			printf("Watch dog timer cleared: ");
-			for (i=0;i<=7;i++)
-				printf("%d", r1-> WDT[i]);
-			printf("\n");
+	
+			printf("Watch dog timer cleared: %d \n", r1-> WDT);
 
-			printf("Watch dog prescaler cleared: ");
-			for (i=0;i<=7;i++)
-				printf("%d", r1-> WDT_prescaler[i]);
-			printf("\n");
+			printf("Watch dog prescaler cleared: %d \n",r1-> WDT_prescaler );
+			
 			}
 
 		else PRINT("WDT Enable bit not set, Watchdog timer cannot be cleared\n");	
@@ -82,10 +67,56 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		
 	break;
 		
-	//case 2: //RETURN 
+	case 2: //RETURN 
 		
-		
+		printf("RETURN instruction\n");
+				
+		if (r1-> stack_pointer == 0)
+			printf("Stack underflow, nothing to pop\n");
+		else
+			{
+			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
+			printf("PC popped from stack: %d \n", r1-> PC);		
+			}
+	
+	break;
 
+	
+	case 3: //RETFIE
+		
+		printf("RETFIE instruction\n");
+				
+		if (r1-> stack_pointer == 0)
+			printf("Stack underflow, nothing to pop\n");
+		else
+			{
+			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
+			printf("PC popped from stack: %d \n", r1-> PC);		
+			}
+
+		r1-> INTCON_reg[0] = 1; //Global interrupt enable (GIE) bit in INTCON reg is set- enables all unmasked interrupts
+		
+		printf("INTCON register contents: ");
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> INTCON_reg[i]);
+		printf("\n");
+	
+	break;
+
+	case 4:
+		printf("NOP instruction\n");
+
+	break;
+
+
+	case 5:
+		printf("MOVWF instruction\n");
+		
+		r1-> GP_Reg[i1-> reg_index]= r1-> W;
+
+		printf("Contents of destination is reg_file= %d \n", r1-> GP_Reg[i1-> reg_index]);
+
+	break;
 		
 	case 14:
 		
@@ -130,10 +161,11 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 PRINT("-------------------------------------------------------------------\n");
 }
 
-int push(struct registers *)
+int push(struct registers *r)
 {
 	if (r-> stack_pointer == 8)
-		r-> stack_pointer =0; //Reset stack pointer
+		r-> stack_pointer =0; //Reset stack pointer and overwrite
+
 	r-> stack[r-> stack_pointer++] = r-> PC;
 	return 0;
 }
@@ -141,8 +173,12 @@ int push(struct registers *)
 int pop (struct registers *r)
 {
 	
-	r-> PC = r-> stack[--r-> stack_pointer]; //Decrement stack pointer and pop
-	return 0;
+	if (r-> stack_pointer == 0)
+		printf("Stack underflow, nothing to pop\n");
+	else
+		r-> PC = r-> stack[--r-> stack_pointer]; //Decrement stack pointer and pop
+	
+return 0;
 }
 
 
