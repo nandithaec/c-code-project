@@ -34,6 +34,7 @@ struct registers
 	int WDT_prescaler; //8-bit counter
 	int stack[REG_WIDTH]; //8-level deep stack of 13-bit wide. Max number to enter is 8192
 	int stack_pointer; //max length = 8
+	int PCLATH; //8bit register
 };
 
 

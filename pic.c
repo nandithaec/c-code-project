@@ -41,10 +41,12 @@ int main()
 	//Assigning some value to the reg file location 
 		pic_registers.status_reg[7]=0;
 		pic_registers.GP_Reg[reg_index]= 0x00;
-		pic_registers.W = 0x00; //18
+		pic_registers.W = 0x00; 
+		pic_registers.PCLATH= 0x18;
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
-	program_memory[0] = 0x2000; //CALL
+//	program_memory[0] = 0x2800; //GOTO
+	program_memory[0] = 0x27FF; //CALL
 //	program_memory[0] = 0x3FF0; //ADDLW
 //	program_memory[0] = 0x3C00; //SUBLW
 //	program_memory[0] = 0x3A01; //XORLW
