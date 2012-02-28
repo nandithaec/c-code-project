@@ -6,7 +6,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	PRINT("INSTRUCTION EXECUTION >>\n");
 	int i=0;
 	int twos_comp=0, temp_sub= 0, temp_add=0, temp_rotate=0, original_regfile=0;
-	int swap_lower_nibble=0, swap_upper_nibble=0;
+	int swap_lower_nibble=0, swap_upper_nibble=0, temp_num=0;
 	int bit_test;
 
 	switch(i1-> instr_mnemonic_enum)
@@ -172,11 +172,13 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	if (i1-> d==0)
 		{
 
-	twos_comp = (~(r1-> W) + 1) & 0x000000FF; //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
-
+//	twos_comp = (~(r1-> W) + 1); //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
+	twos_comp = (~(r1-> W) & 0x000000FF)+1; 
+	
 	PRINT("~W (hex): %x\n", twos_comp);
 		temp_sub = (r1-> GP_Reg[i1-> reg_index] + twos_comp);
 		r1-> W = temp_sub & 0x000000FF;
+	
 
 		printf("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
@@ -196,11 +198,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 	else if (i1-> d==1)
 		{
-		twos_comp = (~(r1-> W) + 1) & 0x000000FF; //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
+		temp_num = ~(r1-> W);
+		twos_comp = (~(r1-> W) & 0x000000FF)+1; //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
 
-	PRINT("~W (hex): %x\n", twos_comp);
+	PRINT("temp_num (hex)=%x, ~W (hex): %x\n", temp_num, twos_comp);
 		temp_sub = (r1-> GP_Reg[i1-> reg_index] + twos_comp);
 		r1-> GP_Reg[i1-> reg_index] = temp_sub & 0x000000FF; //Keep only 8 bits
+
+		printf("temp_sub (hex)= %x\n",temp_sub);
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
@@ -1036,6 +1041,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
 			}
 
+
 		printf("Contents of W(hex) after execution= %x \n", r1-> W);
 
 	break;
@@ -1065,6 +1071,101 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("\n");
 	
 	break;
+
+	case 29: //ANDLW
+
+	
+	printf("ANDLW instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of W= %x\n ", r1-> W);
+		
+	printf("After execution:\n");
+	
+		r1-> W = (r1-> W & i1-> immediate_value) & 0x000000FF; //Bit wise AND and Keep only 8 bits in result
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	
+	break;
+
+
+	case 30: //XORLW
+
+	
+	printf("XORLW instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of W= %x\n ", r1-> W);
+		
+	printf("After execution:\n");
+	
+		r1-> W = (r1-> W ^ i1-> immediate_value) & 0x000000FF; //Bit wise AND and Keep only 8 bits in result
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	
+	break;
+
+	case 31: //SUBLW
+
+	
+	printf("SUBLW instruction\n");
+
+//	W is the accumulator 
+	
+	printf("Before execution: Contents of  W (hex)= %x\n ", r1-> W);		
+		
+	printf("After execution:\n");
+	
+	twos_comp = (~(r1-> W) & 0x000000FF)+1;  //Take negation of W and add 1 for 2's comp addition. Keep only 8 bits
+
+	PRINT("~W (hex): %x\n", twos_comp);
+		temp_sub = (i1-> immediate_value + twos_comp);
+		r1-> W = temp_sub & 0x000000FF;
+
+		printf("Contents of destination is W= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+		if (((temp_sub & 0x100) >>8) == 0)
+			{	
+				printf("Result is negative\n");
+				r1-> status_reg[7] = 0; //C flag reset
+			}
+		else 
+			{
+				printf("Result is positive\n");
+				r1-> status_reg[7] = 1; //C flag set
+			}
+		
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+
+	break;
+
 
 	case 33: //ADDLW
 

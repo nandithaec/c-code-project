@@ -40,14 +40,16 @@ int main()
 		pic_registers.stack[0] = 0x62; //98
 	//Assigning some value to the reg file location 
 		pic_registers.status_reg[7]=0;
-		pic_registers.GP_Reg[reg_index]= 0x81;
+		pic_registers.GP_Reg[reg_index]= 0x00;
 		pic_registers.W = 0x00; //18
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
-
+	program_memory[0] = 0x2000; //CALL
 //	program_memory[0] = 0x3FF0; //ADDLW
-	program_memory[0] = 0x3800; //IORLW
-	program_memory[0] = 0x3800; //IORLW
+//	program_memory[0] = 0x3C00; //SUBLW
+//	program_memory[0] = 0x3A01; //XORLW
+//	program_memory[0] = 0x3901; //ANDLW
+//	program_memory[0] = 0x3800; //IORLW
 //	program_memory[0] = 0x37FF; //RETLW
 //	program_memory[0] = 0x30F0; //MOVLW
 //	program_memory[0] = 0x1F8C; //BTFSS - test bit 1
@@ -67,7 +69,7 @@ int main()
 //	program_memory[0] = 0x050C; //ANDWF or 0x050C
 //	program_memory[0] = 0x040C; //IORWF or 0x048C
 //	program_memory[0] = 0x038C; //DECF or 0x030C
-//	program_memory[0] = 0x028C; //SUBWF or 0x020C
+//	program_memory[0] = 0x020C; //SUBWF or 0x020C
 //	program_memory[0] = 0x018C; //CLRF
 //	program_memory[0] = 0x010C; //CLRW
 //	program_memory[0] = 0x008C; //MOVWF or 0x000C
