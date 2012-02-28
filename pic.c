@@ -45,8 +45,8 @@ int main()
 		pic_registers.PCLATH= 0x18;
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
-//	program_memory[0] = 0x2800; //GOTO
-	program_memory[0] = 0x27FF; //CALL
+	program_memory[0] = 0x2FFF; //GOTO
+//	program_memory[0] = 0x27FF; //CALL
 //	program_memory[0] = 0x3FF0; //ADDLW
 //	program_memory[0] = 0x3C00; //SUBLW
 //	program_memory[0] = 0x3A01; //XORLW
