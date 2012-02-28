@@ -40,12 +40,21 @@ int main()
 		pic_registers.stack[0] = 0x62; //98
 	//Assigning some value to the reg file location 
 		pic_registers.status_reg[7]=0;
-		pic_registers.GP_Reg[reg_index]= 0xFE;
-		pic_registers.W = 0x0F; //18
+		pic_registers.GP_Reg[reg_index]= 0x81;
+		pic_registers.W = 0x00; //18
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 
-	program_memory[0] = 0x0F0C; //INCFSZ or 0x0F8C
+//	program_memory[0] = 0x3FF0; //ADDLW
+	program_memory[0] = 0x3800; //IORLW
+	program_memory[0] = 0x3800; //IORLW
+//	program_memory[0] = 0x37FF; //RETLW
+//	program_memory[0] = 0x30F0; //MOVLW
+//	program_memory[0] = 0x1F8C; //BTFSS - test bit 1
+//	program_memory[0] = 0x1B8C; //BTFSC - test bit 1
+//	program_memory[0] = 0x148C; //BSF - set  bit 1
+//	program_memory[0] = 0x138C; //BCF - clear bit 7 (8th bit)
+//	program_memory[0] = 0x0F0C; //INCFSZ or 0x0F8C
 //	program_memory[0] = 0x0E0C; //SWAPF or 0x0E8C
 //	program_memory[0] = 0x0D0C; //RLF or 0x0D8C
 //	program_memory[0] = 0x0C0C; //RRF or 0x0C8C
@@ -118,7 +127,7 @@ int main()
 	PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
 	PRINT("Opcode (hex) = %x \n",post_decode.opcode);
 	PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
-	PRINT("Destination bit = %d, bit=%d, Immediate value= %d \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
+	PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
 	PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
 	
 	//Instruction execute

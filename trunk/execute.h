@@ -7,6 +7,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	int i=0;
 	int twos_comp=0, temp_sub= 0, temp_add=0, temp_rotate=0, original_regfile=0;
 	int swap_lower_nibble=0, swap_upper_nibble=0;
+	int bit_test;
+
 	switch(i1-> instr_mnemonic_enum)
 	{
 
@@ -814,9 +816,290 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	
 	break;
 
+	case 22: //BCF
+
+	printf("BCF instruction\n");
+	  switch (i1-> bit)
+		{
+		case 0:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xFE;
+		break;
+
+		case 1:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xFD;
+		break;
+
+		case 2:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xFB;
+		break;
+
+		case 3:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xF7;
+		break;
+
+		case 4:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xEF;
+		break;
+
+		case 5:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xDF;
+		break;
+
+		case 6:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xBF;
+		break;
+
+		case 7:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0x7F;
+		break;
+		
+		default: 
+			PRINT ("INVALID instruction!\n"); 
+		break;
+		}	
+
+	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	break;
+
+	case 23: //BSF
+
+	printf("BSF instruction\n");
+	  switch (i1-> bit)
+		{
+		case 0:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x01;
+		break;
+
+		case 1:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x02;
+		break;
+
+		case 2:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x04;
+		break;
+
+		case 3:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x08;
+		break;
+
+		case 4:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x10;
+		break;
+
+		case 5:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x20;
+		break;
+
+		case 6:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x40;
+		break;
+
+		case 7:
+			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] | 0x80;
+		break;
+		
+		default: 
+			PRINT ("INVALID instruction!\n"); 
+		break;
+		}	
+
+	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	break;
+
+	case 24: //BTFSC
+
+	printf("BTFSC instruction\n");
+ 	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	 switch (i1-> bit)
+		{
+		case 0:
+			bit_test = r1-> GP_Reg[i1-> reg_index] & 0x01;
+		break;
+
+		case 1:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x02) >> 1;
+		break;
+
+		case 2:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x04) >> 2;
+		break;
+
+		case 3:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x08) >> 3;
+		break;
+
+		case 4:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x10) >> 4;
+		break;
+
+		case 5:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x20) >> 5;
+		break;
+
+		case 6:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x40) >> 6;
+		break;
+
+		case 7:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x80) >> 7;
+		break;
+		
+		default: 
+			PRINT ("INVALID instruction!\n"); 
+		break;
+		}	
+
+		printf("Bit test = %d\n",bit_test);
+		if (bit_test ==0)	
+			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+
+		printf("Program counter: PC= %d\n",r1->PC);
+
+	break;
 
 
-default: 
+	case 25: //BTFSS
+
+	printf("BTFSS instruction\n");
+ 	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	 switch (i1-> bit)
+		{
+		case 0:
+			bit_test = r1-> GP_Reg[i1-> reg_index] & 0x01;
+		break;
+
+		case 1:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x02) >> 1;
+		break;
+
+		case 2:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x04) >> 2;
+		break;
+
+		case 3:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x08) >> 3;
+		break;
+
+		case 4:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x10) >> 4;
+		break;
+
+		case 5:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x20) >> 5;
+		break;
+
+		case 6:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x40) >> 6;
+		break;
+
+		case 7:
+			bit_test = (r1-> GP_Reg[i1-> reg_index] & 0x80) >> 7;
+		break;
+		
+		default: 
+			PRINT ("INVALID instruction!\n"); 
+		break;
+		}	
+
+		printf("Bit test = %d\n",bit_test);
+		if (bit_test ==1)	
+			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+		
+		printf("Program counter: PC= %d\n",r1->PC);
+
+	break;
+
+	
+	case 26: //MOVLW
+	
+		printf("MOVLW instruction\n");
+		
+		PRINT("Contents of W(hex) before execution= %x \n", r1-> W);
+		r1-> W = i1-> immediate_value;
+
+		printf("Contents of W(hex) after execution= %x \n", r1-> W);
+
+	break;
+
+	case 27: //RETLW
+	
+		printf("RETLW instruction\n");
+		
+		PRINT(" Before execution, Contents of W(hex) = %x, PC (hex)=%x \n", r1-> W, r1-> PC);
+		r1-> W = i1-> immediate_value;
+
+		if (r1-> stack_pointer == 0)
+			printf("Stack underflow, nothing to pop\n");
+		else
+			{
+			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
+			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
+			}
+
+		printf("Contents of W(hex) after execution= %x \n", r1-> W);
+
+	break;
+
+	case 28: //IORLW
+
+	
+	printf("IORLW instruction\n");
+
+//	W is the accumulator and d is the destination bit
+
+	printf("Before execution (hex): Contents of W= %x\n ", r1-> W);
+		
+	printf("After execution:\n");
+	
+		r1-> W = (r1-> W | i1-> immediate_value) & 0x000000FF; //Bit wise OR and Keep only 8 bits in result
+
+		printf("Contents of destination is W (hex)= %x \n", r1-> W);
+		if( r1-> W ==0)
+			r1-> status_reg[5] = 1; //Z flag set
+
+
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	
+	break;
+
+	case 33: //ADDLW
+
+	
+	printf("ADDLW instruction\n");
+
+	//W is the accumulator and immediate_value is the immediate value to be added
+	
+	printf("Before execution: Contents (hex) of W= %x\n ", r1-> W);		
+		
+	printf("After execution:\n");
+	
+	temp_add = (r1-> W + i1->immediate_value);
+	r1-> W = temp_add & 0x000000FF;
+
+	printf("Contents of destination is W (hex)= %x \n", r1-> W);
+	if( r1-> W == 0)
+		r1-> status_reg[5] = 1; //Z flag set
+
+	if (((temp_add & 0x100) >>8) == 0)
+		r1-> status_reg[7] = 0; //C flag reset
+			
+	else 
+		r1-> status_reg[7] = 1; //C flag set
+			
+		
+	printf("Status register contents: ");
+
+		for (i=0;i<=7;i++)
+			printf("%d", r1-> status_reg[i]);
+		printf("\n");
+	break;
+
+
+	default: 
 		PRINT ("INVALID instruction!\n"); 
 	break;
 

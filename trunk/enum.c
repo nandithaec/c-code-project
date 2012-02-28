@@ -23,12 +23,12 @@ enum Mnemonic
 	RLF,
 	SWAPF,
 	INCFSZ,
-
 	BCF,
 	BSF,
 	BTFSC,
 	BTFSS,
-	ADDLW,
+
+	MOVLW,
 	RETLW,
 	IORLW,
 	ANDLW,
@@ -39,3 +39,5 @@ enum Mnemonic
 	GOTO
 	
 	};
+
+
