@@ -88,7 +88,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	case 3: //RETFIE
 		
 		printf("RETFIE instruction\n");
-				
+		printf("Top of stack: %d \n", r1-> stack[r1-> stack_pointer]);
+		
 		if (r1-> stack_pointer == 0)
 			printf("Stack underflow, nothing to pop\n");
 		else
@@ -1167,7 +1168,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	break;
 
 
-	case 33: //ADDLW
+	case 32: //ADDLW
 
 	
 	printf("ADDLW instruction\n");
@@ -1199,6 +1200,27 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("\n");
 	break;
 
+
+	case 33: 
+
+	printf("CALL instruction\n");
+
+	//W is the accumulator and immediate_value is the immediate value to be added
+	
+	printf("Before execution: Contents (hex) of PC= %x\n ", r1-> PC);		
+	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
+	if (r1-> stack_pointer == 8)
+		r1-> stack_pointer =0; //Reset stack pointer and overwrite
+
+	r1-> stack[r1-> stack_pointer++] = ++(r1-> PC); //PC+1 on top of stack
+
+	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
+	
+	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
+	printf("After execution: Contents (hex) of PC= %x\n ", r1-> PC);		
+	printf("Top of stack: %d \n", r1-> stack[r1-> stack_pointer -1]);
+	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
+	break;
 
 	default: 
 		PRINT ("INVALID instruction!\n"); 
