@@ -71,12 +71,13 @@ enum Mnemonic
 	BTFSC,
 	BTFSS,
 //Literal and control instructions
-	ADDLW,
+	MOVLW,
 	RETLW,
 	IORLW,
 	ANDLW,
 	XORLW,
 	SUBLW,
+	ADDLW,
 //Call and goto instructions
 	CALL,
 	GOTO
@@ -332,8 +333,8 @@ PRINT("INSTRUCTION DECODE >> Literal and control instructions\n");
 		case 0x31: 
 		case 0x32: 
 		case 0x33:
-			PRINT("Instruction mnemonic = ADDLW\n");
-			i1->instr_mnemonic_enum = ADDLW;
+			PRINT("Instruction mnemonic = MOVLW\n");
+			i1->instr_mnemonic_enum = MOVLW;
 		break;
 
 		case 0x34: 
