@@ -1228,11 +1228,11 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 	//W is the accumulator and immediate_value is the immediate value to be added
 	
-	printf("Before execution: Contents (hex) of PC= %x\n ", r1-> PC);		
+	printf("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
 	
-	printf("After execution: Contents (hex) of PC= %x\n ", r1-> PC);		
+	printf("After execution: Contents (hex) of PC= %x\n", r1-> PC);		
 
 	break;
 
