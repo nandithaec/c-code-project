@@ -141,7 +141,7 @@ int decode_byte_instr(struct instructions *i1)
 	i1->reg_index = (i1->reg_file_addr) - 12; // Reg file starts only from 0CH = 12
 	i1->opcode = (i1->instruction & 0xFF00) >> 8;
 
-	PRINT("-------------------------------------------------------------------\n");
+	PRINT("---------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION DECODE >> Byte instructions\n");
 
 	if (i1->instruction==0x0063)
