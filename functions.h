@@ -2,7 +2,7 @@
 #include <string.h>
 
 #define INSTR_SIZE 10
-#define REG_MAX 79
+#define REG_MAX 255
 #define REG_WIDTH 8
 #define PROGRAM_MEM_SIZE 8192
 #define MNEMONIC_SIZE 10
@@ -26,15 +26,16 @@ struct registers
 	int W; //Accumulator/ W register
 	int PC; //13-bit Program counter. Can address max 8k x 14 memory space
 	//int status_reg[REG_WIDTH];
-	int option_reg[REG_WIDTH];
+	//int option_reg[REG_WIDTH];
 	//int INTCON_reg[REG_WIDTH];
-	int EECON1_reg[REG_WIDTH];
+	//int EECON1_reg[REG_WIDTH];
 	int configuration_word[CONFIG_WORD_SIZE]; //Actually each bit has been configured as an int byte
 	int WDT; //8 bit wide
 	int WDT_prescaler; //8-bit counter
 	int stack[REG_WIDTH]; //8-level deep stack of 13-bit wide. Max number to enter is 8192
 	int stack_pointer; //max length = 8
 	int PCLATH; //8bit register
+	int PCL;//8 bit register
 };
 
 
@@ -102,6 +103,7 @@ struct instructions
 
 //Function declarations
 int instruction_fetch(struct registers*, int []);
+int increment_PC(struct registers **);
 
 int decode_byte_instr(struct instructions *i1);
 int decode_bit_instr(struct instructions *i1);
@@ -120,16 +122,38 @@ int instruction_fetch(struct registers *r, int program_memory[])
 {
 	int instruction;
 	instruction = program_memory[r-> PC];
-	r-> PC= (r-> PC) + 1;
+	//PCL = GP_Reg[2]
+	//instruction = program_memory[r-> GP_Reg[2]]; //fetch the instruction pointed to by the program counter
+	increment_PC(&r);
+	//Increment program counter
+	//r-> GP_Reg[2]= (r-> GP_Reg[2]) + 1; //PCL= PCL+1
+	
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION FETCH >>\n");
-	PRINT("Program counter= %d\n",r-> PC);
 	PRINT("-------------------------------------------------------------------\n");
 	return instruction;
 	
 }			
 
 
+int increment_PC(struct registers **r)
+{
+	//PCL= GP_Reg[2] and GP_Reg[0x82]
+		(*r)-> GP_Reg[2]= (*r)-> GP_Reg[2] + 1;
+		(*r)-> GP_Reg[0x82]= (*r)-> GP_Reg[2]; //Bank 1 and Bank 0
+		(*r)-> PCL= (*r)-> GP_Reg[2];
+
+	//PCLATH
+		//r-> GP_Reg[0x0A]= 0x00; //PCLATH not changed.. always comment this out
+		(*r)-> GP_Reg[0x8A]= (*r)-> GP_Reg[0x0A]; //Bank 1 and Bank 0
+		(*r)-> PCLATH= (*r)-> GP_Reg[0x0A];
+
+		(*r)-> PC = ((*r)-> PCL | ((*r)-> PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+
+
+
+return 0;
+}  
 
 
 int decode_byte_instr(struct instructions *i1)

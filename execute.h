@@ -81,6 +81,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			printf("Stack underflow, nothing to pop\n");
 		else
 			{
+		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
 			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
 			}
@@ -97,8 +98,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			printf("Stack underflow, nothing to pop\n");
 		else
 			{
-			//r1->stack_pointer= (r1->stack_pointer) - 1;
-			//PRINT("Stack pointer=%d \n",r1->stack_pointer);
+		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1->stack_pointer]; //Decrement stack pointer and pop
 			printf("PC popped from stack: %x \n", r1-> PC);		
 			}
@@ -610,8 +610,9 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
-
+			increment_PC(&r1);
+//comment out: r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+PRINT("PC (testing)= %d\n", r1->PC);
 		
 		}
 
@@ -622,7 +623,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -820,7 +821,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		
 		}
@@ -832,7 +833,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -983,7 +984,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Bit test = %d\n",bit_test);
 		if (bit_test ==0)	
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		printf("Program counter: PC= %d\n",r1->PC);
 
@@ -1035,7 +1036,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Bit test = %d\n",bit_test);
 		if (bit_test ==1)	
-			r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 		
 		printf("Program counter: PC= %d\n",r1->PC);
 
@@ -1064,6 +1065,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			printf("Stack underflow, nothing to pop\n");
 		else
 			{
+			//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
 			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
 			}
@@ -1274,6 +1276,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 PRINT("-------------------------------------------------------------------\n");
 }
 
+//These functions are not used
 int push(struct registers *r)
 {
 	if (r-> stack_pointer == 8)
