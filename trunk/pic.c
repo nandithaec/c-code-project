@@ -28,25 +28,25 @@ int main()
 		pic_registers.GP_Reg[i]=0;
 	
 
-	for(i=0;i<REG_WIDTH;++i)
-		pic_registers.status_reg[i]=0;
-
-	for(i=0;i<REG_WIDTH;++i)
-		pic_registers.INTCON_reg[i]=0;
+	//for(i=0;i<REG_WIDTH;++i)
+	//	pic_registers.INTCON_reg[i]=0;
+	pic_registers.GP_Reg[11]=0; //INTCON register at address 0B in the register file map
 
 	//for(i=0;i<MEM_WIDTH;++i)
 		pic_registers.PC=0;
 		pic_registers.stack_pointer = 1;
-		pic_registers.stack[0] = 0x62; //98
-	//Assigning some value to the reg file location 
-		pic_registers.status_reg[7]=0;
-		pic_registers.GP_Reg[reg_index]= 0x00;
-		pic_registers.W = 0x00; 
+		pic_registers.stack[1] = 0x62; 
+		pic_registers.stack[0] = 0x88; 
+	//Assigning some value to the carry in status reg
+		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] & 0xFE; //carry = 0
+//		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] | 0x01; //carry = 1
+		
+		pic_registers.W = 0xFF; 
 		pic_registers.PCLATH= 0x18;
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
-	program_memory[0] = 0x2FFF; //GOTO
-//	program_memory[0] = 0x27FF; //CALL
+//	program_memory[0] = 0x2FFF; //GOTO
+	program_memory[0] = 0x27FF; //CALL
 //	program_memory[0] = 0x3FF0; //ADDLW
 //	program_memory[0] = 0x3C00; //SUBLW
 //	program_memory[0] = 0x3A01; //XORLW
@@ -60,8 +60,8 @@ int main()
 //	program_memory[0] = 0x138C; //BCF - clear bit 7 (8th bit)
 //	program_memory[0] = 0x0F0C; //INCFSZ or 0x0F8C
 //	program_memory[0] = 0x0E0C; //SWAPF or 0x0E8C
-//	program_memory[0] = 0x0D0C; //RLF or 0x0D8C
-//	program_memory[0] = 0x0C0C; //RRF or 0x0C8C
+//	program_memory[0] = 0x0D8C; //RLF or 0x0D8C
+//	program_memory[0] = 0x0C8C; //RRF or 0x0C8C
 //	program_memory[0] = 0x0B0C; //DECFSZ or 0x0B8C
 //	program_memory[0] = 0x0A0C; //INCF or 0x0A8C
 //	program_memory[0] = 0x090C; //COMF or 0x098C
@@ -88,7 +88,8 @@ int main()
 
 	//Instruction decode
 	decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
-	
+	PRINT("Decode bits= %d \n", decode_bits);
+
 	struct instructions pre_decode, post_decode;
 	
 	pre_decode.instruction= instruction;
@@ -133,6 +134,9 @@ int main()
 	PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
 	PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
 	PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
+	
+//assign some value
+	pic_registers.GP_Reg[post_decode.reg_index]= 0x00; //Content of register f location in program memory
 	
 	//Instruction execute
 	

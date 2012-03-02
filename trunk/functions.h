@@ -2,7 +2,7 @@
 #include <string.h>
 
 #define INSTR_SIZE 10
-#define REG_MAX 68
+#define REG_MAX 79
 #define REG_WIDTH 8
 #define PROGRAM_MEM_SIZE 8192
 #define MNEMONIC_SIZE 10
@@ -25,9 +25,9 @@ struct registers
 	int GP_Reg[REG_MAX];
 	int W; //Accumulator/ W register
 	int PC; //13-bit Program counter. Can address max 8k x 14 memory space
-	int status_reg[REG_WIDTH];
+	//int status_reg[REG_WIDTH];
 	int option_reg[REG_WIDTH];
-	int INTCON_reg[REG_WIDTH];
+	//int INTCON_reg[REG_WIDTH];
 	int EECON1_reg[REG_WIDTH];
 	int configuration_word[CONFIG_WORD_SIZE]; //Actually each bit has been configured as an int byte
 	int WDT; //8 bit wide
@@ -138,7 +138,8 @@ int decode_byte_instr(struct instructions *i1)
 	
 	i1-> reg_file_addr = (i1->instruction) & 0x007F;
 	i1->d= (i1->instruction & 0x80) >> 7;
-	i1->reg_index = (i1->reg_file_addr) - 12; // Reg file starts only from 0CH = 12
+//	i1->reg_index = (i1->reg_file_addr) - 12; // Reg file starts only from 0CH = 12
+	i1->reg_index = (i1->reg_file_addr); // Reg file starts only from 0CH = 12
 	i1->opcode = (i1->instruction & 0xFF00) >> 8;
 
 	PRINT("---------------------------------------------------------------------\n");
@@ -280,7 +281,8 @@ int decode_bit_instr(struct instructions *i1)
 						
 	i1-> reg_file_addr = (i1->instruction) & 0x007F;
 	i1-> bit= ((i1->instruction) & 0x0380) >> 7;
-	i1-> reg_index = (i1-> reg_file_addr) - 12; // Reg file starts only from 0CH = 12
+//	i1-> reg_index = (i1-> reg_file_addr) - 12; // Reg file starts only from 0CH = 12
+	i1-> reg_index = (i1-> reg_file_addr) ; // Reg file starts only from 0CH = 12
 	i1-> opcode = ((i1-> instruction) & 0x1C00) >> 10;
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION DECODE >> Bit instructions\n");
