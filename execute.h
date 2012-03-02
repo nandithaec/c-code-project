@@ -27,14 +27,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			
 			}
 		else PRINT("WDT Enable bit not set, Watchdog timer cannot be cleared\n");	
-
-		r1-> status_reg[4] = 0; //PD bar bit in status reg
-		r1-> status_reg[3] = 1; //TO bar bit in status reg
 		
-		printf("Status register contents: ");
+		//GP_Reg[3]= status register
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xF7; //PD bar bit in status reg =0. Bit 3 = 0
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x10; //TO bar bit in status reg=1. Bit 4 = 1
+		
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 		
@@ -58,13 +59,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		else PRINT("WDT Enable bit not set, Watchdog timer cannot be cleared\n");	
 
-		r1-> status_reg[4] = 1; //PD bar bit in status reg
-		r1-> status_reg[3] = 1; //TO bar bit in status reg
+		//GP_Reg[3]= status register
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x08; //PD bar bit in status reg=1. Bit 3= 1
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x10; //TO bar bit in status reg=1. Bit 4 = 1
 		
-		printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 		
@@ -73,7 +75,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	case 2: //RETURN 
 		
 		printf("RETURN instruction\n");
-				
+		printf("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
+		
 		if (r1-> stack_pointer == 0)
 			printf("Stack underflow, nothing to pop\n");
 		else
@@ -88,21 +91,24 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	case 3: //RETFIE
 		
 		printf("RETFIE instruction\n");
-		printf("Top of stack: %d \n", r1-> stack[r1-> stack_pointer]);
+		printf("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
 			printf("Stack underflow, nothing to pop\n");
 		else
 			{
-			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
-			printf("PC popped from stack: %d \n", r1-> PC);		
+			//r1->stack_pointer= (r1->stack_pointer) - 1;
+			//PRINT("Stack pointer=%d \n",r1->stack_pointer);
+			r1-> PC = r1-> stack[--r1->stack_pointer]; //Decrement stack pointer and pop
+			printf("PC popped from stack: %x \n", r1-> PC);		
 			}
 
-		r1-> INTCON_reg[0] = 1; //Global interrupt enable (GIE) bit in INTCON reg is set- enables all unmasked interrupts
+		//GP_Reg[11] = INTCON register at address 0BH
+		r1-> GP_Reg[11] = r1-> GP_Reg[11] | 0x80; //Global interrupt enable (GIE) bit in INTCON reg is set- enables all unmasked interrupts
 		
-		printf("INTCON register contents: ");
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> INTCON_reg[i]);
+		printf("INTCON register contents:(hex): ");
+		//for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[11]);
 		printf("\n");
 	
 	break;
@@ -131,12 +137,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		
 		r1-> W =0;
 		printf("Contents of W cleared after execution (hex)= %x \n", r1-> W);
+		
+		//GP_Reg[3]= status register
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		
+		printf("Status register contents:(hex):");
 
-		r1-> status_reg[5] = 1; //Z flag set
-		printf("Status register contents: ");
-
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 	break;
@@ -149,11 +157,12 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		r1-> GP_Reg[i1-> reg_index] = 0;
 		printf("Contents of reg file cleared after execution (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 
-		r1-> status_reg[5] = 1; //Z flag set
-		printf("Status register contents: ");
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		
+			printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 	break;
@@ -183,17 +192,17 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
 				printf("Result is negative\n");
-				r1-> status_reg[7] = 0; //C flag reset
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			}
 		else 
 			{
 				printf("Result is positive\n");
-				r1-> status_reg[7] = 1; //C flag set
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			}
 		}
 
@@ -210,26 +219,27 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
 				printf("Result is negative\n");
-				r1-> status_reg[7] = 0; //C flag reset
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			}
 		else 
 			{
 				printf("Result is positive\n");
-				r1-> status_reg[7] = 1; //C flag set
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			}
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
+
 	break;
 
 	case 9: //DECF
@@ -250,7 +260,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		
 		}
@@ -262,15 +272,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
 
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -294,7 +304,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
 
 		
 		}
@@ -306,15 +316,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
 
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -338,7 +348,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		
 		}
@@ -350,15 +360,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -382,7 +392,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		
 		}
@@ -394,15 +404,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -428,14 +438,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		if (((temp_add & 0x100) >>8) == 0)
-			r1-> status_reg[7] = 0; //C flag reset
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			
 		else 
 			
-			r1-> status_reg[7] = 1; //C flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			
 		}
 
@@ -446,23 +456,24 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		r1-> GP_Reg[i1-> reg_index] = temp_add & 0x000000FF; //Keep only 8 bits
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
-		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		if (((temp_add & 0x100) >>8) == 0)
-			r1-> status_reg[7] = 0; //C flag reset
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			
 		else 
-			r1-> status_reg[7] = 1; //C flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
+
 	break;
 
 	
@@ -481,8 +492,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index];
 
 		if (r1-> GP_Reg[i1-> reg_index] == 0)
-			r1-> status_reg[5] = 1;
-		else r1-> status_reg[5]= 0;
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
 
 	
 		if(i1-> d==0)
@@ -491,10 +502,10 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			printf("Contents of destination is reg_file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 
 			
-		printf("Status register contents: ");
+			printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -512,7 +523,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		
 		}
@@ -523,16 +534,16 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		r1-> GP_Reg[i1-> reg_index] = ~(r1-> GP_Reg[i1-> reg_index]) & 0x000000FF;  //limit to 8 bits
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
-		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		}
 
 		
-		printf("Status register contents: ");
+			printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 	break;
@@ -555,7 +566,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		
 		}
@@ -567,15 +578,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		}
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -617,10 +628,10 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 //Status register not affected
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 		
 		printf("Program counter: PC= %d\n",r1->PC);
@@ -644,7 +655,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		{
 
 			temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) & 0x000000FF) >> 1; //Keep only 8 bits
-			if(r1-> status_reg[7]==0) //Carry=0
+			if((r1-> GP_Reg[3] & 0x01) ==0) //Carry=0
+
 				r1->W = temp_rotate;
 			else //Carry = 1
 				r1->W = temp_rotate | 0x80;
@@ -659,7 +671,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		{
 		
 		temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) & 0x000000FF) >> 1; //Keep only 8 bits
-			if(r1-> status_reg[7]==0) //Carry=0
+			if((r1-> GP_Reg[3] & 0x01) ==0) //Carry=0
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate;
 			else //Carry = 1
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x80;
@@ -670,12 +682,16 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		}
 
 
-	r1-> status_reg[7] = original_regfile & 0x00000001; // LSB of reg file will go to carry through right shift
+	// LSB of reg file will go to carry through right shift
+	if ((original_regfile & 0x00000001) ==1) 
+			r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the LSB of the reg file
+	else
+			r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 		
 	
@@ -697,9 +713,16 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		{
 
 			temp_rotate = ((r1-> GP_Reg[i1-> reg_index])  << 1) & 0x000000FF; //Keep only 8 bits
-			if(r1-> status_reg[7]==0) //Carry=0
-				r1->W = temp_rotate;
-			else //Carry = 1
+		PRINT("temp rotate=%x\n", temp_rotate);
+		PRINT("Status reg: %x\n", r1->GP_Reg[3]);
+
+			if((r1-> GP_Reg[3] & 0x01) == 0) //Carry=0
+				{
+		r1->W = temp_rotate;
+		PRINT("Statusreg= 0, W=%x \n", r1->W);
+		}
+
+			else if((r1-> GP_Reg[3] & 0x01)==1) //Carry = 1
 				r1->W = temp_rotate | 0x01;
 
 		printf("Contents of destination after left shift is W (hex)= %x \n", r1-> W);
@@ -712,7 +735,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		{
 		
 		temp_rotate = ((r1-> GP_Reg[i1-> reg_index]) <<1 ) & 0x000000FF; //Keep only 8 bits
-			if(r1-> status_reg[7]==0) //Carry=0
+			if((r1-> GP_Reg[3] & 0x01) ==0) //Carry=0
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate;
 			else //Carry = 1
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x01;
@@ -723,12 +746,16 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		}
 
 
-	r1-> status_reg[7] = (original_regfile & 0x80) >>7; // MSB of reg file will go to carry through right shift
+ // MSB of reg file will go to carry through right shift
+	if(((original_regfile & 0x80) >>7) == 1)
+		r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the MSB of the reg file
+	else
+		r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
-	printf("Status register contents: ");
+	printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 		
 	
@@ -766,12 +793,11 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 
 	
-	printf("Status register contents: not affected: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
-		
 	
 	break;
 
@@ -812,10 +838,10 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 //Status register not affected
 
-	printf("Status register contents:not affected:  ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 		
 		printf("Program counter: PC= %d\n",r1->PC);
@@ -1062,13 +1088,13 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -1088,13 +1114,13 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -1115,13 +1141,13 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 	
 	break;
@@ -1145,24 +1171,24 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 		printf("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
-			r1-> status_reg[5] = 1; //Z flag set
+			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
 				printf("Result is negative\n");
-				r1-> status_reg[7] = 0; //C flag reset
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			}
 		else 
 			{
 				printf("Result is positive\n");
-				r1-> status_reg[7] = 1; //C flag set
+				r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			}
 		
 
-	printf("Status register contents: ");
+		printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
 
 	break;
@@ -1184,20 +1210,21 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 	printf("Contents of destination is W (hex)= %x \n", r1-> W);
 	if( r1-> W == 0)
-		r1-> status_reg[5] = 1; //Z flag set
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
 	if (((temp_add & 0x100) >>8) == 0)
-		r1-> status_reg[7] = 0; //C flag reset
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			
 	else 
-		r1-> status_reg[7] = 1; //C flag set
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x01; //C flag set in the status register
 			
 		
-	printf("Status register contents: ");
+	printf("Status register contents:(hex):");
 
-		for (i=0;i<=7;i++)
-			printf("%d", r1-> status_reg[i]);
+//		for (i=0;i<=7;i++)
+			printf("%x", r1-> GP_Reg[3]);
 		printf("\n");
+
 	break;
 
 
@@ -1212,7 +1239,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	if (r1-> stack_pointer == 8)
 		r1-> stack_pointer =0; //Reset stack pointer and overwrite
 
-	r1-> stack[r1-> stack_pointer++] = ++(r1-> PC); //PC+1 on top of stack
+	r1-> stack[r1-> stack_pointer++] = ++(r1-> PC); //PC+1 on top of stack and increment stack pointer
 
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
 	
