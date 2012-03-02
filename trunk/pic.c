@@ -18,6 +18,7 @@ int main()
 	int bit=0, immediate_value=0;
 	int program_memory[PROGRAM_MEM_SIZE] ={0};
 	char instr_mnemonic[MNEMONIC_SIZE];
+	//int PCL = 0, PC = 0, PCLATH=0;
 	
 	struct registers pic_registers;
 //-------------------------------Initialising registers------------------------------------
@@ -25,24 +26,38 @@ int main()
 	pic_registers.configuration_word[11]= 1; //WDT Enabler bit
 
 	for(i=0;i<REG_MAX;++i)
-		pic_registers.GP_Reg[i]=0;
+		pic_registers.GP_Reg[i]=0; //clear all registers in register file map
 	
-
-	//for(i=0;i<REG_WIDTH;++i)
-	//	pic_registers.INTCON_reg[i]=0;
-	pic_registers.GP_Reg[11]=0; //INTCON register at address 0B in the register file map
+	//INTCON Register
+		pic_registers.GP_Reg[0x0B]=0; //INTCON register at address 0B in the register file map
 
 	//for(i=0;i<MEM_WIDTH;++i)
-		pic_registers.PC=0;
+	//	pic_registers.PC=0;
+		
 		pic_registers.stack_pointer = 1;
 		pic_registers.stack[1] = 0x62; 
 		pic_registers.stack[0] = 0x88; 
 	//Assigning some value to the carry in status reg
+		// Status register = GP_Reg[3] 
 		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] & 0xFE; //carry = 0
-//		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] | 0x01; //carry = 1
-		
+		//pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] | 0x01; //carry = 1
+		pic_registers.GP_Reg[83]= pic_registers.GP_Reg[3]; //Bank 1 and Bank 0
+
 		pic_registers.W = 0xFF; 
-		pic_registers.PCLATH= 0x18;
+		
+	//PCL= GP_Reg[2] and GP_Reg[0x82]
+		pic_registers.GP_Reg[2]= 0x00;
+		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
+		pic_registers.PCL= pic_registers.GP_Reg[2];
+
+	//PCLATH
+		pic_registers.GP_Reg[0x0A]= 0x00;
+		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
+		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+
+		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+
+	PRINT("Initial values: PCL=%d, PCLATH=%d, PC(testing) = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 //	program_memory[0] = 0x2FFF; //GOTO
@@ -85,6 +100,8 @@ int main()
 	
 	//Instruction fetch	
 	instruction= instruction_fetch(&pic_registers, program_memory);
+	
+	printf("Incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
 
 	//Instruction decode
 	decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
@@ -136,7 +153,7 @@ int main()
 	PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
 	
 //assign some value
-	pic_registers.GP_Reg[post_decode.reg_index]= 0x00; //Content of register f location in program memory
+	pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
 	
 	//Instruction execute
 	
