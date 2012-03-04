@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "functions.h"
+#include "decode.h"
 #include "execute.h"
 
 
