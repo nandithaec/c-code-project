@@ -21,7 +21,7 @@ int main()
 	char instr_mnemonic[MNEMONIC_SIZE];
 	//int PCL = 0, PC = 0, PCLATH=0;
 	int loop=0;
-	char line[80];	
+	char line[FILE_CHARS];	
 	int instr_from_file=0;
 //-----------Reading instruction from file---------------------------
 	FILE *fp;
@@ -32,7 +32,7 @@ int main()
           //     exit(0) ;
          }	
 
-	  while(fgets(line, 80, fp) != NULL)
+	  while(fgets(line, FILE_CHARS, fp) != NULL)
 	   {
 		 /* get a line, up to 80 chars from fp.  done if NULL */
 		 sscanf (line, "%x", &instr_from_file);
@@ -47,6 +47,7 @@ int main()
    fclose(fp);  /* close the file prior to exiting the routine */
 
 	struct registers pic_registers;
+
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
 	pic_registers.configuration_word[11]= 1; //WDT Enabler bit
