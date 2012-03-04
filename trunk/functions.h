@@ -8,8 +8,7 @@
 #define MNEMONIC_SIZE 10
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
-
-
+#define FILE_CHARS 80
 
 #define DEBUG
 #ifdef DEBUG
