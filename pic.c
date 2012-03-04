@@ -62,7 +62,7 @@ int main()
 	//for(i=0;i<MEM_WIDTH;++i)
 	//	pic_registers.PC=0;
 	//STACK	
-		pic_registers.stack_pointer = 1;
+		pic_registers.stack_pointer = 0;
 		pic_registers.stack[1] = 0x62; 
 		pic_registers.stack[0] = 0x88; 
 
@@ -92,6 +92,7 @@ int main()
 
 		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
+		PRINT("-----------------------------------------------------------------\n");
 		PRINT("Initial values: PCL=%d, PCLATH=%d, PC(testing) = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
 
 	//FSR
@@ -123,6 +124,8 @@ int main()
 	//	pic_registers.GP_Reg[0x89]= 0x00;
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
+//program_memory[0] means, fetch instruction from address location 0
+
 //	program_memory[0] = 0x2FFF; //GOTO
 //	program_memory[1] = 0x27FF; //CALL
 //	program_memory[0] = 0x3FF0; //ADDLW
@@ -162,12 +165,12 @@ int main()
 
 	while (loop < n)
 	{
-		printf("---------------------------------------------\n");
+		printf("****************************************************************\n");
 		printf("INSTRUCTION NUMBER %d\n", loop+1);
 		//Instruction fetch	
 		instruction= instruction_fetch(&pic_registers, program_memory);
 	
-		printf("Incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
+	//	printf("Incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
 
 		//Instruction decode
 		decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
@@ -225,7 +228,7 @@ int main()
 	
 		instruction_execute(&pic_registers,&post_decode);
 		//post_execute= pre_execute;
-
+	printf("****************************************************************\n");	
 	loop++;	
 	}
 	

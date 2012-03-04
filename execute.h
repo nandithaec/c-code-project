@@ -75,7 +75,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 	case 2: //RETURN 
 		
 		printf("RETURN instruction\n");
-		printf("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
+		printf("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer -1],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
 			printf("Stack underflow, nothing to pop\n");
@@ -83,6 +83,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			{
 		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
+			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+			PRINT("First decrement Stack pointer: %d\n", r1-> stack_pointer);
 			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
 			}
 	
@@ -100,6 +102,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 			{
 		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1->stack_pointer]; //Decrement stack pointer and pop
+			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 			printf("PC popped from stack: %x \n", r1-> PC);		
 			}
 
@@ -1067,6 +1070,8 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			{
 			//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
+			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+
 			printf("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
 			}
 
@@ -1082,7 +1087,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 //	W is the accumulator and d is the destination bit
 
-	printf("Before execution (hex): Contents of W= %x\n ", r1-> W);
+	printf("Before execution (hex): Contents of W= %x\n", r1-> W);
 		
 	printf("After execution:\n");
 	
@@ -1236,18 +1241,24 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 	//W is the accumulator and immediate_value is the immediate value to be added
 	
-	printf("Before execution: Contents (hex) of PC= %x\n ", r1-> PC);		
+	printf("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
 	if (r1-> stack_pointer == 8)
 		r1-> stack_pointer =0; //Reset stack pointer and overwrite
 
-	r1-> stack[r1-> stack_pointer++] = ++(r1-> PC); //PC+1 on top of stack and increment stack pointer
+//PC+1 on top of stack and increment stack pointer
+//PC already incremented in fetch stage..So, just push PC
+	r1-> stack[r1-> stack_pointer++] = (r1-> PC); 
+
 
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
-	
-	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
-	printf("After execution: Contents (hex) of PC= %x\n ", r1-> PC);		
-	printf("Top of stack: %d \n", r1-> stack[r1-> stack_pointer -1]);
+	//PCL= GP_Reg[2]
+	r1 -> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+
+	PRINT("Stack pointer incremented: %d\n",r1-> stack_pointer);
+	printf("After execution: Contents of PC= address specified in CALL instruction:(hex) %x\n", r1-> PC);		
+	printf("After execution: Contents of PCL= %x\n", r1 -> GP_Reg[2]);
+	printf("Top of stack: Address of next instruction: %d \n", r1-> stack[r1-> stack_pointer -1]);
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
 	break;
 
@@ -1260,6 +1271,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	printf("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
+	r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 	
 	printf("After execution: Contents (hex) of PC= %x\n", r1-> PC);		
 
