@@ -122,11 +122,9 @@ int instruction_fetch(struct registers *r, int program_memory[])
 {
 	int instruction;
 	instruction = program_memory[r-> PC];
-	//PCL = GP_Reg[2]
-	//instruction = program_memory[r-> GP_Reg[2]]; //fetch the instruction pointed to by the program counter
+
+	//Increment PC
 	increment_PC(&r);
-	//Increment program counter
-	//r-> GP_Reg[2]= (r-> GP_Reg[2]) + 1; //PCL= PCL+1
 	
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION FETCH >>\n");
@@ -149,7 +147,6 @@ int increment_PC(struct registers **r)
 		(*r)-> PCLATH= (*r)-> GP_Reg[0x0A];
 
 		(*r)-> PC = ((*r)-> PCL | ((*r)-> PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
-
 
 
 return 0;
