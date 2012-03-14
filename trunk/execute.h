@@ -129,7 +129,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		
 		r1-> GP_Reg[i1-> reg_index]= r1-> W;
 
-		printf("Contents of destination is reg_file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		printf("Contents of destination is reg_file [%x] (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 
 	break;
 
@@ -158,7 +158,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		printf("CLRF instruction\n");
 		
 		r1-> GP_Reg[i1-> reg_index] = 0;
-		printf("Contents of reg file cleared after execution (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		printf("Contents of reg file[%x] cleared after execution (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 
 		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		
@@ -855,8 +855,11 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	case 22: //BCF
 
 	printf("BCF instruction\n");
+
 	  switch (i1-> bit)
 		{
+		
+		
 		case 0:
 			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xFE;
 		break;
@@ -879,6 +882,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 		case 5:
 			r1-> GP_Reg[i1-> reg_index] = r1-> GP_Reg[i1-> reg_index] & 0xDF;
+
 		break;
 
 		case 6:
@@ -895,6 +899,11 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		}	
 
 	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	printf("Status register contents:(hex):");
+
+	printf("%x", r1-> GP_Reg[3]);
+	printf("\n");
+
 	break;
 
 	case 23: //BSF
@@ -940,6 +949,10 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		}	
 
 	printf("Contents of is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+	printf("Status register contents:(hex):");
+
+	printf("%x", r1-> GP_Reg[3]);
+	printf("\n");
 	break;
 
 	case 24: //BTFSC
@@ -990,8 +1003,12 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		printf("Program counter: PC= %d\n",r1->PC);
+		printf("Status register contents:(hex):");
 
-	break;
+ 		printf("%x", r1-> GP_Reg[3]);
+		printf("\n");
+
+		break;
 
 
 	case 25: //BTFSS
@@ -1042,7 +1059,10 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
 		
 		printf("Program counter: PC= %d\n",r1->PC);
+		printf("Status register contents:(hex):");
 
+		printf("%x", r1-> GP_Reg[3]);
+		printf("\n");
 	break;
 
 	

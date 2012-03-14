@@ -23,36 +23,16 @@ int main()
 	int loop=0;
 	char line[FILE_CHARS];	
 	int instr_from_file=0;
-//-----------Reading instruction from file---------------------------
-	FILE *fp;
-	fp= fopen("pic_instr.c","rt");
-	if( fp == NULL )
-         {
-               puts ( "cannot open file" ) ;
-          //     exit(0) ;
-         }	
-
-	  while(fgets(line, FILE_CHARS, fp) != NULL)
-	   {
-		 /* get a line, up to 80 chars from fp.  done if NULL */
-		 sscanf (line, "%x", &instr_from_file);
-		program_memory[n]= instr_from_file;
-		n++;
-		
-	   }
-	 
-		for(i=0;i<n;i++)
-			printf("Instructions read from file= program_memory[%d]= %x\n",i, program_memory[i]);
-
-   fclose(fp);  /* close the file prior to exiting the routine */
+	int starting_PC_value = 0;
 
 	struct registers pic_registers;
-
+	
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
 	pic_registers.configuration_word[11]= 1; //WDT Enabler bit
 
-	for(i=0;i<REG_MAX;++i)
+//clear all registers
+for(i=0;i<REG_MAX;++i)
 		pic_registers.GP_Reg[i]=0; //clear all registers in register file map
 	
 	//INTCON Register
@@ -68,11 +48,12 @@ int main()
 
 	// Status register = GP_Reg[3] 
 	//Assigning some value to the carry in status reg
-		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] & 0xFE; //carry = 0
+//		pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] & 0xFE; //carry = 0
 		//pic_registers.GP_Reg[3]= pic_registers.GP_Reg[3] | 0x01; //carry = 1
+		pic_registers.GP_Reg[3]= 0x00;
 		pic_registers.GP_Reg[0x83]= pic_registers.GP_Reg[3]; //Bank 1 and Bank 0
 
-		pic_registers.W = 0x01; 
+		pic_registers.W = 0x00; 
 		
 	//TMRO
 		pic_registers.GP_Reg[1]= 0x00;
@@ -80,22 +61,7 @@ int main()
 	//OPTION REG
 		pic_registers.GP_Reg[0x81]= 0x00;
 
-	//PCL= GP_Reg[2] and GP_Reg[0x82]
-		pic_registers.GP_Reg[2]= 0x00;
-		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
-		pic_registers.PCL= pic_registers.GP_Reg[2];
-
-	//PCLATH
-		pic_registers.GP_Reg[0x0A]= 0x00;
-		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
-		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
-
-		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
-
-		PRINT("-----------------------------------------------------------------\n");
-		PRINT("Initial values: PCL=%d, PCLATH=%d, PC(testing) = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
-
-	//FSR
+		//FSR
 		pic_registers.GP_Reg[4]= 0x00;
 		pic_registers.GP_Reg[0x84]= pic_registers.GP_Reg[4];
 
@@ -122,6 +88,71 @@ int main()
 
 	//EECON2 - not a physical register
 	//	pic_registers.GP_Reg[0x89]= 0x00;
+
+//Initialise PC values
+
+//use this address 0x02 to write into PCL:
+//PCL= GP_Reg[2] and GP_Reg[0x82]
+		pic_registers.GP_Reg[2]= 0x00;
+		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
+		pic_registers.PCL= pic_registers.GP_Reg[2];
+
+	//PCLATH.. use this address to write into PCLATH
+		pic_registers.GP_Reg[0x0A]= 0x00;
+		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
+		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+
+		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+
+		PRINT("-----------------------------------------------------------------\n");
+		PRINT("Initial values (hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
+
+//Read in the program counter initial value
+
+		printf("Enter starting PCL value (in hex): \n");
+		scanf("%x", &pic_registers.GP_Reg[2]);
+		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
+		pic_registers.PCL= pic_registers.GP_Reg[2];
+
+		printf("Enter starting PCLATH value (in hex): \n");
+		scanf("%x", &pic_registers.GP_Reg[0x0A]);
+		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
+		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+
+		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+	PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC);
+
+
+//-----------Reading instruction from file---------------------------
+	n= pic_registers.PC; // new value of n is initialised to the PC value that is read from the disassembly listing
+	starting_PC_value = pic_registers.PC;
+	PRINT("Starting PC value=%x\n",starting_PC_value);
+
+	FILE *fp;
+	fp= fopen("pic_instr.c","rt");
+	if( fp == NULL )
+         {
+               puts ( "cannot open file" ) ;
+          //     exit(0) ;
+         }	
+
+	  while(fgets(line, FILE_CHARS, fp) != NULL)
+	   {
+		 /* get a line, up to 80 chars from fp.  done if NULL */
+		 sscanf (line, "%x", &instr_from_file);
+		program_memory[n]= instr_from_file;
+		n++;
+		
+	   }
+	 
+		for(i=starting_PC_value;i<n;i++)
+			printf("Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+
+   fclose(fp);  /* close the file prior to exiting the routine */
+
+
+
+
 //-------------------------------------------------------------------------------------------
 	// Reg file starts only from 0CH = 12
 //program_memory[0] means, fetch instruction from address location 0
@@ -161,12 +192,20 @@ int main()
 //	program_memory[0] = 0x0008; //RETURN
 //	program_memory[0] = 0x0064; //CLRWDT
 //	program_memory[0] = 0x0063; //SLEEP
+printf("Status register contents:(hex) at the beginning of all operations: ");
+
+		printf("%x", pic_registers.GP_Reg[3]);
+		printf("\n");
+
+	loop= starting_PC_value;
+
 
 
 	while (loop < n)
 	{
+//	PRINT( "loop value=%d, N value = %d\n", loop, n);
 		printf("****************************************************************\n");
-		printf("INSTRUCTION NUMBER %d\n", loop+1);
+		printf("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
 		//Instruction fetch	
 		instruction= instruction_fetch(&pic_registers, program_memory);
 	
@@ -214,6 +253,8 @@ int main()
 
 
 		post_decode= pre_decode;
+	
+		
 
 		PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
 		PRINT("Opcode (hex) = %x \n",post_decode.opcode);
@@ -221,17 +262,24 @@ int main()
 		PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
 		PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
 	
-	//assign some value
-		pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
+	//dont assign some value
+//		pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
 	
 		//Instruction execute
-	
+	printf("Status register contents:(hex) at the end of decode: ");
+		printf("%x", pic_registers.GP_Reg[3]);
+		printf("\n");
+
 		instruction_execute(&pic_registers,&post_decode);
 		//post_execute= pre_execute;
 	printf("****************************************************************\n");	
 	loop++;	
 	}
 	
+		printf("Status register contents:(hex) at the end of all operations: ");
+		printf("%x", pic_registers.GP_Reg[3]);
+		printf("\n");
+
 return 0;
 
 }

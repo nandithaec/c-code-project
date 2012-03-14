@@ -124,12 +124,12 @@ int instruction_fetch(struct registers *r, int program_memory[])
 	
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION FETCH >>\n");
-	printf("Fetching instruction from program_memory[%d]\n",r->PC);
-	PRINT("BEfore incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	printf("Fetching instruction from program_memory[%x]\n",r->PC);
+	PRINT("BEfore incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
 	//Increment PC
 	increment_PC(&r);
-	printf("After Incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	printf("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 	PRINT("-------------------------------------------------------------------\n");
 	return instruction;
 	
