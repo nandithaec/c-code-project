@@ -17,7 +17,7 @@ int main()
 	int	decode_bits=0;
 	int bit=0, immediate_value=0;
 	int program_memory[PROGRAM_MEM_SIZE] ={0};
-	int program[PROGRAM_MEM_SIZE] ={0};
+//	int program[PROGRAM_MEM_SIZE] ={0};
 	char instr_mnemonic[MNEMONIC_SIZE];
 	//int PCL = 0, PC = 0, PCLATH=0;
 	int loop=0;
@@ -129,7 +129,7 @@ for(i=0;i<REG_MAX;++i)
 	PRINT("Starting PC value=%x\n",starting_PC_value);
 
 	FILE *fp;
-	fp= fopen("pic_instr.c","rt");
+	fp= fopen("simple_add_assembly.c","rt");
 	if( fp == NULL )
          {
                puts ( "cannot open file" ) ;
