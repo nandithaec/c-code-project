@@ -21,9 +21,9 @@ void print_null (char* n,...) {return;}
 
 struct registers
 {
-	int GP_Reg[REG_MAX];
+	int GP_Reg[REG_MAX]; //General purpose register file map
 	int W; //Accumulator/ W register
-	int PC; //13-bit Program counter. Can address max 8k x 14 memory space
+	int PC; //13-bit Program counter. Can address max 8k x 14 memory space- actual value derived from PCL and PCLATH
 	//int status_reg[REG_WIDTH];
 	//int option_reg[REG_WIDTH];
 	//int INTCON_reg[REG_WIDTH];
@@ -33,8 +33,8 @@ struct registers
 	int WDT_prescaler; //8-bit counter
 	int stack[REG_WIDTH]; //8-level deep stack of 13-bit wide. Max number to enter is 8192
 	int stack_pointer; //max length = 8
-	int PCLATH; //8bit register
-	int PCL;//8 bit register
+	int PCLATH; //8bit register -- actual value taken from GP_Reg
+	int PCL;//8 bit register- actual value taken from GP_Reg
 };
 
 
