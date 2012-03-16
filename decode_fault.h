@@ -115,7 +115,69 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
+int bit_flips(struct registers *, int []);
 //----------------------------------------Function definitions---------------------------------------------------------//
+
+
+
+int bit_flips(struct registers *r2,  int program_memory[])
+{
+	int random_reg=0, random_bit=0;
+	srand ( time(NULL) );
+
+/* generate random number: */
+	random_reg = rand() % 256 ; // Random number between 0 and 255
+	random_bit = rand() % 8 ; // Random number between 0 and 7
+
+	PRINT("Random reg selected (hex):%x, random bit to flip in this reg is %d\n",random_reg,random_bit);
+	PRINT("Content of the random reg location[%x] is %d\n",random_reg,r2->GP_Reg[random_reg]);
+	switch(random_bit)
+	{
+		case 0:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 0);
+		break;
+		
+		case 1:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 1);
+		break;
+
+		case 2:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 2);
+		break;
+
+		case 3:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 3);
+		break;
+
+		case 4:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 4);
+		break;
+
+		case 5:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 5);
+		break;
+
+		case 6:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 6);
+		break;
+
+		case 7:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 7);
+		break;
+
+		case 8:
+		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 8);
+		break;
+
+		default: printf("Invalid bit flip case\n");
+		break;
+	}
+
+	PRINT("After bitflip: Content of the reg[%x] is (in hex) %x\n",random_reg,r2->GP_Reg[random_reg]);
+
+return 0;
+}
+
 
 
 int instruction_fetch(struct registers *r, int program_memory[])
@@ -436,4 +498,6 @@ PRINT("-------------------------------------------------------------------\n");
 return 0;
 }
 	
+
+
 
