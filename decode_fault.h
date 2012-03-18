@@ -265,7 +265,7 @@ for(i=0;i<=REG_MAX;++i)
 			}
 
 			*clock_cycles=0; //Reset clock cycles after every crash
-			printf("Clock cycles reset after the crash: %d\n",c);
+			printf("Clock cycles reset after the crash: %d\n",*clock_cycles);
 			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
 			exit(0);
 		}
@@ -282,12 +282,12 @@ for(i=0;i<=REG_MAX;++i)
 			{
 			//Print the entire array containing the clock cycles at which the crash occured each time
 			printf("Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
-			fprintf(fout,"Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
+			//fprintf(fout,"Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
 		
 			}
 		
 			*clock_cycles=0; //Reset clock cycles after every crash
-			printf("Clock cycles reset after the crash: %d\n",c);
+			printf("Clock cycles reset after the crash: %d\n",*clock_cycles);
 			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
 			exit(0);
 		}
