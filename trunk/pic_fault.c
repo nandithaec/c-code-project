@@ -5,7 +5,7 @@
 #include "decode_fault.h"
 #include "execute.h"
 
-
+FILE *fout;
 
 int main()
 
@@ -271,26 +271,28 @@ while (loop < n)
 		//if(repeat_program_execution == 10) //Repeat program execution 10 times
 		//break; //break from the while loop
 	
-	if(repeat_program_execution == 10) //Repeat program execution 10 times
+	if(repeat_program_execution == 10) 
 		{
 		repeat_program_execution=0; //Reset 
-		//Flip bits every 10 times the program repeats
-		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem);
+		//Flip bits every 10 times the program repeats.. 
+		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles);
+		PRINT("Inside main, ending bitflips function\n");
 		}
 
-		printf("\nTotal number of instructions in the program = %d\n",n);	
-		printf("Each instruction takes 2 instruction cycles, i.e., 8 clock cycles\n");
-		printf("Total number of clock cycles executed = %d\n\n", clock_cycles);
+		
+	//printf("Total number of clock cycles right now after getting out = %d\n\n", clock_cycles);
 
 
 	}
 
-	
+		printf("\nTotal number of instructions in the program = %d\n",n);	
+		printf("Each instruction takes 2 instruction cycles, i.e., 8 clock cycles\n");
+
 		printf("Status register contents:(hex) at the end of all operations: ");
 		printf("%x", pic_registers.GP_Reg[3]);
 		printf("\n");
 
-	
+	  fclose (fout);
 
 return 0;
 

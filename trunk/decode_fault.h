@@ -12,11 +12,11 @@
 #define FILE_CHARS 80
 
 #define DEBUG
-#ifdef DEBUG
- #define PRINT printf
-#else
+//#ifdef DEBUG
+ //#define PRINT printf
+//#else
  #define PRINT print_null
-#endif
+//#endif
 void print_null (char* n,...) {return;}
 
 //All declarations
@@ -116,16 +116,21 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], int *,int *);
+int bit_flips(struct registers *, int [], int *, int *, int *);
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem)
+int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, int *clock_cycles)
 {
 	int random_bit=0, random_bit_mem =0;
-	int i=0;
+	int i=0, c=0;
+	int crash=0;
+	int crash_at_clk_cycle[10000] = {0}; // Store the number of clock cycles at which each time a crash occurs
 
+	FILE *fout;
+
+	fout = fopen ("out.lis", "wt");
 /*PRINT("Original content of registers\n");
 
 for(i=0;i<=REG_MAX;++i)
@@ -244,18 +249,50 @@ for(i=0;i<=REG_MAX;++i)
 
 //Condition for program crash if Program counter value changes:
 
-if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
-	{
-		PRINT("Program crash due to PC value at location %x getting affected\n", *random_reg);
-		exit(0);
-	}
+	if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
+		{
+			printf("Program crash due to PC value at location %x getting affected\n", *random_reg);
+			crash_at_clk_cycle[crash++] = *clock_cycles;	
+			printf("Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+			//fprintf(fout,"Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+
+			for(c=0;c<crash; c++)
+			{
+			//Print the entire array containing the clock cycles at which the crash occured each time
+				//fprintf(fout,"Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
+				printf("Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
+			
+			}
+
+			*clock_cycles=0; //Reset clock cycles after every crash
+			printf("Clock cycles reset after the crash: %d\n",c);
+			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
+			exit(0);
+		}
 
 //Condition for program crash if illegal memory access
-if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
-	{ 
-		PRINT("Program crash due to illegal memory access at location %x getting affected\n", *random_mem);
-		exit(0);
-	}
+	if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
+		{ 
+			printf("Program crash due to illegal memory access at location %x getting affected\n", *random_mem);
+			crash_at_clk_cycle[crash++] = *clock_cycles;
+			printf("Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+			//fprintf(fout,"Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+
+			for(c=0;c<crash; c++)
+			{
+			//Print the entire array containing the clock cycles at which the crash occured each time
+			printf("Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
+			fprintf(fout,"Crash number: %d  Number of clock cycles executed before the crash: %d\n", c+1,crash_at_clk_cycle[c]);
+		
+			}
+		
+			*clock_cycles=0; //Reset clock cycles after every crash
+			printf("Clock cycles reset after the crash: %d\n",c);
+			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
+			exit(0);
+		}
+
+PRINT("Ending bitflips function\n");
 
 return 0;
 }
