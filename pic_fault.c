@@ -28,6 +28,7 @@ int main()
 	int random_reg=0, random_mem=0;
 	int repeat_program_execution=0;
 	int initial_PCL=0, initial_PCLATH=0;
+	int clock_cycles =0;
 
 	struct registers pic_registers;
 	
@@ -160,48 +161,8 @@ for(i=0;i<REG_MAX;++i)
    fclose(fp);  /* close the file prior to exiting the routine */
 
 
-
-
 //-------------------------------------------------------------------------------------------
-	// Reg file starts only from 0CH = 12
-//program_memory[0] means, fetch instruction from address location 0
 
-//	program_memory[0] = 0x2FFF; //GOTO
-//	program_memory[1] = 0x27FF; //CALL
-//	program_memory[0] = 0x3FF0; //ADDLW
-//	program_memory[0] = 0x3C00; //SUBLW
-//	program_memory[0] = 0x3A01; //XORLW
-//	program_memory[1] = 0x3900; //ANDLW
-//	program_memory[0] = 0x3800; //IORLW
-//	program_memory[0] = 0x37FF; //RETLW
-//	program_memory[0] = 0x30F0; //MOVLW
-//	program_memory[0] = 0x1F8C; //BTFSS - test bit 1
-//	program_memory[0] = 0x1B8C; //BTFSC - test bit 1
-//	program_memory[0] = 0x148C; //BSF - set  bit 1
-//	program_memory[0] = 0x138C; //BCF - clear bit 7 (8th bit)
-//	program_memory[0] = 0x0F0C; //INCFSZ or 0x0F8C
-//	program_memory[0] = 0x0E0C; //SWAPF or 0x0E8C
-//	program_memory[0] = 0x0D8C; //RLF or 0x0D8C
-//	program_memory[0] = 0x0C8C; //RRF or 0x0C8C
-//	program_memory[0] = 0x0B0C; //DECFSZ or 0x0B8C
-//	program_memory[0] = 0x0A0C; //INCF or 0x0A8C
-//	program_memory[0] = 0x090C; //COMF or 0x098C
-//	program_memory[0] = 0x080C; //MOVF or 0x088C
-//	program_memory[0] = 0x070C; //ADDWF or 0x078C
-//	program_memory[0] = 0x068C; //XORWF or 0x068C
-//	program_memory[0] = 0x050C; //ANDWF or 0x050C
-//	program_memory[0] = 0x040C; //IORWF or 0x048C
-//	program_memory[0] = 0x038C; //DECF or 0x030C
-//	program_memory[0] = 0x020C; //SUBWF or 0x020C
-//	program_memory[0] = 0x018C; //CLRF
-//	program_memory[0] = 0x010C; //CLRW
-//	program_memory[0] = 0x008C; //MOVWF or 0x000C
-//	program_memory[0] = 0x0000; //NOP
-//	program_memory[0] = 0x0009; //RETFIE
-//	program_memory[0] = 0x0008; //RETURN
-//	program_memory[0] = 0x0064; //CLRWDT
-//	program_memory[0] = 0x0063; //SLEEP
-	
 	printf("Status register contents:(hex) at the beginning of all operations: ");
 	printf("%x", pic_registers.GP_Reg[3]);
 	printf("\n");
@@ -209,15 +170,12 @@ for(i=0;i<REG_MAX;++i)
 	loop= starting_PC_value;
 
 
-//Repeat the same program 10 times - condition is specified at the end of the while loop
+//Repeat the same program forever till Ctrl-C is entered
 while (loop < n)
 	{
 		
-		//Flip bits before instruction fetch
-		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem);
-
-		printf("****************************************************************\n");
-		printf("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
+		PRINT("****************************************************************\n");
+		PRINT("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
 
 
 		//Instruction fetch	
@@ -237,7 +195,6 @@ while (loop < n)
 		pre_decode.reg_index= reg_index;
 		pre_decode.bit = 0;
 		pre_decode.immediate_value = 0;
-
 
 	
 		switch (decode_bits)
@@ -273,16 +230,16 @@ while (loop < n)
 		PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
 		PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
 
-//Ignore: pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
 	
 		//Instruction execute
-		printf("Status register contents:(hex) at the end of decode: ");
-		printf("%x", pic_registers.GP_Reg[3]);
-		printf("\n");
+		PRINT("Status register contents:(hex) at the end of decode: ");
+		PRINT("%x", pic_registers.GP_Reg[3]);
+		PRINT("\n");
 
 		instruction_execute(&pic_registers,&post_decode);
-		//post_execute= pre_execute;
-		printf("****************************************************************\n");	
+		clock_cycles= clock_cycles + 8; //Fetch + Execute = 8 instruction cycles
+
+		PRINT("****************************************************************\n");	
 		loop++;	
 
 		if (loop == n) //If end of program is reached
@@ -304,19 +261,36 @@ while (loop < n)
 
 				repeat_program_execution++; //Keep track of the number of times the program is re-executed
 
-				PRINT("\n-----------Program execution number %d completed-------------\n\n",repeat_program_execution);
-
+				PRINT("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
+								
+			
 			}
+
 	
-	if(repeat_program_execution == 100) //Repeat program execution 10 times
-	break;
 	
+		//if(repeat_program_execution == 10) //Repeat program execution 10 times
+		//break; //break from the while loop
+	
+	if(repeat_program_execution == 10) //Repeat program execution 10 times
+		{
+		repeat_program_execution=0; //Reset 
+		//Flip bits every 10 times the program repeats
+		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem);
+		}
+
+		printf("\nTotal number of instructions in the program = %d\n",n);	
+		printf("Each instruction takes 2 instruction cycles, i.e., 8 clock cycles\n");
+		printf("Total number of clock cycles executed = %d\n\n", clock_cycles);
+
+
 	}
 
-
+	
 		printf("Status register contents:(hex) at the end of all operations: ");
 		printf("%x", pic_registers.GP_Reg[3]);
 		printf("\n");
+
+	
 
 return 0;
 

@@ -183,7 +183,7 @@ for(i=0;i<=REG_MAX;++i)
 			break;
 		}
 	
-	PRINT("After bitflip number %d: Content of the reg[%d] is (in hex) %x\n\n",i+1, *random_reg, r2->GP_Reg[*random_reg]);
+	PRINT("After bitflip number %d: Content of the reg[%x] is (in hex) %x\n\n",i+1, *random_reg, r2->GP_Reg[*random_reg]);
 	
 
 
@@ -192,8 +192,8 @@ for(i=0;i<=REG_MAX;++i)
 		*random_mem = rand() % 8192; // Random number between 0 and 8192
 		random_bit_mem = rand() % 8 ; // Random number between 0 and 7
 
-		PRINT("Program memory location selected:%d, random bit to flip in this location is %d\n",*random_mem,random_bit_mem);
-		PRINT("Content of the program memory location[%d] is (in hex): %x\n",*random_mem, program_memory[*random_mem]);
+		PRINT("Program memory location selected:%x, random bit to flip in this location is %d\n",*random_mem,random_bit_mem);
+		PRINT("Content of the program memory location[%x] is (in hex): %x\n",*random_mem, program_memory[*random_mem]);
 
 	
 		switch(random_bit_mem)
@@ -238,7 +238,7 @@ for(i=0;i<=REG_MAX;++i)
 			break;
 		}
 	
-	PRINT("After bitflip number %d: Content of the program_memory[%d] is (in hex) %x\n\n",i+1, *random_mem, program_memory[*random_mem]);
+	PRINT("After bitflip number %d: Content of the program_memory[%x] is (in hex) %x\n\n",i+1, *random_mem, program_memory[*random_mem]);
 	
 
 
@@ -246,14 +246,14 @@ for(i=0;i<=REG_MAX;++i)
 
 if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
 	{
-		PRINT("Program crash due to PC value at location %d getting affected\n", *random_reg);
+		PRINT("Program crash due to PC value at location %x getting affected\n", *random_reg);
 		exit(0);
 	}
 
 //Condition for program crash if illegal memory access
 if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
 	{ 
-		PRINT("Program crash due to illegal memory access at location %d getting affected\n", *random_mem);
+		PRINT("Program crash due to illegal memory access at location %x getting affected\n", *random_mem);
 		exit(0);
 	}
 
@@ -268,12 +268,12 @@ int instruction_fetch(struct registers *r, int program_memory[])
 	
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION FETCH >>\n");
-	printf("Fetching instruction from program_memory[%x]\n",r->PC);
+	PRINT("Fetching instruction from program_memory[%x]\n",r->PC);
 	PRINT("Before incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
 	//Increment PC
 	increment_PC(&r);
-	printf("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	PRINT("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 	PRINT("-------------------------------------------------------------------\n");
 	return instruction;
 	
