@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+//#include <conio.h>
 
 #include "decode_fault.h"
 #include "execute.h"
@@ -24,6 +25,7 @@ int main()
 	char line[FILE_CHARS];	
 	int instr_from_file=0;
 	int starting_PC_value = 0;
+	int random_reg=0, random_mem=0;
 
 	struct registers pic_registers;
 	
@@ -208,8 +210,17 @@ printf("Status register contents:(hex) at the beginning of all operations: ");
 		printf("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
 	
 //Flip bits before instruction fetch
-		bit_flips(&pic_registers, program_memory);
+		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem);
 
+/*PRINT("..........................**************After all bitflips*****************************............................\n");
+	for(i=0;i<=REG_MAX;++i)
+		PRINT("GP_Reg[%d] = %x\t",i,pic_registers.GP_Reg[i]);
+
+PRINT("\n");
+
+	for(i=0;i<=PROGRAM_MEM_SIZE;++i)
+		PRINT(" program_memory[%d] = %x\t",i,program_memory[i]);
+PRINT("..........................*******************************************............................\n"); */
 
 		//Instruction fetch	
 		instruction= instruction_fetch(&pic_registers, program_memory);
