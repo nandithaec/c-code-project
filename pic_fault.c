@@ -26,6 +26,8 @@ int main()
 	int instr_from_file=0;
 	int starting_PC_value = 0;
 	int random_reg=0, random_mem=0;
+	int repeat_program_execution=0;
+	int initial_PCL=0, initial_PCLATH=0;
 
 	struct registers pic_registers;
 	
@@ -113,15 +115,20 @@ for(i=0;i<REG_MAX;++i)
 
 		printf("Enter starting PCL value (in hex): \n");
 		scanf("%x", &pic_registers.GP_Reg[2]);
-		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
-		pic_registers.PCL= pic_registers.GP_Reg[2];
+		initial_PCL=pic_registers.GP_Reg[2];
 
 		printf("Enter starting PCLATH value (in hex): \n");
 		scanf("%x", &pic_registers.GP_Reg[0x0A]);
-		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
+		initial_PCLATH=pic_registers.GP_Reg[0x0A];
+
+		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
+		pic_registers.PCL= pic_registers.GP_Reg[2];
+
+		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
 		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
 
 		pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+
 	PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC);
 
 
@@ -194,38 +201,28 @@ for(i=0;i<REG_MAX;++i)
 //	program_memory[0] = 0x0008; //RETURN
 //	program_memory[0] = 0x0064; //CLRWDT
 //	program_memory[0] = 0x0063; //SLEEP
-printf("Status register contents:(hex) at the beginning of all operations: ");
-
-		printf("%x", pic_registers.GP_Reg[3]);
-		printf("\n");
+	
+	printf("Status register contents:(hex) at the beginning of all operations: ");
+	printf("%x", pic_registers.GP_Reg[3]);
+	printf("\n");
 
 	loop= starting_PC_value;
 
 
-
-	while (loop < n)
+//Repeat the same program 10 times - condition is specified at the end of the while loop
+while (loop < n)
 	{
-//	PRINT( "loop value=%d, N value = %d\n", loop, n);
-		printf("****************************************************************\n");
-		printf("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
-	
-//Flip bits before instruction fetch
+		
+		//Flip bits before instruction fetch
 		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem);
 
-/*PRINT("..........................**************After all bitflips*****************************............................\n");
-	for(i=0;i<=REG_MAX;++i)
-		PRINT("GP_Reg[%d] = %x\t",i,pic_registers.GP_Reg[i]);
+		printf("****************************************************************\n");
+		printf("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
 
-PRINT("\n");
-
-	for(i=0;i<=PROGRAM_MEM_SIZE;++i)
-		PRINT(" program_memory[%d] = %x\t",i,program_memory[i]);
-PRINT("..........................*******************************************............................\n"); */
 
 		//Instruction fetch	
 		instruction= instruction_fetch(&pic_registers, program_memory);
 	
-	//	printf("Incrementing PC: PCL=%d, PCLATH=%d, PC = %d \n",pic_registers.PCL, pic_registers.PCLATH, pic_registers.PC);
 
 		//Instruction decode
 		decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
@@ -267,31 +264,56 @@ PRINT("..........................*******************************************....
 		}
 	
 
-
 		post_decode= pre_decode;
-	
-		
+			
 
 		PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
 		PRINT("Opcode (hex) = %x \n",post_decode.opcode);
 		PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
 		PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
 		PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
-	
-	//dont assign some value
-//		pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
+
+//Ignore: pic_registers.GP_Reg[post_decode.reg_index]= 0x01; //Content of register f location in program memory
 	
 		//Instruction execute
-	printf("Status register contents:(hex) at the end of decode: ");
+		printf("Status register contents:(hex) at the end of decode: ");
 		printf("%x", pic_registers.GP_Reg[3]);
 		printf("\n");
 
 		instruction_execute(&pic_registers,&post_decode);
 		//post_execute= pre_execute;
-	printf("****************************************************************\n");	
-	loop++;	
-	}
+		printf("****************************************************************\n");	
+		loop++;	
+
+		if (loop == n) //If end of program is reached
+			{
+				loop= starting_PC_value; //Reset loop to beginning of program and begin execution again
+
+				//----------------------------------------------------------------------------------------------------------------------------
+				//Reset program counter to beginning of the program
+				pic_registers.GP_Reg[2]= initial_PCL;
+				pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
+				pic_registers.PCL= pic_registers.GP_Reg[2];
+
+				pic_registers.GP_Reg[0x0A]= initial_PCLATH;
+				pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+				pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+
+				pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+				//----------------------------------------------------------------------------------------------------------------------------
+
+				repeat_program_execution++; //Keep track of the number of times the program is re-executed
+
+				PRINT("\n-----------Program execution number %d completed-------------\n\n",repeat_program_execution);
+
+			}
 	
+	if(repeat_program_execution == 100) //Repeat program execution 10 times
+	break;
+	
+	}
+
+
 		printf("Status register contents:(hex) at the end of all operations: ");
 		printf("%x", pic_registers.GP_Reg[3]);
 		printf("\n");

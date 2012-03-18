@@ -138,6 +138,7 @@ for(i=0;i<=REG_MAX;++i)
 		*random_reg = rand() % 256 ; // Random number between 0 and 255
 		random_bit = rand() % 8 ; // Random number between 0 and 7
 
+		PRINT("\nBit flip function called\n");
 		PRINT("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
 		PRINT("Content of the random reg location[%d] is (in hex) %x\n",*random_reg,r2->GP_Reg[*random_reg]);
 		switch(random_bit)
@@ -268,7 +269,7 @@ int instruction_fetch(struct registers *r, int program_memory[])
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION FETCH >>\n");
 	printf("Fetching instruction from program_memory[%x]\n",r->PC);
-	PRINT("BEfore incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	PRINT("Before incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
 	//Increment PC
 	increment_PC(&r);
