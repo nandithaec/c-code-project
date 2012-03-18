@@ -13,4 +13,3 @@
 3E01  //  ADDLW 0x1
 3E00  //  ADDLW 0x0
 008D  //  MOVWF 0xD
-2BFF  //  GOTO 0x3FF
