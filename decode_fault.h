@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define INSTR_SIZE 10
 #define REG_MAX 255
@@ -115,69 +116,148 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int []);
+int bit_flips(struct registers *, int [], int *,int *);
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[])
+int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem)
 {
-	int random_reg=0, random_bit=0;
+	int random_bit=0, random_bit_mem =0;
+	int i=0;
+
+/*PRINT("Original content of registers\n");
+
+for(i=0;i<=REG_MAX;++i)
+	PRINT("GP_Reg[%d] = %x\n",i,r2->GP_Reg[i]);*/
+
 	srand ( time(NULL) );
 
-/* generate random number: */
-	random_reg = rand() % 256 ; // Random number between 0 and 255
-	random_bit = rand() % 8 ; // Random number between 0 and 7
+//Flip 1 bit in General purpose register
+	/* generate random number: */
+		*random_reg = rand() % 256 ; // Random number between 0 and 255
+		random_bit = rand() % 8 ; // Random number between 0 and 7
 
-	PRINT("Random reg selected (hex):%x, random bit to flip in this reg is %d\n",random_reg,random_bit);
-	PRINT("Content of the random reg location[%x] is %d\n",random_reg,r2->GP_Reg[random_reg]);
-	switch(random_bit)
-	{
-		case 0:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 0);
-		break;
+		PRINT("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
+		PRINT("Content of the random reg location[%d] is (in hex) %x\n",*random_reg,r2->GP_Reg[*random_reg]);
+		switch(random_bit)
+		{
+			case 0:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 0);
+			break;
 		
-		case 1:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 1);
-		break;
+			case 1:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 1);
+			break;
 
-		case 2:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 2);
-		break;
+			case 2:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 2);
+			break;
 
-		case 3:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 3);
-		break;
+			case 3:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 3);
+			break;
 
-		case 4:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 4);
-		break;
+			case 4:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 4);
+			break;
 
-		case 5:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 5);
-		break;
+			case 5:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 5);
+			break;
 
-		case 6:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 6);
-		break;
+			case 6:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 6);
+			break;
 
-		case 7:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 7);
-		break;
+			case 7:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 7);
+			break;
 
-		case 8:
-		r2->GP_Reg[random_reg]=	r2->GP_Reg[random_reg] ^(1 << 8);
-		break;
+			case 8:
+			r2->GP_Reg[*random_reg]=	r2->GP_Reg[*random_reg] ^(1 << 8);
+			break;
 
-		default: printf("Invalid bit flip case\n");
-		break;
+			default: printf("Invalid bit flip case\n");
+			break;
+		}
+	
+	PRINT("After bitflip number %d: Content of the reg[%d] is (in hex) %x\n\n",i+1, *random_reg, r2->GP_Reg[*random_reg]);
+	
+
+
+//Flip 1 bit in program memory 
+// generate random number: 
+		*random_mem = rand() % 8192; // Random number between 0 and 8192
+		random_bit_mem = rand() % 8 ; // Random number between 0 and 7
+
+		PRINT("Program memory location selected:%d, random bit to flip in this location is %d\n",*random_mem,random_bit_mem);
+		PRINT("Content of the program memory location[%d] is (in hex): %x\n",*random_mem, program_memory[*random_mem]);
+
+	
+		switch(random_bit_mem)
+		{
+			case 0:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 0);
+			break;
+		
+			case 1:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 1);
+			break;
+
+			case 2:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 2);
+			break;
+
+			case 3:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 3);
+			break;
+
+			case 4:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 4);
+			break;
+
+			case 5:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 5);
+			break;
+
+			case 6:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 6);
+			break;
+
+			case 7:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 7);
+			break;
+
+			case 8:
+			program_memory[*random_mem]=	program_memory[*random_mem] ^(1 << 8);
+			break;
+
+			default: printf("Invalid bit flip case\n");
+			break;
+		}
+	
+	PRINT("After bitflip number %d: Content of the program_memory[%d] is (in hex) %x\n\n",i+1, *random_mem, program_memory[*random_mem]);
+	
+
+
+//Condition for program crash if Program counter value changes:
+
+if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
+	{
+		PRINT("Program crash due to PC value at location %d getting affected\n", *random_reg);
+		exit(0);
 	}
 
-	PRINT("After bitflip: Content of the reg[%x] is (in hex) %x\n",random_reg,r2->GP_Reg[random_reg]);
+//Condition for program crash if illegal memory access
+if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
+	{ 
+		PRINT("Program crash due to illegal memory access at location %d getting affected\n", *random_mem);
+		exit(0);
+	}
 
 return 0;
 }
-
 
 
 int instruction_fetch(struct registers *r, int program_memory[])
