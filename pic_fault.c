@@ -29,9 +29,9 @@ int main()
         int random_reg=0, random_mem=0;
         int repeat_program_execution=0;
         int initial_PCL=0, initial_PCLATH=0;
-        unsigned long long int clock_cycles =0, total_cycles=0,mean=0;
+        unsigned long long int clock_cycles =0, total_pgm_runs=0,mean=0, program_runs=0;
 		int crash=0;
-		int crash_at_clk_cycle[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
+		int crash_at_pgm[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
         struct registers pic_registers;
        
 //-------------------------------Initialising registers------------------------------------
@@ -39,7 +39,7 @@ int main()
         pic_registers.configuration_word[11]= 1; //WDT Enabler bit
 
 //clear all registers
-for(i=0;i<REG_MAX;++i)
+			for(i=0;i<REG_MAX;++i)
                 pic_registers.GP_Reg[i]=0; //clear all registers in register file map
        
         //INTCON Register
@@ -238,7 +238,7 @@ for(i=0;i<REG_MAX;++i)
                 PRINT("\n");
 
                 instruction_execute(&pic_registers,&post_decode);
-                clock_cycles= clock_cycles + 8; //Fetch + Execute = 8 instruction cycles
+                clock_cycles= clock_cycles + CLOCKS_PER_INSTR; //Fetch + Execute = 8 instruction cycles
 
                 PRINT("****************************************************************\n");    
                 loop++;
@@ -268,7 +268,7 @@ for(i=0;i<REG_MAX;++i)
                         if(repeat_program_execution == NUM_OF_PGM_RUNS)
                         {
                                 //Flip bits every 10 times the program repeats..
-                               	bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_clk_cycle);
+                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs);
 								
                                 repeat_program_execution=0; //Reset
                               //  printf("Inside main: Crash number:%d\n", crash);
@@ -279,14 +279,14 @@ for(i=0;i<REG_MAX;++i)
                
                 }
 
-        //printf("Total number of clock cycles right now after getting out = %d\n\n", clock_cycles);
+        
 		if (crash== MAX_CRASHES)
 			break;
 
         }
 
                 printf("\nTotal number of instructions in the program = %d\n",n);      
-                printf("Each instruction takes 2 instruction cycles, i.e., 8 clock cycles\n");
+                printf("Each instruction takes 1 instruction cycles, i.e., CLOCKS_PER_INSTR clock cycles\n");
 
                 printf("Status register contents:(hex) at the end of all operations: ");
                 printf("%x", pic_registers.GP_Reg[3]);
@@ -295,10 +295,10 @@ for(i=0;i<REG_MAX;++i)
         
 
 for(i=0;i< MAX_CRASHES;i++)
-	total_cycles=total_cycles+ crash_at_clk_cycle[i];
+	total_pgm_runs=total_pgm_runs+ crash_at_pgm[i];
 
-mean= total_cycles/MAX_CRASHES;
-printf("Mean time to failure: %llu \n", mean);
+mean= total_pgm_runs/MAX_CRASHES;
+printf("Mean time to failure in terms of the number of program runs: %llu \n", mean);
 
 return 0;
 

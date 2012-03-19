@@ -1,0 +1,24 @@
+Enter starting PCL value (in hex): 
+Enter starting PCLATH value (in hex): 
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+Status register contents:(hex) at the beginning of all operations: 0
+
+Program crash due to illegal memory access at location f8 getting affected
+Content of the program_memory[f8] is (in hex) 10
+Number of clock cycles executed before the crash: 446593200
+Crash number: 1  Number of clock cycles executed before the crash: 446593200
+Clock cycles reset after the crash: 0
