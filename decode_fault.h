@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 2
 #define NUM_OF_PGM_RUNS 10 //Call bit flip function once in so many program runs
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
@@ -120,11 +120,11 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], int *, int *, unsigned long long int*, int *, int [], unsigned long long int *);
+int bit_flips(struct registers *, int [], int *, int *, unsigned long long int*, int *, int [], unsigned long long int *, time_t);
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
-int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *clock_cycles,int *crash, int crash_at_pgm[], unsigned long long int *program_runs)
+int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *clock_cycles,int *crash, int crash_at_pgm[], unsigned long long int *program_runs, time_t start_seconds)
 
 {
         int random_bit=0, random_bit_mem =0;
@@ -146,6 +146,7 @@ previous_time = seconds;
 PRINT("Value of seconds %lu\n", seconds);
 srand ((unsigned int)seconds);
 
+time_t crash_time;
 
 //Flip 1 bit in General purpose register
         /* generate random number: */
@@ -263,12 +264,17 @@ srand ((unsigned int)seconds);
                         printf("\nProgram crash due to PC value at location %x getting affected\n", *random_reg);
                         PRINT("Content of the reg[%x] is (in hex): %x\n", *random_reg, r2->GP_Reg[*random_reg]);
 						*crash= (*crash)+1;
-                          
+                        crash_time= time(NULL);
+  							
+						
 						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
                         crash_at_pgm[*crash] = *program_runs;
 						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-						printf("Crash number:%d\n",*crash);
+ 	                    printf("Crash number:%d\n",*crash);
+						printf("Number of successful program runs before the crash: %llu\n",*program_runs);
+						printf("Time of crash number %d is %ld minutes since January 1, 1970\n",*crash, crash_time/60);
+						printf("At crash %d,time since the beginning of program execution is: %ld (in minutes)\n", *crash, (crash_time-start_seconds)/60);
+						
                         for(c=1;c<= (*crash); c++)
                         {
                         //Print the entire array containing the clock cycles at which the crash occured each time
@@ -295,13 +301,16 @@ srand ((unsigned int)seconds);
                         printf("\nProgram crash due to illegal memory access: Content of location %x got affected\n", *random_mem);
                         printf("Content of the program_memory[%x] is (in hex): %x\n", *random_mem, program_memory[*random_mem]);
                         *crash= (*crash)+1;
-                           
+                         crash_time= time(NULL);  
+	
 						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
                         crash_at_pgm[*crash] = *program_runs; 
 						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-                   
-						printf("Crash number:%d\n",*crash);
+ 	                    printf("Crash number:%d\n",*crash);
+						printf("Number of successful program runs before the crash: %llu\n",*program_runs);
+						printf("Time of crash number %d is %ld minutes since January 1, 1970\n",*crash, crash_time/60);
+              			printf("At crash %d,time since the beginning of program execution is: %ld (in minutes)\n", *crash,(crash_time-start_seconds)/60);
+			
                         for(c=1;c<= (*crash); c++)
                         {
                         //Print the entire array containing the clock cycles at which the crash occured each time
