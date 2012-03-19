@@ -33,7 +33,10 @@ int main()
 		int crash=0;
 		int crash_at_pgm[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
         struct registers pic_registers;
-       
+
+        time_t start_seconds= time (NULL);
+  		printf ("At the start of execution: %ld hours since January 1, 1970 \n", start_seconds/3600);
+
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
         pic_registers.configuration_word[11]= 1; //WDT Enabler bit
@@ -268,7 +271,7 @@ int main()
                         if(repeat_program_execution == NUM_OF_PGM_RUNS)
                         {
                                 //Flip bits every 10 times the program repeats..
-                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs);
+                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds);
 								
                                 repeat_program_execution=0; //Reset
                               //  printf("Inside main: Crash number:%d\n", crash);
@@ -286,7 +289,7 @@ int main()
         }
 
                 printf("\nTotal number of instructions in the program = %d\n",n);      
-                printf("Each instruction takes 1 instruction cycles, i.e., CLOCKS_PER_INSTR clock cycles\n");
+                printf("Each instruction takes 1 instruction cycles, i.e., 1clock cycle\n");
 
                 printf("Status register contents:(hex) at the end of all operations: ");
                 printf("%x", pic_registers.GP_Reg[3]);
