@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-//#include <conio.h>
+#include <time.h>
 
 #include "decode_fault.h"
 #include "execute.h"
@@ -28,7 +28,7 @@ int main()
 	int random_reg=0, random_mem=0;
 	int repeat_program_execution=0;
 	int initial_PCL=0, initial_PCLATH=0;
-	int clock_cycles =0;
+	unsigned long clock_cycles =0;
 
 	struct registers pic_registers;
 	
@@ -169,14 +169,13 @@ for(i=0;i<REG_MAX;++i)
 
 	loop= starting_PC_value;
 
-
 //Repeat the same program forever till Ctrl-C is entered
 while (loop < n)
 	{
 		
 		PRINT("****************************************************************\n");
-		PRINT("INSTRUCTION NUMBER %d\n", loop-starting_PC_value+1);
-
+		PRINT("INSTRUCTION NUMBER %d\n", loop - starting_PC_value + 1);
+		PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
 
 		//Instruction fetch	
 		instruction= instruction_fetch(&pic_registers, program_memory);
@@ -242,44 +241,40 @@ while (loop < n)
 		PRINT("****************************************************************\n");	
 		loop++;	
 
+		//Repeat program
 		if (loop == n) //If end of program is reached
+		{
+			loop= starting_PC_value; //Reset loop to beginning of program and begin execution again
+
+			//----------------------------------------------------------------------------------------------------------------------------
+			//Reset program counter to beginning of the program
+			pic_registers.GP_Reg[2]= initial_PCL;
+			pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
+			pic_registers.PCL= pic_registers.GP_Reg[2];
+
+			pic_registers.GP_Reg[0x0A]= initial_PCLATH;
+			pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+			pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+
+			pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+			//----------------------------------------------------------------------------------------------------------------------------
+
+			repeat_program_execution++; //Keep track of the number of times the program is re-executed
+			//if(repeat_program_execution == 10) //Repeat program execution 10 times
+			//break; //break from the while loop
+
+			if(repeat_program_execution == 10) 
 			{
-				loop= starting_PC_value; //Reset loop to beginning of program and begin execution again
-
-				//----------------------------------------------------------------------------------------------------------------------------
-				//Reset program counter to beginning of the program
-				pic_registers.GP_Reg[2]= initial_PCL;
-				pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
-				pic_registers.PCL= pic_registers.GP_Reg[2];
-
-				pic_registers.GP_Reg[0x0A]= initial_PCLATH;
-				pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-				pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
-
-				pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
-				//----------------------------------------------------------------------------------------------------------------------------
-
-				repeat_program_execution++; //Keep track of the number of times the program is re-executed
-
-				PRINT("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
-								
-			
+				//Flip bits every 10 times the program repeats.. 
+				bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles);
+				repeat_program_execution=0; //Reset 
+				PRINT("Inside main, ending bitflips function\n");
 			}
 
-	
-	
-		//if(repeat_program_execution == 10) //Repeat program execution 10 times
-		//break; //break from the while loop
-	
-	if(repeat_program_execution == 10) 
-		{
-		repeat_program_execution=0; //Reset 
-		//Flip bits every 10 times the program repeats.. 
-		bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles);
-		PRINT("Inside main, ending bitflips function\n");
+			PRINT("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
+		
 		}
 
-		
 	//printf("Total number of clock cycles right now after getting out = %d\n\n", clock_cycles);
 
 
