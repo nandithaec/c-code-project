@@ -4,6 +4,7 @@
 
 #include "decode_fault.h"
 #include "execute.h"
+//#include "bit_flips.h"
 
 FILE *fout;
 
@@ -29,13 +30,14 @@ int main()
         int random_reg=0, random_mem=0;
         int repeat_program_execution=0;
         int initial_PCL=0, initial_PCLATH=0;
-        unsigned long long int clock_cycles =0, total_pgm_runs=0,mean=0, program_runs=0;
+        unsigned long long int clock_cycles =0, total_pgm_runs=0,mean_pgm=0, program_runs=0, mean_seconds=0, total_seconds=0;
 		int crash=0;
 		int crash_at_pgm[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
+		int crash_time_array[MAX_CRASHES]={0};	// Store the number of seconds elapsed, since beginning, at which each time a crash occurs
         struct registers pic_registers;
 
         time_t start_seconds= time (NULL);
-  		printf ("At the start of execution: %ld hours since January 1, 1970 \n", start_seconds/3600);
+  		printf ("At the start of execution: %ld seconds since January 1, 1970 \n", start_seconds);
 
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
@@ -271,14 +273,14 @@ int main()
                         if(repeat_program_execution == NUM_OF_PGM_RUNS)
                         {
                                 //Flip bits every 10 times the program repeats..
-                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds);
+                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
 								
                                 repeat_program_execution=0; //Reset
                               //  printf("Inside main: Crash number:%d\n", crash);
 								PRINT("Inside main, ending bitflips function\n");
                         }
 
-                        PRINT("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
+                      //  printf("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
                
                 }
 
@@ -297,11 +299,17 @@ int main()
 
         
 
-for(i=0;i< MAX_CRASHES;i++)
+for(i=1;i<= MAX_CRASHES;i++)
+	{
 	total_pgm_runs=total_pgm_runs+ crash_at_pgm[i];
+	total_seconds=total_seconds+ crash_time_array[i];
+	}
 
-mean= total_pgm_runs/MAX_CRASHES;
-printf("Mean time to failure in terms of the number of program runs: %llu \n", mean);
+mean_pgm= total_pgm_runs/MAX_CRASHES;
+printf("Mean time to failure in terms of the number of program runs: %llu \n", mean_pgm);
+
+mean_seconds= total_seconds/MAX_CRASHES;
+printf("Mean time to failure in terms of seconds: %llu \n", mean_seconds);
 
 return 0;
 
