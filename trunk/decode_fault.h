@@ -18,7 +18,7 @@
  #define PRINT print_null
 //#endif
 void print_null (char* n,...) {return;}
-
+unsigned int previous_time = -1;
 //All declarations
 
 struct registers
@@ -116,12 +116,12 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], int *, int *, int *);
+int bit_flips(struct registers *, int [], int *, int *, unsigned long *);
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, int *clock_cycles)
+int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long *clock_cycles)
 {
 	int random_bit=0, random_bit_mem =0;
 	int i=0, c=0;
@@ -136,7 +136,17 @@ int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *
 for(i=0;i<=REG_MAX;++i)
 	PRINT("GP_Reg[%d] = %x\n",i,r2->GP_Reg[i]);*/
 
-	srand ( time(NULL) );
+time_t seconds = time(NULL);
+if (seconds == previous_time) 
+	return;
+previous_time = seconds;
+/*Get value from system clock and place in seconds variable. */
+printf("Value of seconds %lu\n", seconds);
+srand ((unsigned int)seconds);
+//time(&seconds);
+/*Convert seconds to a unsigned integer.*/
+//srand(rand());
+
 
 //Flip 1 bit in General purpose register
 	/* generate random number: */
@@ -144,7 +154,7 @@ for(i=0;i<=REG_MAX;++i)
 		random_bit = rand() % 8 ; // Random number between 0 and 7
 
 		PRINT("\nBit flip function called\n");
-		PRINT("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
+		printf("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
 		PRINT("Content of the random reg location[%d] is (in hex) %x\n",*random_reg,r2->GP_Reg[*random_reg]);
 		switch(random_bit)
 		{
@@ -251,9 +261,10 @@ for(i=0;i<=REG_MAX;++i)
 
 	if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
 		{
-			printf("Program crash due to PC value at location %x getting affected\n", *random_reg);
+			printf("\nProgram crash due to PC value at location %x getting affected\n", *random_reg);
+			printf("Content of the reg[%x] is (in hex): %x\n", *random_reg, r2->GP_Reg[*random_reg]);
 			crash_at_clk_cycle[crash++] = *clock_cycles;	
-			printf("Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+			printf("Number of clock cycles executed before the crash: %lu\n",*clock_cycles);
 			//fprintf(fout,"Number of clock cycles executed before the crash: %d\n",*clock_cycles);
 
 			for(c=0;c<crash; c++)
@@ -265,17 +276,25 @@ for(i=0;i<=REG_MAX;++i)
 			}
 
 			*clock_cycles=0; //Reset clock cycles after every crash
-			printf("Clock cycles reset after the crash: %d\n",*clock_cycles);
+			printf("Clock cycles reset after the crash: %lu\n",*clock_cycles);
 			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
+			
+			//Reg map dump		
+			/*printf("General purpose Reg dump\n");
+			for(i=0;i<=REG_MAX;++i)
+			printf("[%x] = %x\t",i,r2->GP_Reg[i]);*/
+
 			exit(0);
+	
 		}
 
 //Condition for program crash if illegal memory access
 	if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
 		{ 
-			printf("Program crash due to illegal memory access at location %x getting affected\n", *random_mem);
+			printf("\nProgram crash due to illegal memory access at location %x getting affected\n", *random_mem);
+			printf("Content of the program_memory[%x] is (in hex): %x\n", *random_mem, program_memory[*random_mem]);
 			crash_at_clk_cycle[crash++] = *clock_cycles;
-			printf("Number of clock cycles executed before the crash: %d\n",*clock_cycles);
+			printf("Number of clock cycles executed before the crash: %lu\n",*clock_cycles);
 			//fprintf(fout,"Number of clock cycles executed before the crash: %d\n",*clock_cycles);
 
 			for(c=0;c<crash; c++)
@@ -287,9 +306,16 @@ for(i=0;i<=REG_MAX;++i)
 			}
 		
 			*clock_cycles=0; //Reset clock cycles after every crash
-			printf("Clock cycles reset after the crash: %d\n",*clock_cycles);
+			printf("Clock cycles reset after the crash: %lu\n",*clock_cycles);
 			//fprintf(fout,"Clock cycles reset after the crash: %d\n",c);
+
+			//Memory dump		
+		/*	printf("Program memory dump\n");
+			for(i=0;i<=PROGRAM_MEM_SIZE;++i)
+			printf("[%x] = %x\t",i,program_memory[i]);*/
+			
 			exit(0);
+		
 		}
 
 PRINT("Ending bitflips function\n");
