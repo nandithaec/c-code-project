@@ -1,0 +1,210 @@
+At the start of execution: 1332161249 seconds since January 1, 1970 
+Enter starting PCL value (in hex): 
+Enter starting PCLATH value (in hex): 
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+Status register contents:(hex) at the beginning of all operations: 0
+
+Crash number:1
+Program crash due to illegal memory access: Content of location e9 got affected
+Content of the program_memory[e9] is (in hex): 8
+Number of successful program runs before the crash: 6749
+Time of crash number 1 is 1332161255 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 6 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Clock cycle count reset after the crash: 0
+
+Crash number:2
+Program crash due to PC value at location 2 getting affected
+Number of successful program runs before the crash: 1001070
+Time of crash number 2 is 1332161325 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 76 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]: Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Clock cycle count reset after the crash: 0
+
+Crash number:3
+Program crash due to PC value at location 2 getting affected
+Number of successful program runs before the crash: 646482
+Time of crash number 3 is 1332161368 seconds since January 1, 1970
+At crash 3,time since the beginning of program execution is: 119 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]: Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]: Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Clock cycle count reset after the crash: 0
+
+Crash number:4
+Program crash due to illegal memory access: Content of location d7 got affected
+Content of the program_memory[d7] is (in hex): 20
+Number of successful program runs before the crash: 181118
+Time of crash number 4 is 1332161380 seconds since January 1, 1970
+At crash 4,time since the beginning of program execution is: 131 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]:  Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]:  Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]:  Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Clock cycle count reset after the crash: 0
+
+Crash number:5
+Program crash due to illegal memory access: Content of location 57 got affected
+Content of the program_memory[57] is (in hex): 80
+Number of successful program runs before the crash: 496527
+Time of crash number 5 is 1332161415 seconds since January 1, 1970
+At crash 5,time since the beginning of program execution is: 166 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]:  Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]:  Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]:  Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]:  Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Clock cycle count reset after the crash: 0
+
+Crash number:6
+Program crash due to PC value at location 8a getting affected
+Number of successful program runs before the crash: 825738
+Time of crash number 6 is 1332161469 seconds since January 1, 1970
+At crash 6,time since the beginning of program execution is: 220 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]: Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]: Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]: Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]: Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Crash[6]: Number of program runs executed before the crash: 825738
+Crash[6]: Seconds elapsed since the beginning of the program, before crashing: 220
+Clock cycle count reset after the crash: 0
+
+Crash number:7
+Program crash due to illegal memory access: Content of location d1 got affected
+Content of the program_memory[d1] is (in hex): 2
+Number of successful program runs before the crash: 475342
+Time of crash number 7 is 1332161500 seconds since January 1, 1970
+At crash 7,time since the beginning of program execution is: 251 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]:  Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]:  Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]:  Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]:  Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Crash[6]:  Number of program runs executed before the crash: 825738
+Crash[6]: Seconds elapsed since the beginning of the program, before crashing: 220
+Crash[7]:  Number of program runs executed before the crash: 475342
+Crash[7]: Seconds elapsed since the beginning of the program, before crashing: 251
+Clock cycle count reset after the crash: 0
+
+Crash number:8
+Program crash due to PC value at location 82 getting affected
+Number of successful program runs before the crash: 229290
+Time of crash number 8 is 1332161515 seconds since January 1, 1970
+At crash 8,time since the beginning of program execution is: 266 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]: Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]: Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]: Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]: Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Crash[6]: Number of program runs executed before the crash: 825738
+Crash[6]: Seconds elapsed since the beginning of the program, before crashing: 220
+Crash[7]: Number of program runs executed before the crash: 475342
+Crash[7]: Seconds elapsed since the beginning of the program, before crashing: 251
+Crash[8]: Number of program runs executed before the crash: 229290
+Crash[8]: Seconds elapsed since the beginning of the program, before crashing: 266
+Clock cycle count reset after the crash: 0
+
+Crash number:9
+Program crash due to PC value at location 82 getting affected
+Number of successful program runs before the crash: 30558
+Time of crash number 9 is 1332161517 seconds since January 1, 1970
+At crash 9,time since the beginning of program execution is: 268 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]: Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]: Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]: Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]: Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Crash[6]: Number of program runs executed before the crash: 825738
+Crash[6]: Seconds elapsed since the beginning of the program, before crashing: 220
+Crash[7]: Number of program runs executed before the crash: 475342
+Crash[7]: Seconds elapsed since the beginning of the program, before crashing: 251
+Crash[8]: Number of program runs executed before the crash: 229290
+Crash[8]: Seconds elapsed since the beginning of the program, before crashing: 266
+Crash[9]: Number of program runs executed before the crash: 30558
+Crash[9]: Seconds elapsed since the beginning of the program, before crashing: 268
+Clock cycle count reset after the crash: 0
+
+Crash number:10
+Program crash due to illegal memory access: Content of location 67 got affected
+Content of the program_memory[67] is (in hex): 20
+Number of successful program runs before the crash: 656793
+Time of crash number 10 is 1332161560 seconds since January 1, 1970
+At crash 10,time since the beginning of program execution is: 311 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 6749
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 6
+Crash[2]:  Number of program runs executed before the crash: 1001070
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 76
+Crash[3]:  Number of program runs executed before the crash: 646482
+Crash[3]: Seconds elapsed since the beginning of the program, before crashing: 119
+Crash[4]:  Number of program runs executed before the crash: 181118
+Crash[4]: Seconds elapsed since the beginning of the program, before crashing: 131
+Crash[5]:  Number of program runs executed before the crash: 496527
+Crash[5]: Seconds elapsed since the beginning of the program, before crashing: 166
+Crash[6]:  Number of program runs executed before the crash: 825738
+Crash[6]: Seconds elapsed since the beginning of the program, before crashing: 220
+Crash[7]:  Number of program runs executed before the crash: 475342
+Crash[7]: Seconds elapsed since the beginning of the program, before crashing: 251
+Crash[8]:  Number of program runs executed before the crash: 229290
+Crash[8]: Seconds elapsed since the beginning of the program, before crashing: 266
+Crash[9]:  Number of program runs executed before the crash: 30558
+Crash[9]: Seconds elapsed since the beginning of the program, before crashing: 268
+Crash[10]:  Number of program runs executed before the crash: 656793
+Crash[10]: Seconds elapsed since the beginning of the program, before crashing: 311
+Clock cycle count reset after the crash: 0
+
+Total number of instructions in the program = 15
+Each instruction takes 1 instruction cycles, i.e., 1clock cycle
+Status register contents:(hex) at the end of all operations: 4
+Mean time to failure in terms of the number of program runs: 454966 
+Mean time to failure in terms of seconds: 181 

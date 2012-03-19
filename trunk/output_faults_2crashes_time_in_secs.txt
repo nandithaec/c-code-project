@@ -1,0 +1,46 @@
+At the start of execution: 1332160121 seconds since January 1, 1970 
+Enter starting PCL value (in hex): 
+Enter starting PCLATH value (in hex): 
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+Status register contents:(hex) at the beginning of all operations: 0
+Crash number:0
+
+Program crash due to PC value at location 2 getting affected
+Number of successful program runs before the crash: 182308
+Time of crash number 1 is 1332160136 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 15 (in seconds)
+Crash[1]: Number of program runs executed before the crash: 182308
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 15
+Clock cycle count reset after the crash: 0
+Crash number:1
+
+Program crash due to illegal memory access: Content of location d5 got affected
+Content of the program_memory[d5] is (in hex): 1
+Number of successful program runs before the crash: 142684
+Time of crash number 2 is 1332160145 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 24 (in seconds)
+Crash[1]:  Number of program runs executed before the crash: 182308
+Crash[1]: Seconds elapsed since the beginning of the program, before crashing: 15
+Crash[2]:  Number of program runs executed before the crash: 142684
+Crash[2]: Seconds elapsed since the beginning of the program, before crashing: 24
+Clock cycle count reset after the crash: 0
+
+Total number of instructions in the program = 15
+Each instruction takes 1 instruction cycles, i.e., 1clock cycle
+Status register contents:(hex) at the end of all operations: 4
+Mean time to failure in terms of the number of program runs: 162496 
+Mean time to failure in terms of seconds: 19 
