@@ -13,7 +13,7 @@
 #define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10 //Call bit flip function once in so many program runs
 #define NUM_OF_INSTR 15
-#define CLOCKS_PER_INSTR 8
+#define CLOCKS_PER_INSTR 4
 
 #define DEBUG
 //#ifdef DEBUG
@@ -120,16 +120,16 @@ int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], int *, int *, unsigned long long int*, int *, int []);
+int bit_flips(struct registers *, int [], int *, int *, unsigned long long int*, int *, int [], unsigned long long int *);
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
-int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *clock_cycles,int *crash, int crash_at_clk_cycle[])
+int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *clock_cycles,int *crash, int crash_at_pgm[], unsigned long long int *program_runs)
 
 {
         int random_bit=0, random_bit_mem =0;
         int i=0, c=0;
-     	unsigned long long int program_runs =0;
+     	//unsigned long long int program_runs =0;
         FILE *fout;
 
         fout = fopen ("out.lis", "wt");
@@ -264,15 +264,15 @@ srand ((unsigned int)seconds);
                         PRINT("Content of the reg[%x] is (in hex): %x\n", *random_reg, r2->GP_Reg[*random_reg]);
 						*crash= (*crash)+1;
                           
-						program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-                        crash_at_clk_cycle[*crash] = program_runs;
+						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+                        crash_at_pgm[*crash] = *program_runs;
 						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    printf("Number of successful program runs before the crash: %llu\n",program_runs);
+ 	                    printf("Number of successful program runs before the crash: %llu\n",*program_runs);
 						printf("Crash number:%d\n",*crash);
                         for(c=1;c<= (*crash); c++)
                         {
                         //Print the entire array containing the clock cycles at which the crash occured each time
-                          printf("Crash[%d]:  Number of program runs executed before the crash: %d\n", c,crash_at_clk_cycle[c]);
+                          printf("Crash[%d]:  Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
                         
                         }
 
@@ -296,16 +296,16 @@ srand ((unsigned int)seconds);
                         printf("Content of the program_memory[%x] is (in hex): %x\n", *random_mem, program_memory[*random_mem]);
                         *crash= (*crash)+1;
                            
-						program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-                        crash_at_clk_cycle[*crash] = program_runs; 
+						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+                        crash_at_pgm[*crash] = *program_runs; 
 						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    printf("Number of successful program runs before the crash: %llu\n",program_runs);
+ 	                    printf("Number of successful program runs before the crash: %llu\n",*program_runs);
                    
 						printf("Crash number:%d\n",*crash);
                         for(c=1;c<= (*crash); c++)
                         {
                         //Print the entire array containing the clock cycles at which the crash occured each time
-                        printf("Crash[%d]:  Number of program runs executed before the crash: %d\n", c,crash_at_clk_cycle[c]);
+                        printf("Crash[%d]:  Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
                                         
                         }
                 
