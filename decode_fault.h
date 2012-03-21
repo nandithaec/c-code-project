@@ -10,10 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 2
 #define NUM_OF_PGM_RUNS 10 //Call bit flip function once in so many program runs
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
+#define PROBABILITY_INVERSE 100000
 
 #define DEBUG
 //#ifdef DEBUG
@@ -447,12 +448,12 @@ return 0;
 int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *clock_cycles,int *crash, int crash_at_pgm[], unsigned long long int *program_runs, time_t start_seconds, int crash_time_array [])
 
 {
-        int random_bit=0, random_bit_mem =0;
+        int random_bit=0, random_bit_mem =0, random_number=0;
         int i=0, c=0;
      	//unsigned long long int program_runs =0;
-        FILE *fout;
+      //  FILE *fout;
 
-        fout = fopen ("out.lis", "wt");
+       // fout = fopen ("out.lis", "wt");
 /*PRINT("Original content of registers\n");
 
 for(i=0;i<=REG_MAX;++i)
@@ -470,9 +471,14 @@ time_t crash_time;
 
 //Flip 1 bit in General purpose register
         /* generate random number: */
+	random_number = rand();
+	printf("Random number generated: %d, RAND_MAX: %d\n",random_number, RAND_MAX);
+
+	if(0 < random_number < (PROBABILITY_INVERSE)) // probability of flipping is (1/ (probability_inverse))
+	{
                 *random_reg = rand() % 256 ; // Random number between 0 and 255
                 random_bit = rand() % 8 ; // Random number between 0 and 7
-
+		
                 PRINT("\nBit flip function called\n");
                // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
                 PRINT("Content of the random reg location[%d] is (in hex) %x\n",*random_reg,r2->GP_Reg[*random_reg]);
@@ -518,7 +524,7 @@ time_t crash_time;
                         break;
                 }
         
-        PRINT("After bitflip number %d: Content of the reg[%x] is (in hex) %x\n\n",i+1, *random_reg, r2->GP_Reg[*random_reg]);
+        PRINT("After bitflip, Content of the reg[%x] is (in hex) %x\n\n", *random_reg, r2->GP_Reg[*random_reg]);
         
 
 
@@ -573,40 +579,41 @@ time_t crash_time;
                         break;
                 }
         
-        PRINT("After bitflip number %d: Content of the program_memory[%x] is (in hex) %x\n\n",i+1, *random_mem, program_memory[*random_mem]);
+        PRINT("After bitflip, Content of the program_memory[%x] is (in hex) %x\n\n", *random_mem, program_memory[*random_mem]);
         
-
+	
 
 //Condition for program crash if Program counter value changes:
 
         if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
                 {
                         printf("\nCrash number:%d\n",(*crash)+1);
-						printf("Program crash due to PC value at location %x getting affected\n", *random_reg);
+			printf("Program crash due to PC value at location %x getting affected\n", *random_reg);
                         PRINT("Content of the reg[%x] is (in hex): %x\n", *random_reg, r2->GP_Reg[*random_reg]);
-						*crash= (*crash)+1;
+			
+			*crash= (*crash)+1;
                         crash_time= time(NULL);
   							
-						
-						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-                        crash_at_pgm[*crash] = *program_runs;
-						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    
-						printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-						printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
-						printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash, (crash_time-start_seconds));
-						crash_time_array[*crash] = (crash_time-start_seconds);
+			
+			//*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+			// crash_at_pgm[*crash] = *program_runs;
+			printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
+    
+			//printf("Number of successful program runs before the crash: %llu\n",*program_runs);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
+			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash, (crash_time-start_seconds));
+			crash_time_array[*crash] = (crash_time-start_seconds);
 
                         for(c=1;c<= (*crash); c++)
                         {
                         //Print the entire array containing the clock cycles at which the crash occured each time
-                          printf("Crash[%d]: Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
+                          //printf("Crash[%d]: Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
                           printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,crash_time_array[c]);
                          
 						}
 
                         *clock_cycles=0; //Reset clock cycles after every crash
-                        printf("Clock cycle count reset after the crash: %llu\n",*clock_cycles);
+                        //printf("Clock cycle count reset after the crash: %llu\n",*clock_cycles);
 
                         
                         //Reg map dump          
@@ -626,25 +633,25 @@ time_t crash_time;
                         printf("Content of the program_memory[%x] is (in hex): %x\n", *random_mem, program_memory[*random_mem]);
                         *crash= (*crash)+1;
                          crash_time= time(NULL);  
-	
-						*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-                        crash_at_pgm[*crash] = *program_runs; 
-						//printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
- 	                    
-						printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-						printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
-              			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash,(crash_time-start_seconds));
-						crash_time_array[*crash] = (crash_time-start_seconds);
 
-                        for(c=1;c<= (*crash); c++)
-                        {
+			//*program_runs= (*clock_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+			//crash_at_pgm[*crash] = *program_runs; 
+			printf("Number of clock cycles executed before the crash: %llu\n",*clock_cycles);
+    
+			//printf("Number of successful program runs before the crash: %llu\n",*program_runs);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
+              		printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash,(crash_time-start_seconds));
+			crash_time_array[*crash] = (crash_time-start_seconds);
+
+                      for(c=1;c<= (*crash); c++)
+                      {
                         //Print the entire array containing the clock cycles at which the crash occured each time
-                        printf("Crash[%d]:  Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
+                       //printf("Crash[%d]: Number of program runs executed before the crash: %d\n", c,crash_at_pgm[c]);
 	                   printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,crash_time_array[c]);             
-                        }
+                      }
                 
                         *clock_cycles=0; //Reset clock cycles after every crash
-                        printf("Clock cycle count reset after the crash: %llu\n",*clock_cycles);
+                       // printf("Clock cycle count reset after the crash: %llu\n",*clock_cycles);
                        
 
                         //Memory dump           
@@ -656,6 +663,7 @@ time_t crash_time;
                 
                 }
 
+	}  // End the "If probability is met"
 PRINT("Ending bitflips function\n");
 
 return 0;
