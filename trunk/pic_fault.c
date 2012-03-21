@@ -243,10 +243,15 @@ int main()
                 PRINT("\n");
 
                 instruction_execute(&pic_registers,&post_decode);
-                clock_cycles= clock_cycles + CLOCKS_PER_INSTR; //Fetch + Execute = 8 instruction cycles
+              //  clock_cycles= clock_cycles + CLOCKS_PER_INSTR; //Fetch + Execute = 8 instruction cycles
 
                 PRINT("****************************************************************\n");    
                 loop++;
+
+
+		//Bit flip function called every cycle
+		 bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
+
 
                 //Repeat program
                 if (loop == n) //If end of program is reached
@@ -270,16 +275,15 @@ int main()
                         //if(repeat_program_execution == 10) //Repeat program execution 10 times
                         //break; //break from the while loop
 
-                        if(repeat_program_execution == NUM_OF_PGM_RUNS)
+                      /*  if(repeat_program_execution == NUM_OF_PGM_RUNS)
                         {
                                 //Flip bits every 10 times the program repeats..
                            bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
 								
                                 repeat_program_execution=0; //Reset
                               //  printf("Inside main: Crash number:%d\n", crash);
-								PRINT("Inside main, ending bitflips function\n");
-                        }
-
+			PRINT("Inside main, ending bitflips function\n");
+                        } */
                       //  printf("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
                
                 }
@@ -303,6 +307,7 @@ for(i=1;i<= MAX_CRASHES;i++)
 	{
 	total_pgm_runs=total_pgm_runs+ crash_at_pgm[i];
 	total_seconds=total_seconds+ crash_time_array[i];
+	printf("Time for each crash: %llu \t",total_seconds);
 	}
 
 mean_pgm= total_pgm_runs/MAX_CRASHES;
