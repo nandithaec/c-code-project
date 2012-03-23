@@ -518,18 +518,6 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		//Flip 1 bit in General purpose register
 		// generate random number between 0 and PROBABILITY_INVERSE
 
-	    time_t seconds = time(NULL);
-		if (seconds == previous_time) 
-			return;
-		previous_time = seconds;
-		//Get value from system clock and place in seconds variable. 
-		PRINT("Value of seconds %lu\n", seconds);
-		srand ((unsigned int)seconds);
-
-		time_t crash_time;
-
-
-
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
 		less=PROBABILITY_INVERSE - 200;
 		more=PROBABILITY_INVERSE - 50;
@@ -544,7 +532,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		
 
 	
-                PRINT("\nBit flip function called\n");
+                printf("\nBit flip function called\n");
                // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp->random_reg,random_bit);
                 PRINT("Content of the random reg location[%d] is (in hex) %x\n",cp->random_reg,r2->GP_Reg[cp->random_reg]);
                 switch(random_bit)
@@ -592,51 +580,12 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
         printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
 
 //Condition for program crash if Program counter value changes:
-
-	
-
-
-	if (cp->random_reg == 0x02 || cp->random_reg == 0x82 || cp->random_reg == 0x0A || cp->random_reg == 0x8A)
-        {
-			cp->crash= (cp->crash)+1;
-			(cp-> crash_dueto_PC) ++;            
-			printf("\nCrash number:%d\n",(cp->crash));
-			printf("Program crash due to PC value at location %x getting affected\n", cp->random_reg);
-           // PRINT("Content of the reg[%x] is (in hex): %x\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
-
-			
-            crash_time= time(NULL);
-				
-
-			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
-			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
-
-			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
-			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
-			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
-           
-            cp->instr_cycles=0; //Reset instruction cycles after every crash
-          	exit(0);
-
-				 //Reset program counter to beginning of the program
-                    r2->GP_Reg[2]= r2->initial_PCL;
-                    r2->GP_Reg[0x82]= r2->GP_Reg[2]; //PCL Bank 1 and Bank 0
-                    r2->PCL= r2->GP_Reg[2];
-
-                    r2->GP_Reg[0x0A]= r2->initial_PCLATH;
-                    r2->GP_Reg[0x8A]= r2->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-                    r2->PCLATH= r2->GP_Reg[0x0A];
-
-                    r2->PC = (r2->PCL | (r2->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
-                    //----------------------------------------------------------------------------------------------------------------------------
+		if (cp->random_reg == 0x02)
+        { printf("Random reg=2\n");
+			exit(0);
+		}
 
 
-           
-         }
-
-//--------------------------------------------------------------------------------------------------
         //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
 			if (i1->reg_index == cp->random_reg)
 				{
@@ -647,7 +596,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 					PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 				}	
 
-//--------------------------------------------------------------------------------------------------
+
 		//Flip 1 bit in program memory 
 		// generate random number: 
                 cp->random_mem = rand() % 8192; // Random number between 0 and 8192
@@ -700,41 +649,12 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                 }
         
         //printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
-      
-		
+     
+
+
 	
-//--------------------------------------------------------------------------------------------------
-//Condition for program crash if illegal memory access
-        if ( (0x4F < cp->random_mem && cp->random_mem < 0x7F) || (0xCF < cp->random_mem && cp->random_mem < 0xFF)) //Invalid memory location range
-        { 
-            cp->crash= (cp->crash)+1;
-			(cp-> crash_dueto_illegal_mem)++;
-			printf("\nCrash number:%d\n",(cp->crash));
-			printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->random_mem);
-           // printf("Content of the program_memory[%x] is (in hex): %x\n", cp->random_mem, program_memory[cp->random_mem]);
-            
-             crash_time= time(NULL);  
 
-			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-			cp->crash_at_instr[cp->crash] = cp->instr_cycles; 
-			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
-    
-			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
-            printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
-			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
-         /* for(c=1;c<= (cp->crash); c++)
-          {
-            //Print the entire array containing the instruction cycles at which the crash occured each time
-           printf("Crash[%d]: Number of instruction cycles executed before the crash: %d\n", c,cp->crash_at_instr[c]);
-           printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,cp->crash_time_array[c]);             
-          } */
-              
-  
-            cp->instr_cycles=0; //Reset instruction cycles after every crash
-              
-   	  }
 
 
   }  // End the "If probability is met"

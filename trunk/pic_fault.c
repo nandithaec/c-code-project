@@ -218,7 +218,7 @@ int main()
 	    		bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode);
 
 				//Check for program crash
-				//check_pgm_crash(&crash_param, start_seconds,&pic_registers);
+				check_pgm_crash(&crash_param, start_seconds,&pic_registers);
 
 				 //Instruction fetch    
                 instruction= instruction_fetch(&pic_registers, program_memory,&crash_param);
