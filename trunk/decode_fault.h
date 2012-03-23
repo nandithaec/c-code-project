@@ -111,11 +111,11 @@ struct crash_parameters
 		int random_reg;
 		int random_mem;
 		unsigned long long int instr_cycles;
-		int crash=0;
-		int crash_at_instr[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
-		int crash_time_array[MAX_CRASHES]={0};
+		int crash;
+		int crash_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
+		int crash_time_array[MAX_CRASHES];
 		unsigned long long int program_runs;
-}
+};
 
 
 //Function declarations
