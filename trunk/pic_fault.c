@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdint.h>
 
 #include "decode_fault.h"
 #include "execute.h"
@@ -30,9 +31,9 @@ int main()
         int random_reg=0, random_mem=0;
         int repeat_program_execution=0;
         int initial_PCL=0, initial_PCLATH=0;
-        unsigned long long int instr_cycles =0, total_pgm_runs=0,mean_pgm=0, program_runs=0, mean_seconds=0, total_seconds=0;
+        unsigned long long int instr_cycles =0, total_instr_cycles=0,mean_instr_cycles=0, program_runs=0, mean_seconds=0, total_seconds=0;
 		int crash=0;
-		int crash_at_pgm[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
+		int crash_at_instr[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
 		int crash_time_array[MAX_CRASHES]={0};	// Store the number of seconds elapsed, since beginning, at which each time a crash occurs
         struct registers pic_registers;
 
@@ -155,7 +156,7 @@ int main()
 
           while(fgets(line, FILE_CHARS, fp) != NULL)
            {
-                 /* get a line, up to 80 chars from fp.  done if NULL */
+                 // get a line, up to 80 chars from fp.  done if NULL 
                  sscanf (line, "%x", &instr_from_file);
                 program_memory[n]= instr_from_file;
                 n++;
@@ -206,23 +207,23 @@ int main()
                 switch (decode_bits)
                 {
                         case 0:
-                                decode_byte_instr(&pre_decode);
+                                decode_byte_instr(&pre_decode,&instr_cycles,&crash, crash_at_instr);
                                 break;
 
                         case 1:
-                                decode_bit_instr(&pre_decode);  
+                                decode_bit_instr(&pre_decode,&instr_cycles,&crash, crash_at_instr);  
                                 break;
 
                         case 2:
-                                call_goto_instr(&pre_decode);  
+                                call_goto_instr(&pre_decode,&instr_cycles,&crash, crash_at_instr);  
                                 break;
 
                         case 3:
-                                literal_control_instr(&pre_decode);    
+                                literal_control_instr(&pre_decode,&instr_cycles,&crash, crash_at_instr);    
                                 break;
 
                         default:
-                                printf("Invalid instruction\n");
+                                printf("Invalid decode_bits inside main\n");
                                 break;
                 }
        
@@ -250,42 +251,44 @@ int main()
 
 
 				//Bit flip function called every cycle
-				 bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_pgm, &program_runs, start_seconds, crash_time_array);
+				 bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_instr, &program_runs, start_seconds, crash_time_array);
 
+				//Check for program crash
+				check_pgm_crash(&random_reg, &random_mem, &instr_cycles,&crash, crash_at_instr, &program_runs, start_seconds, crash_time_array);
 
                 //Repeat program
                 if (loop == n) //If end of program is reached
                 {
-                        loop= starting_PC_value; //Reset loop to beginning of program and begin execution again
+                    loop= starting_PC_value; //Reset loop to beginning of program and begin execution again
 
-                        //----------------------------------------------------------------------------------------------------------------------------
-                        //Reset program counter to beginning of the program
-                        pic_registers.GP_Reg[2]= initial_PCL;
-                        pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
-                        pic_registers.PCL= pic_registers.GP_Reg[2];
+                    //----------------------------------------------------------------------------------------------------------------------------
+                    //Reset program counter to beginning of the program
+                    pic_registers.GP_Reg[2]= initial_PCL;
+                    pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
+                    pic_registers.PCL= pic_registers.GP_Reg[2];
 
-                        pic_registers.GP_Reg[0x0A]= initial_PCLATH;
-                        pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-                        pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
+                    pic_registers.GP_Reg[0x0A]= initial_PCLATH;
+                    pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+                    pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
 
-                        pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
-                        //----------------------------------------------------------------------------------------------------------------------------
+                    pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
+                    //----------------------------------------------------------------------------------------------------------------------------
 
-                        repeat_program_execution++; //Keep track of the number of times the program is re-executed
-                        //if(repeat_program_execution == 10) //Repeat program execution 10 times
-                        //break; //break from the while loop
+                    repeat_program_execution++; //Keep track of the number of times the program is re-executed
+                    //if(repeat_program_execution == 10) //Repeat program execution 10 times
+                    //break; //break from the while loop
 
-                      /*  if(repeat_program_execution == NUM_OF_PGM_RUNS)
-                        {
-                                //Flip bits every 10 times the program repeats..
-                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
-								
-                                repeat_program_execution=0; //Reset
-                              //  printf("Inside main: Crash number:%d\n", crash);
-			PRINT("Inside main, ending bitflips function\n");
-                        } */
-                      //  printf("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
-               
+                  /*  if(repeat_program_execution == NUM_OF_PGM_RUNS)
+                    {
+                            //Flip bits every 10 times the program repeats..
+                       bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_instr, &program_runs,start_seconds,crash_time_array);
+							
+                            repeat_program_execution=0; //Reset
+                          //  printf("Inside main: Crash number:%d\n", crash);
+		PRINT("Inside main, ending bitflips function\n");
+                    } */
+                  //  printf("\n-----------Program execution number %d completed-------------\n",repeat_program_execution);
+           
                 }
 
         
@@ -303,18 +306,18 @@ int main()
 
         
 
-for(i=1;i<= MAX_CRASHES;i++)
+for(i=1;i <= MAX_CRASHES;i++)
 	{
-	total_pgm_runs=total_pgm_runs+ crash_at_pgm[i];
+	total_instr_cycles=total_instr_cycles+ crash_at_instr[i];
 	total_seconds=total_seconds+ crash_time_array[i];
-	printf("Time for each crash: %llu \t",total_seconds);
 	}
+//	printf("Total time for crash: %llu seconds\n",total_seconds);
 
-mean_pgm= total_pgm_runs/MAX_CRASHES;
-printf("Mean time to failure in terms of the number of program runs: %llu \n", mean_pgm);
+mean_instr_cycles= total_instr_cycles/MAX_CRASHES;
+printf("Mean time to failure in terms of the number of instruction cycles: %llu\n", mean_instr_cycles);
 
 mean_seconds= total_seconds/MAX_CRASHES;
-printf("Mean time to failure in terms of seconds: %llu \n", mean_seconds);
+printf("Mean time to failure in terms of seconds: %llu\n", mean_seconds);
 
 return 0;
 
