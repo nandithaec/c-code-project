@@ -76,14 +76,17 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
 		{
-		printf("Error: Control flow has changed..will lead to incorrect results\n");
+		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
+	    
+		
+		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
-		PRINT("RETURN instruction\n");
+		printf("RETURN instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer -1],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
@@ -104,14 +107,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
 		{
-		printf("Error: Control flow has changed..will lead to incorrect results\n");
+		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
-		
-		PRINT("RETFIE instruction\n");
+		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+		printf("Instruction cycle=%llu\n",cp->instr_cycles);
+		printf("RETFIE instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
@@ -873,7 +877,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	case 22: //BCF
 
 	PRINT("BCF instruction\n");
-
+	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	  switch (i1-> bit)
 		{
 		
@@ -1087,7 +1091,8 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	case 26: //MOVLW
 	
 		PRINT("MOVLW instruction\n");
-		
+
+
 		PRINT("Contents of W(hex) before execution= %x \n", r1-> W);
 		r1-> W = i1-> immediate_value;
 
@@ -1275,18 +1280,20 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 	case 33: 
 
-	PRINT("CALL instruction\n");
+	printf("CALL instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
 	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
 		{
-		printf("Error: Control flow has changed..will lead to incorrect results\n");
+		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}		
-		
+	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
+	
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
 	if (r1-> stack_pointer == 8)
@@ -1310,7 +1317,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 	case 34: 
 
-	PRINT("GOTO instruction\n");
+	printf("GOTO instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
 	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
@@ -1321,7 +1328,8 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
-
+	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
