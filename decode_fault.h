@@ -115,6 +115,9 @@ struct crash_parameters
 		int crash_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
 		int crash_time_array[MAX_CRASHES];
 		unsigned long long int program_runs;
+		int crash_dueto_illegal_mem;
+		int crash_dueto_PC;
+		int crash_dueto_illegal_opcode;
 };
 
 
@@ -122,20 +125,20 @@ struct crash_parameters
 int instruction_fetch(struct registers*, int []);
 int increment_PC(struct registers **);
 
-int decode_byte_instr(struct instructions *i1, unsigned long long int*, int *, int []);
-int decode_bit_instr(struct instructions *i1, unsigned long long int*, int *, int []);
-int call_goto_instr(struct instructions *i1, unsigned long long int*, int *, int []);
-int literal_control_instr(struct instructions *i1, unsigned long long int*, int *, int []);
+int decode_byte_instr(struct instructions *i1,struct crash_parameters *);
+int decode_bit_instr(struct instructions *i1, struct crash_parameters *);
+int call_goto_instr(struct instructions *i1, struct crash_parameters *);
+int literal_control_instr(struct instructions *i1, struct crash_parameters *);
 
 
 int instruction_execute(struct registers *, struct instructions *);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], int *, int *, unsigned long long int*, int *, int [], unsigned long long int *, time_t, int []);
-int check_pgm_crash(int *, int *, unsigned long long int*, int *, int [], unsigned long long int *, time_t, int []);
+int bit_flips(struct registers *, int [], struct crash_parameters *, time_t);
+int check_pgm_crash(struct crash_parameters *, time_t);
 
-int bit_flips_xmodel(struct registers *, int [], int *, int *, unsigned long long int*, int *, int [], unsigned long long int *, time_t, int []);
+
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
@@ -177,7 +180,7 @@ return 0;
 }  
 
 
-int decode_byte_instr(struct instructions *i1, unsigned long long int *instr_cycles, int *crash, int crash_at_instr[])
+int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp)
 
 {
         
@@ -312,8 +315,9 @@ int decode_byte_instr(struct instructions *i1, unsigned long long int *instr_cyc
                 break;
 
                 default: printf("Crash due to illegal opcode\n");
-						 crash_at_instr[*crash] = *instr_cycles;
-						 printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+						 cp->crash_dueto_illegal_opcode++;
+						 cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+						 printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
                 break;
 
         }
@@ -323,7 +327,7 @@ return 0;
 }
 
 
-int decode_bit_instr(struct instructions *i1, unsigned long long int *instr_cycles,int *crash, int crash_at_instr[])
+int decode_bit_instr(struct instructions *i1, struct crash_parameters *cp)
 {
                                                 
         i1-> reg_file_addr = (i1->instruction) & 0x007F;
@@ -359,8 +363,9 @@ int decode_bit_instr(struct instructions *i1, unsigned long long int *instr_cycl
 
                 
                 default: printf("Crash due to illegal opcode\n");
-						 crash_at_instr[*crash] = *instr_cycles;
-						 printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+						 cp->crash_dueto_illegal_opcode++;
+						 cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+						 printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
                 break;
 
         }
@@ -372,7 +377,7 @@ return 0;
         
 
 
-int literal_control_instr(struct instructions *i1, unsigned long long int *instr_cycles,int *crash, int crash_at_instr[])
+int literal_control_instr(struct instructions *i1, struct crash_parameters *cp)
 {
                                                 
         i1-> immediate_value = (i1-> instruction) & 0x00FF;
@@ -425,8 +430,9 @@ PRINT("INSTRUCTION DECODE >> Literal and control instructions\n");
                 break;
 
                 default: printf("Crash due to illegal opcode\n");
-						 crash_at_instr[*crash] = *instr_cycles;
-						 printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+						 cp->crash_dueto_illegal_opcode++;
+						 cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+						 printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
                 break;
 
         }
@@ -434,7 +440,7 @@ PRINT("-------------------------------------------------------------------\n");
 return 0;
 }
 
-int call_goto_instr(struct instructions *i1, unsigned long long int *instr_cycles,int *crash, int crash_at_instr[])
+int call_goto_instr(struct instructions *i1,struct crash_parameters *cp)
 {
                                                 
         i1-> immediate_value = (i1-> instruction) & 0x07FF;
@@ -455,8 +461,9 @@ PRINT("INSTRUCTION DECODE >> CALL/GOTO instructions\n");
                 break;
                 
                 default:printf("Crash due to illegal opcode\n");
-						 crash_at_instr[*crash] = *instr_cycles;
-						 printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+  					    cp->crash_dueto_illegal_opcode++;
+						cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+						printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
                 break;
 
         }
@@ -467,7 +474,7 @@ return 0;
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *random_mem, unsigned long long int *instr_cycles,int *crash, int crash_at_instr[], unsigned long long int *program_runs, time_t start_seconds, int crash_time_array [])
+int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds)
 
 {
         int random_bit=0, random_bit_mem =0, random_number=0;
@@ -488,123 +495,120 @@ int bit_flips(struct registers *r2,  int program_memory[],int *random_reg, int *
 		//Flip 1 bit in General purpose register
 		// generate random number between 0 and PROBABILITY_INVERSE
 
-	random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-	less=PROBABILITY_INVERSE - 202;
-	more=PROBABILITY_INVERSE - 2;
+		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
+		less=PROBABILITY_INVERSE - 202;
+		more=PROBABILITY_INVERSE - 2;
 	//printf("less=%d, more=%d\n",less,more);
        //	printf("Random number generated outside: %d\n",random_number);
 	if((less< random_number) && (random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
                //	printf("Random number generated: %d\n",random_number);
 				
-				*random_reg = rand() % 256 ; // Random number between 0 and 255
+				cp->random_reg = rand() % 256 ; // Random number between 0 and 255
                 random_bit = rand() % 8 ; // Random number between 0 and 7
 		
                 PRINT("\nBit flip function called\n");
-               // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",*random_reg,random_bit);
-                PRINT("Content of the random reg location[%d] is (in hex) %x\n",*random_reg,r2->GP_Reg[*random_reg]);
+               // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp->random_reg,random_bit);
+                PRINT("Content of the random reg location[%d] is (in hex) %x\n",cp->random_reg,r2->GP_Reg[cp->random_reg]);
                 switch(random_bit)
                 {
                         case 0:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 0);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 0);
                         break;
                 
                         case 1:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 1);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 1);
                         break;
 
                         case 2:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 2);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 2);
                         break;
 
                         case 3:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 3);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 3);
                         break;
 
                         case 4:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 4);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 4);
                         break;
 
                         case 5:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 5);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 5);
                         break;
 
                         case 6:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 6);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 6);
                         break;
 
                         case 7:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 7);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 7);
                         break;
 
                         case 8:
-                        r2->GP_Reg[*random_reg]=        r2->GP_Reg[*random_reg] ^(1 << 8);
+                        r2->GP_Reg[cp->random_reg]=        r2->GP_Reg[cp->random_reg] ^(1 << 8);
                         break;
 
                         default: printf("Invalid bit flip case\n");
                         break;
                 }
         
-       // printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n\n", *random_reg, r2->GP_Reg[*random_reg]);
+       // printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
         
 
 
 		//Flip 1 bit in program memory 
 		// generate random number: 
-                *random_mem = rand() % 8192; // Random number between 0 and 8192
+                cp->random_mem = rand() % 8192; // Random number between 0 and 8192
                 random_bit_mem = rand() % 8 ; // Random number between 0 and 7
 
-               // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",*random_mem,random_bit_mem);
-                PRINT("Content of the program memory location[%x] is (in hex): %x\n",*random_mem, program_memory[*random_mem]);
+               // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp->random_mem,random_bit_mem);
+                PRINT("Content of the program memory location[%x] is (in hex): %x\n",cp->random_mem, program_memory[cp->random_mem]);
 
         
                 switch(random_bit_mem)
                 {
                         case 0:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 0);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 0);
                         break;
                 
                         case 1:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 1);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 1);
                         break;
 
                         case 2:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 2);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 2);
                         break;
 
                         case 3:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 3);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 3);
                         break;
 
                         case 4:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 4);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 4);
                         break;
 
                         case 5:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 5);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 5);
                         break;
 
                         case 6:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 6);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 6);
                         break;
 
                         case 7:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 7);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 7);
                         break;
 
                         case 8:
-                        program_memory[*random_mem]=    program_memory[*random_mem] ^(1 << 8);
+                        program_memory[cp->random_mem]=    program_memory[cp->random_mem] ^(1 << 8);
                         break;
 
                         default: printf("Invalid bit flip case\n");
                         break;
                 }
         
-        //printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", *random_mem, program_memory[*random_mem]);
+        //printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
         
-
-
-//Condition for program crash if Program counter value changes:
 
   }  // End the "If probability is met"
 PRINT("Ending bitflips function\n");
@@ -613,7 +617,7 @@ return 0;
 }
 
 
-int check_pgm_crash( int *random_reg, int *random_mem, unsigned long long int *instr_cycles,int *crash, int crash_at_instr[], unsigned long long int *program_runs, time_t start_seconds, int crash_time_array [])
+int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds)
 
 {
 
@@ -631,81 +635,63 @@ int check_pgm_crash( int *random_reg, int *random_mem, unsigned long long int *i
 
 		time_t crash_time;
 
-		if (*random_reg == 0x02 || *random_reg == 0x82 || *random_reg == 0x0A || *random_reg == 0x8A)
+//Condition for program crash if Program counter value changes:
+		if (cp->random_reg == 0x02 || cp->random_reg == 0x82 || cp->random_reg == 0x0A || cp->random_reg == 0x8A)
         {
-            printf("\nCrash number:%d\n",(*crash)+1);
-			printf("Program crash due to PC value at location %x getting affected\n", *random_reg);
-           // PRINT("Content of the reg[%x] is (in hex): %x\n", *random_reg, r2->GP_Reg[*random_reg]);
+			(cp-> crash_dueto_PC) ++;            
+			printf("\nCrash number:%d\n",(cp->crash)+1);
+			printf("Program crash due to PC value at location %x getting affected\n", cp->random_reg);
+           // PRINT("Content of the reg[%x] is (in hex): %x\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
 
-			*crash= (*crash)+1;
+			cp->crash= (cp->crash)+1;
             crash_time= time(NULL);
 				
 
-			//*program_runs= (*instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-			crash_at_instr[*crash] = *instr_cycles;
-			printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 
-			//printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
-			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash, (crash_time-start_seconds));
-			crash_time_array[*crash] = (crash_time-start_seconds);
+			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
+			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
+			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
-            for(c=1;c<= (*crash); c++)
-            {
-            //Print the entire array containing the instruction cycles at which the crash occured each time
-              printf("Crash[%d]: Number of instruction cycles executed before the crash: %d\n", c,crash_at_instr[c]);
-              printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,crash_time_array[c]);
-             
-			}
-
-            *instr_cycles=0; //Reset instruction cycles after every crash
-            //printf("Instruction cycle count reset after the crash: %llu\n",*instr_cycles);
-
-            
-            //Reg map dump          
-            /*printf("General purpose Reg dump\n");
-            for(i=0;i<=REG_MAX;++i)
-            printf("[%x] = %x\t",i,r2->GP_Reg[i]);*/
-
-            //exit(0);
-
+           
+            cp->instr_cycles=0; //Reset instruction cycles after every crash
+           
+           
          }
 
 //Condition for program crash if illegal memory access
-        if ( (0x4F < *random_mem && *random_mem < 0x7F) || (0xCF < *random_mem && *random_mem < 0xFF)) //Invalid memory location range
+        if ( (0x4F < cp->random_mem && cp->random_mem < 0x7F) || (0xCF < cp->random_mem && cp->random_mem < 0xFF)) //Invalid memory location range
         { 
-            printf("\nCrash number:%d\n",(*crash)+1);
-			printf("Program crash due to illegal memory access: Content of location %x got affected\n", *random_mem);
-           // printf("Content of the program_memory[%x] is (in hex): %x\n", *random_mem, program_memory[*random_mem]);
-            *crash= (*crash)+1;
+            (cp-> crash_dueto_illegal_mem)++;
+			printf("\nCrash number:%d\n",(cp->crash)+1);
+			printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->random_mem);
+           // printf("Content of the program_memory[%x] is (in hex): %x\n", cp->random_mem, program_memory[cp->random_mem]);
+            cp->crash= (cp->crash)+1;
              crash_time= time(NULL);  
 
-			//*program_runs= (*instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-			crash_at_instr[*crash] = *instr_cycles; 
-			printf("Number of instruction cycles executed before the crash: %llu\n",*instr_cycles);
+			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+			cp->crash_at_instr[cp->crash] = cp->instr_cycles; 
+			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
     
-			//printf("Number of successful program runs before the crash: %llu\n",*program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",*crash, crash_time);
-            printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", *crash,(crash_time-start_seconds));
-			crash_time_array[*crash] = (crash_time-start_seconds);
+			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
+            printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
+			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
-          for(c=1;c<= (*crash); c++)
+         /* for(c=1;c<= (cp->crash); c++)
           {
             //Print the entire array containing the instruction cycles at which the crash occured each time
-           printf("Crash[%d]: Number of instruction cycles executed before the crash: %d\n", c,crash_at_instr[c]);
-           printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,crash_time_array[c]);             
-          }
-                
-            *instr_cycles=0; //Reset instruction cycles after every crash
-           // printf("Instruction cycle count reset after the crash: %llu\n",*instr_cycles);
-           
+           printf("Crash[%d]: Number of instruction cycles executed before the crash: %d\n", c,cp->crash_at_instr[c]);
+           printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,cp->crash_time_array[c]);             
+          } */
+              
 
-            //Memory dump           
-    /*      printf("Program memory dump\n");
-            for(i=0;i<=PROGRAM_MEM_SIZE;++i)
-            printf("[%x] = %x\t",i,program_memory[i]);*/
-            
-           // exit(0);
+  
+            cp->instr_cycles=0; //Reset instruction cycles after every crash
+          
     
    	 }
 
