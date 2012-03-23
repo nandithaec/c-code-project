@@ -52,13 +52,16 @@ int main()
 		crash_param.crash_dueto_illegal_mem=0;
 		crash_param.crash_dueto_PC=0;
 		crash_param.crash_dueto_illegal_opcode=0;
-
+		crash_param.error=0;
+		crash_param.control_flow_change=0;
+	
 		//clear all locations
 			for(i=0;i<MAX_CRASHES;++i)
                 crash_param.crash_at_instr[i]=0;
 			for(i=0;i<MAX_CRASHES;++i)
                 crash_param.crash_time_array[i]=0;
-
+			for(i=0;i<FLOW_CHANGE_MAX;++i)
+                crash_param.error_at_instr[i]=0;
 
 
 //-------------------------------Initialising registers------------------------------------
@@ -196,6 +199,8 @@ int main()
         printf("%x", pic_registers.GP_Reg[3]);
         printf("\n");
 
+		printf("Probability of a bit flip is set to: %g\n",(1.00/PROBABILITY_INVERSE));
+
         loop= starting_PC_value;
 
 //Repeat the same program forever till Ctrl-C is entered
@@ -263,7 +268,7 @@ int main()
                 PRINT("%x", pic_registers.GP_Reg[3]);
                 PRINT("\n");
 
-                instruction_execute(&pic_registers,&post_decode);
+                instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param);
                 crash_param.instr_cycles= crash_param.instr_cycles++; 
 
                 PRINT("****************************************************************\n");    
@@ -331,11 +336,16 @@ printf("Seconds elapsed since the beginning of the program, before each crash: \
 for(c=1;c<= (crash_param.crash); c++)
    //Print the entire array containing the seconds at which the crash occured each time
    printf("%d\n",crash_param.crash_time_array[c]);             
-      
-
+  
+   
 percentage_crash=(crash_param.crash/total_instr_cycles)*100;
 
 printf("Total number of crashes:%d\n",MAX_CRASHES);
+printf("Total number of errors: %d\n",crash_param.error);
+printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
+printf("Total number of errors due to incorrect data: %d\n",crash_param.incorrect_data);
+
+printf("\n");
 //printf("Percentage of crashing, out of total number of instruction cycles executed=%f percent \n",percentage_crash);
 printf("Percentage of crashes due to Program counter getting manipulated: %.2f percent\n",(((crash_param.crash_dueto_PC)/MAX_CRASHES)*100.0));
 printf("Percentage of crashes due to illegal memory access: %.2f percent\n",(((crash_param.crash_dueto_illegal_mem)/MAX_CRASHES)*100.0));

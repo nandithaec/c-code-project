@@ -1,6 +1,6 @@
 //Execute.h 
 
-int instruction_execute(struct registers *r1, struct instructions *i1)
+int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp)
 {
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
@@ -74,6 +74,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 		
 	case 2: //RETURN 
 		
+		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		{
+		printf("Error: Control flow has changed..will lead to incorrect results\n");
+  		cp->error= (cp->error)+1;
+		cp->control_flow_change++;
+		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		}	
+
 		PRINT("RETURN instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer -1],r1-> stack_pointer);
 		
@@ -92,6 +101,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1)
 
 	
 	case 3: //RETFIE
+		
+		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		{
+		printf("Error: Control flow has changed..will lead to incorrect results\n");
+  		cp->error= (cp->error)+1;
+		cp->control_flow_change++;
+		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		}	
 		
 		PRINT("RETFIE instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
@@ -1260,7 +1278,15 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	PRINT("CALL instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
-	
+	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		{
+		printf("Error: Control flow has changed..will lead to incorrect results\n");
+  		cp->error= (cp->error)+1;
+		cp->control_flow_change++;
+		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		}		
+		
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
 	if (r1-> stack_pointer == 8)
@@ -1287,7 +1313,15 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	PRINT("GOTO instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
-	
+	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		{
+		printf("Error: Control flow has changed..will lead to incorrect results\n");
+  		cp->error= (cp->error)+1;
+		cp->control_flow_change++;
+		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		}	
+
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
