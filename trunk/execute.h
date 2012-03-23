@@ -1291,8 +1291,8 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}		
-	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
-	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
+		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
