@@ -30,7 +30,7 @@ int main()
         int random_reg=0, random_mem=0;
         int repeat_program_execution=0;
         int initial_PCL=0, initial_PCLATH=0;
-        unsigned long long int clock_cycles =0, total_pgm_runs=0,mean_pgm=0, program_runs=0, mean_seconds=0, total_seconds=0;
+        unsigned long long int instr_cycles =0, total_pgm_runs=0,mean_pgm=0, program_runs=0, mean_seconds=0, total_seconds=0;
 		int crash=0;
 		int crash_at_pgm[MAX_CRASHES]={0}; // Store the number of clock cycles at which each time a crash occurs
 		int crash_time_array[MAX_CRASHES]={0};	// Store the number of seconds elapsed, since beginning, at which each time a crash occurs
@@ -243,14 +243,14 @@ int main()
                 PRINT("\n");
 
                 instruction_execute(&pic_registers,&post_decode);
-              //  clock_cycles= clock_cycles + CLOCKS_PER_INSTR; //Fetch + Execute = 8 instruction cycles
+                instr_cycles= instr_cycles++; 
 
                 PRINT("****************************************************************\n");    
                 loop++;
 
 
-		//Bit flip function called every cycle
-		 bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
+				//Bit flip function called every cycle
+				 bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_pgm, &program_runs, start_seconds, crash_time_array);
 
 
                 //Repeat program
@@ -268,7 +268,7 @@ int main()
                         pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
                         pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
 
-                        pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+                        pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
                         //----------------------------------------------------------------------------------------------------------------------------
 
                         repeat_program_execution++; //Keep track of the number of times the program is re-executed
@@ -278,7 +278,7 @@ int main()
                       /*  if(repeat_program_execution == NUM_OF_PGM_RUNS)
                         {
                                 //Flip bits every 10 times the program repeats..
-                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &clock_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
+                           bit_flips(&pic_registers, program_memory, &random_reg, &random_mem, &instr_cycles,&crash, crash_at_pgm, &program_runs,start_seconds,crash_time_array);
 								
                                 repeat_program_execution=0; //Reset
                               //  printf("Inside main: Crash number:%d\n", crash);
@@ -295,7 +295,7 @@ int main()
         }
 
                 printf("\nTotal number of instructions in the program = %d\n",n);      
-                printf("Each instruction takes 1 instruction cycles, i.e., 1clock cycle\n");
+                printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
 
                 printf("Status register contents:(hex) at the end of all operations: ");
                 printf("%x", pic_registers.GP_Reg[3]);
