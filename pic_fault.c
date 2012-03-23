@@ -38,7 +38,7 @@ int main()
 
         time_t start_seconds= time (NULL);
   		printf ("At the start of execution: %ld seconds since January 1, 1970 \n", start_seconds);
-
+		//printf("Seconds in scientific notation:%.4e\n",(double)(start_seconds));
 		 struct instructions pre_decode, post_decode;
 
 
@@ -218,7 +218,7 @@ int main()
 	    		bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode);
 
 				//Check for program crash
-				check_pgm_crash(&crash_param, start_seconds,&pic_registers);
+				//check_pgm_crash(&crash_param, start_seconds,&pic_registers);
 
 				 //Instruction fetch    
                 instruction= instruction_fetch(&pic_registers, program_memory,&crash_param);
@@ -337,24 +337,24 @@ for(i=1;i <= MAX_CRASHES;i++)
 printf("Number of instruction cycles executed before each crash:\n");
 for(c=1;c<= (crash_param.crash); c++)
    //Print the entire array containing the instruction cycles at which the crash occured each time
-   printf("%d\n",crash_param.crash_at_instr[c]);
+   printf("%llu\n",crash_param.crash_at_instr[c]);
   
    
 printf("Seconds elapsed since the beginning of the program, before each crash: \n");    
 for(c=1;c<= (crash_param.crash); c++)
    //Print the entire array containing the seconds at which the crash occured each time
-   printf("%d\n",crash_param.crash_time_array[c]);             
+   printf("%ld\n",crash_param.crash_time_array[c]);             
   
    
 percentage_crash= ((crash_param.crash/total_instr_cycles))*100.0;
 percentage_error= ((crash_param.error/total_instr_cycles))*100.0;
-successful_cycles= (((total_instr_cycles-crash_param.error- MAX_CRASHES)/total_instr_cycles))*100.0;
+successful_cycles= (total_instr_cycles-crash_param.error- MAX_CRASHES);
 percentage_success= ((successful_cycles/total_instr_cycles))*100.0;
 
-printf("Total number of instruction cycles executed:%llu\n",total_instr_cycles);
+printf("Total number of instruction cycles executed:%e\n",(double)(total_instr_cycles));
 printf("Total number of crashes:%d\n",MAX_CRASHES);
 printf("Total number of errors: %d\n",crash_param.error);
-printf("Total number of successful instruction cycle executions:%llu\n",successful_cycles);
+printf("Total number of successful instruction cycle executions:%e\n",(double)(successful_cycles));
 
 printf("\n");
 printf("Number of crashes due to Program counter getting manipulated: %d \n",crash_param.crash_dueto_PC);
