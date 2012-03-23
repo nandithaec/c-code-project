@@ -43,6 +43,8 @@ struct registers
     int stack_pointer; //max length = 8
     int PCLATH; //8bit register -- actual value taken from GP_Reg
     int PCL;//8 bit register- actual value taken from GP_Reg
+	int initial_PCL;
+	int initial_PCLATH;
 };
 
 
@@ -129,10 +131,10 @@ struct crash_parameters
 
 
 //Function declarations
-int instruction_fetch(struct registers*, int []);
+int instruction_fetch(struct registers*, int [],struct crash_parameters *);
 int increment_PC(struct registers **);
 
-int decode_byte_instr(struct instructions *i1,struct crash_parameters *);
+int decode_byte_instr(struct instructions *i1,struct crash_parameters *,struct registers *, int []);
 int decode_bit_instr(struct instructions *i1, struct crash_parameters *);
 int call_goto_instr(struct instructions *i1, struct crash_parameters *);
 int literal_control_instr(struct instructions *i1, struct crash_parameters *);
@@ -142,21 +144,29 @@ int instruction_execute(struct registers *, struct instructions *, int [], struc
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], struct crash_parameters *, time_t);
-int check_pgm_crash(struct crash_parameters *, time_t);
+int bit_flips(struct registers *, int [], struct crash_parameters *, time_t, struct instructions *);
+int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
 
 
 //----------------------------------------Function definitions---------------------------------------------------------//
 
 
-int instruction_fetch(struct registers *r, int program_memory[])
+int instruction_fetch(struct registers *r, int program_memory[],struct crash_parameters *cp)
 {
     int instruction;
     instruction = program_memory[r-> PC];
     
     PRINT("-------------------------------------------------------------------\n");
     PRINT("INSTRUCTION FETCH >>\n");
-    PRINT("Fetching instruction from program_memory[%x]\n",r->PC);
+//    printf("Fetching instruction from program_memory[%x]\n",r->PC);
+	
+	if(r-> PC > 15)
+		{
+		printf("Random reg selected: %x\n\n",cp->random_reg);
+		printf("PC changed to %x\n", r->PC);
+		
+		//exit(0);
+		}
     PRINT("Before incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
     //Increment PC
@@ -187,7 +197,7 @@ return 0;
 }  
 
 
-int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp)
+int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, struct registers *r1, int program_memory[])
 
 {
         
@@ -196,17 +206,7 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp)
 //      i1->reg_index = (i1->reg_file_addr) - 12; // Reg file starts only from 0CH = 12
         i1->reg_index = (i1->reg_file_addr); // Reg file starts only from 0CH = 12
         i1->opcode = (i1->instruction & 0xFF00) >> 8;
-
 		
-		if (cp->random_reg == i1->reg_index) //Data at the reg_index has changed.. and hence leads to an error in computed results
-		{
-		printf("Error: Incorrect data at reg file location %x\n",cp->random_reg);
-  		cp->error= (cp->error)+1;
-		cp->incorrect_data++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		}	
-
         PRINT("---------------------------------------------------------------------\n");
         PRINT("INSTRUCTION DECODE >> Byte instructions\n");
 
@@ -224,6 +224,8 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp)
                 {
                         i1->instr_mnemonic_enum = RETURN;
                         PRINT("Instruction mnemonic = RETURN\n");
+					printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)-1), program_memory[(r1-> PC)-1]);
+		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
                 }
         else if (i1-> instruction==0x0009)
                 {
@@ -495,7 +497,7 @@ return 0;
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds)
+int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1)
 
 {
         int random_bit=0, random_bit_mem =0, random_number=0;
@@ -517,12 +519,12 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		// generate random number between 0 and PROBABILITY_INVERSE
 
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-		less=PROBABILITY_INVERSE - 202;
-		more=PROBABILITY_INVERSE - 2;
-	//printf("less=%d, more=%d\n",less,more);
-       //	printf("Random number generated outside: %d\n",random_number);
-	if((less< random_number) && (random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
-	{
+		less=PROBABILITY_INVERSE - 200;
+		more=PROBABILITY_INVERSE - 100;
+		//printf("less=%d, more=%d\n",less,more);
+		   //	printf("Random number generated outside: %d\n",random_number);
+		if((less< random_number) && (random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
+		{
                //	printf("Random number generated: %d\n",random_number);
 				
 				cp->random_reg = rand() % 256 ; // Random number between 0 and 255
@@ -574,7 +576,16 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                 }
         
        // printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
-        
+
+        //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
+			if (i1->reg_index == cp->random_reg)
+				{
+					PRINT("Error: Incorrect data at reg file location %x\n",i1-> reg_index);
+			  		cp->error= (cp->error)+1;
+					cp->incorrect_data++;
+					//cp->error_at_instr[cp->error] = cp->instr_cycles;
+					PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+				}	
 
 
 		//Flip 1 bit in program memory 
@@ -638,7 +649,7 @@ return 0;
 }
 
 
-int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds)
+int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds, struct registers *r1)
 
 {
 
@@ -659,12 +670,13 @@ int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds)
 //Condition for program crash if Program counter value changes:
 		if (cp->random_reg == 0x02 || cp->random_reg == 0x82 || cp->random_reg == 0x0A || cp->random_reg == 0x8A)
         {
+			cp->crash= (cp->crash)+1;
 			(cp-> crash_dueto_PC) ++;            
-			printf("\nCrash number:%d\n",(cp->crash)+1);
+			printf("\nCrash number:%d\n",(cp->crash));
 			printf("Program crash due to PC value at location %x getting affected\n", cp->random_reg);
            // PRINT("Content of the reg[%x] is (in hex): %x\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
 
-			cp->crash= (cp->crash)+1;
+			
             crash_time= time(NULL);
 				
 
@@ -678,18 +690,33 @@ int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds)
 			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
            
             cp->instr_cycles=0; //Reset instruction cycles after every crash
-           
+          // exit(0);
+
+				 //Reset program counter to beginning of the program
+                    r1->GP_Reg[2]= r1->initial_PCL;
+                    r1->GP_Reg[0x82]= r1->GP_Reg[2]; //PCL Bank 1 and Bank 0
+                    r1->PCL= r1->GP_Reg[2];
+
+                    r1->GP_Reg[0x0A]= r1->initial_PCLATH;
+                    r1->GP_Reg[0x8A]= r1->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+                    r1->PCLATH= r1->GP_Reg[0x0A];
+
+                    r1->PC = (r1->PCL | (r1->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
+                    //----------------------------------------------------------------------------------------------------------------------------
+
+
            
          }
 
 //Condition for program crash if illegal memory access
         if ( (0x4F < cp->random_mem && cp->random_mem < 0x7F) || (0xCF < cp->random_mem && cp->random_mem < 0xFF)) //Invalid memory location range
         { 
-            (cp-> crash_dueto_illegal_mem)++;
-			printf("\nCrash number:%d\n",(cp->crash)+1);
+            cp->crash= (cp->crash)+1;
+			(cp-> crash_dueto_illegal_mem)++;
+			printf("\nCrash number:%d\n",(cp->crash));
 			printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->random_mem);
            // printf("Content of the program_memory[%x] is (in hex): %x\n", cp->random_mem, program_memory[cp->random_mem]);
-            cp->crash= (cp->crash)+1;
+            
              crash_time= time(NULL);  
 
 			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
@@ -708,12 +735,10 @@ int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds)
            printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,cp->crash_time_array[c]);             
           } */
               
-
   
             cp->instr_cycles=0; //Reset instruction cycles after every crash
-          
-    
-   	 }
+              
+   	  }
 
 }
 
