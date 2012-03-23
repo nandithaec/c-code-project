@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
-#define MAX_CRASHES 2
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10 
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
@@ -518,7 +518,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		// generate random number between 0 and PROBABILITY_INVERSE
 
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-		less=PROBABILITY_INVERSE - 5001;
+		less=PROBABILITY_INVERSE - 2001;
 		more=PROBABILITY_INVERSE - 1
 ;
 		//printf("less=%d, more=%d\n",less,more);
