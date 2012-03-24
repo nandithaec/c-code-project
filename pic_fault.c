@@ -340,7 +340,7 @@ for(c=1;c<= (crash_param.crash); c++)
    printf("%llu\n",crash_param.crash_at_instr[c]);
   
    
-printf("Seconds elapsed since the beginning of the program, before each crash: \n");    
+printf("Seconds elapsed before each crash: \n");    
 for(c=1;c<= (crash_param.crash); c++)
    //Print the entire array containing the seconds at which the crash occured each time
    printf("%ld\n",crash_param.crash_time_array[c]);             

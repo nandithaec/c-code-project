@@ -518,7 +518,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		// generate random number between 0 and PROBABILITY_INVERSE
 
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-		less=PROBABILITY_INVERSE - 2001;
+		less=PROBABILITY_INVERSE - 5001;
 		more=PROBABILITY_INVERSE - 1
 ;
 		//printf("less=%d, more=%d\n",less,more);
@@ -584,24 +584,24 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 //Condition for program crash if Program counter value changes:
 		if (cp->random_reg == 0x02 || cp->random_reg == 0x82 || cp->random_reg == 0x0A || cp->random_reg == 0x8A)
         {
+			 			
 			cp->crash= (cp->crash)+1;
 			(cp-> crash_dueto_PC) ++;            
 			printf("\nCrash number:%d\n",(cp->crash));
 			printf("Program crash due to PC value at location %x getting affected\n", cp->random_reg);
            // PRINT("Content of the reg[%x] is (in hex): %x\n", cp->random_reg, r2->GP_Reg[cp->random_reg]);
 
-			
-            crash_time= time(NULL);
-				
-
+			crash_time= time(NULL);
+			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
+			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
+			cp->crash_time_array[cp->crash] = (crash_time-start_seconds- (cp->crash_time_array[cp->crash] -1));
+    
 			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
 			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 
-			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
-			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
-			cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
+			
            
             cp->instr_cycles=0; //Reset instruction cycles after every crash
         //   exit(0);
