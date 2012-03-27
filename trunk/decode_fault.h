@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10 
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 100000
+#define PROBABILITY_INVERSE 1000000
 #define FLOW_CHANGE_MAX 1000
 
 #define DEBUG
@@ -519,8 +519,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
 		less=PROBABILITY_INVERSE - 5001;
-		more=PROBABILITY_INVERSE - 1
-;
+		more=PROBABILITY_INVERSE - 1;
 		//printf("less=%d, more=%d\n",less,more);
 		  // 	printf("Random number generated: %d\n",random_number);
 		//	printf("Instruction cycle=%llu\n\n",cp->instr_cycles);
@@ -600,8 +599,6 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
 			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
-
-			
            
             cp->instr_cycles=0; //Reset instruction cycles after every crash
         //   exit(0);
@@ -616,22 +613,20 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                     r2->PCLATH= r2->GP_Reg[0x0A];
 
                     r2->PC = (r2->PCL | (r2->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
-                    //----------------------------------------------------------------------------------------------------------------------------
-
-
-           
+                //----------------------------------------------------------------------------------------------------------------------------
+          
          }
 
 
-
+		//Error
         //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
 			if (i1->reg_index == cp->random_reg)
 				{
-					PRINT("Error: Incorrect data at reg file location %x\n",i1-> reg_index);
+					printf("Error: Incorrect data at reg file location %x\n",i1-> reg_index);
 			  		cp->error= (cp->error)+1;
 					cp->incorrect_data++;
 					//cp->error_at_instr[cp->error] = cp->instr_cycles;
-					PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 				}	
 
 
