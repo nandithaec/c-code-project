@@ -14,8 +14,9 @@
 #define NUM_OF_PGM_RUNS 10 
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 1000000
+#define PROBABILITY_INVERSE 1000
 #define FLOW_CHANGE_MAX 1000
+#define NUM_OF_BITFLIPS 10000
 
 #define DEBUG
 //#ifdef DEBUG
@@ -112,8 +113,8 @@ struct instructions
 struct crash_parameters
 {
 
-	int random_reg;
-	int random_mem;
+	int random_reg[NUM_OF_BITFLIPS];
+	int random_mem[NUM_OF_BITFLIPS];
 	unsigned long long int instr_cycles;
 	int crash;
 	unsigned long long int crash_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
@@ -126,7 +127,10 @@ struct crash_parameters
 	int control_flow_change;
 	int error_at_instr[FLOW_CHANGE_MAX];
 	int incorrect_data;
-
+	int flip_bit_flag;
+	int reg_count;
+	int mem_count;
+	
 };
 
 
@@ -146,7 +150,7 @@ int pop (struct registers *);
 
 int bit_flips(struct registers *, int [], struct crash_parameters *, time_t, struct instructions *);
 int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
-
+int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *);
 
 //----------------------------------------Function definitions---------------------------------------------------------//
 
@@ -503,6 +507,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
         int random_bit=0, random_bit_mem =0, random_number=0;
         int i=0, c=0;
 		int less=0, more=0;
+
      	
 		time_t seconds = time(NULL);
 		if (seconds == previous_time) 
@@ -518,17 +523,19 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		// generate random number between 0 and PROBABILITY_INVERSE
 
 		random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-		less=PROBABILITY_INVERSE - 5001;
+		less=PROBABILITY_INVERSE - 500;
 		more=PROBABILITY_INVERSE - 1;
 		//printf("less=%d, more=%d\n",less,more);
 		  // 	printf("Random number generated: %d\n",random_number);
 		//	printf("Instruction cycle=%llu\n\n",cp->instr_cycles);
 
+//Flip bits only under this condition
 		if((less< random_number) && (random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 		{
                //	printf("Random number generated: %d\n",random_number);
+				cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
+				cp->random_reg[cp->reg_count++] = rand() % 256 ; // Random number between 0 and 255
 				
-				cp->random_reg = rand() % 256 ; // Random number between 0 and 255
                 random_bit = rand() % 8 ; // Random number between 0 and 7
 		
 
@@ -618,21 +625,11 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
          }
 
 
-		//Error
-        //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
-			if (i1->reg_index == cp->random_reg)
-				{
-					printf("Error: Incorrect data at reg file location %x\n",i1-> reg_index);
-			  		cp->error= (cp->error)+1;
-					cp->incorrect_data++;
-					//cp->error_at_instr[cp->error] = cp->instr_cycles;
-					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-				}	
-
 
 		//Flip 1 bit in program memory 
 		// generate random number: 
-                cp->random_mem = rand() % 8192; // Random number between 0 and 8192
+                cp->random_mem[cp->mem_count++] = rand() % 8192; // Random number between 0 and 8192
+
                 random_bit_mem = rand() % 8 ; // Random number between 0 and 7
 
                // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp->random_mem,random_bit_mem);
@@ -815,6 +812,33 @@ int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds, struct re
               
    	  }
 
+return 0;
 }
 
 
+		//Error
+int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1)
+{
+
+		int i=0;
+
+        //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
+		if (cp->flip_bit_flag==1) //This flag is set only when the bit is flipped.
+		{
+			for(i=0;i< cp-> reg_count;i++)
+			{
+				if (i1->reg_index == cp->random_reg[i])
+				{
+					printf("\nError: Incorrect data at reg file location %x\n",i1-> reg_index);
+			  		cp->error= (cp->error)+1;
+					cp->incorrect_data++;
+					//cp->error_at_instr[cp->error] = cp->instr_cycles;
+					printf("Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles);
+				}	
+			}
+	
+		cp->flip_bit_flag=0; //Reset flag.
+		}
+return 0;
+
+}
