@@ -44,8 +44,8 @@ int main()
 
 		struct crash_parameters crash_param;
 		//Initialisation
-		crash_param.random_reg=0;
-		crash_param.random_mem=0;
+		crash_param.reg_count=0;
+		crash_param.mem_count=0;
 		crash_param.instr_cycles=0;
 		crash_param.crash=0;
 		crash_param.program_runs=0;
@@ -64,7 +64,11 @@ int main()
 			for(i=0;i<FLOW_CHANGE_MAX;++i)
                 crash_param.error_at_instr[i]=0;
 
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                crash_param.random_reg[i]=0;
 
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                crash_param.random_mem[i]=0;
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
         pic_registers.configuration_word[11]= 1; //WDT Enabler bit
@@ -264,7 +268,8 @@ int main()
 
                 post_decode= pre_decode;
                       				
-	
+				check_pgm_error(&crash_param, &pic_registers, &pre_decode);
+
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
