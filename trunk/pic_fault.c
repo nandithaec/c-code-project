@@ -43,7 +43,8 @@ int main()
 
 
 		struct crash_parameters crash_param;
-		//Initialisation
+		//Initialisation	
+		crash_param.random_number=0;
 		crash_param.reg_count=0;
 		crash_param.mem_count=0;
 		crash_param.instr_cycles=0;
@@ -55,6 +56,9 @@ int main()
 		crash_param.error=0;
 		crash_param.control_flow_change=0;
 		crash_param.incorrect_data=0;
+		crash_param.same_reg=0;
+		crash_param.same_PC=0;
+
 	
 		//clear all locations
 			for(i=0;i<MAX_CRASHES;++i)
@@ -69,6 +73,14 @@ int main()
 
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
                 crash_param.random_mem[i]=0;
+
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                crash_param.store_same_reg_modification[i]=0;
+	
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                crash_param.store_PC_same[i]=0;
+
+
 //-------------------------------Initialising registers------------------------------------
 //Max register content= 255 (dec) or FF (hex)
         pic_registers.configuration_word[11]= 1; //WDT Enabler bit
@@ -206,7 +218,7 @@ int main()
         printf("%x", pic_registers.GP_Reg[3]);
         printf("\n");
 
-		printf("Probability of a bit flip is set to: %g\n",(1.00/PROBABILITY_INVERSE));
+		printf("Probability of a bit flip is set to: %g\n",(500.0/PROBABILITY_INVERSE));
 
         loop= starting_PC_value;
 
@@ -268,7 +280,7 @@ int main()
 
                 post_decode= pre_decode;
                       				
-				check_pgm_error(&crash_param, &pic_registers, &pre_decode);
+				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory);
 
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
@@ -284,10 +296,10 @@ int main()
 
              
 
-				 //Instruction execute
-				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param);
-                
-				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
+		 //Instruction execute
+		instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param);
+
+		crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
 
                 PRINT("****************************************************************\n");    
                 loop++;
@@ -340,16 +352,26 @@ for(i=1;i <= MAX_CRASHES;i++)
 	}
 
 printf("Number of instruction cycles executed before each crash:\n");
-for(c=1;c<= (crash_param.crash); c++)
+for(c=1; c<= (crash_param.crash); c++)
    //Print the entire array containing the instruction cycles at which the crash occured each time
    printf("%llu\n",crash_param.crash_at_instr[c]);
   
    
 printf("Seconds elapsed before each crash: \n");    
-for(c=1;c<= (crash_param.crash); c++)
+for(c=1; c<= (crash_param.crash); c++)
    //Print the entire array containing the seconds at which the crash occured each time
    printf("%ld\n",crash_param.crash_time_array[c]);             
   
+
+
+printf("Calculating the number of errors: \n");    
+for(c=0; c<= (crash_param.error); c++)
+{
+//Calculating the errors.. 
+	printf("Error number: %d. This gets accessed every program run and hence repeated once in every %d opcodes\n", c, NUM_OF_INSTR);
+	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.error_at_instr[c]) /(NUM_OF_INSTR);
+ 	printf("Total number of this error:%llu\n\n",crash_param.errors_repeated[c]); 
+}
    
 percentage_crash= ((crash_param.crash/total_instr_cycles))*100.0;
 percentage_error= ((crash_param.error/total_instr_cycles))*100.0;
