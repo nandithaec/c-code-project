@@ -74,7 +74,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 	case 2: //RETURN 
 		
-		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
 		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
@@ -105,7 +105,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 	
 	case 3: //RETFIE
 		
-		if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+		if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
 		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
@@ -113,7 +113,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
-		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 		printf("Instruction cycle=%llu\n",cp->instr_cycles);
 		printf("RETFIE instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
@@ -1283,7 +1283,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	printf("CALL instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
-	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+	if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
 		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
@@ -1291,7 +1291,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}		
-		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
@@ -1320,7 +1320,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	printf("GOTO instruction\n");
 
 	//W is the accumulator and immediate_value is the immediate value to be added
-	if (cp->random_mem == (r1-> PC) -1) //Control flow changes
+	if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
 		printf("Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
@@ -1328,7 +1328,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
-	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp->random_mem, program_memory[cp->random_mem]);
+	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
