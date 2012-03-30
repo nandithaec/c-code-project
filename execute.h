@@ -1,6 +1,6 @@
 //Execute.h 
 
-int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp)
+int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew)
 {
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
@@ -76,11 +76,15 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
-		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
+		printf("Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
+
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
 	    
 		
@@ -107,11 +111,13 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
-		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
+		printf("Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
 		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 		printf("Instruction cycle=%llu\n",cp->instr_cycles);
@@ -1285,11 +1291,14 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	//W is the accumulator and immediate_value is the immediate value to be added
 	if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
-		PRINT("Error: Control flow has changed..will lead to incorrect results\n");
+		printf("Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
+
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		PRINT("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}		
 		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
@@ -1323,10 +1332,12 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	if (cp-> random_mem[cp->mem_count] == (r1-> PC) -1) //Control flow changes
 		{
 		printf("Error: Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"Error: Control flow has changed..will lead to incorrect results\n");
   		cp->error= (cp->error)+1;
 		cp->control_flow_change++;
 		cp->error_at_instr[cp->error] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
 	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
