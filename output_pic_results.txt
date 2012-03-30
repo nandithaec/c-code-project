@@ -1,0 +1,39 @@
+Hello
+At the start of execution: 1333107034 seconds since January 1, 1970 
+Instructions read from file= program_memory[f]= 0
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 0.5
+Executing...
+
+Crash number:1
+Program crash due to PC value at location 2 getting affected
+Time of crash number 1 is 1333107103 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 69 (in seconds)
+Number of instruction cycles executed before the crash: 149378513
+
+Total number of instructions in the program = 15
+Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+Status register contents:(hex) at the end of all operations: 0
+Number of instruction cycles executed before each crash:
+149378513
+Seconds elapsed before each crash: 
+70
+Calculating the number of errors: 
+Opcodes at which the errors occurred get accessed every program run and hence repeated once in every 15 opcodes
+Instruction cycle at which the errors first occured:
+Total number of times each error occured:
+Total number of instruction cycles executed:149378513
+Total number of crashes:1
+Total number of errors: 0
+Summing up all errors which repeat every program run,Total number of errors: 0
+Total number of successful instruction cycle executions without errors/crashes:149378512
+
+Percentage of successful executions:99.999999
+
+Number of crashes due to Program counter getting manipulated: 1 
+Number of crashes due to illegal memory access: 0 
+Number of crashes due to illegal opcode: 0 
+Total number of errors due to incorrect control flow: 0
+Total number of errors due to incorrect data: 0
+Mean time to failure in terms of the number of instruction cycles: 149378513
+Mean time to failure in terms of seconds: 70
