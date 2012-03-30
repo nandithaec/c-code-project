@@ -58,9 +58,12 @@ int main()
 		crash_param.incorrect_data=0;
 		crash_param.same_reg=0;
 		crash_param.same_PC=0;
-
-	
+		crash_param. reg_index_match=0;
+		crash_param.set_no_same_PC=1; // for the very first PC
 		//clear all locations
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                crash_param.store_PC_same[i]=0;
+			
 			for(i=0;i<MAX_CRASHES;++i)
                 crash_param.crash_at_instr[i]=0;
 			for(i=0;i<MAX_CRASHES;++i)
@@ -77,8 +80,7 @@ int main()
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
                 crash_param.store_same_reg_modification[i]=0;
 	
-			for(i=0;i<NUM_OF_BITFLIPS;++i)
-                crash_param.store_PC_same[i]=0;
+	
 
 
 //-------------------------------Initialising registers------------------------------------
@@ -219,6 +221,7 @@ int main()
         printf("\n");
 
 		printf("Probability of a bit flip is set to: %g\n",(500.0/PROBABILITY_INVERSE));
+		printf("Executing...\n");
 
         loop= starting_PC_value;
 
@@ -229,10 +232,8 @@ int main()
                 PRINT("****************************************************************\n");
                 PRINT("INSTRUCTION NUMBER %d\n", loop - starting_PC_value + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
-
-                  //Bit flip function called every cycle
-	    		bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode);
-
+		
+                
 				//Check for program crash
 				//check_pgm_crash(&crash_param, start_seconds,&pic_registers);
 
@@ -277,9 +278,12 @@ int main()
                                 break;
                 }
        
-
+		
                 post_decode= pre_decode;
                       				
+				  //Bit flip function called every cycle
+	    		bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode);
+
 				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory);
 
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
