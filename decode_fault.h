@@ -134,8 +134,10 @@ struct crash_parameters
 	int mem_count;
 	int store_same_reg_modification[NUM_OF_BITFLIPS];
 	int same_reg;
-	int store_PC_same[NUM_OF_BITFLIPS]
+	int store_PC_same[NUM_OF_BITFLIPS];
 	int same_PC;
+	int reg_index_match;
+	int set_no_same_PC;
 };
 
 
@@ -537,17 +539,17 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 //Flip bits only under this condition
 	if((less< cp->random_number) && (cp->random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
-               //	printf("Random number generated: %d\n",cp->random_number);
+        printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
 		cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
 		cp->random_reg[cp->reg_count] = rand() % 256 ; // Random number between 0 and 255
 				
                 random_bit = rand() % 8 ; // Random number between 0 and 7
 		
-
+		PRINT("Flip flag set to %d\n",cp->flip_bit_flag);
 	
                 //printf("\nBit flip function called\n");
                // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp-> random_reg[cp->reg_count],random_bit);
-                PRINT("Content of the random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
+           PRINT("Content of the random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
                 switch(random_bit)
                 {
                         case 0:
@@ -590,7 +592,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                         break;
                 }
         
-        //printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
+        printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
@@ -683,7 +685,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                         break;
                 }
         
-        //printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+        printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
      
 //Condition for program crash if illegal memory access
 		if ( (0x4F < cp-> random_mem[cp->mem_count] && cp-> random_mem[cp->mem_count] < 0x7F) || (0xCF < cp-> random_mem[cp->mem_count] && cp-> random_mem[cp->mem_count] < 0xFF)) //Invalid memory location range
@@ -826,32 +828,86 @@ return 0;
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[])
 {
 
-		int i=0;
+	int i=0,j=0;
 
-        //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
-		if (cp->flip_bit_flag==1) //This flag is set only when the bit is flipped.
+    //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
+	if (cp->flip_bit_flag==1) //This flag is set only when the bit is flipped.
+	{ 
+		printf("\nCheck function called, but no error yet. Reg count=%d \n", cp-> reg_count);
+		cp->flip_bit_flag=0; //Reset flag.
+		PRINT("Reg index= %x\n",i1-> reg_index);
+		for(i=0;i < cp-> reg_count;i++) //Check if the reg index is equal to any of the previously flipped registers
 		{
-		
-		for(i=0;i< cp-> reg_count;i++)
-		{
-			if (i1->reg_index == cp->random_reg[i])
-			{
-				printf("\nError: Incorrect data at reg index %x\n",i1-> reg_index);
-				printf("Random number generated was:%d\n", cp->random_number);
-				printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n", cp-> random_reg[i], r2->GP_Reg[cp-> random_reg[i]]);
-				cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[i]];
-				
-				printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC)-1, program_memory[ (r2-> PC) -1]);
-				cp-> store_PC_same[cp->same_PC++]=(r2-> PC)-1;
-		  		cp->error= (cp->error)+1;
-				cp->incorrect_data++;
-				cp->error_at_instr[cp->error] = cp->instr_cycles;
-				printf("Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles);
-			}	
+			if (i1->reg_index == cp->random_reg[i]) // && cp->first_error== 0) //If first error
+				{
+				cp-> reg_index_match = 1;
+				printf("\nReg index: %x, matches with random reg:%x. Reg count array index=%d\n",i1-> reg_index,cp-> random_reg[i], i);
+				printf("Bit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], r2->GP_Reg[cp-> random_reg[i]]);
+
+				}
 		}
 	
-		cp->flip_bit_flag=0; //Reset flag.
-		}
+		if (cp-> reg_index_match == 1)
+		// This can be equal even if the same instruction is repeated after a certain number of cycles, hence check for PC value
+		{
+			printf("Reg index match, inside if\n");
+			printf("PC value= %x\n",(r2-> PC) -1);
+			printf("Same PC =%d\n",cp->same_PC);
+			printf("cp-> store_PC_same[0]=%x\n",cp-> store_PC_same[0]);
+
+			cp-> reg_index_match = 0; //reset
+			for(j=0;j < cp->same_PC; j++) //hence check for additional constraints
+			{
+				printf("cp-> store_PC_same[%d]=%x\n", j, cp-> store_PC_same[j]);
+				//if(r2->GP_Reg[cp-> random_reg[i]] != cp->store_same_reg_modification[j]) // The reg content shouldnt be the same
+				if( ((r2-> PC)-1) != cp-> store_PC_same[j] ) // error for the same instruction should be recorded only once
+					{
+					cp->set_no_same_PC = 1; //For loop is not entered for the very first time..hence initialised to 1 in main()
+					printf("j=%d, PC not same as previous ones..counting as error\n",j);
+					//printf("same_PC count=%d, j=%d, cp-> store_PC_same[%d]=%x\n",cp->same_PC, j,j, cp-> store_PC_same[j]);
+					}
+
+				else 
+					{
+					cp->set_no_same_PC = 0; // If same PC value
+					printf("j=%d,PC %d same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC)-1);
+					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+					}
+
+			if(cp->set_no_same_PC ==0)
+				break; //The moment the PC matches with any one of the values stored already, exit the for loop
+			}
+	
+
+			if(cp->set_no_same_PC == 1)
+			{ //Prevent the same error from printing multiple times..
+				cp->set_no_same_PC =0; //reset
+				
+				printf("\nERROR: Incorrect data\n");
+				
+				
+				//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
+		
+				printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC)-1, program_memory[ (r2-> PC) -1]);
+				printf("Reg index %x\n",i1-> reg_index)
+				cp-> store_PC_same[cp->same_PC]= (r2-> PC)-1; //PC 
+			//same_PC will have same value as that of same_reg
+		  	
+			printf("cp->store_PC_same[%d]=%x\n",,cp->same_PC, cp-> store_PC_same[cp->same_PC]);
+			printf("same_PC count before incrementing=%d\n", cp->same_PC);
+				cp->incorrect_data++;
+				cp->error_at_instr[cp->error] = cp->instr_cycles;
+				cp->error= (cp->error)+1;
+				cp->same_PC= (cp->same_PC) +1; //gets incremented only if unique PC value is stored
+				printf("Same PC incremented to %d\n",cp->same_PC);
+				printf("Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles);
+				printf("******Errors so far...****** %d\n",cp->error);
+				//cp->first_error = 1;
+				}
+		
+		} //end if (cp-> reg_index_match == 1)
+
+	} //end if (cp->flip_bit_flag==1)
 return 0;
 
 }
