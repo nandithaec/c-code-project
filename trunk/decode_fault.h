@@ -10,11 +10,12 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
-#define MAX_CRASHES 1
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10 
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 1000
+#define PROBABILITY_INVERSE 10000
+#define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
 
@@ -46,6 +47,9 @@ struct registers
     int PCL;//8 bit register- actual value taken from GP_Reg
 	int initial_PCL;
 	int initial_PCLATH;
+	int  starting_PC_value;
+	int n;
+
 };
 
 
@@ -139,12 +143,18 @@ struct crash_parameters
 	int same_PC;
 	int reg_index_match;
 	int set_no_same_PC;
+	int crash_mem_access;
 };
 
 
 //Function declarations
+int read_instr_from_file(FILE *,int program_memory[],struct registers *, FILE *);
 int instruction_fetch(struct registers*, int [],struct crash_parameters *);
 int increment_PC(struct registers **);
+
+int reset_PC_to_beginninng(struct registers *);
+int initialise_regs(struct registers*);
+int initialise_crash_param(struct crash_parameters *);
 
 int decode_byte_instr(struct instructions *i1,struct crash_parameters *,struct registers *, int [], FILE *);
 int decode_bit_instr(struct instructions *i1, struct crash_parameters *, FILE *);
@@ -156,11 +166,209 @@ int instruction_execute(struct registers *, struct instructions *, int [], struc
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], struct crash_parameters *, time_t, struct instructions *, FILE *);
+int bit_flips(struct registers *, int [], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *);
 int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
-int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *f);
+int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
 
 //----------------------------------------Function definitions---------------------------------------------------------//
+int initialise_regs(struct registers *r)
+{
+	int i=0;
+	printf("Initialising all registers\n");
+		r->n=0;
+	//Max register content= 255 (dec) or FF (hex)
+        r->configuration_word[11]= 1; //WDT Enabler bit
+		r->starting_PC_value=0;
+//clear all registers
+			for(i=0;i<REG_MAX;++i)
+                r->GP_Reg[i]=0; //clear all registers in register file map
+       
+        //INTCON Register
+                r->GP_Reg[0x0B]=0; //INTCON register at address 0B in the register file map
+                r->GP_Reg[0x8B]= r->GP_Reg[0x0B];
+
+        //for(i=0;i<MEM_WIDTH;++i)
+        //      r->PC=0;
+        //STACK
+                r->stack_pointer = 0;
+                r->stack[1] = 0x62;
+                r->stack[0] = 0x88;
+
+        // Status register = GP_Reg[3]
+        //Assigning some value to the carry in status reg
+//              r->GP_Reg[3]= r->GP_Reg[3] & 0xFE; //carry = 0
+                //r->GP_Reg[3]= r->GP_Reg[3] | 0x01; //carry = 1
+                r->GP_Reg[3]= 0x00;
+                r->GP_Reg[0x83]= r->GP_Reg[3]; //Bank 1 and Bank 0
+
+                r->W = 0x00;
+               
+        //TMRO
+                r->GP_Reg[1]= 0x00;
+
+        //OPTION REG
+                r->GP_Reg[0x81]= 0x00;
+
+                //FSR
+                r->GP_Reg[4]= 0x00;
+                r->GP_Reg[0x84]= r->GP_Reg[4];
+
+        //PORTA
+                r->GP_Reg[5]= 0x00;
+
+        //PORTB
+                r->GP_Reg[6]= 0x00;
+
+        //TRISA
+                r->GP_Reg[0x85]= 0x00;
+
+        //TRISB
+                r->GP_Reg[0x86]= 0x00;
+
+        //EEDATA
+                r->GP_Reg[8]= 0x00;
+
+        //EEADR
+                r->GP_Reg[9]= 0x00;
+
+        //EECON1
+                r->GP_Reg[0x88]= 0x00;
+
+        //EECON2 - not a physical register
+        //      r->GP_Reg[0x89]= 0x00;
+
+//Initialise PC values
+				 r->initial_PCL =0;
+				  r->initial_PCLATH=0;
+
+//use this address 0x02 to write into PCL:
+//PCL= GP_Reg[2] and GP_Reg[0x82]
+                r->GP_Reg[2]= 0x00;
+                r->GP_Reg[0x82]= r->GP_Reg[2]; //Bank 1 and Bank 0
+                r->PCL= r->GP_Reg[2];
+
+        //PCLATH.. use this address to write into PCLATH
+                r->GP_Reg[0x0A]= 0x00;
+                r->GP_Reg[0x8A]= r->GP_Reg[0x0A]; //Bank 1 and Bank 0
+                r->PCLATH= r->GP_Reg[0x0A];
+
+                r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+
+                PRINT("-----------------------------------------------------------------\n");
+                PRINT("Initial values (hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",r->PCL, r->PCLATH, r->PC);
+
+return 0;
+}
+
+int initialise_crash_param(struct crash_parameters *cp)
+{
+	int i=0;
+	printf("Initialising crash parameters\n");
+		cp->random_number=0;
+		cp->reg_count=0;
+		cp->mem_count=0;
+		cp->instr_cycles=0;
+		cp->instr_cycles_for_error=0;
+		cp->crash=0;
+		cp->program_runs=0;
+		cp->crash_dueto_illegal_mem=0;
+		cp->crash_dueto_PC=0;
+		cp->crash_dueto_illegal_opcode=0;
+		cp->error=0;
+		cp->control_flow_change=0;
+		cp->incorrect_data=0;
+		cp->same_reg=0;
+		cp->same_PC=0;
+		cp-> reg_index_match=0;
+		cp->set_no_same_PC=1; // for the very first PC
+		cp->crash_mem_access = 0;
+
+		//clear all locations
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                cp->store_PC_same[i]=0;
+			
+			for(i=0;i<MAX_CRASHES;++i)
+                cp->crash_at_instr[i]=0;
+			for(i=0;i<MAX_CRASHES;++i)
+                cp->crash_time_array[i]=0;
+			for(i=0;i<FLOW_CHANGE_MAX;++i)
+                cp->error_at_instr[i]=0;
+
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                cp->random_reg[i]=0;
+
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                cp->random_mem[i]=0;
+
+			for(i=0;i<NUM_OF_BITFLIPS;++i)
+                cp->store_same_reg_modification[i]=0;
+
+return 0;
+}
+
+
+
+int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FILE *fnew)
+{
+
+	int i=0;
+    char line[FILE_CHARS]; 
+    //int starting_PC_value = 0;
+	int instr_from_file=0;
+
+	reset_PC_to_beginninng(r);
+
+
+ 		r->n= r->PC; // new value of n is initialised to the PC value that is read from the disassembly listing
+        r->starting_PC_value = r->PC;
+        PRINT("Starting PC value=%x\n",r->starting_PC_value);
+
+		fp= fopen("simple_add_assembly.c","rt");
+        if( fp == NULL )
+         {
+               puts ( "cannot open file" ) ;
+          //     exit(0) ;
+         }  
+
+	while(fgets(line, FILE_CHARS, fp) != NULL)
+           {
+                 // get a line, up to 80 chars from fp.  done if NULL 
+                 sscanf (line, "%x", &instr_from_file);
+                program_memory[r->n]= instr_from_file;
+                r->n = (r->n) + 1;
+               
+           }
+         
+                for(i= r->starting_PC_value;i< (r->n);i++)
+                        printf("Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+						fprintf(fnew,"Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+   fclose(fp);  /* close the file prior to exiting the routine */
+
+return 0;
+}
+
+
+int reset_PC_to_beginninng(struct registers *r)
+{
+//----------------------------------------------------------------------------------------------------------------------------
+                    //Reset program counter to beginning of the program
+                    r->GP_Reg[2]= r->initial_PCL;
+                    r->GP_Reg[0x82]= r->GP_Reg[2]; //PCL Bank 1 and Bank 0
+                    r->PCL= r->GP_Reg[2];
+
+                    r->GP_Reg[0x0A]= r->initial_PCLATH;
+                    r->GP_Reg[0x8A]= r->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+                    r->PCLATH= r->GP_Reg[0x0A];
+
+                    r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
+                    //----------------------------------------------------------------------------------------------------------------------------
+
+	//	printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+
+
+return 0;
+}
+
 
 
 int instruction_fetch(struct registers *r, int program_memory[],struct crash_parameters *cp)
@@ -518,11 +726,11 @@ return 0;
 
 
 
-int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew)
+int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fp)
 
 {
         int random_bit=0, random_bit_mem =0;
-        int i=0, c=0;
+        int i=0, c=0, ii=0;
 		int less=0, more=0;
 
      	
@@ -540,7 +748,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		// generate random number between 0 and PROBABILITY_INVERSE
 
 		cp->random_number = rand() % PROBABILITY_INVERSE; // probability of flipping is (1/ (probability_inverse))
-		less=PROBABILITY_INVERSE - 500;
+		less=PROBABILITY_INVERSE - RANDOM_GUESS_RANGE;
 		more=PROBABILITY_INVERSE - 1;
 		//printf("less=%d, more=%d\n",less,more);
 		  // 	printf("Random number generated: %d\n",cp->random_number);
@@ -633,22 +841,25 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
            fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
-
-            cp->instr_cycles=0; //Reset instruction cycles after every crash
+	
+			//initialise_crash_param(cp);
+			//initialise_regs(r2);
+          
         //   exit(0);
 
-				 //Reset program counter to beginning of the program
-                    r2->GP_Reg[2]= r2->initial_PCL;
-                    r2->GP_Reg[0x82]= r2->GP_Reg[2]; //PCL Bank 1 and Bank 0
-                    r2->PCL= r2->GP_Reg[2];
+//------------------------Reset conditions---------------------------------------
 
-                    r2->GP_Reg[0x0A]= r2->initial_PCLATH;
-                    r2->GP_Reg[0x8A]= r2->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-                    r2->PCLATH= r2->GP_Reg[0x0A];
+   			 cp->instr_cycles=0; //Reset instruction cycles after every crash
 
-                    r2->PC = (r2->PCL | (r2->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
-                //----------------------------------------------------------------------------------------------------------------------------
-          
+			 //Reset program counter to beginning of the program
+               reset_PC_to_beginninng(r2);
+
+
+			//clear all registers
+			for(ii=0;ii<REG_MAX;++ii)
+                r2->GP_Reg[i]=0; //clear all registers in register file map
+
+//-------------------------------------------------------------------------------
    		  }
 
 
@@ -742,9 +953,20 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		   printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,cp->crash_time_array[c]);             
 		  } */
 		      
-	  
+	  		//cp->crash_mem_access=1;
+		//initialise_crash_param(cp);
+		//initialise_regs(r2);
+
+//Reset conditions
 		    cp->instr_cycles=0; //Reset instruction cycles after every crash
-		      
+			
+		//Reset program memory
+			for(ii=0;ii< PROGRAM_MEM_SIZE; ++ii)
+				program_memory[ii]=0;
+
+		//Load instructions back to program memory after crash
+		      	read_instr_from_file(fp,program_memory,r2,fnew);
+
 	   	  }
 
 	cp->reg_count = cp->reg_count + 1;
@@ -755,7 +977,7 @@ PRINT("Ending bitflips function\n");
 return 0;
 }
 
-
+//DO NOT USE THIS FUNCTION
 //Its better not to use this function. The condition for program crash is being checked within the bit_flips function itself.
 int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds, struct registers *r2)
 
@@ -843,7 +1065,7 @@ int check_pgm_crash(struct crash_parameters *cp, time_t start_seconds, struct re
            printf("Crash[%d]: Seconds elapsed since the beginning of the program, before crashing: %d\n",c,cp->crash_time_array[c]);             
           } */
               
-  
+  			
             cp->instr_cycles=0; //Reset instruction cycles after every crash
               
    	  }
@@ -899,7 +1121,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 				else 
 					{
 					cp->set_no_same_PC = 0; // If same PC value
-					printf("j=%d,PC %d same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC)-1);
+					printf("j=%d,PC %x same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC)-1);
 					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles_for_error);
 					}
 
@@ -946,3 +1168,4 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 return 0;
 
 }
+
