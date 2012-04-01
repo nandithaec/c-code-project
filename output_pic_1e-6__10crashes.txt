@@ -1,0 +1,125 @@
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 1e-06
+Error: Incorrect data at reg file location d
+Number of instruction cycles executed before the error: 8023347689
+Error: Incorrect data at reg file location 0
+Number of instruction cycles executed before the error: 10520910076
+
+Crash number:1
+Program crash due to PC value at location 82 getting affected
+Time of crash number 1 is 1332665012 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 17092 (in seconds)
+Number of instruction cycles executed before the crash: 17541420427
+Error: Incorrect data at reg file location 3
+Number of instruction cycles executed before the error: 7273765175
+
+Crash number:2
+Program crash due to illegal memory access: Content of location dd got affected
+Number of instruction cycles executed before the crash: 16213847034
+Time of crash number 2 is 1332680788 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 32868 (in seconds)
+
+Crash number:3
+Program crash due to illegal memory access: Content of location 64 got affected
+Number of instruction cycles executed before the crash: 24247499938
+Time of crash number 3 is 1332704470 seconds since January 1, 1970
+At crash 3,time since the beginning of program execution is: 56550 (in seconds)
+
+Crash number:4
+Program crash due to PC value at location 8a getting affected
+Time of crash number 4 is 1332716733 seconds since January 1, 1970
+At crash 4,time since the beginning of program execution is: 68813 (in seconds)
+Number of instruction cycles executed before the crash: 12634640967
+
+Crash number:5
+Program crash due to illegal memory access: Content of location 5d got affected
+Number of instruction cycles executed before the crash: 2830696056
+Time of crash number 5 is 1332719486 seconds since January 1, 1970
+At crash 5,time since the beginning of program execution is: 71566 (in seconds)
+
+Crash number:6
+Program crash due to PC value at location a getting affected
+Time of crash number 6 is 1332723742 seconds since January 1, 1970
+At crash 6,time since the beginning of program execution is: 75822 (in seconds)
+Number of instruction cycles executed before the crash: 4382651934
+
+Crash number:7
+Program crash due to illegal memory access: Content of location e0 got affected
+Number of instruction cycles executed before the crash: 882425658
+Time of crash number 7 is 1332724598 seconds since January 1, 1970
+At crash 7,time since the beginning of program execution is: 76678 (in seconds)
+Error: Incorrect data at reg file location 3
+Number of instruction cycles executed before the error: 7879136598
+
+Crash number:8
+Program crash due to PC value at location 2 getting affected
+Time of crash number 8 is 1332736805 seconds since January 1, 1970
+At crash 8,time since the beginning of program execution is: 88885 (in seconds)
+Number of instruction cycles executed before the crash: 12538104413
+
+Crash number:9
+Program crash due to PC value at location 8a getting affected
+Time of crash number 9 is 1332748856 seconds since January 1, 1970
+At crash 9,time since the beginning of program execution is: 100936 (in seconds)
+Number of instruction cycles executed before the crash: 12422608831
+
+Crash number:10
+Program crash due to PC value at location 8a getting affected
+Time of crash number 10 is 1332754284 seconds since January 1, 1970
+At crash 10,time since the beginning of program execution is: 106364 (in seconds)
+Number of instruction cycles executed before the crash: 5586989965
+
+Total number of instructions in the program = 15
+Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+Status register contents:(hex) at the end of all operations: 4
+Number of instruction cycles executed before each crash:
+17541420427
+16213847034
+24247499938
+12634640967
+2830696056
+4382651934
+882425658
+12538104413
+12422608831
+5586989965
+
+Seconds elapsed before each crash: 
+1
+32868
+56550
+68814
+71566
+75823
+76678
+88886
+100937
+106365
+Total number of instruction cycles executed:1.092809e+11
+Total number of crashes:10
+Total number of errors: 4
+Total number of successful instruction cycle executions:1.092809e+11
+
+Number of crashes due to Program counter getting manipulated: 6 
+Number of crashes due to illegal memory access: 4 
+Number of crashes due to illegal memory access: 0 
+Total number of errors due to incorrect control flow: 0
+Total number of errors due to incorrect data: 4
+Mean time to failure in terms of the number of instruction cycles: 10928088522
+Mean time to failure in terms of seconds: 67848
+
