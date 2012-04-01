@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10 
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 10000
+#define PROBABILITY_INVERSE 200
 #define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
@@ -339,9 +339,12 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
                
            }
          
+printf("\nLoading instructions to memory\n");
+fprintf(fnew,"\nLoading instructions to memory\n");
+
                 for(i= r->starting_PC_value;i< (r->n);i++)
                         printf("Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
-						fprintf(fnew,"Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+			fprintf(fnew,"Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
    fclose(fp);  /* close the file prior to exiting the routine */
 
 return 0;
@@ -460,7 +463,8 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 case 0:
                         if (i1-> d==0)
                                 {
-                                PRINT("Instruction mnemonic = NOP\n");
+                                printf("Instruction mnemonic = NOP\n");
+                                fprintf(fnew,"Instruction mnemonic = NOP\n");
                                 i1->instr_mnemonic_enum = NOP;
                                 }
                         else
@@ -812,7 +816,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                         break;
                 }
         
-        printf("Bit flipped, Content of the reg[%x] is (in hex) %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
+        printf("Bit flipped, Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
@@ -853,11 +857,15 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 
 			 //Reset program counter to beginning of the program
                reset_PC_to_beginninng(r2);
-
+		printf("***PC reset after crash***\n");
+		fprintf(fnew,"***PC reset after crash***\n");
 
 			//clear all registers
 			for(ii=0;ii<REG_MAX;++ii)
                 r2->GP_Reg[i]=0; //clear all registers in register file map
+
+		printf("***All general purpose registers reset after crash***\n");
+		fprintf(fnew,"***All general purpose registers reset after crash***\n");
 
 //-------------------------------------------------------------------------------
    		  }
@@ -917,7 +925,7 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 						break;
                 }
         
-        printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+        printf("Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
      
 //Condition for program crash if illegal memory access
 		if ( (0x4F < cp-> random_mem[cp->mem_count] && cp-> random_mem[cp->mem_count] < 0x7F) || (0xCF < cp-> random_mem[cp->mem_count] && cp-> random_mem[cp->mem_count] < 0xFF)) //Invalid memory location range
