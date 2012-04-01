@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 120
+#define PROBABILITY_INVERSE 10000
 #define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
@@ -877,6 +877,15 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		printf("***All general purpose registers reset after crash***\n");
 		fprintf(fnew,"***All general purpose registers reset after crash***\n");
 
+	//Reset program memory
+			for(ii=0;ii< PROGRAM_MEM_SIZE; ++ii)
+				program_memory[ii]=0;
+			printf("***Program memory reset after crash***\n");
+			fprintf(fnew,"***Program memory reset after crash***\n");
+
+		//Load instructions back to program memory after crash
+		      	read_instr_from_file(fp,program_memory,r2,fnew);
+
 //-------------------------------------------------------------------------------
    		  }
 
@@ -981,6 +990,9 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		//Reset program memory
 			for(ii=0;ii< PROGRAM_MEM_SIZE; ++ii)
 				program_memory[ii]=0;
+
+			printf("***Program memory reset after crash***\n");
+			fprintf(fnew,"***Program memory reset after crash***\n");
 
 		//Load instructions back to program memory after crash
 		      	read_instr_from_file(fp,program_memory,r2,fnew);
@@ -1157,8 +1169,8 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 				
 				//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
 		
-			printf("PC value now(in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
-			fprintf(fnew,"PC value now (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+		//	printf("PC value now(in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+			//fprintf(fnew,"PC value now (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
 
 			printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
 			fprintf(fnew,"PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
@@ -1170,6 +1182,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 			//same_PC will have same value as that of same_reg
 		  	
 			printf("cp->store_PC_same[%d]=%x\n",cp->same_PC, cp-> store_PC_same[cp->same_PC]);
+			fprintf(fnew,"cp->store_PC_same[%d]=%x\n",cp->same_PC, cp-> store_PC_same[cp->same_PC]);
 			printf("same_PC count before incrementing=%d\n", cp->same_PC);
 				cp->incorrect_data++;
 				cp->error_at_instr[cp->error] = cp->instr_cycles_for_error;

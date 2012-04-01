@@ -39,7 +39,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_0p5.txt", "w" );
+fnew = fopen( "output_pic_results_0p01.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -255,14 +255,14 @@ for(c=1; c<= (crash_param.crash); c++)
   fprintf(fnew,"%ld\n",crash_param.crash_time_array[c]);             
 	}
 
-printf("Calculating the number of errors: \n");
-fprintf(fnew,"Calculating the number of errors: \n");   
+printf("\nCalculating the number of errors: \n");
+fprintf(fnew,"\nCalculating the number of errors: \n");   
 
 printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);    
 fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);
 
-printf("Instruction cycle at which the errors first occured:\n");
-fprintf(fnew,"Instruction cycle at which the errors first occured:\n");
+printf("\nInstruction cycle at which the errors first occured:\n");
+fprintf(fnew,"\nInstruction cycle at which the errors first occured:\n");
 
 for(c=0; c< (crash_param.error); c++)
 {
@@ -274,8 +274,8 @@ for(c=0; c< (crash_param.error); c++)
 
 }
 
-printf("Total number of times each error occured:\n");
-fprintf(fnew,"Total number of times each error occured:\n");
+printf("\nTotal number of times each error occured:\n");
+fprintf(fnew,"\nTotal number of times each error occured:\n");
 
 for(c=0; c< (crash_param.error); c++)
 {
@@ -291,8 +291,8 @@ percentage_error= ((double)crash_param.error/total_instr_cycles)*100.0;
 successful_cycles= (total_instr_cycles-sum_of_all_errors- MAX_CRASHES);
 
 
-printf("Total number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
-fprintf(fnew,"Total number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
+printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
 
 printf("Total number of crashes:%d\n",MAX_CRASHES);
@@ -325,6 +325,8 @@ fprintf(fnew,"Total number of errors due to incorrect data: %d\n",crash_param.in
 printf("Percentage of successful executions:%f\n\n", ((double) successful_cycles/total_instr_cycles)*100.0); //%e
 fprintf(fnew,"Percentage of successful executions:%f\n\n", ((double)successful_cycles/total_instr_cycles)*100.0); 
 
+printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
+fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
 
 printf("Percentage of crashes due to Program counter getting manipulated:%f percent\n",(((double)crash_param.crash_dueto_PC/MAX_CRASHES)*100.0));
 printf("Percentage of crashes due to illegal memory access:%f percent\n",(((double) crash_param.crash_dueto_illegal_mem/MAX_CRASHES)*100.0));
