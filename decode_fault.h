@@ -11,10 +11,10 @@
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
 #define MAX_CRASHES 10
-#define NUM_OF_PGM_RUNS 10 
+#define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 200
+#define PROBABILITY_INVERSE 120
 #define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
@@ -150,6 +150,7 @@ struct crash_parameters
 //Function declarations
 int read_instr_from_file(FILE *,int program_memory[],struct registers *, FILE *);
 int instruction_fetch(struct registers*, int [],struct crash_parameters *);
+int PC_increment(struct registers *);
 int increment_PC(struct registers **);
 
 int reset_PC_to_beginninng(struct registers *);
@@ -330,7 +331,7 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
           //     exit(0) ;
          }  
 
-	while(fgets(line, FILE_CHARS, fp) != NULL)
+		while(fgets(line, FILE_CHARS, fp) != NULL)
            {
                  // get a line, up to 80 chars from fp.  done if NULL 
                  sscanf (line, "%x", &instr_from_file);
@@ -339,12 +340,15 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
                
            }
          
-printf("\nLoading instructions to memory\n");
-fprintf(fnew,"\nLoading instructions to memory\n");
+		printf("\nLoading instructions to memory\n");
+		fprintf(fnew,"\nLoading instructions to memory\n");
 
-                for(i= r->starting_PC_value;i< (r->n);i++)
-                        printf("Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+        for(i= r->starting_PC_value;i< (r->n);i++)
+        {
+		    printf("Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
 			fprintf(fnew,"Instructions read from file= program_memory[%x]= %x\n",i, program_memory[i]);
+		}
+
    fclose(fp);  /* close the file prior to exiting the routine */
 
 return 0;
@@ -390,16 +394,22 @@ int instruction_fetch(struct registers *r, int program_memory[],struct crash_par
 		
 		//exit(0);
 		}*/
-    PRINT("Before incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
-    //Increment PC
-    increment_PC(&r);
-    PRINT("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+
     PRINT("-------------------------------------------------------------------\n");
     return instruction;
         
 }                       
 
+int PC_increment(struct registers *r)
+{
+    //Increment PC
+    increment_PC(&r);
+	PRINT("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	
+	return 0;
+}
 
 int increment_PC(struct registers **r)
 {
@@ -447,8 +457,8 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 {
                         i1->instr_mnemonic_enum = RETURN;
                         PRINT("Instruction mnemonic = RETURN\n");
-					printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)-1), program_memory[(r1-> PC)-1]);
-		fprintf(fnew,"Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)-1), program_memory[(r1-> PC)-1]);
+					printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
+		fprintf(fnew,"Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
                 }
         else if (i1-> instruction==0x0009)
@@ -463,8 +473,8 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 case 0:
                         if (i1-> d==0)
                                 {
-                                printf("Instruction mnemonic = NOP\n");
-                                fprintf(fnew,"Instruction mnemonic = NOP\n");
+                                PRINT("Instruction mnemonic = NOP\n");
+                               // fprintf(fnew,"Instruction mnemonic = NOP\n");
                                 i1->instr_mnemonic_enum = NOP;
                                 }
                         else
@@ -1110,7 +1120,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 		// This can be equal even if the same instruction is repeated after a certain number of cycles, hence check for PC value
 		{
 			printf("Reg index match, inside if\n");
-			printf("PC value= %x\n",(r2-> PC) -1);
+			printf("PC value= %x\n",(r2-> PC));
 			printf("Same PC =%d\n",cp->same_PC);
 			printf("cp-> store_PC_same[0]=%x\n",cp-> store_PC_same[0]);
 
@@ -1119,7 +1129,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 			{
 				printf("cp-> store_PC_same[%d]=%x\n", j, cp-> store_PC_same[j]);
 				//if(r2->GP_Reg[cp-> random_reg[i]] != cp->store_same_reg_modification[j]) // The reg content shouldnt be the same
-				if( ((r2-> PC)-1) != cp-> store_PC_same[j] ) // error for the same instruction should be recorded only once
+				if( ((r2-> PC)) != cp-> store_PC_same[j] ) // error for the same instruction should be recorded only once
 					{
 					cp->set_no_same_PC = 1; //For loop is not entered for the very first time..hence initialised to 1 in main()
 					printf("j=%d, PC not same as previous ones..counting as error\n",j);
@@ -1129,7 +1139,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 				else 
 					{
 					cp->set_no_same_PC = 0; // If same PC value
-					printf("j=%d,PC %x same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC)-1);
+					printf("j=%d,PC %x same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC));
 					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles_for_error);
 					}
 
@@ -1147,13 +1157,16 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 				
 				//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
 		
-				printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC)-1, program_memory[ (r2-> PC) -1]);
-				fprintf(fnew,"PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC)-1, program_memory[ (r2-> PC) -1]);
+			printf("PC value now(in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+			fprintf(fnew,"PC value now (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+
+			printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
 
 				printf("Reg index %x\n",i1-> reg_index);
 				fprintf(fnew,"Reg index %x\n",i1-> reg_index);
 
-				cp-> store_PC_same[cp->same_PC]= (r2-> PC)-1; //PC 
+				cp-> store_PC_same[cp->same_PC]= (r2-> PC); //PC 
 			//same_PC will have same value as that of same_reg
 		  	
 			printf("cp->store_PC_same[%d]=%x\n",cp->same_PC, cp-> store_PC_same[cp->same_PC]);

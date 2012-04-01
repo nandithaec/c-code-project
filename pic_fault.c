@@ -103,7 +103,7 @@ if( fnew != NULL )
 
         loop= pic_registers.starting_PC_value;
 
-//Repeat the same program forever till Ctrl-C is entered
+//Repeat the same program till a certain number of crashes occur
 	while (loop < pic_registers.n)
         {
                
@@ -117,7 +117,7 @@ if( fnew != NULL )
 
 				 //Instruction fetch    
                 instruction= instruction_fetch(&pic_registers, program_memory,&crash_param);
-       
+       			
 
                 //Instruction decode
                 decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
@@ -157,16 +157,18 @@ if( fnew != NULL )
                                 break;
                 }
        
-		
+				PRINT("decode done\n");
                 post_decode= pre_decode;
                       				
 				  //Bit flip function called every cycle
-	    		bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
+	    		PRINT("bit flip call\n");
+				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
+				
 
 				if( (decode_bits ==0 || decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW
 				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
-
+		
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
@@ -178,20 +180,23 @@ if( fnew != NULL )
                 PRINT("Status register contents:(hex) at the end of decode: ");
                 PRINT("%x", pic_registers.GP_Reg[3]);
                 PRINT("\n");
-
              
 
-		 //Instruction execute
-		instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew);
+				 //Instruction execute
+				PRINT("execute\n");
+				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew);
+				
 
-		crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
-		crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error++; //Increment instruction cycles every cycle
+				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
+				crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error++; //Increment instruction cycles every cycle
                 PRINT("****************************************************************\n");    
-                loop++;
+                
 
+				//Increment program counter
+				PC_increment(&pic_registers);
 
-				
-				
+				loop++;
+				//exit(0);
 
                 //Repeat program
                 if (loop == pic_registers.n) //If end of program is reached
