@@ -26,29 +26,39 @@ int main()
 
 printf("\n \n");
 
+j=1;
 
 	for(i=1;i<=12;i++)
 	{
 			
 		if(i==1)
-			printf("Parity bit: Position %d\n", i);
+			{
+				printf("Parity bit: Position %d\n", i);
+				hamming_code[i]=9;
+				//printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
+			}
 		else
 		if(i !=1)
 			check_if_power_of_two(i, &power_of_two);
 
-		if( (i != 1 ) || power_of_two == 0 )
+		if( (i != 1 ) && power_of_two == 0 )
 			{
 			hamming_code[i]=data[j];
+			printf("hamming_code[%d]= data[%d]= %d\n\n",i,j,hamming_code[i]);
 
 			j++;
 			}
-		else hamming_code[i]=9;
+		else 
+			{
+			hamming_code[i]=9;
+			printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
+			}
 	}
 			
 
 	printf("\nHamming code template:\n");
-	for(i=1;i<=12;i++)
-		printf("%d",hamming_code[i]);
+	for(i=1;i<=12;++i)
+		printf("%d ",hamming_code[i]);
 
 printf("\n");
 
