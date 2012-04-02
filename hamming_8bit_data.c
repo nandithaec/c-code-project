@@ -102,30 +102,31 @@ j=1;
 				}
 	}
 
-	printf("\n******************************\n");
+	printf("\n");
+	printf("************************************************\n");
 	printf("Data that is being encoded is:\n");
 	for(i=1; i<=8; i++)
 	    printf("%d ",data[i]);
 	printf("\n");
-	printf("******************************\n");
+	printf("************************************************\n");
 
-
-	printf("\n***************************************\n");
+	printf("\n");
+	printf("************************************************\n");
 	printf("Parity bits are:\n");
 	for(i=1;i<=4;i++)
 		printf("%d ", parity[i]);
 
 	printf("\n");
-	printf("***************************************\n");
+	printf("************************************************\n");
 
-
-	printf("\n***************************************\n");
+	printf("\n");
+	printf("************************************************\n");
 	printf("Single error correcting Even parity Hamming code:\n");
 	for(i=1;i<=12;++i)
 		printf("%d ",hamming_code[i]);
 
 	printf("\n");
-	printf("***************************************\n");
+	printf("************************************************\n");
 
 
 	//printf("Calculating SECDED Hamming code\n");
@@ -133,14 +134,14 @@ j=1;
 	for(i=0;i<=12;i++)
 		hamming_code[13]= hamming_code[13]^hamming_code[i];
 
-
-	printf("\n***************************************\n");
+	printf("\n");
+	printf("************************************************\n");
 	printf("SECDED Even parity Hamming code:\n");
 	for(i=1;i<=13;++i)
 		printf("%d ",hamming_code[i]);
 
 	printf("\n");
-	printf("***************************************\n");
+	printf("************************************************\n");
 
 
 
