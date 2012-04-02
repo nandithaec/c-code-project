@@ -1,0 +1,380 @@
+Hello
+At the start of execution: 1333279490 seconds since January 1, 1970 
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 0.01
+Executing...
+
+Crash number:1
+Program crash due to PC value at location 82 getting affected
+Time of crash number 1 is 1333280235 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 745 (in seconds)
+Number of instruction cycles executed before the crash: 1185273831
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+ERROR: Incorrect data
+PC value (in hex)=6, instruction opcode being executed (in hex)=18d
+Reg index d
+cp->store_PC_same[0]=6
+******Errors so far...****** 1
+
+ERROR: Incorrect data
+PC value (in hex)=e, instruction opcode being executed (in hex)=8d
+Reg index d
+cp->store_PC_same[1]=e
+******Errors so far...****** 2
+
+Crash number:2
+Program crash due to illegal memory access: Content of location f9 got affected
+Number of instruction cycles executed before the crash: 7652910797
+Time of crash number 2 is 1333287939 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 8449 (in seconds)
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:3
+Program crash due to PC value at location 82 getting affected
+Time of crash number 3 is 1333288018 seconds since January 1, 1970
+At crash 3,time since the beginning of program execution is: 8528 (in seconds)
+Number of instruction cycles executed before the crash: 79570064
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:4
+Program crash due to illegal memory access: Content of location f9 got affected
+Number of instruction cycles executed before the crash: 1510984551
+Time of crash number 4 is 1333288893 seconds since January 1, 1970
+At crash 4,time since the beginning of program execution is: 9403 (in seconds)
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+ERROR: Incorrect data
+PC value (in hex)=0, instruction opcode being executed (in hex)=300a
+Reg index d
+cp->store_PC_same[2]=0
+******Errors so far...****** 3
+
+ERROR: Incorrect data
+PC value (in hex)=9, instruction opcode being executed (in hex)=8c
+Reg index c
+cp->store_PC_same[3]=9
+******Errors so far...****** 4
+
+ERROR: Incorrect data
+PC value (in hex)=5, instruction opcode being executed (in hex)=18c
+Reg index c
+cp->store_PC_same[4]=5
+******Errors so far...****** 5
+
+ERROR: Incorrect data
+PC value (in hex)=1, instruction opcode being executed (in hex)=1283
+Reg index 3
+cp->store_PC_same[5]=1
+******Errors so far...****** 6
+
+ERROR: Incorrect data
+PC value (in hex)=b, instruction opcode being executed (in hex)=1803
+Reg index 3
+cp->store_PC_same[6]=b
+******Errors so far...****** 7
+
+Crash number:5
+Program crash due to PC value at location 8a getting affected
+Time of crash number 5 is 1333296353 seconds since January 1, 1970
+At crash 5,time since the beginning of program execution is: 16863 (in seconds)
+Number of instruction cycles executed before the crash: 13240454356
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:6
+Program crash due to PC value at location 8a getting affected
+Time of crash number 6 is 1333299373 seconds since January 1, 1970
+At crash 6,time since the beginning of program execution is: 19883 (in seconds)
+Number of instruction cycles executed before the crash: 5408955290
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:7
+Program crash due to PC value at location a getting affected
+Time of crash number 7 is 1333299578 seconds since January 1, 1970
+At crash 7,time since the beginning of program execution is: 20088 (in seconds)
+Number of instruction cycles executed before the crash: 476294049
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:8
+Program crash due to illegal memory access: Content of location 6b got affected
+Number of instruction cycles executed before the crash: 8341334126
+Time of crash number 8 is 1333303930 seconds since January 1, 1970
+At crash 8,time since the beginning of program execution is: 24440 (in seconds)
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:9
+Program crash due to PC value at location a getting affected
+Time of crash number 9 is 1333304424 seconds since January 1, 1970
+At crash 9,time since the beginning of program execution is: 24934 (in seconds)
+Number of instruction cycles executed before the crash: 770560645
+***PC reset after crash***
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Crash number:10
+Program crash due to illegal memory access: Content of location 5d got affected
+Number of instruction cycles executed before the crash: 5308220350
+Time of crash number 10 is 1333306843 seconds since January 1, 1970
+At crash 10,time since the beginning of program execution is: 27353 (in seconds)
+***Program memory reset after crash***
+
+Loading instructions to memory
+Instructions read from file= program_memory[0]= 300a
+Instructions read from file= program_memory[1]= 1283
+Instructions read from file= program_memory[2]= 8e
+Instructions read from file= program_memory[3]= 3000
+Instructions read from file= program_memory[4]= 8f
+Instructions read from file= program_memory[5]= 18c
+Instructions read from file= program_memory[6]= 18d
+Instructions read from file= program_memory[7]= 80e
+Instructions read from file= program_memory[8]= 3e01
+Instructions read from file= program_memory[9]= 8c
+Instructions read from file= program_memory[a]= 80f
+Instructions read from file= program_memory[b]= 1803
+Instructions read from file= program_memory[c]= 3e01
+Instructions read from file= program_memory[d]= 3e00
+Instructions read from file= program_memory[e]= 8d
+
+Total number of instructions in the program = 15
+Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+Status register contents:(hex) at the end of all operations: 4
+Number of instruction cycles executed before each crash:
+1185273831
+7652910797
+79570064
+1510984551
+13240454356
+5408955290
+476294049
+8341334126
+770560645
+5308220350
+Seconds elapsed before each crash: 
+746
+8449
+8529
+9403
+16864
+19884
+20089
+24440
+24935
+27353
+
+Calculating the number of errors: 
+Opcodes at which the errors occurred get accessed every program run and hence repeated once in every 15 opcodes
+
+Instruction cycle at which the errors first occured:
+6225083361
+6379029193
+10428739243
+15137754669
+18853944500
+22422586066
+22456281701
+
+Total number of times each error occured:
+2516631646
+2506368591
+2236387921
+1922453559
+1674707570
+1436798132
+1434551757
+
+Total number of instruction cycles executed:43974558059
+Total number of crashes:10
+Total number of errors: 7
+Summing up all errors which repeat every program run,Total number of errors: 13727899176
+Total number of successful instruction cycle executions without errors/crashes:30246658873
+
+Number of crashes due to Program counter getting manipulated: 6 
+Number of crashes due to illegal memory access: 4 
+Number of crashes due to illegal opcode: 0 
+Total number of errors due to incorrect control flow: 0
+Total number of errors due to incorrect data: 7
+Percentage of successful executions:68.782178
+
+Probability of a bit flip is set to: 0.01
+Mean time to failure in terms of the number of instruction cycles: 4397455805
+Mean time to failure in terms of seconds: 16069
