@@ -9,32 +9,33 @@ int check_if_power_of_two (int, int *);
  
 int main()
 {
-    int i=0,j=0;
+    int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int data[9]={0}; //8-bit data
-	int hamming_code[13]={0}; //12-bit hamming code
+	int hamming_code[13]={0}, parity[4]= {0}; //12-bit hamming code
 	int power_of_two=0;
    
     printf("\nHamming code----- Encoding\n");
     printf("Enter 8 bit data : ");
 
-	for(i=1;i<=8;i++)
+	for(i=1; i<=8; i++)
 	    scanf("%d",&data[i]);
 
 	printf("Data read is:\n");
-	for(i=1;i<=8;i++)
+	for(i=1; i<=8; i++)
 	    printf("%d",data[i]);
 
 printf("\n \n");
 
 j=1;
 
-	for(i=1;i<=12;i++)
+
+	for(i=1; i<=12; i++)
 	{
 			
 		if(i==1)
 			{
 				printf("Parity bit: Position %d\n", i);
-				hamming_code[i]=9;
+				//hamming_code[i]=9;
 				//printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
 			}
 		else
@@ -48,15 +49,59 @@ j=1;
 
 			j++;
 			}
-		else 
-			{
-			hamming_code[i]=9;
-			printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
-			}
-	}
+		//else printf("Calculating parity bits..\n");
 			
+	}
 
-	printf("\nHamming code template:\n");
+	printf("\nHamming code template, before adding parity bits\n");
+	for(i=1;i<=12;++i)
+		printf("%d ",hamming_code[i]);
+	printf("\n");
+
+//Calculating parity bits
+p1= hamming_code[1]^hamming_code[3]^hamming_code[5]^hamming_code[7]^hamming_code[9]^hamming_code[11];
+p2= hamming_code[2]^hamming_code[3]^hamming_code[6]^hamming_code[7]^hamming_code[10]^hamming_code[11];
+p4= hamming_code[4]^hamming_code[5]^hamming_code[6]^hamming_code[7]^hamming_code[12];
+p8= hamming_code[8]^hamming_code[9]^hamming_code[10]^hamming_code[11]^hamming_code[12];
+
+parity[1]= p1;
+parity[2]= p2;
+parity[3]= p4;
+parity[4]= p8;
+
+	printf("\nParity bits are:\n");
+	for(i=1;i<=4;i++)
+		printf("parity[%d]=%d ", i, parity[i]);
+
+	printf("\n\n");
+
+
+//Concatenating the parity bits to the hamming code. Data bits have already been added previously.
+
+j=1;
+	for(i=1;i<=12;i++)
+	{
+			if( i == 1 )
+				{
+				printf("parity[%d] = %d\n",j, parity[j]);
+				hamming_code[i]= parity[j];
+				printf("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
+				j++;
+				}
+
+			if(i !=1)
+				check_if_power_of_two(i, &power_of_two);
+
+			if(  power_of_two == 1 )
+				{
+				printf("parity[%d] = %d\n",j, parity[j]);
+				hamming_code[i]= parity[j];
+				printf("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
+				j++;
+				}
+	}
+
+	printf("\n******Final Hamming code******\n");
 	for(i=1;i<=12;++i)
 		printf("%d ",hamming_code[i]);
 
@@ -94,11 +139,11 @@ int check_if_power_of_two (int num, int *power_of_two)
 		}
 	}
 
-if (*power_of_two ==1)
+/*if (*power_of_two ==1)
 	printf("Parity bit: Position %d\n", num);
 
 else
-	printf("Data bit: Position %d \n", num);
+	printf("Data bit: Position %d \n", num);*/
 
 return 0;
 
