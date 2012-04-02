@@ -11,7 +11,7 @@ int main()
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int data[9]={0}; //8-bit data
-	int hamming_code[13]={0}, parity[4]= {0}; //12-bit hamming code
+	int hamming_code[13]={0}, parity[5]= {0}; //12-bit hamming code
 	int power_of_two=0;
    
     printf("\nHamming code----- Encoding\n");
@@ -71,12 +71,13 @@ parity[4]= p8;
 
 	printf("\nParity bits are:\n");
 	for(i=1;i<=4;i++)
-		printf("parity[%d]=%d ", i, parity[i]);
+		printf("parity[%d]=%d\n", i, parity[i]);
 
 	printf("\n\n");
 
 
 //Concatenating the parity bits to the hamming code. Data bits have already been added previously.
+printf("Concatenating parity bits\n");
 
 j=1;
 	for(i=1;i<=12;i++)
