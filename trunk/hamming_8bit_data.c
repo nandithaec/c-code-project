@@ -267,13 +267,14 @@ return 0;
 int detect_error(int binary_received[], int *bit_in_error)
 {
 
-	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra=0, parity_received[5]={0};
+	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
 	int i=0;
-
-	p1_received= binary_received[1];
-	p2_received= binary_received[2];
-	p4_received= binary_received[4];
-	p8_received= binary_received[8];
+	int position=0;
+	
+	parity_received[1]= binary_received[1];
+	parity_received[2]= binary_received[2];
+	parity_received[3]= binary_received[4];
+	parity_received[4]= binary_received[8];
 	parity_extra= binary_received[13];
 
 //clear these parity bits now and calculate afresh to see if they were correct
@@ -293,10 +294,48 @@ int detect_error(int binary_received[], int *bit_in_error)
 
 	//Calculating parity bits of received data
 
-	calculate_parity_bits(binary_received, parity_received);
-	
-	
+	calculate_parity_bits(binary_received, parity_calculated_from_Rx);
 
+	for(i=1;i<=4;i++)
+	{
+		if(parity_calculated_from_Rx[i] != parity_received[i])
+		{
+			printf("Parity[%d] is in error\n",i);
+			
+			switch (i)
+       		{
+		        case 1:
+				position=1;
+				printf("Position %d is in error\n",position);
+		        break;
+
+				case 2:
+				position=2;
+				printf("Position %d is in error\n",position);
+		        break;
+
+				case 3:
+				position=4;
+				printf("Position %d is in error\n",position);
+		        break;
+
+				case 4:
+				position=8;
+				printf("Position %d is in error\n",position);
+		        break;
+				
+				default: printf("Error in parity index\n");
+				break;
+			}
+
+		*bit_in_error=*bit_in_error + position;
+		}
+	}
+
+	if (*bit_in_error == 0)
+		printf("No error in the parity bits, received data is correct\n");
+	else
+		printf("Bit in error is %d\n", *bit_in_error);
 
 return 0;
 }
