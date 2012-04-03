@@ -8,13 +8,16 @@
 int check_if_power_of_two (int, int *);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int*);
+int calculate_parity_bits(int[], int[]);
+int detect_error(int[], int*);
+int decode_received_data(int[],int[]);
  
 int main()
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
-	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}; //12-bit hamming code
-	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0;
+	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}, decoded_data_binary[10]={0};
+	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0, bit_in_error=0;
    
     printf("\nHamming code----- Encoding\n");
     printf("Enter the number to be encoded, in decimal (not binary) :\n ");
@@ -60,33 +63,19 @@ j=1;
 			
 	}
 
-	printf("\nHamming code template, before adding parity bits\n");
+	printf("\nHamming code template, with all parity bits set to zero is:\n");
 	for(i=1;i<=12;++i)
 		printf("%d ",hamming_code[i]);
 	printf("\n");
 
-//Calculating parity bits
-p1= hamming_code[1]^hamming_code[3]^hamming_code[5]^hamming_code[7]^hamming_code[9]^hamming_code[11];
-p2= hamming_code[2]^hamming_code[3]^hamming_code[6]^hamming_code[7]^hamming_code[10]^hamming_code[11];
-p4= hamming_code[4]^hamming_code[5]^hamming_code[6]^hamming_code[7]^hamming_code[12];
-p8= hamming_code[8]^hamming_code[9]^hamming_code[10]^hamming_code[11]^hamming_code[12];
 
-parity[1]= p1;
-parity[2]= p2;
-parity[3]= p4;
-parity[4]= p8;
-
-	printf("\nParity bits are:\n");
-	for(i=1;i<=4;i++)
-		printf("parity[%d]=%d\n", i, parity[i]);
-
-	printf("\n\n");
+	calculate_parity_bits(hamming_code,parity);
 
 
-//Concatenating the parity bits to the hamming code. Data bits have already been added previously.
-printf("Concatenating parity bits\n");
+	//Concatenating the parity bits to the hamming code. Data bits have already been added previously.
+	printf("Concatenating parity bits\n");
 
-j=1;
+	j=1;
 	for(i=1;i<=12;i++)
 	{
 			if( i == 1 )
@@ -139,6 +128,7 @@ j=1;
 
 	//printf("Calculating SECDED Hamming code\n");
 
+//Calculating the extra parity bit, hamming code bit 13.. Even parity
 	for(i=0;i<=12;i++)
 		hamming_code[13]= hamming_code[13]^hamming_code[i];
 
@@ -166,7 +156,8 @@ j=1;
 	
 	printf("\n");
 
-	decode_received_data(binary_received,decoded_data_binary);
+	detect_error(binary_received, &bit_in_error);
+//	decode_received_data(binary_received,decoded_data_binary);
 
 
     return 0;
@@ -248,7 +239,80 @@ return 0;
 
 
 
+int calculate_parity_bits(int hamming_code[], int parity[])
+{
 
+	int p1=0, p2=0, p4=0, p8=0, i=0;
+	//Calculating parity bits
+	p1= hamming_code[1]^hamming_code[3]^hamming_code[5]^hamming_code[7]^hamming_code[9]^hamming_code[11];
+	p2= hamming_code[2]^hamming_code[3]^hamming_code[6]^hamming_code[7]^hamming_code[10]^hamming_code[11];
+	p4= hamming_code[4]^hamming_code[5]^hamming_code[6]^hamming_code[7]^hamming_code[12];
+	p8= hamming_code[8]^hamming_code[9]^hamming_code[10]^hamming_code[11]^hamming_code[12];
+
+	parity[1]= p1;
+	parity[2]= p2;
+	parity[3]= p4;
+	parity[4]= p8;
+
+		printf("\nParity bits are:\n");
+		for(i=1;i<=4;i++)
+			printf("parity[%d]=%d\n", i, parity[i]);
+
+		printf("\n\n");
+
+return 0;
+}
+
+
+int detect_error(int binary_received[], int *bit_in_error)
+{
+
+	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra=0, parity_received[5]={0};
+	int i=0;
+
+	p1_received= binary_received[1];
+	p2_received= binary_received[2];
+	p4_received= binary_received[4];
+	p8_received= binary_received[8];
+	parity_extra= binary_received[13];
+
+//clear these parity bits now and calculate afresh to see if they were correct
+
+	binary_received[1] = 0;
+	binary_received[2] = 0;
+	binary_received[4] = 0;
+	binary_received[8] = 0;
+	binary_received[13] = 0;
+
+
+	printf("\nIn binary, the data received, with parity bits set to 0 is:\n");
+	for(i=1; i<=13; i++)
+	    printf("%d ",binary_received[i]);
+	
+	printf("\n");
+
+	//Calculating parity bits of received data
+
+	calculate_parity_bits(binary_received, parity_received);
+	
+	
+
+
+return 0;
+}
+
+
+
+/*int decode_received_data(int binary_received[],int decoded_data_binary[]);
+{
+
+
+
+return 0;
+}
+
+
+*/
 
 
 
