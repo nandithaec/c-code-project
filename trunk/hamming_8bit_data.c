@@ -334,8 +334,14 @@ int detect_error(int binary_received[], int *bit_in_error)
 
 	if (*bit_in_error == 0)
 		printf("No error in the parity bits, received data is correct\n");
-	else
-		printf("Bit in error is %d\n", *bit_in_error);
+	else 
+		if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8)
+			printf("Bit in error is %d and is a parity bit. Data bit is not in error.\n", *bit_in_error);
+		else
+			printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
+
+		
+			
 
 return 0;
 }
