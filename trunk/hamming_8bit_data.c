@@ -14,7 +14,7 @@ Array index is also starting from 1 and not 0, to avoid confusion */
 
 int check_if_power_of_two (int, int *);
 int convert_decimal_to_binary(int, int[],int);
-int	convert_binary_to_decimal(int[], int*);
+int	convert_binary_to_decimal(int[], int*, int);
 int calculate_parity_bits(int[], int[]);
 int detect_error(int[], int*);
 int decode_received_data(int[],int[]);
@@ -26,7 +26,7 @@ int main()
 	int binary_input[10]={0}; //8-bit data
 	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}, decoded_data_binary[10]={0}, binary_corrected[14]={0};
 	int binary_received_original[14]={0};
-	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0, bit_in_error=0;
+	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0, bit_in_error=0, decoded_data_decimal=0;
    
     printf("\nHamming code----- Encoding\n");
     printf("Enter the number to be encoded, in decimal (not binary) :\n ");
@@ -159,7 +159,7 @@ j=1;
 	printf("\n");
 	printf("************************************************\n");
 
-	convert_binary_to_decimal(hamming_code, &hamming_code_decimal);
+	convert_binary_to_decimal(hamming_code, &hamming_code_decimal,13);
 	printf("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
 
 	printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
@@ -194,6 +194,16 @@ j=1;
 	printf("\n");
 
 	decode_received_data(binary_corrected,decoded_data_binary);
+
+	printf("\nIn binary, the decoded data is:\n");
+	for(i=1; i<=8; i++)
+	    printf("%d ",decoded_data_binary[i]);
+
+	printf("\n");
+
+	convert_binary_to_decimal(decoded_data_binary, &decoded_data_decimal,8);
+
+	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",decoded_data_decimal,decoded_data_decimal);
 
     return 0;
 }
@@ -259,11 +269,11 @@ return 0;
 
 
 
-int	convert_binary_to_decimal(int hamming_code[], int *hamming_code_decimal)
+int	convert_binary_to_decimal(int hamming_code[], int *hamming_code_decimal,int num_of_bits)
 {
 	int i=0,j=0;
 	
-	for(i=13;i>0;i--)
+	for(i=num_of_bits;i>0;i--)
 	{
 		*hamming_code_decimal= *hamming_code_decimal+ (hamming_code[i] * pow(2,j));
 		j++;
@@ -471,9 +481,10 @@ i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
 return 0;
 }
 
-int decode_received_data(int binary_received[],int decoded_data_binary[]);
+int decode_received_data(int binary_received[],int decoded_data_binary[])
 {
 
+int i=0,j=0,pow_of_two=0;
 
 j=1;
 
@@ -488,12 +499,12 @@ j=1;
 			}
 		else
 		if(i !=1)
-			check_if_power_of_two(i, &power_of_two);
+			check_if_power_of_two(i, &pow_of_two);
 
-		if( (i != 1 ) && power_of_two == 0 )
+		if( (i != 1 ) && pow_of_two == 0 )
 			{
-			hamming_code[i]=binary_input[j];
-			printf("hamming_code[%d]= binary_input[%d]= %d\n\n",i,j,hamming_code[i]);
+			decoded_data_binary[j]=binary_received[i];
+			//printf("decoded_data[%d]=  %d\n\n",j,decoded_data_binary[j]);
 
 			j++;
 			}
