@@ -1,5 +1,12 @@
 /* Hamming code generation and error detection, correction*/
 
+/*Throughout the program, bit positions are assigned from the left to right
+For eg., if data is 1 0 0 1 1 0 1 0
+positions are assigned starting from left, not from the right as is the general convention.
+i.e., as, bit 1, bit 2 and so on.. so bit 1=1, bit 2=0, bit3=0 and so on till bit 8=0. 
+Array index is also starting from 1 and not 0, to avoid confusion */
+
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -11,12 +18,14 @@ int	convert_binary_to_decimal(int[], int*);
 int calculate_parity_bits(int[], int[]);
 int detect_error(int[], int*);
 int decode_received_data(int[],int[]);
- 
+int flip_bit_for_correction(int*,int[],int*); 
+
 int main()
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
-	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}, decoded_data_binary[10]={0};
+	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}, decoded_data_binary[10]={0}, binary_corrected[14]={0};
+	int binary_received_original[14]={0};
 	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0, bit_in_error=0;
    
     printf("\nHamming code----- Encoding\n");
@@ -29,6 +38,13 @@ int main()
 
 	//for(i=1; i<=8; i++)
 	   // scanf("%d",&binary_input[i]);
+
+
+/*Throughout the program, bit positions are assigned from the left to right
+For eg., if data is 1 0 0 1 1 0 1 0
+positions are assigned starting from left, not from the right as is the general convention.
+i.e., as, bit 1, bit 2 and so on.. so bit 1=1, bit 2=0, bit3=0 and so on till bit 8=0. 
+Array index is also starting from 1 and not 0, to avoid confusion */
 
 	printf("\nIn binary, the data to be encoded is:\n");
 	for(i=1; i<=8; i++)
@@ -152,17 +168,34 @@ j=1;
 
 	printf("\nIn binary, the data received is:\n");
 	for(i=1; i<=13; i++)
-	    printf("%d ",binary_received[i]);
+    {
+	 printf("%d ",binary_received[i]);
+	 binary_received_original[i]=binary_received[i];
+	}
 	
 	printf("\n");
 
 	detect_error(binary_received, &bit_in_error);
 //	decode_received_data(binary_received,decoded_data_binary);
 
+	if (bit_in_error !=0) // If bit_in_error=0, that means there was no error
+    	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
+
+	printf("Inside main, decimal corrected is: %x\n",decimal_received);
+
+
+	convert_decimal_to_binary(decimal_received,binary_corrected,13);
+
+	printf("\nIn binary, the corrected encoded data is:\n");
+	for(i=1; i<=13; i++)
+	    printf("%d ",binary_corrected[i]);
+
+	printf("\n");
 
     return 0;
 }
 
+//*****************Ending main***********************
 
 int check_if_power_of_two (int num, int *power_of_two)
 {
@@ -340,13 +373,100 @@ int detect_error(int binary_received[], int *bit_in_error)
 		else
 			printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
 
-		
-			
+	
+/*Bit error is also assigned from the left to right
+For eg., if data is 1 0 0 1 1 0 1 0
+positions are assigned starting from left, not from the right as is the general convention.
+i.e., if bit 1 is in error, it means that the leftmost bit is in error*/	
 
 return 0;
 }
 
 
+int flip_bit_for_correction(int *decimal_received,int binary_received_or[], int *bit_in_error)
+{
+int i=0;
+printf("\nCorrecting the received data:\n");
+
+	printf("\nIn binary, the erroneous data received was:\n");
+	for(i=1; i<=13; i++)
+	    printf("%d ",binary_received_or[i]);
+
+	printf("\n");
+
+/*Bit error is also assigned from the left to right
+For eg., if data is 1 0 0 1 1 0 1 0
+positions are assigned starting from left, not from the right as is the general convention.
+i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
+
+	printf("Erroneous Data in decimal: %d, in hex: %x \n\n",*decimal_received,*decimal_received);
+
+ switch(*bit_in_error)
+	{
+		    case 13:
+		    *decimal_received=  *decimal_received ^(1 << 0);
+		    break;
+
+			case 12:
+		    *decimal_received=  *decimal_received ^(1 << 1);
+		    break;
+
+		    case 11:
+		    *decimal_received=  *decimal_received ^(1 << 2);
+		    break;
+
+		    case 10:
+		    *decimal_received=  *decimal_received ^(1 << 3);
+		    break;
+
+		    case 9:
+		    *decimal_received=  *decimal_received ^(1 << 4);
+		    break;
+
+		    case 8:
+		    *decimal_received=  *decimal_received ^(1 << 5);
+		    break;
+
+		    case 7:
+		    *decimal_received=  *decimal_received ^(1 << 6);
+		    break;
+
+		    case 6:
+		    *decimal_received=  *decimal_received ^(1 << 7);
+		    break;
+
+		    case 5:
+		    *decimal_received=  *decimal_received ^(1 << 8);
+		    break;
+
+   		    case 4:
+		    *decimal_received=  *decimal_received ^(1 << 9);
+		    break;
+		   
+			case 3:
+		    *decimal_received=  *decimal_received ^(1 << 10);
+		    break;
+			
+			case 2:
+		    *decimal_received=  *decimal_received ^(1 << 11);
+		    break;
+
+	        case 1:
+		    *decimal_received=  *decimal_received ^(1 << 12);
+		    break;
+
+		   	default: 
+			printf("No error, nothing to correct\n");
+			//fprintf(fnew,"Invalid bit flip case\n");
+		    break;
+	}
+
+	if (*bit_in_error !=0)
+        printf("Bit %d corrected, Corrected encoded data is %d (in decimal), %x (in hex)\n", *bit_in_error, *decimal_received, *decimal_received);
+
+
+return 0;
+}
 
 /*int decode_received_data(int binary_received[],int decoded_data_binary[]);
 {
