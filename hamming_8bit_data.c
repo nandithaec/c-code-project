@@ -52,8 +52,10 @@ Array index is also starting from 1 and not 0, to avoid confusion */
 
 printf("\n \n");
 
-j=1;
 
+//Encode data from 8 bit to 12 bits
+
+j=1;
 
 	for(i=1; i<=12; i++)
 	{
@@ -176,13 +178,12 @@ j=1;
 	printf("\n");
 
 	detect_error(binary_received, &bit_in_error);
-//	decode_received_data(binary_received,decoded_data_binary);
+
 
 	if (bit_in_error !=0) // If bit_in_error=0, that means there was no error
     	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
 
 	printf("Inside main, decimal corrected is: %x\n",decimal_received);
-
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
 
@@ -191,6 +192,8 @@ j=1;
 	    printf("%d ",binary_corrected[i]);
 
 	printf("\n");
+
+	decode_received_data(binary_corrected,decoded_data_binary);
 
     return 0;
 }
@@ -468,16 +471,42 @@ i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
 return 0;
 }
 
-/*int decode_received_data(int binary_received[],int decoded_data_binary[]);
+int decode_received_data(int binary_received[],int decoded_data_binary[]);
 {
 
+
+j=1;
+
+	for(i=1; i<=12; i++)
+	{
+			
+		if(i==1)
+			{
+				printf("Parity bit: Position %d\n", i);
+				//hamming_code[i]=9;
+				//printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
+			}
+		else
+		if(i !=1)
+			check_if_power_of_two(i, &power_of_two);
+
+		if( (i != 1 ) && power_of_two == 0 )
+			{
+			hamming_code[i]=binary_input[j];
+			printf("hamming_code[%d]= binary_input[%d]= %d\n\n",i,j,hamming_code[i]);
+
+			j++;
+			}
+		//else printf("Calculating parity bits..\n");
+			
+	}
 
 
 return 0;
 }
 
 
-*/
+
 
 
 
