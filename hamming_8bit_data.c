@@ -6,15 +6,15 @@
 
 
 int check_if_power_of_two (int, int *);
-int convert_decimal_to_binary(int, int[]);
+int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int*);
  
 int main()
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
-	int binary_data[10]={0}; //8-bit data
-	int hamming_code[14]={0}, parity[5]= {0}; //12-bit hamming code
-	int power_of_two=0, decimal_input=0, hamming_code_decimal=0;
+	int binary_input[10]={0}; //8-bit data
+	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}; //12-bit hamming code
+	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0;
    
     printf("\nHamming code----- Encoding\n");
     printf("Enter the number to be encoded, in decimal (not binary) :\n ");
@@ -22,14 +22,14 @@ int main()
 	
 	printf("\nData has been read and is %d (decimal), %x (in hex) \n", decimal_input, decimal_input);
 	
-	convert_decimal_to_binary(decimal_input,binary_data);
+	convert_decimal_to_binary(decimal_input,binary_input,8); //8 is the number of bits in the binary
 
 	//for(i=1; i<=8; i++)
-	   // scanf("%d",&binary_data[i]);
+	   // scanf("%d",&binary_input[i]);
 
 	printf("\nIn binary, the data to be encoded is:\n");
 	for(i=1; i<=8; i++)
-	    printf("%d",binary_data[i]);
+	    printf("%d",binary_input[i]);
 
 printf("\n \n");
 
@@ -51,8 +51,8 @@ j=1;
 
 		if( (i != 1 ) && power_of_two == 0 )
 			{
-			hamming_code[i]=binary_data[j];
-			printf("hamming_code[%d]= binary_data[%d]= %d\n\n",i,j,hamming_code[i]);
+			hamming_code[i]=binary_input[j];
+			printf("hamming_code[%d]= binary_input[%d]= %d\n\n",i,j,hamming_code[i]);
 
 			j++;
 			}
@@ -111,9 +111,9 @@ j=1;
 
 	printf("\n");
 	printf("************************************************\n");
-	printf("binary_data that is being encoded is:\n");
+	printf("binary_input that is being encoded is:\n");
 	for(i=1; i<=8; i++)
-	    printf("%d ",binary_data[i]);
+	    printf("%d ",binary_input[i]);
 	printf("\n");
 	printf("************************************************\n");
 
@@ -153,6 +153,22 @@ j=1;
 
 	convert_binary_to_decimal(hamming_code, &hamming_code_decimal);
 	printf("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
+
+	printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
+	scanf("%d", &decimal_received);
+	
+	convert_decimal_to_binary(decimal_received,binary_received, 13);
+	
+
+	printf("\nIn binary, the data received is:\n");
+	for(i=1; i<=13; i++)
+	    printf("%d ",binary_received[i]);
+	
+	printf("\n");
+
+	decode_received_data(binary_received,decoded_data_binary);
+
+
     return 0;
 }
 
@@ -195,14 +211,14 @@ return 0;
 }
 
 
-int convert_decimal_to_binary(int decimal_input, int binary_data[])
+int convert_decimal_to_binary(int decimal_input, int binary_input[], int num_of_bits)
 {
-	int i=8;
+	int i=0;
 	
-	for(i=8;i>0;i--)
+	for(i=num_of_bits;i>0;i--)
 	{
-		binary_data[i]= decimal_input % 2 ;
-		//printf("binary_data[%d]=%d\n",i,binary_data[i]);
+		binary_input[i]= decimal_input % 2 ;
+		//printf("binary_input[%d]=%d\n",i,binary_input[i]);
 	
 		decimal_input= decimal_input/2;
 		//printf("Decimal input after dividing by 2 is %d\n",decimal_input);
