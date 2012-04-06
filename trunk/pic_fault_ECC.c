@@ -2,7 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdint.h>
-
+#include <math.h>
 #include <stdlib.h>
 
 #include "decode_fault.h"
@@ -153,7 +153,7 @@ if( fnew != NULL )
 
                         default:
                                 printf("Invalid decode_bits inside main\n");
-								 fprintf(fnew,"Invalid decode_bits inside main\n");
+								fprintf(fnew,"Invalid decode_bits inside main\n");
                                 break;
                 }
        
