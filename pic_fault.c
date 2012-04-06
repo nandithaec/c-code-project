@@ -39,7 +39,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_0p01.txt", "w" );
+fnew = fopen( "output_pic_results_modifying.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
