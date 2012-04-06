@@ -16,12 +16,8 @@ FILE *fnew;
 int main()
 
 {
-       
-        int instruction=0, opcode = 0;
-
-        int reg_index=0,  reg_file_addr = 0, d=0;
         int  i=0, c=0;
-        int decode_bits=0;
+       // int decode_bits=0;
         int bit=0, immediate_value=0;
         int program_memory[PROGRAM_MEM_SIZE] ={0};//Fill the unused array elements wih NOP
 //      int program[PROGRAM_MEM_SIZE] ={0};
@@ -102,9 +98,11 @@ if( fnew != NULL )
 		fprintf(fnew,"Executing...\n");
 
         loop= pic_registers.starting_PC_value;
+		
+		pre_decode.decode_bits=0; //Initialising decode_bits
 
 //Repeat the same program till a certain number of crashes occur
-	while (loop < pic_registers.n)
+	while (loop < pic_registers.max_instr)
         {
                
                 PRINT("****************************************************************\n");
@@ -116,59 +114,21 @@ if( fnew != NULL )
 				//check_pgm_crash(&crash_param, start_seconds,&pic_registers);
 
 				 //Instruction fetch    
-                instruction= instruction_fetch(&pic_registers, program_memory,&crash_param);
-       			
+                instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
 
                 //Instruction decode
-                decode_bits= (instruction & 0x3000)>> 12;  // bits 13 and 14
-                PRINT("Decode bits= %d \n", decode_bits);
-
-                     
-                pre_decode.instruction= instruction; //Instruction fetched 
-                pre_decode.opcode= opcode; 
-                pre_decode.reg_file_addr= reg_file_addr;
-                pre_decode.d= d;
-                pre_decode.reg_index= reg_index;
-                pre_decode.bit = 0;
-                pre_decode.immediate_value = 0;
-
-       
-                switch (decode_bits)
-                {
-                        case 0:
-                                decode_byte_instr(&pre_decode,&crash_param,&pic_registers, program_memory,fnew);
-                                break;
-
-                        case 1:
-                                decode_bit_instr(&pre_decode,&crash_param,fnew);  
-                                break;
-
-                        case 2:
-                                call_goto_instr(&pre_decode,&crash_param,fnew);  
-                                break;
-
-                        case 3:
-                                literal_control_instr(&pre_decode,&crash_param,fnew);    
-                                break;
-
-                        default:
-                                printf("Invalid decode_bits inside main\n");
-								 fprintf(fnew,"Invalid decode_bits inside main\n");
-                                break;
-                }
-       
-				PRINT("decode done\n");
-                post_decode= pre_decode;
+				instruction_decode(&pic_registers, &pre_decode, program_memory, &crash_param, fnew);
+				
+                post_decode= pre_decode; //Copy the structure
                       				
 				  //Bit flip function called every cycle
 	    		PRINT("bit flip call\n");
 				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
 				
-
-				if( (decode_bits ==0 || decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
+				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
-				check_illegal_mem(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
+				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
@@ -178,9 +138,7 @@ if( fnew != NULL )
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
                 PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
                 PRINT("Instruction mnemonic enum = %d\n",post_decode.instr_mnemonic_enum);
-
-	       		
-               
+		
                 PRINT("Status register contents:(hex) at the end of decode: ");
                 PRINT("%x", pic_registers.GP_Reg[3]);
                 PRINT("\n");
@@ -200,10 +158,10 @@ if( fnew != NULL )
 				PC_increment(&pic_registers);
 
 				loop++;
-				//exit(0);
+				
 
                 //Repeat program
-                if (loop == pic_registers.n) //If end of program is reached
+                if (loop == pic_registers.max_instr) //If end of program is reached
                 {
                     loop= pic_registers.starting_PC_value; //Reset loop to beginning of program and begin execution again
 
@@ -219,8 +177,8 @@ if( fnew != NULL )
 
         }
 
-                printf("\nTotal number of instructions in the program = %d\n",pic_registers.n);   
-				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.n);         
+                printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
+				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
                
 				 printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
 				fprintf(fnew,"Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
