@@ -39,7 +39,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_modifying.txt", "w" );
+fnew = fopen( "output_pic_results_new_0p667.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -166,7 +166,11 @@ if( fnew != NULL )
 				
 
 				if( (decode_bits ==0 || decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
-				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW
+
+				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
+				check_illegal_mem(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
+
+				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
 		
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
