@@ -516,6 +516,7 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 case 5:
                         PRINT("Instruction mnemonic = ANDWF\n");
                         i1->instr_mnemonic_enum = ANDWF;
+
                 break;
                 
                 case 6:
@@ -768,6 +769,10 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		  // 	printf("Random number generated: %d\n",cp->random_number);
 		//	printf("Instruction cycle=%llu\n\n",cp->instr_cycles);
 
+//SECDED Hamming encoding
+
+
+
 //Flip bits only under this condition
 	if((less< cp->random_number) && (cp->random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
@@ -775,13 +780,13 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 		cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
 		cp->random_reg[cp->reg_count] = rand() % 256 ; // Random number between 0 and 255
 				
-                random_bit = rand() % 8 ; // Random number between 0 and 7
+                random_bit = rand() % 12 ; // Random number between 0 and 7
 		
 		PRINT("Flip flag set to %d\n",cp->flip_bit_flag);
 	
                 //printf("\nBit flip function called\n");
                // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp-> random_reg[cp->reg_count],random_bit);
-           PRINT("Content of the random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
+           printf("Content of the random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
                 switch(random_bit)
                 {
                         case 0:
@@ -819,6 +824,19 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
                         case 8:
                         r2->GP_Reg[cp-> random_reg[cp->reg_count]]=  r2->GP_Reg[cp-> random_reg[cp->reg_count]] ^(1 << 8);
                         break;
+
+						case 9:
+                        r2->GP_Reg[cp-> random_reg[cp->reg_count]]=  r2->GP_Reg[cp-> random_reg[cp->reg_count]] ^(1 << 9);
+                        break;
+
+						case 10:
+                        r2->GP_Reg[cp-> random_reg[cp->reg_count]]=  r2->GP_Reg[cp-> random_reg[cp->reg_count]] ^(1 << 10);
+                        break;
+
+						case 11:
+                        r2->GP_Reg[cp-> random_reg[cp->reg_count]]=  r2->GP_Reg[cp-> random_reg[cp->reg_count]] ^(1 << 11);
+                        break;
+
 
                         default: 
 						printf("Invalid bit flip case\n");
