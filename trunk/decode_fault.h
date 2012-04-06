@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 13
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 5
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 10000
+#define PROBABILITY_INVERSE 150
 #define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
@@ -144,6 +144,7 @@ struct crash_parameters
 	int reg_index_match;
 	int set_no_same_PC;
 	int crash_mem_access;
+	int opcode_count;
 };
 
 
@@ -283,6 +284,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp-> reg_index_match=0;
 		cp->set_no_same_PC=1; // for the very first PC
 		cp->crash_mem_access = 0;
+		cp->opcode_count =0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -516,6 +518,7 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 case 5:
                         PRINT("Instruction mnemonic = ANDWF\n");
                         i1->instr_mnemonic_enum = ANDWF;
+
                 break;
                 
                 case 6:
@@ -772,7 +775,17 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 	if((less< cp->random_number) && (cp->random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
         printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
-		cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
+		if(cp->flip_bit_flag==0) //If you enter this if statement without previous bit flips, then set thsi to 1.
+			cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
+
+		else 
+/*This else part will be entered only if the probability is high.
+If you enter this, before resetting the flag, that is, still when the check_error function is checking for errors at all instructions, then it means that 
+a bit has flipped even before all instructions have been checked for errors. Hence reset the count to zero so that all instructions will be checked again
+*/			cp->opcode_count = 0; //Can be used for counting double errors if it happens at the same PC location
+
+
+
 		cp->random_reg[cp->reg_count] = rand() % 256 ; // Random number between 0 and 255
 				
                 random_bit = rand() % 8 ; // Random number between 0 and 7
@@ -1111,18 +1124,20 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 	int i=0,j=0;
 
     //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
-	if (cp->flip_bit_flag==1) //This flag is set only when the bit is flipped.
+	if (cp->flip_bit_flag==1 && cp->opcode_count++ < NUM_OF_INSTR) //This flag is set only when the bit is flipped.
+//And repeat this comparison for every opcode in the program, sine the flipped reg can be equal to the reg file in any of the instructions..
+//Hopefully another bit doesnt flip during this comparison
 	{ 
-		printf("\nCheck function called... Reg count=%d \n", cp-> reg_count);
+		//printf("\nCheck function called... Reg count=%d.. Gets printed every cycle\n", cp-> reg_count); //Gets printed every cycle
 
-		cp->flip_bit_flag=0; //Reset flag.
+		//cp->flip_bit_flag=0; //Reset flag.
 		PRINT("Reg index= %x\n",i1-> reg_index);
 		for(i=0;i < cp-> reg_count;i++) //Check if the reg index is equal to any of the previously flipped registers
 		{
 			if (i1->reg_index == cp->random_reg[i]) // && cp->first_error== 0) //If first error
 				{
 				cp-> reg_index_match = 1;
-				printf("\nReg index: %x, matches with random reg:%x. Reg count array index=%d\n",i1-> reg_index,cp-> random_reg[i], i);
+				printf("\n*****Reg index: %x, matches with random reg:%x. Reg count array index=%d*****\n",i1-> reg_index,cp-> random_reg[i], i);
 				printf("Bit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], r2->GP_Reg[cp-> random_reg[i]]);
 
 				}
@@ -1199,6 +1214,14 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 		} //end if (cp-> reg_index_match == 1)
 
 	} //end if (cp->flip_bit_flag==1)
+
+	else
+	if (cp->opcode_count == NUM_OF_INSTR)
+	{
+		cp->flip_bit_flag=0; //Reset flag.
+		printf("Done comparing the register with flipped bit with all instructions in the program\n\n");
+	}
+		
 return 0;
 
 }
