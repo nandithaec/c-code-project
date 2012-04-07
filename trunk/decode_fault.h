@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 3
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
@@ -150,6 +150,7 @@ struct crash_parameters
 	int random_bit_mem;
 	int opcode_change;
 	int crash_reg_index;
+	int erroneous_instruction;
 	
 };
 
@@ -181,6 +182,14 @@ int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
 int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
 int check_illegal_instr(struct registers *,  int [], struct crash_parameters *, time_t ,struct instructions *, FILE *, FILE *);
 int report_crash(struct registers *,  int program_memory[], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *);
+
+	
+int handle_byte_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *fnew,FILE *fp);
+
+	
+int handle_bit_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *fnew,FILE *fp);
+
+int handle_literal_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *fnew,FILE *fp);
 
 int report_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
 int reset_after_crash(struct registers *,  int program_memory[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *);
@@ -302,6 +311,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->opcode_count =0;
 		cp->opcode_change=0;
 		cp->crash_reg_index=0;
+		cp->erroneous_instruction=0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -1150,7 +1160,7 @@ int check_illegal_instr(struct registers *r2,
 {
 
 int ii=0;
-int erroneous_instruction=0, crash_decode_bits=0;
+int  crash_decode_bits=0;
 
 /*Algorithm:
 if the random_mem is in the range of the PC values that the program uses, then there is a possibility that one of the opcode has changed.
@@ -1189,103 +1199,31 @@ Hence, the condition should check for the mem_count -1 */
 
 //Now check if the decode_bits itself has changed.. else decode the instruction and see which part of the instruction has changed.
 
+        
 		if ( (cp->random_bit_mem !=12) || (cp->random_bit_mem !=13) ) //Decode_bits hasnt changed. So, the category of instructions remains same as in the decode function
 		{
 			//Fetch instruction from the location which has its instruction flipped. PC = (cp-> random_mem[(cp->mem_count)-1])	
-			erroneous_instruction = program_memory[cp-> random_mem[(cp->mem_count)-1]];
+			cp->erroneous_instruction = program_memory[cp-> random_mem[(cp->mem_count)-1]];
 
-			crash_decode_bits= (erroneous_instruction & 0x3000)>> 12;  // bits 13 and 14
+			crash_decode_bits= (cp->erroneous_instruction & 0x3000)>> 12;  // bits 13 and 14
 	        PRINT("Decode bits while verifying program crash= %d \n", crash_decode_bits);
 
 
 	 		switch (crash_decode_bits)
 		    {
-		        case 0:
+		        case 0: //handle_byte_instruction_error()
 		                //Byte instruction
-						if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
-						{
-							cp->crash_reg_index = (erroneous_instruction) & 0x007F; //Extract reg_index
-
-							
-							if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
-								 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
-
-							{
-								(cp-> crash_dueto_illegal_mem)++;
-								printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-						   		fprintf(fnew,"Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-								report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
-								
-							}
-
-						}
-						else 
-							if ( (8 <= cp->random_bit_mem) && (cp->random_bit_mem <= 11) )
-							//opcode has changed within the same group of instructions.. report error
-							// Code for report error
-							{
-								cp-> opcode_change++;
-								
-								printf("Byte instruction: Opcode has changed, will lead to an error in program\n");
-								fprintf(fnew,"Byte instruction: Opcode has changed, will lead to an error in program\n");
-								report_error(cp,r2,i1,program_memory,fnew);
-							}
-								else if (cp->random_bit_mem == 7) //Destination has changed. report error
-								// Code for report error
-								{
-									cp->incorrect_data++;
-									
-									printf("Byte instruction: Destination register has changed, will lead to an error in program\n");
-									fprintf(fnew,"Byte instruction: Destination register has changed, will lead to an error in program\n");
-									report_error(cp,r2,i1,program_memory,fnew);
-								}
+						handle_byte_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fp);
 						
 		        break;
 
-		        case 1:
+		        case 1: //handle_bit_instruction_error()
 		                //Bit instruction
-						if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
-						{
-							cp->crash_reg_index = (erroneous_instruction) & 0x007F; //Extract reg_index
-
-							if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
-								 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
-	
-							{
-								(cp-> crash_dueto_illegal_mem)++;
-								printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-						   		fprintf(fnew,"Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-								report_crash(r2,  program_memory, cp, start_seconds,i1, fnew, fp);
-							}
-
-						}
-						else 
-							if ( (7 <= cp->random_bit_mem) && (cp->random_bit_mem <= 9) )
-							//Bit b has changed within the same group of instructions.. report error
-							// Code for report error
-							{
-								cp->incorrect_data++;
-								
-								printf("Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
-								fprintf(fnew,"Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
-								report_error(cp,r2,i1,program_memory,fnew);
-							}
-								else if ( (cp->random_bit_mem == 10) && (cp->random_bit_mem == 11) ) //
-								//opcode has changed within the same group of instructions.. report error
-								// Code for report error
-								{
-									cp->opcode_change++;
-	
-									printf("Bit instruction: Opcode has changed, will lead to an error in program\n");
-									fprintf(fnew,"Bit instruction: Opcode has changed, will lead to an error in program\n");
-									report_error(cp,r2,i1,program_memory,fnew);
-								}
+						handle_bit_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fp);
 				 
 		        break;
 
-		        case 2:
+		        case 2: //handle_goto_instruction_error()
 		                //CALL GOTO instruction
 						// Code for report control flow error
 							
@@ -1297,27 +1235,9 @@ Hence, the condition should check for the mem_count -1 */
 
 		        break;
 
-		        case 3:
+		        case 3: //handle_literal_instruction_error()
 		                //Literal and control instruction
-						if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bits 0 to 7 are flipped, it means that the immediate value has changed
-						{
-							cp->incorrect_data++;
-	
-							printf("Literal and control instruction: immediate value has changed, will lead to an error in program\n");
-							fprintf(fnew,"Literal and control instruction: Immediate value has changed, will lead to an error in program\n");	
-							// Code for report error
-							report_error(cp,r2,i1,program_memory,fnew);
-				   		}
-							else //whatever else has changed
-							//opcode has changed within the same group of instructions.. report error
-							{
-							cp->opcode_change++;
-
-							printf("Literal and control instruction: Opcode has changed, will lead to an error in program\n");
-							fprintf(fnew,"Literal and control instruction: Opcode has changed, will lead to an error in program\n");	// Code for report error
-							// Code for report error
-							report_error(cp,r2,i1,program_memory,fnew);
-							}
+						handle_literal_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fp);
 
 
 		        break;
@@ -1329,7 +1249,7 @@ Hence, the condition should check for the mem_count -1 */
 		    } //switch close
 
 		} //if random_bit close
-		
+		//handle_decode_bit_error()		
 		else //If the decode_bits itself has flipped, report- Unable to decode instruction - report program crash
 			 // Code for report crash
 		{
@@ -1448,7 +1368,142 @@ return 0;
 }
 
 	
+int handle_byte_instruction_error(struct registers *r2,  
+                        int program_memory[], 
+                        struct crash_parameters *cp, 
+						time_t start_seconds,
+						struct instructions *i1,
+						FILE *fnew, 		
+						FILE *fp)
+{
+
+
+if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
+						{
+							cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
+
+							
+							if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
+								 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
+
+							{
+								(cp-> crash_dueto_illegal_mem)++;
+								printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+						   		fprintf(fnew,"Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
+								report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
+								
+							}
+
+						}
+						else 
+							if ( (8 <= cp->random_bit_mem) && (cp->random_bit_mem <= 11) )
+							//opcode has changed within the same group of instructions.. report error
+							// Code for report error
+							{
+								cp-> opcode_change++;
+								
+								printf("Byte instruction: Opcode has changed, will lead to an error in program\n");
+								fprintf(fnew,"Byte instruction: Opcode has changed, will lead to an error in program\n");
+								report_error(cp,r2,i1,program_memory,fnew);
+							}
+							else if (cp->random_bit_mem == 7) //Destination has changed. report error
+							// Code for report error
+							{
+								cp->incorrect_data++;
+								
+								printf("Byte instruction: Destination register has changed, will lead to an error in program\n");
+								fprintf(fnew,"Byte instruction: Destination register has changed, will lead to an error in program\n");
+								report_error(cp,r2,i1,program_memory,fnew);
+							}
+
+return 0;
+}
 
 
 
+int handle_bit_instruction_error(struct registers *r2,  
+                        int program_memory[], 
+                        struct crash_parameters *cp, 
+						time_t start_seconds,
+						struct instructions *i1,
+						FILE *fnew, 		
+						FILE *fp)
+{
 
+
+if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
+						{
+							cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
+
+							if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
+								 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
+	
+							{
+								(cp-> crash_dueto_illegal_mem)++;
+								printf("Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+						   		fprintf(fnew,"Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
+								report_crash(r2,  program_memory, cp, start_seconds,i1, fnew, fp);
+							}
+
+						}
+						else 
+							if ( (7 <= cp->random_bit_mem) && (cp->random_bit_mem <= 9) )
+							//Bit b has changed within the same group of instructions.. report error
+							// Code for report error
+							{
+								cp->incorrect_data++;
+								
+								printf("Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
+								fprintf(fnew,"Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
+								report_error(cp,r2,i1,program_memory,fnew);
+							}
+							else if ( (cp->random_bit_mem == 10) && (cp->random_bit_mem == 11) ) //
+							//opcode has changed within the same group of instructions.. report error
+							// Code for report error
+							{
+								cp->opcode_change++;
+
+								printf("Bit instruction: Opcode has changed, will lead to an error in program\n");
+								fprintf(fnew,"Bit instruction: Opcode has changed, will lead to an error in program\n");
+								report_error(cp,r2,i1,program_memory,fnew);
+							}
+
+return 0;
+}
+
+
+
+int handle_literal_instruction_error(struct registers *r2,  
+                        int program_memory[], 
+                        struct crash_parameters *cp, 
+						time_t start_seconds,
+						struct instructions *i1,
+						FILE *fnew, 		
+						FILE *fp)
+{
+
+
+if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bits 0 to 7 are flipped, it means that the immediate value has changed
+						{
+							cp->incorrect_data++;
+	
+							printf("Literal and control instruction: immediate value has changed, will lead to an error in program\n");
+							fprintf(fnew,"Literal and control instruction: Immediate value has changed, will lead to an error in program\n");	
+							// Code for report error
+							report_error(cp,r2,i1,program_memory,fnew);
+				   		}
+						else //whatever else has changed
+						//opcode has changed within the same group of instructions.. report error
+						{
+						cp->opcode_change++;
+
+						printf("Literal and control instruction: Opcode has changed, will lead to an error in program\n");
+						fprintf(fnew,"Literal and control instruction: Opcode has changed, will lead to an error in program\n");	
+						// Code for report error
+						report_error(cp,r2,i1,program_memory,fnew);
+						}
+
+return 0;
+}
