@@ -117,7 +117,7 @@ if( fnew != NULL )
                 instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
 
                 //Instruction decode
-				instruction_decode(&pic_registers, &pre_decode, program_memory, &crash_param, fnew);
+				instruction_decode(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fp, start_seconds);
 				
                 post_decode= pre_decode; //Copy the structure
                       				
@@ -150,7 +150,7 @@ if( fnew != NULL )
 				
 
 				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
-				crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error++; //Increment instruction cycles every cycle
+				crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error + 1; //Increment instruction cycles every cycle
                 PRINT("****************************************************************\n");    
                 
 
@@ -283,6 +283,10 @@ fprintf(fnew,"Total number of errors due to incorrect control flow: %d\n",crash_
 
 printf("Total number of errors due to incorrect data: %d\n",crash_param.incorrect_data);
 fprintf(fnew,"Total number of errors due to incorrect data: %d\n",crash_param.incorrect_data);
+
+printf("Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
+fprintf(fnew,"Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
+
 
 printf("Percentage of successful executions:%f\n\n", ((double) successful_cycles/total_instr_cycles)*100.0); //%e
 fprintf(fnew,"Percentage of successful executions:%f\n\n", ((double)successful_cycles/total_instr_cycles)*100.0); 
