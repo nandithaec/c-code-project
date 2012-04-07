@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 3
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 150
+#define PROBABILITY_INVERSE 100
 #define RANDOM_GUESS_RANGE 101
 #define FLOW_CHANGE_MAX 10000
 #define NUM_OF_BITFLIPS 10000
@@ -151,6 +151,7 @@ struct crash_parameters
 	int opcode_change;
 	int crash_reg_index;
 	int erroneous_instruction;
+	int flip_bit_flag_for_illegal_inst;
 	
 };
 
@@ -312,6 +313,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->opcode_change=0;
 		cp->crash_reg_index=0;
 		cp->erroneous_instruction=0;
+		cp->flip_bit_flag_for_illegal_inst=0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -347,8 +349,7 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
 	int instr_from_file=0;
 
 	reset_PC_to_beginninng(r); //Initial PC values are set in this function
-
-
+		
  		r->max_instr= r->PC; // new value of max_instr is initialised to the PC value that is read from the disassembly listing
         r->starting_PC_value = r->PC;
         PRINT("Starting PC value=%x\n",r->starting_PC_value);
@@ -405,7 +406,7 @@ int reset_PC_to_beginninng(struct registers *r)
                     //----------------------------------------------------------------------------------------------------------------------------
 
 	//	printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
-
+		
 
 return 0;
 }
@@ -547,8 +548,8 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 {
                         i1->instr_mnemonic_enum = RETURN;
                         PRINT("Instruction mnemonic = RETURN\n");
-					printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
-		fprintf(fnew,"Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
+					//printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
+		//fprintf(fnew,"Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
                 }
         else if (i1-> instruction==0x0009)
@@ -868,6 +869,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 */			cp->opcode_count = 0; //Can be used for counting double errors if it happens at the same PC location
 
 
+//Set this flag to use in the function:check_illegal_instr and clear it in that function
+		cp->flip_bit_flag_for_illegal_inst=1; 
 
 		cp->random_reg[cp->reg_count] = rand() % 256 ; // Random number between 0 and 255
 				
@@ -936,6 +939,9 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			printf("Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 			fprintf(fnew,"Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 
+			printf("Random number that got generated this time was: %d\n", cp->random_number );
+			fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
+    
            // PRINT("Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
 			crash_time= time(NULL);
@@ -950,7 +956,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
 			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
-           fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
+            fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 	
 			//initialise_crash_param(cp);
 			//initialise_regs(r2);
@@ -967,10 +973,14 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
-                cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
-//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
+                cp->random_mem[cp->mem_count] = rand() % 20; // Random number between 0 and 8192. Store it in an array to keep track and compare later
+				
+				//cp->random_mem[cp->mem_count] = 2; //Forcing a value
+
+			//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
 
                 cp->random_bit_mem = rand() % 14 ; // Random number between 0 and 13
+			//	cp->random_bit_mem = 10 ; //Forcing a value
 
                // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp-> random_mem[cp->mem_count],cp->random_bit_mem);
                 PRINT("Content of the program memory location[%x] is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1063,10 +1073,10 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 //And repeat this comparison for every opcode in the program, sine the flipped reg can be equal to the reg file in any of the instructions..
 //Hopefully another bit doesnt flip during this comparison
 	{ 
-		//printf("\nCheck function called... Reg count=%d.. Gets printed every cycle\n", cp-> reg_count); //Gets printed every cycle
+		printf("\nCheck program error... Register bit flip count=%d.. (Prints every cycle)\n", cp-> reg_count); //Gets printed every cycle
 
 		//cp->flip_bit_flag=0; //Reset flag.
-		PRINT("Reg index= %x\n",i1-> reg_index);
+		PRINT("Reg file address= %x\n",i1-> reg_index);
 		for(i=0;i < cp-> reg_count;i++) //Check if the reg index is equal to any of the previously flipped registers
 /*Reg count has been incremented at the end of the bit flips function. And this check program error has been called after the bitflips function.
 Hence, the for loop should run only till less than reg_count and not equal to reg_count */
@@ -1074,7 +1084,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 			if (i1->reg_index == cp->random_reg[i]) // && cp->first_error== 0) //If first error
 				{
 				cp-> reg_index_match = 1;
-				printf("\n*****Reg index: %x, matches with random reg:%x. Reg count array index=%d*****\n",i1-> reg_index,cp-> random_reg[i], i);
+				printf("\n*****Reg file address: %x, matches with random reg:%x. Register bit flip array index=%d*****\n",i1-> reg_index,cp-> random_reg[i], i);
 				printf("Bit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], r2->GP_Reg[cp-> random_reg[i]]);
 
 				}
@@ -1083,7 +1093,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 		if (cp-> reg_index_match == 1)
 		// This can be equal even if the same instruction is repeated after a certain number of cycles, hence check for PC value
 		{
-			printf("Reg index match, inside if\n");
+			printf("Reg file address match, inside if\n");
 			printf("PC value= %x\n",(r2-> PC));
 			printf("Same PC =%d\n",cp->same_PC);
 			printf("cp-> store_PC_same[0]=%x\n",cp-> store_PC_same[0]);
@@ -1118,8 +1128,8 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				//*****report error because of incorrect data in the location that is being accessed********************
 				cp->incorrect_data++;
 				
-				printf("Reg index %x\n",i1-> reg_index);
-				fprintf(fnew,"Reg index %x\n",i1-> reg_index);
+				printf("Reg file address %x\n",i1-> reg_index);
+				fprintf(fnew,"Reg file address %x\n",i1-> reg_index);
 
 				cp-> store_PC_same[cp->same_PC]= (r2-> PC); //PC 
 				//same_PC will have same value as that of same_reg
@@ -1129,7 +1139,10 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				//printf("same_PC count before incrementing=%d\n", cp->same_PC);
 				cp->same_PC= (cp->same_PC) +1; //gets incremented only if unique PC value is stored
 				//printf("Same PC incremented to %d\n",cp->same_PC);
-				
+
+				printf("\nERROR: Incorrect data\n");
+				fprintf(fnew,"\nERROR: Incorrect data\n");
+
 				report_error(cp,r2,i1,program_memory,fnew);
 			}
 		
@@ -1183,13 +1196,16 @@ If
 
 */
 	
-
+printf("\nCheck illegal instruction... \n"); //Gets printed every cycle
 
 /*If the random_mem (that is the mem location flipped) in the program_memory is in the range of the PC values of the program..
 For eg., if random_mem is 2, then program_memory[2] is flipped.
  Check if program_memory[2] contains any instruction. So, check if 2 is one of the PC values. If yes, then one of the instruction has changed.
 So, now check for different error/crash conditions
 */
+if (cp->flip_bit_flag_for_illegal_inst==1) //Check only if a bit has flipped
+{
+	cp->flip_bit_flag_for_illegal_inst=0; //reset it
 
 	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && // if the flipped mem location is greater than the initial PC value
          ((cp-> random_mem[(cp->mem_count)-1]) < r2->max_instr) )           // if the flipped mem location is lesser than the max PC value
@@ -1198,7 +1214,6 @@ So, now check for different error/crash conditions
 Hence, the condition should check for the mem_count -1 */
 
 //Now check if the decode_bits itself has changed.. else decode the instruction and see which part of the instruction has changed.
-
         
 		if ( (cp->random_bit_mem !=12) || (cp->random_bit_mem !=13) ) //Decode_bits hasnt changed. So, the category of instructions remains same as in the decode function
 		{
@@ -1226,20 +1241,18 @@ Hence, the condition should check for the mem_count -1 */
 		        case 2: //handle_goto_instruction_error()
 		                //CALL GOTO instruction
 						// Code for report control flow error
-							
-							printf("Error: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
-							fprintf(fnew,"Error: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
-					  		
-							cp->control_flow_change++;
-							report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
+						
+						printf("Error: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
+						fprintf(fnew,"Error: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
+				  		
+						cp->control_flow_change++;
+						report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
 
 		        break;
 
 		        case 3: //handle_literal_instruction_error()
 		                //Literal and control instruction
 						handle_literal_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fp);
-
-
 		        break;
 
 		        default:
@@ -1262,6 +1275,7 @@ Hence, the condition should check for the mem_count -1 */
 		}
 	} //close if PC range
 
+} //close if cp->flip_bit_flag_for_illegal_inst
 return 0;
 
 }
@@ -1307,8 +1321,8 @@ return 0;
 int report_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
 {
 
-		printf("\nERROR: Incorrect data\n");
-		fprintf(fnew,"\nERROR: Incorrect data\n");
+		printf("\nERROR:\n");
+		fprintf(fnew,"\nERROR:\n");
 		
 		//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
 
@@ -1324,6 +1338,7 @@ int report_error(struct crash_parameters *cp, struct registers *r2, struct instr
 		cp->error= (cp->error)+1;
 		
 		printf("Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles_for_error);
+		fprintf(fnew, "Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles_for_error);
 
 		printf("******Errors so far...****** %d\n",cp->error);
 		fprintf(fnew,"******Errors so far...****** %d\n",cp->error);
@@ -1346,6 +1361,9 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
         reset_PC_to_beginninng(r2);
 		printf("***PC reset after crash***\n");
 		fprintf(fnew,"***PC reset after crash***\n");
+
+		printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r2->PCL, r2->PCLATH, r2->PC);
+		fprintf(fnew,"PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r2->PCL, r2->PCLATH, r2->PC);
 
 		//clear all registers
 		for(ii=0;ii<REG_MAX;++ii)

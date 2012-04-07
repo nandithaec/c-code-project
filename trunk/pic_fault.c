@@ -35,7 +35,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_new_0p667.txt", "w" );
+fnew = fopen( "output_pic_results_new_0p8.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
