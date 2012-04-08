@@ -76,12 +76,12 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
+		printf("\nERROR: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"\nERROR: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
 
-  		cp->error= (cp->error)+1;
+  		cp->other_errors= (cp->other_errors)+1;
 		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles;
 		
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
@@ -111,11 +111,11 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
-  		cp->error= (cp->error)+1;
+		printf("\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
+  		cp->other_errors= (cp->other_errors)+1;
 		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	
@@ -1291,12 +1291,12 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	//W is the accumulator and immediate_value is the immediate value to be added
 	if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
+		printf("\nERROR: CALL instruction. Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"\nERROR: CALL instruction. Control flow has changed..will lead to incorrect results\n");
 
-  		cp->error= (cp->error)+1;
+  		cp->other_errors= (cp->other_errors)+1;
 		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}		
@@ -1331,11 +1331,11 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	//W is the accumulator and immediate_value is the immediate value to be added
 	if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: Control flow has changed..will lead to incorrect results\n");
-  		cp->error= (cp->error)+1;
+		printf("\nERROR: Control flow has changed..will lead to incorrect results\n");
+		fprintf(fnew,"\nERROR: Control flow has changed..will lead to incorrect results\n");
+  		cp->other_errors= (cp->other_errors)+1;
 		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
+		cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles;
 		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
 		}	

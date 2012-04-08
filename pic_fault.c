@@ -30,12 +30,12 @@ int main()
        
         int repeat_program_execution=0;
        // int initial_PCL=0, initial_PCLATH=0;
-        unsigned long long int total_instr_cycles=0,mean_instr_cycles=0,  mean_seconds=0, total_seconds=0, successful_cycles=0,sum_of_all_errors=0;
+        unsigned long long int total_instr_cycles=0,mean_instr_cycles=0,  mean_seconds=0, total_seconds=0, successful_cycles=0,total_error_count=0;
 		float percentage_crash=0.0,percentage_error=0.0, percentage_success=0.0;
 		
 
 
-fnew = fopen( "output_pic_results_new_0p8.txt", "w" );
+fnew = fopen( "output_pic_results_new_0p8_apr8.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -223,34 +223,45 @@ fprintf(fnew,"\nCalculating the number of errors: \n");
 printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);    
 fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);
 
-printf("\nInstruction cycle at which the errors first occured:\n");
-fprintf(fnew,"\nInstruction cycle at which the errors first occured:\n");
+printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
+fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
 
-for(c=0; c< (crash_param.error); c++)
+for(c=0; c< (crash_param.first_error); c++)
 {
 //Calculating the errors.. 
 	
-	printf("%llu\n",crash_param.error_at_instr[c]);
-	fprintf(fnew,"%llu\n",crash_param.error_at_instr[c]);
-	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.error_at_instr[c]) /(NUM_OF_INSTR);
+	printf("%llu\n",crash_param.first_error_at_instr[c]);
+	fprintf(fnew,"%llu\n",crash_param.first_error_at_instr[c]);
+	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(NUM_OF_INSTR);
 
 }
 
-printf("\nTotal number of times each error occured:\n");
-fprintf(fnew,"\nTotal number of times each error occured:\n");
+printf("\nTotal number of times the incorrect data error occured:\n");
+fprintf(fnew,"\nTotal number of times the incorrect data error occured:\n");
 
-for(c=0; c< (crash_param.error); c++)
+for(c=0; c< (crash_param.first_error); c++)
 {
-
 	printf("%llu\n",crash_param.errors_repeated[c]);
 	fprintf(fnew,"%llu\n",crash_param.errors_repeated[c]); 
-	sum_of_all_errors= 	sum_of_all_errors + crash_param.errors_repeated[c];
+	total_error_count= 	total_error_count + crash_param.errors_repeated[c];
 }
 
+printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
+fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
+
+for(c=0; c< (crash_param.other_errors); c++)
+{
+//Printing the errors.. 
+	printf("%llu\n",crash_param.rest_of_the_errors[c]);
+	fprintf(fnew,"%llu\n",crash_param.rest_of_the_errors[c]);
+
+}
+
+total_error_count= total_error_count+ crash_param.other_errors; //This adds the errors caused other than the incorrect data a reg file location
    
 percentage_crash= ((double)crash_param.crash/total_instr_cycles)*100.0;
-percentage_error= ((double)crash_param.error/total_instr_cycles)*100.0;
-successful_cycles= (total_instr_cycles-sum_of_all_errors- MAX_CRASHES);
+percentage_error= ((double)crash_param.first_error/total_instr_cycles)*100.0;
+successful_cycles= (total_instr_cycles-total_error_count- MAX_CRASHES);
 
 
 printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
@@ -260,11 +271,11 @@ fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr
 printf("Total number of crashes:%d\n",MAX_CRASHES);
 fprintf(fnew,"Total number of crashes:%d\n",MAX_CRASHES);
 
-printf("Total number of errors: %d\n",crash_param.error);
-fprintf(fnew,"Total number of errors: %d\n",crash_param.error);
+printf("Total number of errors: %d\n",crash_param.errors_so_far);
+fprintf(fnew,"Total number of errors: %d\n",crash_param.errors_so_far);
 
-printf("Summing up all errors which repeat every program run,Total number of errors: %llu\n",sum_of_all_errors);
-fprintf(fnew,"Summing up all errors which repeat every program run,Total number of errors: %llu\n",sum_of_all_errors);
+printf("Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
+fprintf(fnew,"Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
 
 printf("Total number of successful instruction cycle executions without errors/crashes:%llu\n\n",(successful_cycles)); //%e
 fprintf(fnew,"Total number of successful instruction cycle executions without errors/crashes:%llu\n\n",(successful_cycles)); 
