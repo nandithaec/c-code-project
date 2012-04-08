@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 15
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
@@ -137,6 +137,7 @@ struct crash_parameters
 	unsigned long long int first_error_at_instr[INSTR_CYCLES_NUMBER];
 	unsigned long long int rest_of_the_errors[INSTR_CYCLES_NUMBER];
 	int incorrect_data;
+	int incorrect_data_in_instr;
 	int flip_bit_flag;
 	int reg_count;
 	int mem_count;
@@ -308,6 +309,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->first_error=0;
 		cp->control_flow_change=0;
 		cp->incorrect_data=0;
+		cp->incorrect_data_in_instr=0;
 		cp->same_reg=0;
 		cp->same_PC=0;
 		cp-> reg_index_match=0;
@@ -1213,15 +1215,15 @@ If
 
 /*If the random_mem (that is the mem location flipped) in the program_memory is in the range of the PC values of the program..
 For eg., if random_mem is 2, then program_memory[2] is flipped.
- Check if program_memory[2] contains any instruction. So, check if 2 is one of the PC values. If yes, then one of the instruction has changed.
+ Check if program_memory[2] contains any instruction. So, check if 2 is one of the PC values. If yes, then one of the valid instructions has changed.
 So, now check for different error/crash conditions
 */
 if (cp->flip_bit_flag_for_illegal_inst==1) //Check only if a bit has flipped
 {
 	cp->flip_bit_flag_for_illegal_inst=0; //reset it
 
-	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && // if the flipped mem location is greater than the initial PC value
-         ((cp-> random_mem[(cp->mem_count)-1]) < r2->max_instr) )           // if the flipped mem location is lesser than the max PC value
+	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && 
+         ((cp-> random_mem[(cp->mem_count)-1]) < r2->max_instr) )           
 	{
 /*Mem count has been incremented at the end of the bit flips function. And this check program error has been called after the bitflips function.
 Hence, the condition should check for the mem_count -1 */
@@ -1337,7 +1339,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 							else if (cp->random_bit_mem == 7) //Destination has changed. report error
 							// Code for report error
 							{
-								cp->incorrect_data++;
+								cp->incorrect_data_in_instr++;
 								
 								printf("\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
 								fprintf(fnew,"\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
@@ -1380,7 +1382,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 							//Bit b has changed within the same group of instructions.. report error
 							// Code for report error
 							{
-								cp->incorrect_data++;
+								cp->incorrect_data_in_instr++;
 								
 								printf("\nERROR: Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
 								fprintf(fnew,"\nERROR: Bit instruction: Bit value in instruction has changed, will lead to an error in program\n");
@@ -1414,7 +1416,7 @@ int handle_literal_instruction_error(struct registers *r2,
 
 if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bits 0 to 7 are flipped, it means that the immediate value has changed
 						{
-							cp->incorrect_data++;
+							cp->incorrect_data_in_instr++;
 	
 							printf("\nERROR: Literal and control instruction: immediate value has changed, will lead to an error in program\n");
 							fprintf(fnew,"\nERROR: Literal and control instruction: Immediate value has changed, will lead to an error in program\n");	
