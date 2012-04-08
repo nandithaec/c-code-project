@@ -146,7 +146,7 @@ if( fnew != NULL )
 
 				 //Instruction execute
 				PRINT("execute\n");
-				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew);
+				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fp, start_seconds);
 				
 
 				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle

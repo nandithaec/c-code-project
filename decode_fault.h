@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 4
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 120
+#define PROBABILITY_INVERSE 100
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -178,7 +178,7 @@ int call_goto_instr(struct registers *, struct instructions *i1, struct crash_pa
 int literal_control_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *, time_t start_seconds, int[]);
 
 
-int instruction_execute(struct registers *, struct instructions *, int [], struct crash_parameters *, FILE *);
+int instruction_execute(struct registers *, struct instructions *, int [], struct crash_parameters *, FILE *, FILE *, time_t start_seconds);
 int push(struct registers *);
 int pop (struct registers *);
 
@@ -1315,8 +1315,8 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 
 							{
 								(cp-> crash_dueto_illegal_mem)++;
-								printf("\nCRASH: Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-						   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+								printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+						   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
 								report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
 								
@@ -1368,8 +1368,8 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 	
 							{
 								(cp-> crash_dueto_illegal_mem)++;
-								printf("\nCRASH: Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
-						   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Content of location %x got affected\n", cp->crash_reg_index);
+								printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+						   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
 								report_crash(r2,  program_memory, cp, start_seconds,i1, fnew, fp);
 							}
