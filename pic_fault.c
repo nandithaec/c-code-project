@@ -296,8 +296,11 @@ fprintf(fnew,"Number of crashes due to illegal opcode: %d \n",crash_param.crash_
 printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 fprintf(fnew,"Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 
-printf("Total number of errors due to incorrect data: %d\n",crash_param.incorrect_data);
-fprintf(fnew,"Total number of errors due to incorrect data: %d\n",crash_param.incorrect_data);
+printf("Total number of errors due to incorrect data being fetched from memory: %d\n",crash_param.incorrect_data);
+fprintf(fnew,"Total number of errors due to incorrect data being fetched from memory: %d\n",crash_param.incorrect_data);
+
+printf("Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr);
+fprintf(fnew,"Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr); 
 
 printf("Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
 fprintf(fnew,"Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
