@@ -125,14 +125,16 @@ if( fnew != NULL )
 	    		PRINT("bit flip call\n");
 				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
 				
-				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
+				
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
 				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
-				check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
-		
+				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
+				{
+					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
+				}		
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
@@ -200,7 +202,6 @@ for(i=1;i <= MAX_CRASHES;i++)
 	}
 
 printf("Number of instruction cycles executed before each crash:\n");
-
 fprintf(fnew,"Number of instruction cycles executed before each crash:\n");
 
 for(c=1; c<= (crash_param.crash); c++)
@@ -266,6 +267,9 @@ successful_cycles= (total_instr_cycles-total_error_count- MAX_CRASHES);
 
 printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
 fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
+
+printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
 
 
 printf("Total number of crashes:%d\n",MAX_CRASHES);
