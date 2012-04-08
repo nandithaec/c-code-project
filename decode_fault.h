@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 100
+#define PROBABILITY_INVERSE 120
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -951,8 +951,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			printf("Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 			fprintf(fnew,"Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 
-			printf("Random number that got generated this time was: %d\n", cp->random_number );
-			fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
+			//printf("Random number that got generated this time was: %d\n", cp->random_number );
+			//fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
     
            // PRINT("Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
@@ -1077,7 +1077,7 @@ return 0;
 
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
 {
-
+//Check if the data being accessed by the instruction has been flipped.. hence leading to incorrect data
 	int i=0,j=0;
 
     //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
@@ -1153,8 +1153,8 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				cp->same_PC= (cp->same_PC) +1; //gets incremented only if unique PC value is stored
 				//printf("Same PC incremented to %d\n",cp->same_PC);
 
-				printf("\nERROR: Incorrect data\n");
-				fprintf(fnew,"\nERROR: Incorrect data\n");
+				printf("\nERROR: Incorrect data being fetched from memory\n");
+				fprintf(fnew,"\nERROR: Incorrect data being fetched from memory\n");
 
 				report_error(cp,r2,i1,program_memory,fnew);
 			}
@@ -1255,8 +1255,8 @@ Hence, the condition should check for the mem_count -1 */
 		                //CALL GOTO instruction
 						// Code for report control flow error
 						
-						printf("\nCRASH: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
-						fprintf(fnew,"\nCRASH: Control flow instruction. Control flow has changed..will lead to incorrect results\n");
+						printf("\nCRASH: Control flow instruction has got modified\n");
+						fprintf(fnew,"\nCRASH:Control flow instruction has got modified\n");
 				  		
 						cp->control_flow_change++;
 						report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
@@ -1454,6 +1454,9 @@ int report_crash(struct registers *r2,  int program_memory[], struct crash_param
 
 		//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
 		cp->crash_at_instr[cp->crash] = cp->instr_cycles;  //Save the cycles in an array to finally print it out
+
+		printf("Random number that got generated this time was: %d\n", cp->random_number );
+		fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
 
 		printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 		fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);

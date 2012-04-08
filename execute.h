@@ -84,6 +84,9 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			printf("\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
 				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
@@ -122,6 +125,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			printf("\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
 				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
@@ -1314,6 +1319,9 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			printf("\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
 				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
@@ -1356,7 +1364,10 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		
 			printf("\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
-				  		
+			
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+		
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
