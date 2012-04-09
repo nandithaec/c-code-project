@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 15
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
@@ -28,6 +28,8 @@
 void print_null (char* n,...) {return;}
 unsigned int previous_time = -1;
 //All declarations
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct registers
 {
@@ -53,7 +55,7 @@ struct registers
 
 };
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 enum Mnemonic
 {
@@ -101,7 +103,7 @@ enum Mnemonic
         
 };
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 struct instructions
 {
     int instruction;
@@ -116,6 +118,7 @@ struct instructions
 	int decode_bits;     
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 struct crash_parameters
 {
 
@@ -160,7 +163,7 @@ struct crash_parameters
 
 };
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Function declarations
 int read_instr_from_file(FILE *,int program_memory[],struct registers *, FILE *);
 int instruction_fetch(struct registers*, int [],struct crash_parameters *);
@@ -200,6 +203,7 @@ int handle_literal_instruction_error(struct registers *r2,int program_memory[],s
 int report_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
 int reset_after_crash(struct registers *,  int program_memory[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *);
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //----------------------------------------Function definitions---------------------------------------------------------//
 int initialise_regs(struct registers *r)
 {
@@ -291,6 +295,7 @@ int initialise_regs(struct registers *r)
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int initialise_crash_param(struct crash_parameters *cp)
 {
 	int i=0;
@@ -353,7 +358,7 @@ return 0;
 }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FILE *fnew)
 {
 
@@ -403,6 +408,7 @@ return 0;
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int reset_PC_to_beginninng(struct registers *r)
 {
@@ -426,7 +432,7 @@ return 0;
 }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int instruction_fetch(struct registers *r, int program_memory[],struct crash_parameters *cp)
 {
     //int instruction;
@@ -451,6 +457,8 @@ int instruction_fetch(struct registers *r, int program_memory[],struct crash_par
         
 }                       
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int PC_increment(struct registers *r)
 {
     //Increment PC
@@ -460,6 +468,7 @@ int PC_increment(struct registers *r)
 	return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int increment_PC(struct registers **r)
 {
 //PCL= GP_Reg[2] and GP_Reg[0x82]
@@ -478,7 +487,7 @@ int increment_PC(struct registers **r)
 return 0;
 }  
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 int instruction_decode(struct registers *r1, struct instructions *i1, int program_memory[] ,struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds)
@@ -530,10 +539,7 @@ int instruction_decode(struct registers *r1, struct instructions *i1, int progra
 return 0;
 }
 
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, struct registers *r1, int program_memory[], FILE *fnew, FILE *fp, time_t start_seconds)
 
@@ -689,6 +695,7 @@ return 0;
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds, int program_memory[])
 {
@@ -740,7 +747,7 @@ return 0;
 
 }
         
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int literal_control_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds, int program_memory[])
 {
@@ -806,6 +813,8 @@ PRINT("-------------------------------------------------------------------\n");
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int call_goto_instr(struct registers *r1, struct instructions *i1,struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds, int program_memory[])
 {
                                                 
@@ -839,7 +848,7 @@ PRINT("-------------------------------------------------------------------\n");
 return 0;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fp)
 
@@ -997,7 +1006,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			//	cp->random_bit_mem = 10 ; //Forcing a value
 
                // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp-> random_mem[cp->mem_count],cp->random_bit_mem);
-                PRINT("Content of the program memory location[%x] is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+//printf("Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+//fprintf(fnew,"Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
         //Bit 0 is the LSB (rightmost) and Bit 13 is MSB (leftmost)
                 switch(cp->random_bit_mem)
@@ -1064,7 +1074,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
                 }
         
         printf("Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-     
+//     fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 	cp->reg_count = cp->reg_count + 1;
 	cp->mem_count = cp->mem_count + 1;
@@ -1075,6 +1085,7 @@ return 0;
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Check for program error (error in data)
 
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
@@ -1159,6 +1170,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				fprintf(fnew,"\nERROR: Incorrect data being fetched from memory\n");
 
 				report_error(cp,r2,i1,program_memory,fnew);
+
 			}
 		
 		} //end if (cp-> reg_index_match == 1)
@@ -1176,7 +1188,7 @@ return 0;
 
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Condition for program crash if illegal instruction 
 int check_illegal_instr(struct registers *r2,  
                         int program_memory[], 
@@ -1238,7 +1250,7 @@ Hence, the condition should check for the mem_count -1 */
 			crash_decode_bits= (cp->erroneous_instruction & 0x3000)>> 12;  // bits 13 and 14
 	        PRINT("Decode bits while verifying program crash= %d \n", crash_decode_bits);
 
-
+		
 	 		switch (crash_decode_bits)
 		    {
 		        case 0: //handle_byte_instruction_error()
@@ -1295,7 +1307,7 @@ return 0;
 
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 int handle_byte_instruction_error(struct registers *r2,  
                         int program_memory[], 
@@ -1307,7 +1319,7 @@ int handle_byte_instruction_error(struct registers *r2,
 {
 
 
-if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
+					if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
 						{
 							cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
 
@@ -1322,6 +1334,18 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
 								report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
 								
+							}
+
+
+							else 
+//If it has not got converted into one of the illegal memory locations, it has nevertheless got converted into some unintended reg file location.
+//report error
+							{
+							cp->incorrect_data_in_instr++;
+							printf("\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
+							fprintf(fnew,"\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
+							report_error(cp,r2,i1,program_memory,fnew);
+							
 							}
 
 						}
@@ -1350,7 +1374,7 @@ return 0;
 }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int handle_bit_instruction_error(struct registers *r2,  
                         int program_memory[], 
                         struct crash_parameters *cp, 
@@ -1403,7 +1427,7 @@ return 0;
 }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int handle_literal_instruction_error(struct registers *r2,  
                         int program_memory[], 
                         struct crash_parameters *cp, 
@@ -1437,7 +1461,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bit
 return 0;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int report_crash(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fp)
 {
@@ -1478,30 +1502,38 @@ int report_crash(struct registers *r2,  int program_memory[], struct crash_param
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int report_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
 {
 		
 		//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
 
-		//printf("PC value now(in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
-		//fprintf(fnew,"PC value now (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
-
-		printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
-		fprintf(fnew,"PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
-
 		
 		if(cp->incorrect_data_flag ==1) //If error is due to incorrect data, save the cycles in his array. This saves only the cycle at which the first error occured
 		{
+			printf("PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode being executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+
 			cp->first_error_at_instr[cp->first_error] = cp->instr_cycles_for_error; //Save the cycles in an array to finally print it out
 			cp->first_error= (cp->first_error)+1;
 			cp->incorrect_data_flag=0; //reset
+
 		}
 		else
 		{
+			printf("PC value (in hex)=%x, erroneous instruction (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], cp->erroneous_instruction );
+			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], cp->erroneous_instruction);
+
+			printf("The bit that has got flipped is: %d\n", cp->random_bit_mem );
+			fprintf(fnew,"The bit that has got flipped is: %d\n", cp->random_bit_mem);
+
 			cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles_for_error; //Save the cycles in an array to finally print it out
 			cp->other_errors= (cp->other_errors)+1;
 		}
 		
+		
+
 		printf("Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles_for_error);
 		fprintf(fnew, "Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles_for_error);
 
@@ -1514,6 +1546,7 @@ int report_error(struct crash_parameters *cp, struct registers *r2, struct instr
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds, FILE *fnew, FILE *fp)
 
@@ -1550,4 +1583,6 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 return 0;
 
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

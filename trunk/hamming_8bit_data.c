@@ -4,7 +4,9 @@
 For eg., if data is 1 0 0 1 1 0 1 0
 positions are assigned starting from left, not from the right as is the general convention.
 i.e., as, bit 1, bit 2 and so on.. so bit 1=1, bit 2=0, bit3=0 and so on till bit 8=0. 
-Array index is also starting from 1 and not 0, to avoid confusion */
+Array index is also starting from 1 and not 0, to avoid confusion.
+ 
+-Nanditha April 3rd 2012 */
 
 
 #include<stdio.h>
@@ -12,7 +14,10 @@ Array index is also starting from 1 and not 0, to avoid confusion */
 #include<math.h>
 
 
-int check_if_power_of_two (int, int *);
+
+int hamming_encoding(int , int[],int*);
+int error_detect_correct_decode(int , int*);
+int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int*, int);
 int calculate_parity_bits(int[], int[]);
@@ -20,17 +25,39 @@ int detect_error(int[], int*);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 
+
 int main()
+{
+
+int hamming_code_decimal=0,decoded_data_decimal=0,decimal_input=0;
+int hamming_code[14]={0}, decimal_received=0;
+
+
+printf("\nHamming code----- Encoding\n");
+    printf("Enter the number to be encoded, in decimal (not binary) :\n ");
+	scanf("%d", &decimal_input);
+
+hamming_encoding(decimal_input, hamming_code, &hamming_code_decimal);
+
+
+printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
+	scanf("%d", &decimal_received);
+
+error_detect_correct_decode( decimal_received, &decoded_data_decimal);
+
+return 0;
+}
+
+
+int hamming_encoding(int decimal_input, int hamming_code[], int *hamming_code_decimal)
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
-	int hamming_code[14]={0}, binary_received[14]={0}, parity[5]= {0}, decoded_data_binary[10]={0}, binary_corrected[14]={0};
-	int binary_received_original[14]={0};
-	int power_of_two=0, decimal_input=0, decimal_received=0, hamming_code_decimal=0, bit_in_error=0, decoded_data_decimal=0;
+	int parity[5]= {0};
+
+	int power_of_two=0;
    
-    printf("\nHamming code----- Encoding\n");
-    printf("Enter the number to be encoded, in decimal (not binary) :\n ");
-	scanf("%d", &decimal_input);
+    
 	
 	printf("\nData has been read and is %d (decimal), %x (in hex) \n", decimal_input, decimal_input);
 	
@@ -159,11 +186,22 @@ j=1;
 	printf("\n");
 	printf("************************************************\n");
 
-	convert_binary_to_decimal(hamming_code, &hamming_code_decimal,13);
-	printf("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
+	convert_binary_to_decimal(hamming_code, hamming_code_decimal,13);
+	printf("Hamming code in decimal is %d, in hex is %x\n",*hamming_code_decimal,*hamming_code_decimal);
 
-	printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
-	scanf("%d", &decimal_received);
+
+return 0;
+
+}
+
+int error_detect_correct_decode(int decimal_received, int *decoded_data_decimal)
+{
+
+
+int  binary_received[14]={0},i=0,binary_corrected[14]={0};
+int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0} ;
+//Error detection
+	
 	
 	convert_decimal_to_binary(decimal_received,binary_received, 13);
 	
@@ -179,7 +217,7 @@ j=1;
 
 	detect_error(binary_received, &bit_in_error);
 
-
+//Error correction
 	if (bit_in_error !=0) // If bit_in_error=0, that means there was no error
     	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
 
@@ -201,14 +239,14 @@ j=1;
 
 	printf("\n");
 
-	convert_binary_to_decimal(decoded_data_binary, &decoded_data_decimal,8);
+	convert_binary_to_decimal(decoded_data_binary, decoded_data_decimal,8);
 
-	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",decoded_data_decimal,decoded_data_decimal);
+	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",*decoded_data_decimal,*decoded_data_decimal);
 
     return 0;
 }
 
-//*****************Ending main***********************
+//*****************Ending critical functions***********************
 
 int check_if_power_of_two (int num, int *power_of_two)
 {
