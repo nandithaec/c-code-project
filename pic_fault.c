@@ -124,8 +124,7 @@ if( fnew != NULL )
 				  //Bit flip function called every cycle
 	    		PRINT("bit flip call\n");
 				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
-				
-				
+							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
 				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
@@ -201,8 +200,8 @@ for(i=1;i <= MAX_CRASHES;i++)
 	total_seconds=total_seconds+ crash_param.crash_time_array[i];
 	}
 
-printf("Number of instruction cycles executed before each crash:\n");
-fprintf(fnew,"Number of instruction cycles executed before each crash:\n");
+printf("\nNumber of instruction cycles executed before each crash:\n");
+fprintf(fnew,"\nNumber of instruction cycles executed before each crash:\n");
 
 for(c=1; c<= (crash_param.crash); c++)
    {//Print the entire array containing the instruction cycles at which the crash occured each time
@@ -247,7 +246,7 @@ for(c=0; c< (crash_param.first_error); c++)
 	total_error_count= 	total_error_count + crash_param.errors_repeated[c];
 }
 
-printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
+/*printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 
 for(c=0; c< (crash_param.other_errors); c++)
@@ -257,7 +256,7 @@ for(c=0; c< (crash_param.other_errors); c++)
 	fprintf(fnew,"%llu\n",crash_param.rest_of_the_errors[c]);
 
 }
-
+*/
 total_error_count= total_error_count+ crash_param.other_errors; //This adds the errors caused other than the incorrect data a reg file location
    
 percentage_crash= ((double)crash_param.crash/total_instr_cycles)*100.0;
@@ -268,8 +267,8 @@ successful_cycles= (total_instr_cycles-total_error_count- MAX_CRASHES);
 printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
 fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
-printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
-fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
+//printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
+//fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
 
 
 printf("Total number of crashes:%d\n",MAX_CRASHES);
@@ -290,7 +289,7 @@ fprintf(fnew,"Number of crashes due to Program counter getting manipulated: %d \
 printf("Number of crashes due to illegal memory access: %d \n",crash_param.crash_dueto_illegal_mem);
 fprintf(fnew,"Number of crashes due to illegal memory access: %d \n",crash_param.crash_dueto_illegal_mem);
 
-printf("Number of crashes due to illegal memory access: %d \n",crash_param.crash_dueto_illegal_opcode);
+printf("Number of crashes due to illegal opcode: %d \n",crash_param.crash_dueto_illegal_opcode);
 fprintf(fnew,"Number of crashes due to illegal opcode: %d \n",crash_param.crash_dueto_illegal_opcode);
 
 printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
@@ -327,8 +326,8 @@ fprintf(fnew,"Mean time to failure in terms of the number of instruction cycles:
 
 
 mean_seconds= total_seconds/MAX_CRASHES;
-printf("Mean time to failure in terms of seconds: %llu\n", mean_seconds);
-fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n", mean_seconds);
+printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
 
 fclose(fnew);

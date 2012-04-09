@@ -8,15 +8,10 @@ Array index is also starting from 1 and not 0, to avoid confusion.
  
 -Nanditha April 3rd 2012 */
 
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int hamming_encoding(int , int[],int*);
-int error_detect_correct(int , int*);
+int error_detect_correct_decode(int , int*);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int*, int);
@@ -26,28 +21,7 @@ int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 
 
-int main()
-{
-
-int hamming_code_decimal=0,decoded_data_decimal=0,decimal_input=0;
-int hamming_code[14]={0}, decimal_received=0;
-
-
-printf("\nHamming code----- Encoding\n");
-    printf("Enter the number to be encoded, in decimal (not binary) :\n ");
-	scanf("%d", &decimal_input);
-
-hamming_encoding(decimal_input, hamming_code, &hamming_code_decimal);
-
-
-printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
-	scanf("%d", &decimal_received);
-
-error_detect_correct( decimal_received, &decoded_data_decimal);
-
-return 0;
-}
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int hamming_encoding(int decimal_input, int hamming_code[], int *hamming_code_decimal)
 {
@@ -194,12 +168,14 @@ return 0;
 
 }
 
-int error_detect_correct(int decimal_received, int *decoded_data_decimal)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int error_detect_correct_decode(int decimal_received, int *decoded_data_decimal)
 {
 
 
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
-int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0} ;
+int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0} ;
 //Error detection
 	
 	
@@ -246,6 +222,7 @@ int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0
     return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //*****************Ending critical functions***********************
 
 int check_if_power_of_two (int num, int *power_of_two)
@@ -285,6 +262,7 @@ return 0;
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int convert_decimal_to_binary(int decimal_input, int binary_input[], int num_of_bits)
 {
@@ -305,7 +283,7 @@ int convert_decimal_to_binary(int decimal_input, int binary_input[], int num_of_
 return 0;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int	convert_binary_to_decimal(int hamming_code[], int *hamming_code_decimal,int num_of_bits)
 {
@@ -321,7 +299,7 @@ int	convert_binary_to_decimal(int hamming_code[], int *hamming_code_decimal,int 
 return 0;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int calculate_parity_bits(int hamming_code[], int parity[])
 {
@@ -347,6 +325,7 @@ int calculate_parity_bits(int hamming_code[], int parity[])
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int detect_error(int binary_received[], int *bit_in_error)
 {
@@ -434,6 +413,8 @@ return 0;
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int flip_bit_for_correction(int *decimal_received,int binary_received_or[], int *bit_in_error)
 {
 int i=0;
@@ -519,6 +500,8 @@ i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
 return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int decode_received_data(int binary_received[],int decoded_data_binary[])
 {
 
@@ -555,7 +538,7 @@ return 0;
 }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -1,6 +1,6 @@
 //Execute.h 
 
-int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew)
+int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds)
 {
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
@@ -73,24 +73,29 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 	break;
 		
 	case 2: //RETURN 
-		
-		if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
-		{
-		printf("Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: RETURN instruction. Control flow has changed..will lead to incorrect results\n");
+//This case will be entered even if there is a valid RETURN instruction. 
 
-  		cp->error= (cp->error)+1;
-		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
+//But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
+//That means, the instruction at the current PC value has been modified into a RETURN instruction through a bit flip
 		
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		}	
-	    
+		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) 
+		{
+		
+			printf("\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
+				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+
+			cp->control_flow_change++;
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+		}
+
+
 		
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
-		printf("RETURN instruction\n");
+		//printf("RETURN instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer -1],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
@@ -109,19 +114,33 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 	
 	case 3: //RETFIE
 		
-		if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
+//This case will be entered even if there is a valid RETFIE instruction. 
+
+//But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
+//That means, the instruction at the current PC value has been modified into a RETFIE instruction through a bit flip
+
+		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
-  		cp->error= (cp->error)+1;
-		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		}	
-		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-		printf("Instruction cycle=%llu\n",cp->instr_cycles);
-		printf("RETFIE instruction\n");
+		
+			printf("\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
+				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+
+			cp->control_flow_change++;
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+		}
+//printf("\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
+		//fprintf(fnew,"\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
+  		//cp->other_errors= (cp->other_errors)+1;
+		//cp->control_flow_change++;
+		//cp->rest_of_the_errors[cp->other_errors] = cp->instr_cycles;
+		//printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+		//fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
+			
+		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+		//printf("Instruction cycle=%llu\n",cp->instr_cycles);
+		//printf("RETFIE instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
@@ -1288,19 +1307,26 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 	printf("CALL instruction\n");
 
-	//W is the accumulator and immediate_value is the immediate value to be added
-	if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
-		{
-		printf("Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: CALL instruction. Control flow has changed..will lead to incorrect results\n");
+//This case will be entered even if there is a valid CALL instruction. 
 
-  		cp->error= (cp->error)+1;
-		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		}		
-		printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+//But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
+//That means, the instruction at the current PC value has been modified into a CALL instruction through a bit flip
+
+	//W is the accumulator and immediate_value is the immediate value to be added
+		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
+		{
+		
+			printf("\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
+				  		
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			
+			cp->control_flow_change++;
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+		}
+	
+		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
@@ -1327,19 +1353,26 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	case 34: 
 
 	printf("GOTO instruction\n");
+//This case will be entered even if there is a valid GOTO instruction. 
+
+//But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
+//That means, the instruction at the current PC value has been modified into a GOTO instruction through a bit flip
 
 	//W is the accumulator and immediate_value is the immediate value to be added
-	if (cp-> random_mem[cp->mem_count] == (r1-> PC)) //Control flow changes
+	if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
-		printf("Error: Control flow has changed..will lead to incorrect results\n");
-		fprintf(fnew,"Error: Control flow has changed..will lead to incorrect results\n");
-  		cp->error= (cp->error)+1;
-		cp->control_flow_change++;
-		cp->error_at_instr[cp->error] = cp->instr_cycles;
-		printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		fprintf(fnew,"Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles);
-		}	
-	printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+		
+			printf("\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
+			
+			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+		
+			cp->control_flow_change++;
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+		}
+
+	//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
