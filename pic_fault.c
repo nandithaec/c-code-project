@@ -35,7 +35,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_new_0p8_apr8.txt", "w" );
+fnew = fopen( "output_pic_results_new_0p1_apr9.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -187,6 +187,7 @@ if( fnew != NULL )
 			    printf("Status register contents:(hex) at the end of all operations: ");
 			    fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
               
+
 				  printf("%x", pic_registers.GP_Reg[3]);
 				 fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
 
