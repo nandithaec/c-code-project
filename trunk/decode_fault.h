@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 120
+#define PROBABILITY_INVERSE 1000
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -996,7 +996,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
-                cp->random_mem[cp->mem_count] = rand() % 20; // Random number between 0 and 8192. Store it in an array to keep track and compare later
+                cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
 				
 				//cp->random_mem[cp->mem_count] = 2; //Forcing a value
 
