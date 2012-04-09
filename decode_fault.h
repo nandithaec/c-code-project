@@ -18,6 +18,7 @@
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
+#define PC_MATRIX_MULT_RANGE 600
 
 #define DEBUG
 //#ifdef DEBUG
@@ -52,6 +53,9 @@ struct registers
 	int  starting_PC_value;
 	int max_instr;
 	int instruction;
+	int PC_array_for_matrix_mult[PC_MATRIX_MULT_RANGE];
+	int max_PC_count_matrix_mult;
+	int instr_array_for_matrix_mult[PC_MATRIX_MULT_RANGE];
 
 };
 
@@ -166,6 +170,11 @@ struct crash_parameters
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Function declarations
 int read_instr_from_file(FILE *,int program_memory[],struct registers *, FILE *);
+
+int	read_PC_array_for_matrix_mult(FILE *, int program_memory[], struct registers * , FILE *);
+int	read_instr_for_matrix_mult(FILE *, int program_memory[], struct registers *, FILE *);
+
+
 int instruction_fetch(struct registers*, int [],struct crash_parameters *);
 int PC_increment(struct registers *);
 int increment_PC(struct registers **);
@@ -289,6 +298,18 @@ int initialise_regs(struct registers *r)
 
                 r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
+				//Parameters for matrix multiplication
+				
+				for(i=0;i<PC_MATRIX_MULT_RANGE;++i)
+	                r->PC_array_for_matrix_mult[i]=0;
+
+				for(i=0;i<PC_MATRIX_MULT_RANGE;++i)
+	                r->instr_array_for_matrix_mult[i]=0;
+
+			
+				r->max_PC_count_matrix_mult=0;
+
+
                 PRINT("-----------------------------------------------------------------\n");
                 PRINT("Initial values (hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",r->PCL, r->PCLATH, r->PC);
 
@@ -407,6 +428,104 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
 return 0;
 
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct registers *r , FILE *fnew)
+{
+
+	int i=0;
+    char line[FILE_CHARS]; 
+    //int starting_PC_value = 0;
+	int PC_for_matrix_mult=0;
+
+	//reset_PC_to_beginninng(r); //Initial PC values are set in this function
+		
+	fPC = fopen( "matrix_assembly_PConly.c", "rt" );
+
+    if( fPC == NULL )
+     {
+           puts ( "cannot open file matrix_assembly_PConly.txt" ) ;
+           exit(0) ;
+     }  
+
+	while(fgets(line, FILE_CHARS, fPC) != NULL)
+       {
+            // get a line, up to 80 chars from file.  done if NULL 
+            sscanf (line, "%x", &PC_for_matrix_mult);
+            r->PC_array_for_matrix_mult[r->max_PC_count_matrix_mult]= PC_for_matrix_mult;
+            r->max_PC_count_matrix_mult = (r->max_PC_count_matrix_mult) + 1; //indicates max PC count
+           
+       }
+     
+	printf("\nPC values read are: \n");
+	fprintf(fnew,"\nPC values read are: \n");
+
+    for(i= 0; i< r->max_PC_count_matrix_mult; i++)
+    {
+	    printf("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+		fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+	}
+
+	printf("\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+	fprintf(fnew,"\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+
+
+	fclose(fPC);  // close the file prior to exiting the function
+
+
+return 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct registers *r, FILE *fnew)
+{
+
+	int i=0, j=0;
+    char line[FILE_CHARS]; 
+ 	int instr_for_matrix_mult=0;
+
+	//reset_PC_to_beginninng(r); //Initial PC values are set in this function
+		
+	finstr = fopen( "matrix_assembly_instruction_only.c", "rt" );
+
+    if( finstr == NULL )
+     {
+           puts ( "cannot open file matrix_assembly_instruction_only.txt" ) ;
+           exit(0) ;
+     }  
+
+	while(fgets(line, FILE_CHARS, finstr) != NULL)
+       {
+            
+			// get a line, up to 80 chars from file.  done if NULL 
+            sscanf (line, "%x", &instr_for_matrix_mult);
+            r->instr_array_for_matrix_mult[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
+            j++; 
+           
+       }
+     
+	printf("\nInstructions read are: \n");
+	fprintf(fnew,"\nInstructions read are: \n");
+
+    for(i= 0; i< r->max_PC_count_matrix_mult; i++)
+    {
+	    printf("Instruction[%x]= %x\n",r->PC_array_for_matrix_mult[i], r->instr_array_for_matrix_mult[r->PC_array_for_matrix_mult[i]]);
+		fprintf(fnew,"Instruction[%x]= %x\n",r->PC_array_for_matrix_mult[i], r->instr_array_for_matrix_mult[r->PC_array_for_matrix_mult[i]]);
+	}
+
+	printf("\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+	fprintf(fnew,"\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+
+
+	fclose(finstr);  // close the file prior to exiting the function
+
+return 0;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

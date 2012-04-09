@@ -12,6 +12,8 @@
 
 
 FILE *fnew;
+FILE *fPC;
+FILE *finstr;
 
 int main()
 
@@ -35,10 +37,12 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_new_0p1_apr9.txt", "w" );
+fnew = fopen( "output_pic_results_testing_file.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
+
+finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
 	
         struct registers pic_registers;
@@ -60,7 +64,7 @@ if( fnew != NULL )
 
 //Read in the program counter initial value from user
 
-                printf("Enter starting PCL value (in hex): \n");
+              /*  printf("Enter starting PCL value (in hex): \n");
 
                 scanf("%x", &pic_registers.GP_Reg[2]);
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
@@ -77,12 +81,17 @@ if( fnew != NULL )
 
                 pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
-        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC);
+        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); */
 
 
 //*******************Read instructions********************
         FILE *fp;               
-		read_instr_from_file(fp,program_memory,&pic_registers,fnew);
+		//read_instr_from_file(fp,program_memory,&pic_registers,fnew); //simple add program
+
+		read_PC_array_for_matrix_mult(fPC,program_memory,&pic_registers,fnew);
+		read_instr_for_matrix_mult(finstr,program_memory,&pic_registers,fnew);
+		fclose(fnew);
+		exit(0);
 //-------------------------------------------------------------------------------------------
 
         printf("Status register contents:(hex) at the beginning of all operations: ");
@@ -187,6 +196,7 @@ if( fnew != NULL )
 			    printf("Status register contents:(hex) at the end of all operations: ");
 			    fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
               
+
 
 				  printf("%x", pic_registers.GP_Reg[3]);
 				 fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
