@@ -235,8 +235,12 @@ int initialise_regs(struct registers *r)
         //      r->PC=0;
         //STACK
                 r->stack_pointer = 0;
-                r->stack[1] = 0x62;
-                r->stack[0] = 0x88;
+               // r->stack[1] = 0x62;
+               // r->stack[0] = 0x88;
+			
+		for(i=0;i<REG_WIDTH;++i)
+                r->stack[i]=0; 
+
 
         // Status register = GP_Reg[3]
         //Assigning some value to the carry in status reg
@@ -484,7 +488,7 @@ return 0;
 int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct registers *r, FILE *fnew)
 {
 
-	int i=0, j=0;
+	int i=0, j=0, minPC=0;
     char line[FILE_CHARS]; 
  	int instr_for_matrix_mult=0;
 
@@ -516,6 +520,19 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 	    printf("Instruction[%x]= %x\n",r->PC_array_for_matrix_mult[i], r->instr_array_for_matrix_mult[r->PC_array_for_matrix_mult[i]]);
 		fprintf(fnew,"Instruction[%x]= %x\n",r->PC_array_for_matrix_mult[i], r->instr_array_for_matrix_mult[r->PC_array_for_matrix_mult[i]]);
 	}
+
+	printf("\nInstructions in increasing PC order are: \n");
+	fprintf(fnew,"\nInstructions in increasing PC order are: \n");
+
+	minPC=r->PC_array_for_matrix_mult[0]; //The minimum PC value.. This is not necessarily the starting PC value for program execution
+
+	 for(i= 0; i< r->max_PC_count_matrix_mult; i++)
+    {
+	    printf("Instruction[%x]= %x\n",minPC, r->instr_array_for_matrix_mult[minPC]);
+		fprintf(fnew,"Instruction[%x]= %x\n",minPC, r->instr_array_for_matrix_mult[minPC]);
+		minPC++;
+	}
+
 
 	printf("\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
 	fprintf(fnew,"\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
@@ -1438,56 +1455,56 @@ int handle_byte_instruction_error(struct registers *r2,
 {
 
 
-					if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
-						{
-							cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
+if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
+	{
+		cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
 
-							
-							if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
-								 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
+		
+		if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
+			 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
 
-							{
-								(cp-> crash_dueto_illegal_mem)++;
-								printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
-						   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
-								// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-								report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
-								
-							}
+		{
+			(cp-> crash_dueto_illegal_mem)++;
+			printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+	   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+			// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
+			report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fp);
+			
+		}
 
 
-							else 
+		else 
 //If it has not got converted into one of the illegal memory locations, it has nevertheless got converted into some unintended reg file location.
 //report error
-							{
-							cp->incorrect_data_in_instr++;
-							printf("\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
-							fprintf(fnew,"\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
-							report_error(cp,r2,i1,program_memory,fnew);
-							
-							}
+		{
+		cp->incorrect_data_in_instr++;
+		printf("\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
+		fprintf(fnew,"\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
+		report_error(cp,r2,i1,program_memory,fnew);
+		
+		}
 
-						}
-						else 
-							if ( (8 <= cp->random_bit_mem) && (cp->random_bit_mem <= 11) )
-							//opcode has changed within the same group of instructions.. report error
-							// Code for report error
-							{
-								cp-> opcode_change++;
-								
-								printf("\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
-								fprintf(fnew,"\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
-								report_error(cp,r2,i1,program_memory,fnew);
-							}
-							else if (cp->random_bit_mem == 7) //Destination has changed. report error
-							// Code for report error
-							{
-								cp->incorrect_data_in_instr++;
-								
-								printf("\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
-								fprintf(fnew,"\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
-								report_error(cp,r2,i1,program_memory,fnew);
-							}
+	}
+	else 
+		if ( (8 <= cp->random_bit_mem) && (cp->random_bit_mem <= 11) )
+		//opcode has changed within the same group of instructions.. report error
+		// Code for report error
+		{
+			cp-> opcode_change++;
+			
+			printf("\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
+			fprintf(fnew,"\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
+			report_error(cp,r2,i1,program_memory,fnew);
+		}
+		else if (cp->random_bit_mem == 7) //Destination has changed. report error
+		// Code for report error
+		{
+			cp->incorrect_data_in_instr++;
+			
+			printf("\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
+			fprintf(fnew,"\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
+			report_error(cp,r2,i1,program_memory,fnew);
+		}
 
 return 0;
 }
