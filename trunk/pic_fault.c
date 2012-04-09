@@ -64,7 +64,7 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
 //Read in the program counter initial value from user
 
-              /*  printf("Enter starting PCL value (in hex): \n");
+                printf("Enter starting PCL value (in hex): \n");
 
                 scanf("%x", &pic_registers.GP_Reg[2]);
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
@@ -81,7 +81,7 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
                 pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
-        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); */
+        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
 
 
 //*******************Read instructions********************

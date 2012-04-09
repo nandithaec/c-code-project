@@ -91,7 +91,6 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
 
-
 		
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
@@ -106,7 +105,11 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
 			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 			PRINT("First decrement Stack pointer: %d\n", r1-> stack_pointer);
-			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
+			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);
+
+			--r1-> PC;
+			--r1->r1-> GP_Reg[2]; //These will be incremented in main() towards the end anyway
+		
 			}
 	
 	break;
@@ -151,6 +154,9 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			r1-> PC = r1-> stack[--r1->stack_pointer]; //Decrement stack pointer and pop
 			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 			PRINT("PC popped from stack: %x \n", r1-> PC);		
+
+			--r1-> PC;
+			--r1->r1-> GP_Reg[2]; //These will be incremented in main() towards the end anyway
 			}
 
 		//GP_Reg[11] = INTCON register at address 0BH
@@ -660,9 +666,10 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(&r1);
+			increment_PC(&r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+
 //comment out: r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
-PRINT("PC (testing)= %d\n", r1->PC);
+	PRINT("PC will be incremented to(testing)= %d\n", (r1->PC)+1);
 		
 		}
 
@@ -871,7 +878,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 		
 		}
@@ -895,7 +902,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			PRINT("%x", r1-> GP_Reg[3]);
 		PRINT("\n");
 		
-		PRINT("Program counter: PC= %d\n",r1->PC);
+		PRINT("Program counter will be incremented to: PC= %d\n", (r1->PC)+1);
 	
 	break;
 
@@ -1047,9 +1054,9 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==0)	
-			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
-		PRINT("Program counter: PC= %d\n",r1->PC);
+		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
 
  		PRINT("%x", r1-> GP_Reg[3]);
@@ -1103,9 +1110,9 @@ PRINT("PC (testing)= %d\n", r1->PC);
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==1)	
-			increment_PC(&r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(&r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 		
-		PRINT("Program counter: PC= %d\n",r1->PC);
+		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
 
 		PRINT("%x", r1-> GP_Reg[3]);
@@ -1136,11 +1143,15 @@ PRINT("PC (testing)= %d\n", r1->PC);
 			PRINT("Stack underflow, nothing to pop\n");
 		else
 			{
+			
 			//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
 			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 
-			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);		
+			-- r1-> PC; //Decrement and save the new PC value since it will be incremented in main() after execute..
+			-- r1 -> GP_Reg[2];
+
+			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", (r1-> PC)+1,  (r1-> PC)+1);		
 			}
 
 
@@ -1207,6 +1218,7 @@ PRINT("PC (testing)= %d\n", r1->PC);
 	PRINT("XORLW instruction\n");
 
 //	W is the accumulator and d is the destination bit
+
 
 	PRINT("Before execution (hex): Contents of W= %x\n ", r1-> W);
 		
@@ -1321,13 +1333,15 @@ PRINT("PC (testing)= %d\n", r1->PC);
 				  		
 			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			
+
+			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
+
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
 		}
 	
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
+	
 	
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);		
@@ -1335,17 +1349,22 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		r1-> stack_pointer =0; //Reset stack pointer and overwrite
 
 //PC+1 on top of stack and increment stack pointer
-//PC already incremented in fetch stage..So, just push PC
-	r1-> stack[r1-> stack_pointer++] = (r1-> PC); 
+//PC not incremented in fetch stage..So,  push PC+1
+	r1-> stack[r1-> stack_pointer++] = ((r1-> PC)+1); 
+	
+	
 
-
+	//Store in the decremented PC position
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
 	//PCL= GP_Reg[2]
 	r1 -> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 
+	-- r1-> PC; //Decrement and save the new PC value since it will be incremented in main() after execute..
+	-- r1 -> GP_Reg[2];
+
 	PRINT("Stack pointer incremented: %d\n",r1-> stack_pointer);
-	PRINT("After execution: Contents of PC= address specified in CALL instruction:(hex) %x\n", r1-> PC);		
-	PRINT("After execution: Contents of PCL= %x\n", r1 -> GP_Reg[2]);
+	PRINT("After execution: Contents of PC= address specified in CALL instruction:(hex) %x\n", (r1-> PC)+1);		
+	PRINT("After execution: Contents of PCL will be = %x\n", (r1 -> GP_Reg[2])+1);
 	PRINT("Top of stack: Address of next instruction: %d \n", r1-> stack[r1-> stack_pointer -1]);
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
 	break;
@@ -1370,16 +1389,22 @@ PRINT("PC (testing)= %d\n", r1->PC);
 		
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+			
+			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 		}
 
 	//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-	PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
+
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
 	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
 	r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
 	
-	PRINT("After execution: Contents (hex) of PC= %x\n", r1-> PC);		
+	
+	-- r1-> PC; //Decrement and save the new PC value since it will be incremented in main() after execute..
+	-- r1 -> GP_Reg[2];
+
+	PRINT("After execution: Contents (hex) of PC= %x\n", (r1-> PC)+1);		
 
 	break;
 
