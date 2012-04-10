@@ -104,6 +104,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1-> stack_pointer]; //Decrement stack pointer and pop
 			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+			r1 -> GP_Reg[0x0A] = ((r1-> PC) & 0x1F00) >> 8; //PCLATH
+
 			PRINT("First decrement Stack pointer: %d\n", r1-> stack_pointer);
 			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);
 
@@ -153,6 +155,8 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		//PC loaded from top of stack
 			r1-> PC = r1-> stack[--r1->stack_pointer]; //Decrement stack pointer and pop
 			r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+			r1 -> GP_Reg[0x0A] = ((r1-> PC) & 0x1F00) >> 8; //PCLATH
+		
 			PRINT("PC popped from stack: %x \n", r1-> PC);		
 
 			--r1-> PC;
@@ -1352,20 +1356,24 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 //PC not incremented in fetch stage..So,  push PC+1
 	r1-> stack[r1-> stack_pointer++] = ((r1-> PC)+1); 
 	
-	
-
+	PRINT("PCLATH before shifting=%x\n",r1->PCLATH);
+		PRINT("PCLATH after ANDing=%x\n",(r1-> PCLATH)& 0x18);
 	//Store in the decremented PC position
-	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
+	r1-> PC = (i1-> immediate_value) | (((r1-> PCLATH)& 0x18) << 8); //Get only PCLATH<4:3> by ANDing and then shift them to PC<12:11>
 	//PCL= GP_Reg[2]
 	r1 -> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+	r1 -> GP_Reg[0x0A] = ((r1-> PC) & 0x1F00) >> 8; //PCLATH
+	
+
 
 	-- r1-> PC; //Decrement and save the new PC value since it will be incremented in main() after execute..
 	-- r1 -> GP_Reg[2];
 
 	PRINT("Stack pointer incremented: %d\n",r1-> stack_pointer);
-	PRINT("After execution: Contents of PC= address specified in CALL instruction:(hex) %x\n", (r1-> PC)+1);		
+	PRINT("After execution: Contents of PC= address specified in CALL instruction:(hex) %x\n", (r1-> PC));		
 	PRINT("After execution: Contents of PCL will be = %x\n", (r1 -> GP_Reg[2])+1);
-	PRINT("Top of stack: Address of next instruction: %d \n", r1-> stack[r1-> stack_pointer -1]);
+	PRINT("After execution: Contents of PCLATH will be = %x\n", (r1 -> GP_Reg[0x0A]));
+	PRINT("Top of stack: Address of next instruction: %x \n", r1-> stack[r1-> stack_pointer -1]);
 	PRINT("Stack pointer: %d\n",r1-> stack_pointer);
 	break;
 
@@ -1397,8 +1405,14 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
 	
-	r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
-	r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+	/*r1-> PC = (i1-> immediate_value) | ((r1-> PCLATH) << 8);
+	r1-> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL*/ //old code- not right
+
+	r1-> PC = (i1-> immediate_value) | (((r1-> PCLATH)& 0x18) << 8); //Get only PCLATH<4:3> by ANDing and then shift them to PC<12:11>
+	//PCL= GP_Reg[2]
+	r1 -> GP_Reg[2] = (r1-> PC) & 0xFF; //PCL
+	r1 -> GP_Reg[0x0A] = ((r1-> PC) & 0x1F00) >> 8; //PCLATH
+
 	
 	
 	-- r1-> PC; //Decrement and save the new PC value since it will be incremented in main() after execute..

@@ -57,6 +57,7 @@ struct registers
 	int max_PC_count_matrix_mult;
 	int instr_array_for_matrix_mult[PC_MATRIX_MULT_RANGE];
 	int minPC;
+	int Last_valid_PC;
 
 };
 
@@ -316,7 +317,7 @@ int initialise_regs(struct registers *r)
 
 				r->minPC=0;
 				r->max_PC_count_matrix_mult=0;
-
+				r->Last_valid_PC=0;
 
                 PRINT("-----------------------------------------------------------------\n");
                 PRINT("Initial values (hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",r->PCL, r->PCLATH, r->PC);
@@ -432,7 +433,7 @@ int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FI
 
 
 	fclose(fp);  // close the file prior to exiting the function
-
+	
 return 0;
 
 }
@@ -466,7 +467,7 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
        }
      
 	//printf("\nPC values read are: \n");
-	fprintf(fnew,"\nPC values read are: \n");
+	fprintf(fnew,"\nPC values read are: (in hex) \n");
 
     for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
@@ -478,9 +479,14 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 	fprintf(fnew,"\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
 
 	r->max_instr = r->max_PC_count_matrix_mult; //Max instruction count
+	r->Last_valid_PC = r->PC_array_for_matrix_mult[0] + r->max_instr;
+
+	printf("\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
+	fprintf(fnew,"\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
+
 
 	fclose(fPC);  // close the file prior to exiting the function
-
+	//exit(0);
 
 return 0;
 }
@@ -675,13 +681,19 @@ int PC_increment(struct registers *r)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int increment_PC(struct registers **r)
 {
+
+	if ((*r)-> GP_Reg[2] == 0xFF)
+	{
+		(*r)-> GP_Reg[0x0A] = (*r)-> GP_Reg[0x0A] + 1; //Increment PCLATH
+	}
+
+
 //PCL= GP_Reg[2] and GP_Reg[0x82]
-        (*r)-> GP_Reg[2]= (*r)-> GP_Reg[2] + 1;
+        (*r)-> GP_Reg[2]= ((*r)-> GP_Reg[2] + 1) & 0xFF; //Limit PCL to 8 bits only
         (*r)-> GP_Reg[0x82]= (*r)-> GP_Reg[2]; //Bank 1 and Bank 0
         (*r)-> PCL= (*r)-> GP_Reg[2];
 
 //PCLATH
-        //r-> GP_Reg[0x0A]= 0x00; //PCLATH not changed.. always comment this out
         (*r)-> GP_Reg[0x8A]= (*r)-> GP_Reg[0x0A]; //Bank 1 and Bank 0
         (*r)-> PCLATH= (*r)-> GP_Reg[0x0A];
 

@@ -97,7 +97,7 @@ For matrix multiplication use this section after reading instruction from file..
 	//	exit(0);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int endloop=0;
+int endloop=0, num_of_inst=0;
 
         printf("Status register contents:(hex) at the beginning of all operations: ");
 		fprintf(fnew,"Status register contents:(hex) at the beginning of all operations: ");
@@ -112,11 +112,15 @@ int endloop=0;
 		fprintf(fnew,"Executing...\n");
 
         loop= pic_registers.starting_PC_value;
-		endloop = (loop+ 5);
+		//printf("Enter num of instr to be executed...\n");
+       // scanf("%d", &num_of_inst);
+		//printf("\n");
+
+		//endloop = (loop+ num_of_inst);
 		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
-	while (loop < endloop )
+	while (pic_registers.PC <  pic_registers.Last_valid_PC )
         {
                
                 PRINT("****************************************************************\n");
@@ -171,7 +175,7 @@ int endloop=0;
 				//Increment program counter
 				PC_increment(&pic_registers);
 
-				loop++;
+				//loop++;
 				
 
                 //testing matrix mult
