@@ -1,6 +1,6 @@
 //Execute.h 
 
-int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew, FILE *fp, time_t start_seconds)
+int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
 {
 	PRINT("-------------------------------------------------------------------\n");
 	PRINT("INSTRUCTION EXECUTION >>\n");
@@ -88,7 +88,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 
 		
@@ -108,7 +108,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			PRINT("PC popped from stack:(hex): %x, (dec): %d \n", r1-> PC,  r1-> PC);
 
 			--r1-> PC;
-			--r1->r1-> GP_Reg[2]; //These will be incremented in main() towards the end anyway
+			--r1-> GP_Reg[2]; //These will be incremented in main() towards the end anyway
 		
 			}
 	
@@ -131,7 +131,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 //printf("\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
 		//fprintf(fnew,"\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
@@ -156,7 +156,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			PRINT("PC popped from stack: %x \n", r1-> PC);		
 
 			--r1-> PC;
-			--r1->r1-> GP_Reg[2]; //These will be incremented in main() towards the end anyway
+			--r1->GP_Reg[2]; //These will be incremented in main() towards the end anyway
 			}
 
 		//GP_Reg[11] = INTCON register at address 0BH
@@ -1337,7 +1337,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1388,7 +1388,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 		
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fp);
+			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 		}
