@@ -66,15 +66,15 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-              //  printf("Enter starting PCL value (in hex): \n");
+                printf("Enter starting PCL value (in hex): \n");
 
-               // scanf("%x", &pic_registers.GP_Reg[2]); //9F
-				pic_registers.GP_Reg[2]= 0x9F;
+                scanf("%x", &pic_registers.GP_Reg[2]); //9F
+				//pic_registers.GP_Reg[2]= 0x9F;
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
 
-                //printf("Enter starting PCLATH value (in hex): \n");
-                //scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
-                pic_registers.GP_Reg[0x0A]=0x02;
+                printf("Enter starting PCLATH value (in hex): \n");
+                scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
+               // pic_registers.GP_Reg[0x0A]=0x02;
 				pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
 
                 pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
@@ -123,7 +123,7 @@ int endloop=0, num_of_inst=0;
 
 //Repeat the same program till a certain number of crashes occur
 	while (pic_registers.PC <  pic_registers.Last_valid_PC )
-        {
+       {
                
                 PRINT("****************************************************************\n");
                 PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
@@ -132,14 +132,14 @@ int endloop=0, num_of_inst=0;
                 
 				
 				 //Instruction fetch    
-                instruction_fetch_matrix_mult(&pic_registers, program_memory,&crash_param, fnew); //pic_registers.instruction is the instruction that is fetched
+                instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
 
                 //Instruction decode
 				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fPC, finstr, start_seconds);
 				
                 post_decode= pre_decode; //Copy the structure
                       				
-				  //Bit flip function called every cycle
+				//Bit flip function called every cycle
 	    	
 				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
 							
@@ -161,10 +161,9 @@ int endloop=0, num_of_inst=0;
 		
                 PRINT("Status register contents:(hex) at the end of decode: ");
                 PRINT("%x", pic_registers.GP_Reg[3]);
-                PRINT("\n");
-             
+                PRINT("\n");          
 
-				 //Instruction execute
+				//execute
 				PRINT("execute\n");
 				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fPC, finstr, start_seconds);
 				
@@ -191,16 +190,15 @@ int endloop=0, num_of_inst=0;
 
 		 		//Repeat till a max number of crashes occue
 				if (crash_param.crash == MAX_CRASHES)
-				{
 					break; 
-				}
+				
 		
-	//if (repeat_program_execution == 1)
-		//break; //used only when running the program without bitflips, check pgm error/crash
+	//if (repeat_program_execution == 5)
+	//	break; //used only when running the program without bitflips, check pgm error/crash
 		
      
 
-	} //ending while (loop==...)
+	} //ending while (loop==...) 
 
 
 
@@ -209,6 +207,7 @@ int endloop=0, num_of_inst=0;
 
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
+
 
 
                 printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
@@ -364,6 +363,7 @@ fprintf(fnew,"Mean time to failure in terms of the number of instruction cycles:
 mean_seconds= total_seconds/MAX_CRASHES;
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+
 
 
 fclose(fnew);
