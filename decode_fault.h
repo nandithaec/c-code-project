@@ -18,7 +18,7 @@
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
-#define PC_MATRIX_MULT_RANGE 600
+#define PC_MATRIX_MULT_RANGE 2000
 
 #define DEBUG
 //#ifdef DEBUG
@@ -526,13 +526,14 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 			// get a line, up to 80 chars from file.  done if NULL 
             sscanf (line, "%x", &instr_for_matrix_mult);
 
-       		r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
+//working
+       		 r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
 
-			//count=r->PC_array_for_matrix_mult[j];
-            r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
+			//count= r->PC_array_for_matrix_mult[j];
+            //r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult;
 			program_memory[j]= instr_for_matrix_mult;
 
-          //IMPORTANT
+          
 //	fprintf(fnew,"program_memory[%x]: %x\n", j, program_memory[j]);
  // program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
