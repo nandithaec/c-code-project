@@ -203,27 +203,28 @@ int endloop=0, num_of_inst=0;
 	} //ending while (loop==...)
 
 
-	PRINT("Maximum number of instructions in the program is: %d\n\n", pic_registers.max_instr);
-	fprintf(fnew,"Maximum number of instructions in the program is: %d\n\n", pic_registers.max_instr);
 
-	PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+
+	
+
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
 
 
-        /*        printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
+                printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
 				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
                
 				 printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
 				fprintf(fnew,"Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
               
-			    printf("Status register contents:(hex) at the end of all operations: ");
+			    PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+	fprintf(fnew,"Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+
+				printf("Status register contents:(hex) at the end of all operations: ");
 			    fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
               
-
-
-				  printf("%x", pic_registers.GP_Reg[3]);
-				 fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
+				printf("%x", pic_registers.GP_Reg[3]);
+				fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
 
                 printf("\n");
 				fprintf(fnew,"\n");
@@ -255,8 +256,8 @@ for(c=1; c<= (crash_param.crash); c++)
 printf("\nCalculating the number of errors: \n");
 fprintf(fnew,"\nCalculating the number of errors: \n");   
 
-printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);    
-fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);
+printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);    
+fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);
 
 printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
 fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
@@ -267,7 +268,7 @@ for(c=0; c< (crash_param.first_error); c++)
 	
 	printf("%llu\n",crash_param.first_error_at_instr[c]);
 	fprintf(fnew,"%llu\n",crash_param.first_error_at_instr[c]);
-	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(NUM_OF_INSTR);
+	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(pic_registers.max_instr);
 
 }
 
@@ -364,7 +365,7 @@ mean_seconds= total_seconds/MAX_CRASHES;
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
-*/
+
 fclose(fnew);
 
 return 0;
