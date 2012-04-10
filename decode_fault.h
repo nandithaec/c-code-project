@@ -10,22 +10,22 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 3
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 15
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 1000
+#define PROBABILITY_INVERSE 120
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
 #define PC_MATRIX_MULT_RANGE 600
 
 #define DEBUG
-#ifdef DEBUG
-#define PRINT printf
-#else
+//#ifdef DEBUG
+//#define PRINT printf
+//#else
  #define PRINT print_null
-#endif
+//#endif
 void print_null (char* n,...) {return;}
 unsigned int previous_time = -1;
 //All declarations
@@ -457,6 +457,10 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
            exit(0) ;
      }  
 
+	printf("r->max_PC_count_matrix_mult= %x before resetting\n",r->max_PC_count_matrix_mult);
+
+	r->max_PC_count_matrix_mult=0;
+
 	while(fgets(line, FILE_CHARS, fPC) != NULL)
        {
             // get a line, up to 80 chars from file.  done if NULL 
@@ -471,8 +475,8 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 
     for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
-	   // printf("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
-		fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+	     PRINT("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+		//fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
 	}
 
 	printf("\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
@@ -481,6 +485,9 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 	r->max_instr = r->max_PC_count_matrix_mult; //Max instruction count
 	r->Last_valid_PC = r->PC_array_for_matrix_mult[0] + r->max_instr;
 
+printf("r->max_PC_count_matrix_mult=%x\n",r->max_PC_count_matrix_mult);
+printf("r->PC_array_for_matrix_mult[0]=%x\n",r->PC_array_for_matrix_mult[0]);
+printf("\nr->max_instr=: %x\n\n", r->max_instr);
 	printf("\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
 	fprintf(fnew,"\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
 
@@ -525,14 +532,13 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
             r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
 			program_memory[j]= instr_for_matrix_mult;
 
-          	fprintf(fnew,"program_memory[%x]: %x\n", j, program_memory[j]);
+          //IMPORTANT
+//	fprintf(fnew,"program_memory[%x]: %x\n", j, program_memory[j]);
  // program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
            
        }
-     
-	//printf("\nInstructions read are: \n");
-	//fprintf(fnew,"\nInstructions read are: \n");
+ 
 
   /*  for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
@@ -630,8 +636,8 @@ int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],stru
     {
 	   	if(r->PC_array_for_matrix_mult[i] == r->PC) //Match the entered PC value to one of the values in the array and return the array index
         	{
-			printf("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
-			fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+			PRINT("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
+			//fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
 			array_PC_index = i;
 			PC_not_found=0;
 			break;
@@ -644,8 +650,8 @@ int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],stru
 		PC_not_found==0;
 		 r-> instruction = 0;
 	//	array_PC_index= ++i; //The incremented value of i after the end of PC array	
-		printf("PC Not found, instruction= %x\n", r-> instruction);
-		fprintf(fnew,"PC Not found, instruction= %x\n", r-> instruction);
+		PRINT("PC Not found, instruction= %x\n", r-> instruction);
+		//fprintf(fnew,"PC Not found, instruction= %x\n", r-> instruction);
 		}
 
 	else
@@ -654,11 +660,11 @@ int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],stru
     r-> instruction = program_memory[array_PC_index]; //Return instruction in this
 
     PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
-	printf("Instruction fetched is:\n");
-	fprintf(fnew,"Instruction fetched is:\n");
+	PRINT("Instruction fetched is:\n");
+	//fprintf(fnew,"Instruction fetched is:\n");
 
-	printf("program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
-	fprintf(fnew,"program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
+	PRINT("program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
+	//fprintf(fnew,"program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
 
     PRINT("-------------------------------------------------------------------\n");
 	}
@@ -1122,7 +1128,9 @@ return 0;
 int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
 
 {
-        int random_bit=0;
+      	PRINT("bit flip call\n");
+
+		int random_bit=0;
         int i=0, c=0, ii=0;
 		int less=0, more=0;
 
@@ -1265,7 +1273,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
-                cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
+                cp->random_mem[cp->mem_count] = rand() % 1500; // Random number between 0 and 8192. Store it in an array to keep track and compare later
 				
 				//cp->random_mem[cp->mem_count] = 2; //Forcing a value
 
@@ -1505,9 +1513,13 @@ if (cp->flip_bit_flag_for_illegal_inst==1) //Check only if a bit has flipped
 {
 	cp->flip_bit_flag_for_illegal_inst=0; //reset it
 
+	printf("random number: %x\n", cp->random_mem[(cp->mem_count)-1] );
+
 	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && 
-         ((cp-> random_mem[(cp->mem_count)-1]) < r2->max_instr) )           
+         ((cp-> random_mem[(cp->mem_count)-1]) < r2->Last_valid_PC) )           
 	{
+
+	printf("Checking if the random number generated is within the range of valid PC values in the program\n");
 /*Mem count has been incremented at the end of the bit flips function. And this check program error has been called after the bitflips function.
 Hence, the condition should check for the mem_count -1 */
 
@@ -1852,6 +1864,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 	      //	read_instr_from_file(fPC, finstr,program_memory,r2,fnew); //this is for add program
 
 		//this is for matrix multiplication program
+		//r->max_PC_count_matrix_mult =0;
 		read_PC_array_for_matrix_mult(fPC,program_memory,r2,fnew);
 		read_instr_for_matrix_mult(finstr,program_memory,r2,fnew);
 
