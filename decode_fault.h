@@ -12,7 +12,7 @@
 #define FILE_CHARS 80
 #define MAX_CRASHES 3
 #define NUM_OF_PGM_RUNS 10
-#define NUM_OF_INSTR 15
+#define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
 #define PROBABILITY_INVERSE 120
 #define RANDOM_GUESS_RANGE 101
@@ -58,6 +58,7 @@ struct registers
 	int instr_array_for_matrix_mult[PC_MATRIX_MULT_RANGE];
 	int minPC;
 	int Last_valid_PC;
+	int duplicate_matrix_mult[PC_MATRIX_MULT_RANGE];
 
 };
 
@@ -315,6 +316,10 @@ int initialise_regs(struct registers *r)
 				for(i=0;i<PC_MATRIX_MULT_RANGE;++i)
 	                r->instr_array_for_matrix_mult[i]=0;
 
+				for(i=0;i<PC_MATRIX_MULT_RANGE;++i)
+	                r->duplicate_matrix_mult[i]=0;
+
+
 				r->minPC=0;
 				r->max_PC_count_matrix_mult=0;
 				r->Last_valid_PC=0;
@@ -471,7 +476,7 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
        }
      
 	//printf("\nPC values read are: \n");
-	fprintf(fnew,"\nPC values read are: (in hex) \n");
+	//fprintf(fnew,"\nPC values read are: (in hex) \n");
 
     for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
@@ -479,17 +484,17 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 		//fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
 	}
 
-	printf("\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
-	fprintf(fnew,"\nMaximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+	printf("Maximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
+	fprintf(fnew,"Maximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
 
 	r->max_instr = r->max_PC_count_matrix_mult; //Max instruction count
 	r->Last_valid_PC = r->PC_array_for_matrix_mult[0] + r->max_instr;
 
-printf("r->max_PC_count_matrix_mult=%x\n",r->max_PC_count_matrix_mult);
-printf("r->PC_array_for_matrix_mult[0]=%x\n",r->PC_array_for_matrix_mult[0]);
-printf("\nr->max_instr=: %x\n\n", r->max_instr);
-	printf("\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
-	fprintf(fnew,"\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC);
+	printf("r->max_PC_count_matrix_mult=%x\n",r->max_PC_count_matrix_mult);
+	printf("r->PC_array_for_matrix_mult[0]=%x\n",r->PC_array_for_matrix_mult[0]);
+	printf("\nr->max_instr=: %x\n\n", r->max_instr);
+	printf("\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
+	fprintf(fnew,"\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
 
 
 	fclose(fPC);  // close the file prior to exiting the function
@@ -519,6 +524,7 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
            puts ( "cannot open file matrix_assembly_instruction_only.txt" ) ;
            exit(0) ;
      }  
+	fprintf(fnew,"Instructions read as is, from the file.. not according to increasing order of PC\n");
 
 	while(fgets(line, FILE_CHARS, finstr) != NULL)
        {
@@ -528,19 +534,22 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 
 //working
        		 r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
+		     program_memory[j]= instr_for_matrix_mult;
 
-			//count= r->PC_array_for_matrix_mult[j];
-            //r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult;
-			program_memory[j]= instr_for_matrix_mult;
 
-          
-//	fprintf(fnew,"program_memory[%x]: %x\n", j, program_memory[j]);
- // program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
+
+//Duplicate working, used just for printing into file, for better readability and debugging
+			count= r->PC_array_for_matrix_mult[j]; //PC value
+            r->duplicate_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
+		       
+			fprintf(fnew,"program_memory[PC=%x]: %x\n", count, r->duplicate_matrix_mult[count]);
+ // old program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
            
        }
  
-
+		fprintf(fnew,"\n\n");
+	
   /*  for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
 	   // printf("Instruction[%x]= %x\n",r->PC_array_for_matrix_mult[i], program_memory[r->PC_array_for_matrix_mult[i]]);
@@ -1372,7 +1381,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 	int i=0,j=0;
 
     //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
-	if (cp->flip_bit_flag==1 && cp->opcode_count++ < NUM_OF_INSTR) //This flag is set only when the bit is flipped.
+	if (cp->flip_bit_flag==1 && cp->opcode_count++ < r2->max_instr) //This flag is set only when the bit is flipped.
 //And repeat this comparison for every opcode in the program, sine the flipped reg can be equal to the reg file in any of the instructions..
 //Hopefully another bit doesnt flip during this comparison
 	{ 
@@ -1456,7 +1465,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 	} //end if (cp->flip_bit_flag==1)
 
 	else
-	if (cp->opcode_count == NUM_OF_INSTR)
+	if (cp->opcode_count == r2->max_instr)
 	{
 		cp->flip_bit_flag=0; //Reset flag.
 		printf("Done comparing the register with flipped bit with all instructions in the program\n\n");
@@ -1865,7 +1874,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 	      //	read_instr_from_file(fPC, finstr,program_memory,r2,fnew); //this is for add program
 
 		//this is for matrix multiplication program
-		//r->max_PC_count_matrix_mult =0;
+		fprintf(fnew,"Reloading instructions to program memory\n");
 		read_PC_array_for_matrix_mult(fPC,program_memory,r2,fnew);
 		read_instr_for_matrix_mult(finstr,program_memory,r2,fnew);
 
