@@ -96,7 +96,7 @@ For matrix multiplication use this section after reading instruction from file..
 		read_PC_array_for_matrix_mult(fPC,program_memory,&pic_registers,fnew);
 		read_instr_for_matrix_mult(finstr,program_memory,&pic_registers,fnew);
 		//fclose(fnew);
-	//	exit(0);
+		//exit(0);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int endloop=0, num_of_inst=0;
