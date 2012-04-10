@@ -478,11 +478,11 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 	//printf("\nPC values read are: \n");
 	//fprintf(fnew,"\nPC values read are: (in hex) \n");
 
-    for(i= 0; i< r->max_PC_count_matrix_mult; i++)
+   /* for(i= 0; i< r->max_PC_count_matrix_mult; i++)
     {
 	     PRINT("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
 		//fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
-	}
+	}*/
 
 	printf("Maximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
 	fprintf(fnew,"Maximum number of instructions in the program is: %d\n\n", r->max_PC_count_matrix_mult);
@@ -493,8 +493,8 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 	printf("r->max_PC_count_matrix_mult=%x\n",r->max_PC_count_matrix_mult);
 	printf("r->PC_array_for_matrix_mult[0]=%x\n",r->PC_array_for_matrix_mult[0]);
 	printf("\nr->max_instr=: %x\n\n", r->max_instr);
-	printf("\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
-	fprintf(fnew,"\nLast valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
+	printf("Last valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
+	fprintf(fnew,"Last valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
 
 
 	fclose(fPC);  // close the file prior to exiting the function
@@ -533,16 +533,17 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
             sscanf (line, "%x", &instr_for_matrix_mult);
 
 //working
-       		 r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
-		     program_memory[j]= instr_for_matrix_mult;
+       		// r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
+		   //  program_memory[j]= instr_for_matrix_mult;
 
 
 
 //Duplicate working, used just for printing into file, for better readability and debugging
 			count= r->PC_array_for_matrix_mult[j]; //PC value
-            r->duplicate_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
-		       
-			fprintf(fnew,"program_memory[PC=%x]: %x\n", count, r->duplicate_matrix_mult[count]);
+            r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
+		     program_memory[count]= instr_for_matrix_mult;
+
+			fprintf(fnew,"program_memory[PC=%x]: %x\n", count, program_memory[count]);
  // old program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
            
@@ -609,22 +610,17 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int instruction_fetch(struct registers *r, int program_memory[],struct crash_parameters *cp)
 {
-    //int instruction;
+   
     r-> instruction = program_memory[r-> PC];
     
     PRINT("-------------------------------------------------------------------\n");
     PRINT("INSTRUCTION FETCH >>\n");
-//    printf("Fetching instruction from program_memory[%x]\n",r->PC);
-	
-	/*if(r-> GP_Reg[2] > 15)
-		{
-		printf("Random reg selected: %x\n",cp->random_reg);
-		printf("PC changed to %x\n\n", r->GP_Reg[2]);
-		
-		//exit(0);
-		}*/
-    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
 
+    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+	PRINT("Instruction fetched is:\n");
+	//fprintf(fnew,"Instruction fetched is:\n");
+
+	PRINT("program_memory[%x]=%x\n",r->PC, program_memory[r->PC]);
 
     PRINT("-------------------------------------------------------------------\n");
     return 0;
@@ -1562,8 +1558,8 @@ Hence, the condition should check for the mem_count -1 */
 		                //CALL GOTO instruction
 						// Code for report control flow error
 						
-						printf("\nCRASH: Control flow instruction has got modified\n");
-						fprintf(fnew,"\nCRASH:Control flow instruction has got modified\n");
+						printf("\nCRASH: Control flow instruction has got modified (resulted in CALL/GOTO)\n");
+						fprintf(fnew,"\nCRASH:Control flow instruction has got modified (resulted in CALL/GOTO)\n");
 				  		
 						cp->control_flow_change++;
 						report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
@@ -1635,8 +1631,8 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 //report error
 		{
 		cp->incorrect_data_in_instr++;
-		printf("\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
-		fprintf(fnew,"\nERROR: Byte instruction: Reg file address from whih data needs to be fetched, has changed, will lead to an error in program\n");
+		printf("\nERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program\n");
+		fprintf(fnew,"\nERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program\n");
 		report_error(cp,r2,i1,program_memory,fnew);
 		
 		}
@@ -1874,7 +1870,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 	      //	read_instr_from_file(fPC, finstr,program_memory,r2,fnew); //this is for add program
 
 		//this is for matrix multiplication program
-		fprintf(fnew,"Reloading instructions to program memory\n");
+		fprintf(fnew,"***Reloading instructions to program memory***\n");
 		read_PC_array_for_matrix_mult(fPC,program_memory,r2,fnew);
 		read_instr_for_matrix_mult(finstr,program_memory,r2,fnew);
 
