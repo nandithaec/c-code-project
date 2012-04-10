@@ -37,7 +37,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_testing_file.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_0p8", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -66,14 +66,16 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-                printf("Enter starting PCL value (in hex): \n");
+              //  printf("Enter starting PCL value (in hex): \n");
 
-                scanf("%x", &pic_registers.GP_Reg[2]); //9F
+               // scanf("%x", &pic_registers.GP_Reg[2]); //9F
+				pic_registers.GP_Reg[2]= 0x9F;
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
 
-                printf("Enter starting PCLATH value (in hex): \n");
-                scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
-                pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
+                //printf("Enter starting PCLATH value (in hex): \n");
+                //scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
+                pic_registers.GP_Reg[0x0A]=0x02;
+				pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
 
                 pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
                 pic_registers.PCL= pic_registers.GP_Reg[2];
@@ -116,7 +118,7 @@ int endloop=0, num_of_inst=0;
        // scanf("%d", &num_of_inst);
 		//printf("\n");
 
-		//endloop = (loop+ num_of_inst);
+		//endloop = (loop+ 2);
 		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
@@ -138,19 +140,19 @@ int endloop=0, num_of_inst=0;
                 post_decode= pre_decode; //Copy the structure
                       				
 				  //Bit flip function called every cycle
-	    	//	PRINT("bit flip call\n");
-				//bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
+	    	
+				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
 							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
-			/*	check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
+				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 				{
 					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
-				}		
-			*/
+				}	
+			
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
@@ -179,21 +181,22 @@ int endloop=0, num_of_inst=0;
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
-                    printf("Program execution number %d completed\n",repeat_program_execution);
+                    PRINT("Program execution number %d completed\n",repeat_program_execution);
                     reset_PC_to_beginninng(&pic_registers);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
-
 					
          
                 }
 
 		 		//Repeat till a max number of crashes occue
-				/*if (crash_param.crash == MAX_CRASHES)
-					break; */
+				if (crash_param.crash == MAX_CRASHES)
+				{
+					break; 
+				}
 		
-	if (repeat_program_execution ==5)
-		break;
+	//if (repeat_program_execution == 1)
+		//break; //used only when running the program without bitflips, check pgm error/crash
 		
      
 
@@ -206,9 +209,9 @@ int endloop=0, num_of_inst=0;
 	PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
-/*
 
-                printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
+
+        /*        printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
 				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
                
 				 printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");

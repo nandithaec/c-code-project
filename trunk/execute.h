@@ -94,7 +94,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
-		//printf("RETURN instruction\n");
+		PRINT("RETURN instruction\n");
 		PRINT("Top of stack: %x , stack pointer=%d \n", r1-> stack[r1-> stack_pointer -1],r1-> stack_pointer);
 		
 		if (r1-> stack_pointer == 0)
@@ -1321,7 +1321,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 	case 33: 
 
-	printf("CALL instruction\n");
+	PRINT("CALL instruction\n");
 
 //This case will be entered even if there is a valid CALL instruction. 
 
@@ -1379,7 +1379,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 	case 34: 
 
-	printf("GOTO instruction\n");
+	PRINT("GOTO instruction\n");
 //This case will be entered even if there is a valid GOTO instruction. 
 
 //But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
