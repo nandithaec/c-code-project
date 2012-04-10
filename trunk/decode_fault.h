@@ -571,19 +571,19 @@ return 0;
 int reset_PC_to_beginninng(struct registers *r)
 {
 //----------------------------------------------------------------------------------------------------------------------------
-                    //Reset program counter to beginning of the program
-                    r->GP_Reg[2]= r->initial_PCL;
-                    r->GP_Reg[0x82]= r->GP_Reg[2]; //PCL Bank 1 and Bank 0
-                    r->PCL= r->GP_Reg[2];
+        //Reset program counter to beginning of the program
+        r->GP_Reg[2]= r->initial_PCL;
+        r->GP_Reg[0x82]= r->GP_Reg[2]; //PCL Bank 1 and Bank 0
+        r->PCL= r->GP_Reg[2];
 
-                    r->GP_Reg[0x0A]= r->initial_PCLATH;
-                    r->GP_Reg[0x8A]= r->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-                    r->PCLATH= r->GP_Reg[0x0A];
+        r->GP_Reg[0x0A]= r->initial_PCLATH;
+        r->GP_Reg[0x8A]= r->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
+        r->PCLATH= r->GP_Reg[0x0A];
 
-                    r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
-                    //----------------------------------------------------------------------------------------------------------------------------
+        r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
+        //----------------------------------------------------------------------------------------------------------------------------
 
-	//	printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+		PRINT("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
 		
 
 return 0;
