@@ -68,11 +68,11 @@ For matrix multiplication use this section after reading instruction from file..
 
                 printf("Enter starting PCL value (in hex): \n");
 
-                scanf("%x", &pic_registers.GP_Reg[2]);
+                scanf("%x", &pic_registers.GP_Reg[2]); //9F
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
 
                 printf("Enter starting PCLATH value (in hex): \n");
-                scanf("%x", &pic_registers.GP_Reg[0x0A]);
+                scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
                 pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
 
                 pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
@@ -167,41 +167,44 @@ int endloop=0, num_of_inst=0;
 				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fPC, finstr, start_seconds);
 				
 
-				//crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
-			//		crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error + 1; //Increment instruction cycles every cycle
+				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
+				crash_param.instr_cycles_for_error= crash_param.instr_cycles_for_error + 1; //Increment instruction cycles every cycle
                 PRINT("****************************************************************\n");    
                 
 
 				//Increment program counter
 				PC_increment(&pic_registers);
 
-				//loop++;
-				
-
-                //testing matrix mult
-//				if (loop == pic_registers.max_instr) //If end of program is reached
-	//				break;
-
-				//if (loop == (loop+2)) //If end of program is reached
-				//	break;
-
+			
 				//Repeat program
-               /* if (loop == pic_registers.max_instr) //If end of program is reached
+                if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
-                    loop= pic_registers.starting_PC_value; //Reset loop to beginning of program and begin execution again
-
+                    printf("Program execution number %d completed\n",repeat_program_execution);
                     reset_PC_to_beginninng(&pic_registers);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
-                              
+
+					
+         
                 }
 
 		 		//Repeat till a max number of crashes occue
-				if (crash_param.crash == MAX_CRASHES)
+				/*if (crash_param.crash == MAX_CRASHES)
 					break; */
+		
+	if (repeat_program_execution ==5)
+		break;
+		
+     
 
-        } //ending while (loop==...)
+	} //ending while (loop==...)
 
+
+	PRINT("Maximum number of instructions in the program is: %d\n\n", pic_registers.max_instr);
+	fprintf(fnew,"Maximum number of instructions in the program is: %d\n\n", pic_registers.max_instr);
+
+	PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
 /*
 
