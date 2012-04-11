@@ -15,13 +15,13 @@ Array index is also starting from 1 and not 0, to avoid confusion.
 
 
 
-int hamming_encoding(int , int[],int*);
-int error_detect_correct_decode(int , int*);
+int hamming_encoding(int , int[],int*, int[]);
+int error_detect_correct_decode(int , int*, int[]);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int*, int);
 int calculate_parity_bits(int[], int[]);
-int detect_error(int[], int*);
+int detect_error(int[], int*, int[], int *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 
@@ -30,30 +30,30 @@ int main()
 {
 
 int hamming_code_decimal=0,decoded_data_decimal=0,decimal_input=0;
-int hamming_code[14]={0}, decimal_received=0;
+int hamming_code[14]={0}, decimal_received=0; int parity[7]= {0};
 
 
 printf("\nHamming code----- Encoding\n");
     printf("Enter the number to be encoded, in decimal (not binary) :\n ");
 	scanf("%d", &decimal_input);
 
-hamming_encoding(decimal_input, hamming_code, &hamming_code_decimal);
+hamming_encoding(decimal_input, hamming_code, &hamming_code_decimal, parity);
 
 
 printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
 	scanf("%d", &decimal_received);
 
-error_detect_correct_decode( decimal_received, &decoded_data_decimal);
+error_detect_correct_decode( decimal_received, &decoded_data_decimal, parity );
 
 return 0;
 }
 
 
-int hamming_encoding(int decimal_input, int hamming_code[], int *hamming_code_decimal)
+int hamming_encoding(int decimal_input, int hamming_code[], int *hamming_code_decimal, int parity[])
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
-	int parity[5]= {0};
+	
 
 	int power_of_two=0;
    
@@ -173,10 +173,14 @@ j=1;
 
 	//printf("Calculating SECDED Hamming code\n");
 
-//Calculating the extra parity bit, hamming code bit 13.. Even parity
+//Calculating the extra parity bit, hamming code bit 13.. Even parity.. even number of ones
 	for(i=0;i<=12;i++)
+	{	
 		hamming_code[13]= hamming_code[13]^hamming_code[i];
+	}
 
+	parity[5]=hamming_code[13]; //save it in parity array as well
+	
 	printf("\n");
 	printf("************************************************\n");
 	printf("SECDED Even parity Hamming code:\n");
@@ -194,18 +198,18 @@ return 0;
 
 }
 
-int error_detect_correct_decode(int decimal_received, int *decoded_data_decimal)
+int error_detect_correct_decode(int decimal_received, int *decoded_data_decimal, int parity[])
 {
 
 
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
-int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0} ;
+int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
 //Error detection
 	
 	
 	convert_decimal_to_binary(decimal_received,binary_received, 13);
 	
-
+//Save it in an array
 	printf("\nIn binary, the data received is:\n");
 	for(i=1; i<=13; i++)
     {
@@ -215,11 +219,14 @@ int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0
 	
 	printf("\n");
 
-	detect_error(binary_received, &bit_in_error);
+	detect_error(binary_received, &bit_in_error, parity, &double_error);
 
-//Error correction
-	if (bit_in_error !=0) // If bit_in_error=0, that means there was no error
-    	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
+//Error correction for single errors
+	if (bit_in_error !=0 &&  // If bit_in_error=1, that means there was an error
+		 double_error== 0) 		//double_error=0 means it is a single error and can be corrected
+    {
+	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
+	
 
 	printf("Inside main, decimal corrected is: %x\n",decimal_received);
 
@@ -230,6 +237,9 @@ int binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0
 	    printf("%d ",binary_corrected[i]);
 
 	printf("\n");
+
+	}
+
 
 	decode_received_data(binary_corrected,decoded_data_binary);
 
@@ -348,10 +358,11 @@ return 0;
 }
 
 
-int detect_error(int binary_received[], int *bit_in_error)
+int detect_error(int binary_received[], int *bit_in_error, int parity[], int *double_error)
 {
 
-	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
+	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra_received=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
+	int parity_extra_calculated_from_Rx=0;
 	int i=0;
 	int position=0;
 	
@@ -359,7 +370,13 @@ int detect_error(int binary_received[], int *bit_in_error)
 	parity_received[2]= binary_received[2];
 	parity_received[3]= binary_received[4];
 	parity_received[4]= binary_received[8];
-	parity_extra= binary_received[13];
+	parity_extra_received= binary_received[13]; //to detect double errors
+
+	for(i=0;i<=12;i++)
+	{	
+		parity_extra_calculated_from_Rx = parity_extra_calculated_from_Rx ^ binary_received[i];
+	}
+
 
 //clear these parity bits now and calculate afresh to see if they were correct
 
@@ -380,51 +397,71 @@ int detect_error(int binary_received[], int *bit_in_error)
 
 	calculate_parity_bits(binary_received, parity_calculated_from_Rx);
 
-	for(i=1;i<=4;i++)
-	{
-		if(parity_calculated_from_Rx[i] != parity_received[i])
+
+		for(i=1;i<=4;i++)
 		{
-			printf("Parity[%d] is in error\n",i);
+			if(parity_calculated_from_Rx[i] != parity_received[i])
+			{
+				printf("Parity[%d] is in error\n",i);
 			
-			switch (i)
-       		{
-		        case 1:
-				position=1;
-				printf("Position %d is in error\n",position);
-		        break;
+				switch (i)
+		   		{
+				    case 1:
+					position=1;
+					printf("Position %d is in error\n",position);
+				    break;
 
-				case 2:
-				position=2;
-				printf("Position %d is in error\n",position);
-		        break;
+					case 2:
+					position=2;
+					printf("Position %d is in error\n",position);
+				    break;
 
-				case 3:
-				position=4;
-				printf("Position %d is in error\n",position);
-		        break;
+					case 3:
+					position=4;
+					printf("Position %d is in error\n",position);
+				    break;
 
-				case 4:
-				position=8;
-				printf("Position %d is in error\n",position);
-		        break;
+					case 4:
+					position=8;
+					printf("Position %d is in error\n",position);
+				    break;
 				
-				default: printf("Error in parity index\n");
-				break;
-			}
+					default: printf("Error in parity index\n");
+					break;
+				} //close switch
 
-		*bit_in_error=*bit_in_error + position;
-		}
-	}
+			*bit_in_error=*bit_in_error + position;
+
+			}//close if parity
+		} //close for
+
+
 
 	if (*bit_in_error == 0)
+	{
 		printf("No error in the parity bits, received data is correct\n");
+		double_error=0;
+	}
 	else 
-		if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8)
-			printf("Bit in error is %d and is a parity bit. Data bit is not in error.\n", *bit_in_error);
-		else
-			printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
+	{
+	 //There is an error because one of the parity bits is incorrect.. find out if single/double error
+		if(parity_extra_received != parity_extra_calculated_from_Rx) //Single error
+		{
+			printf("SINGLE ERROR, can be corrected\n");
+			*double_error=0;
+			if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
+				printf("Bit in error is %d and is a parity bit. Data bit is not in error.\n", *bit_in_error);
+			else
+				printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
 
-	
+		}
+			
+		else if(parity_extra_received == parity_extra_calculated_from_Rx) //2 bits have flipped, hence parity_extra turns out to be same as original (even parity)
+		{
+			printf("DOUBLE ERROR.. Cannot be corrected\n");
+			*double_error=1;
+		}
+	}
 /*Bit error is also assigned from the left to right
 For eg., if data is 1 0 0 1 1 0 1 0
 positions are assigned starting from left, not from the right as is the general convention.

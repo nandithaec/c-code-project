@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 15
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 120
+#define PROBABILITY_INVERSE 1000
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -146,7 +146,7 @@ struct crash_parameters
 	int control_flow_change;
 	unsigned long long int first_error_at_instr[INSTR_CYCLES_NUMBER];
 	unsigned long long int rest_of_the_errors[INSTR_CYCLES_NUMBER];
-	int incorrect_data;
+	unsigned long long int incorrect_data;
 	int incorrect_data_in_instr;
 	int flip_bit_flag;
 	int reg_count;
@@ -1429,8 +1429,14 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 
 				else 
 					{
+					cp->incorrect_data++;
 					cp->set_no_same_PC = 0; // If same PC value
-					printf("j=%d,PC %x same as previous ones.. and same reg index. So, not counting \n",j,(r2-> PC));
+					printf("j=%d,PC %x same as previous ones.. and same reg index. Counting, but not printing to file \n",j,(r2-> PC));
+					//fprintf(fnew,"j=%d,PC %x same as previous ones.. and same reg index. Counting, but not printing to file \n",j,(r2-> PC));
+					printf("\nERROR: Incorrect data being fetched from memory\n");
+					//fprintf(fnew,"\nERROR: Incorrect data being fetched from memory\n");
+	
+					
 					printf("Number of instruction cycles executed before the error: %llu\n",cp->instr_cycles_for_error);
 					}
 
@@ -1440,7 +1446,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 	
 
 			if(cp->set_no_same_PC == 1)
-			{ //Prevent the same error from printing multiple times..
+			{ //Prevent the same error from printing and storing multiple times..
 				cp->set_no_same_PC =0; //reset
 				//*****report error because of incorrect data in the location that is being accessed********************
 				cp->incorrect_data++;
@@ -1461,7 +1467,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				printf("\nERROR: Incorrect data being fetched from memory\n");
 				fprintf(fnew,"\nERROR: Incorrect data being fetched from memory\n");
 
-				report_error(cp,r2,i1,program_memory,fnew);
+				report_error(cp,r2,i1,program_memory,fnew);//Print error only if error occurs at a unique PC value.
 
 			}
 		
@@ -1656,6 +1662,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		{
 			cp-> opcode_change++;
 			
+
 			printf("\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
 			fprintf(fnew,"\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
 			report_error(cp,r2,i1,program_memory,fnew);
@@ -1838,8 +1845,8 @@ int report_error(struct crash_parameters *cp, struct registers *r2, struct instr
 		fprintf(fnew, "Number of instruction cycles executed before the error: %llu\n\n",cp->instr_cycles_for_error);
 
 		cp->errors_so_far=cp->first_error+cp->other_errors;
-		printf("******Errors so far...****** %d\n",cp->errors_so_far);
-		fprintf(fnew,"******Errors so far...****** %d\n",cp->errors_so_far);
+		printf("******Unique errors so far= %d. Repeated errors are counted but not printed******\n",cp->errors_so_far);
+		fprintf(fnew,"******Unique errors so far= %d. Repeated errors are counted but not printed******\n",cp->errors_so_far);
 		//cp->first_error = 1;
 
 

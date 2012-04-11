@@ -12,6 +12,8 @@
 
 
 FILE *fnew;
+FILE *fPC;
+FILE *finstr;
 
 int main()
 
@@ -35,10 +37,12 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_results_new_0p8_apr8.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_0p8_apr11.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
+
+finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
 	
         struct registers pic_registers;
@@ -58,16 +62,20 @@ if( fnew != NULL )
 //-------------------------------Initialising registers------------------------------------
 				initialise_regs(&pic_registers);
 
-//Read in the program counter initial value from user
+/* Read in the program counter initial value from user
+For addition program use this section here..
+For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
                 printf("Enter starting PCL value (in hex): \n");
 
-                scanf("%x", &pic_registers.GP_Reg[2]);
+                scanf("%x", &pic_registers.GP_Reg[2]); //9F
+				//pic_registers.GP_Reg[2]= 0x9F;
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
 
                 printf("Enter starting PCLATH value (in hex): \n");
-                scanf("%x", &pic_registers.GP_Reg[0x0A]);
-                pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
+                scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
+               // pic_registers.GP_Reg[0x0A]=0x02;
+				pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
 
                 pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
                 pic_registers.PCL= pic_registers.GP_Reg[2];
@@ -77,13 +85,21 @@ if( fnew != NULL )
 
                 pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
-        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC);
+				pic_registers.starting_PC_value = pic_registers.PC;
+        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
 
 
 //*******************Read instructions********************
-        FILE *fp;               
-		read_instr_from_file(fp,program_memory,&pic_registers,fnew);
-//-------------------------------------------------------------------------------------------
+  //      FILE *fp;               
+		//read_instr_from_file(fp,program_memory,&pic_registers,fnew); //simple add program
+
+		read_PC_array_for_matrix_mult(fPC,program_memory,&pic_registers,fnew);
+		read_instr_for_matrix_mult(finstr,program_memory,&pic_registers,fnew);
+		//fclose(fnew);
+		//exit(0);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int endloop=0, num_of_inst=0;
 
         printf("Status register contents:(hex) at the beginning of all operations: ");
 		fprintf(fnew,"Status register contents:(hex) at the beginning of all operations: ");
@@ -92,48 +108,51 @@ if( fnew != NULL )
         printf("\n");
 		fprintf(fnew,"\n");
 
-		printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
-		fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
+	//	printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
+	//	fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
 		printf("Executing...\n");
 		fprintf(fnew,"Executing...\n");
 
         loop= pic_registers.starting_PC_value;
-		
-		pre_decode.decode_bits=0; //Initialising decode_bits
+		//printf("Enter num of instr to be executed...\n");
+       // scanf("%d", &num_of_inst);
+		//printf("\n");
+
+		//endloop = (loop+ 2);
+		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
-	while (loop < pic_registers.max_instr)
-        {
+	while (pic_registers.PC <  pic_registers.Last_valid_PC )
+       {
                
                 PRINT("****************************************************************\n");
                 PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
 		
                 
-				//Check for program crash
-				//check_pgm_crash(&crash_param, start_seconds,&pic_registers);
-
+				
 				 //Instruction fetch    
                 instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
 
                 //Instruction decode
-				instruction_decode(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fp, start_seconds);
+				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fPC, finstr, start_seconds);
 				
                 post_decode= pre_decode; //Copy the structure
                       				
-				  //Bit flip function called every cycle
-	    		PRINT("bit flip call\n");
-				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fp);
+				//Bit flip function called every cycle
+	    	
+				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
 							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
-				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fp);
+				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 				{
 					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
-				}		
+				}	
+			
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
@@ -142,12 +161,11 @@ if( fnew != NULL )
 		
                 PRINT("Status register contents:(hex) at the end of decode: ");
                 PRINT("%x", pic_registers.GP_Reg[3]);
-                PRINT("\n");
-             
+                PRINT("\n");          
 
-				 //Instruction execute
+				//execute
 				PRINT("execute\n");
-				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fp, start_seconds);
+				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fPC, finstr, start_seconds);
 				
 
 				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
@@ -158,25 +176,39 @@ if( fnew != NULL )
 				//Increment program counter
 				PC_increment(&pic_registers);
 
-				loop++;
-				
-
-                //Repeat program
-                if (loop == pic_registers.max_instr) //If end of program is reached
+			
+				//Repeat program
+                if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
-                    loop= pic_registers.starting_PC_value; //Reset loop to beginning of program and begin execution again
-
+                    PRINT("Program execution number %d completed\n",repeat_program_execution);
                     reset_PC_to_beginninng(&pic_registers);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
-                              
+					
+         
                 }
 
 		 		//Repeat till a max number of crashes occue
 				if (crash_param.crash == MAX_CRASHES)
-					break;
+					break; 
+				
+		
+	//if (repeat_program_execution == 5)
+	//	break; //used only when running the program without bitflips, check pgm error/crash
+		
+     
 
-        }
+	} //ending while (loop==...) 
+
+
+
+
+	
+
+	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
+///COMMENTING OUT STARTING HERE
+
+
 
                 printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
 				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
@@ -184,11 +216,19 @@ if( fnew != NULL )
 				 printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
 				fprintf(fnew,"Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
               
-			    printf("Status register contents:(hex) at the end of all operations: ");
+			    
+                printf("\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);   
+			    fprintf(fnew,"\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);           
+               
+
+				PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+				fprintf(fnew,"Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+
+				printf("Status register contents:(hex) at the end of all operations: ");
 			    fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
               
-				  printf("%x", pic_registers.GP_Reg[3]);
-				 fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
+				printf("%x", pic_registers.GP_Reg[3]);
+				fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
 
                 printf("\n");
 				fprintf(fnew,"\n");
@@ -220,19 +260,29 @@ for(c=1; c<= (crash_param.crash); c++)
 printf("\nCalculating the number of errors: \n");
 fprintf(fnew,"\nCalculating the number of errors: \n");   
 
-printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);    
-fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", NUM_OF_INSTR);
+//printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);    
+//fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);
 
-printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
-fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
+//printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
+//fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
 
+printf("\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
+fprintf(fnew,"\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
+
+printf("Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
+fprintf(fnew,"Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
+
+/*
+//This is only for programs without loops, where we can store the first instruction at which the error occured and just multiply it 
+//by the number of times the program is repeated.. But we cannot apply this to programs with loops, because
+//Even if the program doesnt repeat, the loop repeats and the instruction at the same PC can be executed multiple time.. So, this logic will be broken
 for(c=0; c< (crash_param.first_error); c++)
 {
 //Calculating the errors.. 
 	
 	printf("%llu\n",crash_param.first_error_at_instr[c]);
 	fprintf(fnew,"%llu\n",crash_param.first_error_at_instr[c]);
-	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(NUM_OF_INSTR);
+	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(pic_registers.max_instr);
 
 }
 
@@ -246,18 +296,20 @@ for(c=0; c< (crash_param.first_error); c++)
 	total_error_count= 	total_error_count + crash_param.errors_repeated[c];
 }
 
-/*printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
-fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
-
-for(c=0; c< (crash_param.other_errors); c++)
-{
-//Printing the errors.. 
-	printf("%llu\n",crash_param.rest_of_the_errors[c]);
-	fprintf(fnew,"%llu\n",crash_param.rest_of_the_errors[c]);
-
-}
 */
-total_error_count= total_error_count+ crash_param.other_errors; //This adds the errors caused other than the incorrect data a reg file location
+//printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
+//fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
+
+//for(c=0; c< (crash_param.other_errors); c++)
+//{
+//Printing the errors.. 
+	//printf("%llu\n",crash_param.rest_of_the_errors[c]);
+//	fprintf(fnew,"%llu\n",crash_param.rest_of_the_errors[c]);
+
+//	}
+
+//This adds all the errors: Errors due to incorrect data and all the other errors as well
+total_error_count= total_error_count+ crash_param.incorrect_data+ crash_param.other_errors; 
    
 percentage_crash= ((double)crash_param.crash/total_instr_cycles)*100.0;
 percentage_error= ((double)crash_param.first_error/total_instr_cycles)*100.0;
@@ -295,8 +347,8 @@ fprintf(fnew,"Number of crashes due to illegal opcode: %d \n",crash_param.crash_
 printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 fprintf(fnew,"Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 
-printf("Total number of errors due to incorrect data being fetched from memory: %d\n",crash_param.incorrect_data);
-fprintf(fnew,"Total number of errors due to incorrect data being fetched from memory: %d\n",crash_param.incorrect_data);
+printf("Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
+fprintf(fnew,"Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
 
 printf("Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr);
 fprintf(fnew,"Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr); 
@@ -321,13 +373,16 @@ printf("Percentage of errors out of total number of instruction cycles: %f perce
 
 
 mean_instr_cycles= total_instr_cycles/MAX_CRASHES;
+
 printf("Mean time to failure in terms of the number of instruction cycles: %llu\n", mean_instr_cycles);
 fprintf(fnew,"Mean time to failure in terms of the number of instruction cycles: %llu\n", mean_instr_cycles);
 
 
 mean_seconds= total_seconds/MAX_CRASHES;
+
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+
 
 
 fclose(fnew);
