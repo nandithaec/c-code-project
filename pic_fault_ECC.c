@@ -5,8 +5,8 @@
 
 #include <stdlib.h>
 
-#include "decode_fault.h"
-#include "execute.h"
+#include "decode_fault_ECC.h"
+#include "execute_ECC.h"
 #include "hamming_8bit_data.h"
 //#include "bit_flips.h"
 
@@ -63,13 +63,13 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-                printf("Enter starting PCL value (in decimal, not hex): \n");
+                printf("Enter starting PCL value (in decimal, not hex) (159 dec, 29F hex): \n");
 				scanf("%d", &read_PCL_from_user); //9F or 159
                 
 				pic_registers.GP_Reg_encoded[2] = hamming_encoding(read_PCL_from_user, pic_registers.hamming_code, pic_registers.parity);
                 pic_registers.initial_PCL_encoded = pic_registers.GP_Reg_encoded[2];
  
-                printf("Enter starting PCLATH value (in decimal, not hex): \n");
+                printf("Enter starting PCLATH value (in decimal, not hex) (2 dec/hex): \n");
                 scanf("%d", &read_PCLATH_from_user); //02
 
                 pic_registers.GP_Reg_encoded[0x0A]=  hamming_encoding(read_PCLATH_from_user, pic_registers.hamming_code, pic_registers.parity);
@@ -81,15 +81,19 @@ For matrix multiplication use this section after reading instruction from file..
                 pic_registers.GP_Reg_encoded[0x8A]= pic_registers.GP_Reg_encoded[0x0A]; //PCLATH Bank 1 and Bank 0
                 pic_registers.PCLATH_encoded= pic_registers.GP_Reg_encoded[0x0A];
 
+				//PC needs to be calculated from PCL and PCLATH
+				PRINT("In main, decoding PCL\n");
 				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded,  pic_registers.parity); //decoded PCL
+				PRINT("In main, decoding PCLATH\n");
 				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded,  pic_registers.parity); //decoded PCLATH
                 
-				pic_registers.temp_PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
-				pic_registers.PC = hamming_encoding(pic_registers.temp_PC, pic_registers.hamming_code, pic_registers.parity);
+				pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+//				pic_registers.PC_encoded = hamming_encoding(pic_registers.temp_PC, pic_registers.hamming_code, pic_registers.parity);
 				pic_registers.starting_PC_value = pic_registers.PC;
        	
 	 printf("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
 	 fprintf(fnew,"New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
+
 
 //*******************Read instructions********************
   //      FILE *fp;               
@@ -105,8 +109,8 @@ int endloop=0, num_of_inst=0;
 
         printf("Status register contents:(hex) at the beginning of all operations: ");
 		fprintf(fnew,"Status register contents:(hex) at the beginning of all operations: ");
-        printf("%x", pic_registers.GP_Reg[3]);
-		fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
+        printf("%x", pic_registers.GP_Reg[3]); //No bits would have flipped here anyway..
+		fprintf(fnew,"%x", pic_registers.GP_Reg[3]); 
         printf("\n");
 		fprintf(fnew,"\n");
 
@@ -124,17 +128,19 @@ int endloop=0, num_of_inst=0;
 		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
-	while (pic_registers.PC <  pic_registers.Last_valid_PC )
+	while (pic_registers.PC <  pic_registers.Last_valid_PC ) //Continue program execution till the last valid opcode is reached
        {
                
                 PRINT("****************************************************************\n");
-                PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
+                //PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
-		
-                
+		            
 				
 				 //Instruction fetch    
                 instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
+					//Increment program counter
+				PC_increment(&pic_registers);
+				exit(0);
 
                 //Instruction decode
 				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fPC, finstr, start_seconds);
@@ -176,7 +182,7 @@ int endloop=0, num_of_inst=0;
                 
 
 				//Increment program counter
-				PC_increment(&pic_registers);
+				//PC_increment(&pic_registers);
 
 			
 				//Repeat program
