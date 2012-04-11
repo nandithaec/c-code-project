@@ -84,9 +84,15 @@ For matrix multiplication use this section after reading instruction from file..
 				//PC needs to be calculated from PCL and PCLATH
 				PRINT("In main, decoding PCL\n");
 				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded); //decoded PCL
+				pic_registers.GP_Reg[2]=pic_registers.PCL;
+				pic_registers.GP_Reg[0x82]=pic_registers.PCL;
+
 				PRINT("In main, decoding PCLATH\n");
 				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded); //decoded PCLATH
-                
+                pic_registers.GP_Reg[0x0A]=pic_registers.PCLATH;
+				pic_registers.GP_Reg[0x8A]=pic_registers.PCLATH;
+
+
 				pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 //				pic_registers.PC_encoded = hamming_encoding(pic_registers.temp_PC, pic_registers.hamming_code, pic_registers.parity);
 				pic_registers.starting_PC_value = pic_registers.PC;
