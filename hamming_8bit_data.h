@@ -165,7 +165,7 @@ j=1;
 
 	hamming_code_decimal= convert_binary_to_decimal(hamming_code,13);
 	
-	printf("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
+	PRINT("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
 
 
 return hamming_code_decimal;
@@ -175,7 +175,7 @@ return hamming_code_decimal;
 int error_detect_correct_decode(int decimal_received)
 {
 
-printf("****Invoking error_detect_correct_decode()****\n");
+PRINT("****Invoking error_detect_correct_decode()****\n");
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
 int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
 int decoded_data_decimal= 0;
@@ -204,7 +204,7 @@ int decoded_data_decimal= 0;
 	
     }
 
-	printf("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
+	PRINT("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
 
@@ -226,7 +226,7 @@ int decoded_data_decimal= 0;
 
 	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
 
-	printf("Decoded data in decimal is: %d, in hex is: %x\n***Ending error_detect_correct_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
+	PRINT("Decoded data in decimal is: %d, in hex is: %x\n***Ending error_detect_correct_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
 
     return decoded_data_decimal;
 }
@@ -236,7 +236,7 @@ int decoded_data_decimal= 0;
 int only_decode(int decimal_received)
 {
 
-printf("****Invoking only_decode()****\n");
+PRINT("****Invoking only_decode()****\n");
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
 int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
 int decoded_data_decimal= 0;
@@ -266,7 +266,7 @@ int decoded_data_decimal= 0;
 
 	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
 
-	printf("Decoded data in decimal is: %d, in hex is: %x\n***Ending only_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
+	PRINT("Decoded data in decimal is: %d, in hex is: %x\n***Ending only_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
 
     return decoded_data_decimal;
 }
@@ -455,7 +455,7 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error)
 
 	if (*bit_in_error == 0)
 	{
-		printf("No error in the parity bits, received data is correct\n");
+		PRINT("No error in the parity bits, received data is correct\n");
 		double_error=0;
 	}
 	else 
@@ -465,12 +465,13 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error)
 		{
 			printf("SINGLE ERROR, can be corrected\n");
 			*double_error=0;
-			if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
+		/*	if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
 				printf("Bit in error is %d and is a parity bit. Data bit is not in error.\n", *bit_in_error);
 			else
 				printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
-
-		}
+		*/
+		} 
+		
 			
 		else if(parity_extra_received == parity_extra_calculated_from_Rx) //2 bits have flipped, hence parity_extra turns out to be same as original (even parity)
 		{

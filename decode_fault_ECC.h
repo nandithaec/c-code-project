@@ -22,12 +22,19 @@
 #define HAMMING_WIDTH 14
 #define PARITY_WIDTH 7
 
+/*
 #define DEBUG
-//#ifdef DEBUG
-//#define PRINT printf
-//#else
+#ifdef DEBUG
+#define PRINT printf
+#else
  #define PRINT print_null
-//#endif
+#endif
+*/
+
+#define DEBUG
+ #define PRINT print_null
+
+
 void print_null (char* n,...) {return;}
 unsigned int previous_time = -1;
 //All declarations
@@ -639,8 +646,8 @@ int reset_PC_to_beginninng(struct registers *r, FILE *fnew)
         r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
         //----------------------------------------------------------------------------------------------------------------------------
 
-		printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
-		fprintf(fnew,"PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+		PRINT("reset_PC_to_beginninng(): PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+//		fprintf(fnew,"reset_PC_to_beginninng: PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
 
 return 0;
 }
@@ -726,7 +733,7 @@ int PC_increment(struct registers *r)
 	PRINT("To increment PC\n");
 	//Increment PC
     increment_PC(r);
-	printf("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r-> GP_Reg[0x0A], r->PC);
+	PRINT("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r-> GP_Reg[0x0A], r->PC);
 	
 	return 0;
 }
@@ -739,7 +746,7 @@ int temp_PCLATH=0, temp_PCL=0;
 
 
 temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2] )  ; //decoded PCL 
-PRINT("temp_PCL=%x\n", temp_PCL);
+//PRINT("temp_PCL=%x\n", temp_PCL);
 
 	if (temp_PCL == 0xFF)
 	{
@@ -757,11 +764,11 @@ PRINT("temp_PCL=%x\n", temp_PCL);
 
 //PCL= GP_Reg[2] and GP_Reg[0x82]
 		temp_PCL= (temp_PCL + 1) & 0xFF; //Increment and limit PCL to 8 bits only
-		PRINT("Incremented temp_PCL: %x\n", temp_PCL);
+		//PRINT("Incremented temp_PCL: %x\n", temp_PCL);
 
 //Encode the incremented PCL and write it back
 		r-> GP_Reg_encoded[2]= hamming_encoding(temp_PCL);
-		PRINT("Encoded GP_Reg[2]: %x\n",r-> GP_Reg_encoded[2]);
+		//PRINT("Encoded GP_Reg[2]: %x\n",r-> GP_Reg_encoded[2]);
 		r-> GP_Reg_encoded[0x82]= r-> GP_Reg_encoded[2]; //Bank 1 and Bank 0
         r-> PCL_encoded= r-> GP_Reg_encoded[2];
 
@@ -770,32 +777,32 @@ PRINT("temp_PCL=%x\n", temp_PCL);
 		// r-> GP_Reg[2]= (r-> GP_Reg[2] + 1) & 0xFF; //Limit PCL to 8 bits only
         //r-> GP_Reg[0x82]= r-> GP_Reg[2]; //Bank 1 and Bank 0
 
-	PRINT("\nDecoding content in 0x0A\n");
+	//PRINT("\nDecoding content in 0x0A\n");
 //PCLATH
         temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A] )  ; //decoded PCLATH i.e., 0x0A location 
 
-		PRINT("temp_PCLATH decoded=%x\n", temp_PCLATH);
+		//PRINT("temp_PCLATH decoded=%x\n", temp_PCLATH);
 		r-> GP_Reg_encoded[0x8A]= r-> GP_Reg_encoded[0x0A]; //Bank 1 and Bank 0
         r-> PCLATH_encoded= r-> GP_Reg_encoded[0x0A];
 
 //PC needs to be calculated from PCL and PCLATH.. Decode the values
 		
-		PRINT("\nDecoding PCL_encoded\n");
+	//	PRINT("\nDecoding PCL_encoded\n");
 		r-> PCL = error_detect_correct_decode(r-> PCL_encoded); //decoded PCL
 		r->GP_Reg[2] = r-> PCL;
 		r-> GP_Reg[0x82]= r->GP_Reg[2];
-		PRINT("Decoded PCL: %x\n", r-> PCL);
+	//	PRINT("Decoded PCL: %x\n", r-> PCL);
 
-		PRINT("\nDecoding PCLATH_encoded\n");
+		//PRINT("\nDecoding PCLATH_encoded\n");
 		r->PCLATH = error_detect_correct_decode( r-> PCLATH_encoded); //decoded PCLATH
 		r-> GP_Reg[0x0A] = r->PCLATH;
 		r-> GP_Reg[0x8A] = r-> GP_Reg[0x0A];
-        PRINT("Decoded PCLATH: %x\n", r-> PCLATH);
+       // PRINT("Decoded PCLATH: %x\n", r-> PCLATH);
 
-		PRINT("\nCalculating PC\n");
+		//PRINT("\nCalculating PC\n");
 		r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
-		PRINT("Exiting increment_PC()\n");
+		//PRINT("Exiting increment_PC()\n");
 	
 return 0;
 }  
@@ -1305,9 +1312,13 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 	    PRINT("Content of the encoded random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]);
 
 	
-	 printf("****Content of the encoded location[%d] before flipping, is (in hex)**** %x\n\n",
+	 printf("****Content of the location[%x] before flipping, is (in hex)**** %x\n",
 				cp-> random_reg[cp->reg_count], 
-				r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]);
+				only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+
+	fprintf(fnew,"Content of the location[%x] before flipping, is (in hex)%x\n",
+				cp-> random_reg[cp->reg_count], 
+				only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
         switch(random_bit)
         {
@@ -1356,21 +1367,28 @@ a bit has flipped even before all instructions have been checked for errors. Hen
         
 
 	
-		printf("Bit flipped, Content of the reg[%x] was flipped\n", cp-> random_reg[cp->reg_count]);	
-
-		//fprintf(fnew,"Bit flipped, Content of the reg[%x] was flipped\n", cp-> random_reg[cp->reg_count]);	
+		printf("Bit flipped, Content of the reg[%x] was flipped to %x\n", cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));	
+	
+	fprintf(fnew,"Bit flipped, Content of the reg[%x] was flipped to %x\n", cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));	
 
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
        		 {
 			 			
 			cp->crash= (cp->crash)+1;
-			(cp-> crash_dueto_PC) ++;            
+			(cp-> crash_dueto_PC) ++;   
+
+		    printf("***********************************************************************"\n);
+		    fprintf(fnew,"***********************************************************************"\n);   
+   
 			printf("\nCrash number:%d detected\n",(cp->crash));
 			fprintf(fnew,"\nCrash number:%d detected\n",(cp->crash));
 
 			printf("Program crash was due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 			fprintf(fnew,"Program crash was due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
+
+			printf("Actual PC value (in hex)=%x, instruction opcode that was getting executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
+			fprintf(fnew,"Actual PC value (in hex)=%x, instruction opcode that was getting executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
 
 
 			printf("Random number that got generated this time was: %d\n", cp->random_number );
@@ -1396,8 +1414,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			         
 //-------------------------------------Detect and Correct the error-------------------------------------
 
-		printf("\n***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***\n");
-		fprintf(fnew,"\n***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***\n");
+		printf("\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
+		fprintf(fnew,"\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
 
 		r2->GP_Reg[0x02]= error_detect_correct_decode( r2->GP_Reg_encoded[0x02] );
 		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82] );
@@ -1405,13 +1423,14 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A] );
 
 
-	printf("\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:\n");
-	fprintf(fnew,"\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:\n");
+	printf("\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:\n");
+	fprintf(fnew,"\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:\n");
 
     printf("GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
     fprintf(fnew,"GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
 
-  //  exit(0);
+  printf("***********************************************************************"\n);
+  fprintf(fnew,"***********************************************************************"\n);   
 
 //------------------------Reset conditions after crash---------------------------------------
 
@@ -1671,15 +1690,15 @@ if (cp->flip_bit_flag_for_illegal_inst==1) //Check only if a bit has flipped
 {
 	cp->flip_bit_flag_for_illegal_inst=0; //reset it
 
-	printf("cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1], cp->random_bit_mem );
-	fprintf(fnew,"cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1],cp->random_bit_mem );
+	PRINT("cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1], cp->random_bit_mem );
+//	fprintf(fnew,"cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1],cp->random_bit_mem );
 
 	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && 
          ((cp-> random_mem[(cp->mem_count)-1]) < r2->Last_valid_PC) )           
 	{
 
-	printf("Checking if the random number generated is within the range of valid PC values in the program\n");
-	fprintf(fnew,"Checking if the random number generated is within the range of valid PC values in the program\n");
+	PRINT("Checking if the random number generated is within the range of valid PC values in the program\n");
+//	fprintf(fnew,"Checking if the random number generated is within the range of valid PC values in the program\n");
 /*Mem count has been incremented at the end of the bit flips function. And this check program error has been called after the bitflips function.
 Hence, the condition should check for the mem_count -1 */
 

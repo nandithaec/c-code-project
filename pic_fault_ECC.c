@@ -120,17 +120,16 @@ int endloop=0, num_of_inst=0;
 		fprintf(fnew,"Executing...\n");
 
         loop= pic_registers.starting_PC_value;
-		//printf("Enter num of instr to be executed...\n");
-       // scanf("%d", &num_of_inst);
-		//printf("\n");
+	
 
 		//endloop = (loop+ 2);
 		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
 	while (pic_registers.PC <  pic_registers.Last_valid_PC ) //Continue program execution till the last valid opcode is reached
-       {
-               
+	//while(loop < endloop)    
+   {
+              // 	loop++;
                 PRINT("****************************************************************\n");
                 //PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
@@ -158,6 +157,7 @@ int endloop=0, num_of_inst=0;
 					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
 				}	
 			
+			
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
@@ -179,7 +179,7 @@ int endloop=0, num_of_inst=0;
                 
 
 				//Increment program counter
-				//PC_increment(&pic_registers);
+				PC_increment(&pic_registers);
 
 
 				//Repeat program
@@ -192,16 +192,19 @@ int endloop=0, num_of_inst=0;
 					
          
                 }
+			
 
 		 		//Repeat till a max number of crashes occue
 				if (crash_param.crash == MAX_CRASHES)
 					break; 
 				
 		
-	//if (repeat_program_execution == 5)
-	//	break; //used only when running the program without bitflips, check pgm error/crash
-		
-     
+	/*if (repeat_program_execution == 5)
+		{
+	printf("Program execution number %d completed\n",repeat_program_execution);
+		break; //used only when running the program without bitflips, check pgm error/crash
+		}		
+     */
 
 	} //ending while (loop==...) 
 
@@ -212,6 +215,7 @@ int endloop=0, num_of_inst=0;
 
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
+
 
 
 
@@ -277,31 +281,7 @@ fprintf(fnew,"\nNumber of errors at unique PC values (not counting repetition):%
 printf("Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
 fprintf(fnew,"Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
 
-/*
-//This is only for programs without loops, where we can store the first instruction at which the error occured and just multiply it 
-//by the number of times the program is repeated.. But we cannot apply this to programs with loops, because
-//Even if the program doesnt repeat, the loop repeats and the instruction at the same PC can be executed multiple time.. So, this logic will be broken
-for(c=0; c< (crash_param.first_error); c++)
-{
-//Calculating the errors.. 
-	
-	printf("%llu\n",crash_param.first_error_at_instr[c]);
-	fprintf(fnew,"%llu\n",crash_param.first_error_at_instr[c]);
-	crash_param.errors_repeated[c]=  (total_instr_cycles - crash_param.first_error_at_instr[c]) /(pic_registers.max_instr);
 
-}
-
-printf("\nTotal number of times the incorrect data error occured:\n");
-fprintf(fnew,"\nTotal number of times the incorrect data error occured:\n");
-
-for(c=0; c< (crash_param.first_error); c++)
-{
-	printf("%llu\n",crash_param.errors_repeated[c]);
-	fprintf(fnew,"%llu\n",crash_param.errors_repeated[c]); 
-	total_error_count= 	total_error_count + crash_param.errors_repeated[c];
-}
-
-*/
 //printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 //fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 
@@ -387,7 +367,6 @@ mean_seconds= total_seconds/MAX_CRASHES;
 
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
-
 
 
 fclose(fnew);
