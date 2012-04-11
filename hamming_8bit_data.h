@@ -175,7 +175,7 @@ return hamming_code_decimal;
 int error_detect_correct_decode(int decimal_received)
 {
 
-
+printf("****Invoking error_detect_correct_decode()****\n");
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
 int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
 int decoded_data_decimal= 0;
@@ -226,7 +226,7 @@ int decoded_data_decimal= 0;
 
 	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
 
-	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",decoded_data_decimal,decoded_data_decimal);
+	printf("Decoded data in decimal is: %d, in hex is: %x\n***Ending error_detect_correct_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
 
     return decoded_data_decimal;
 }
