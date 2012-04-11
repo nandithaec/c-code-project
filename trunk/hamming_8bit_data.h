@@ -32,7 +32,7 @@ int hamming_encoding(int decimal_input, int hamming_code[], int parity[])
    
     
 	
-	printf("\nData has been read and is %d (decimal), %x (in hex) \n", decimal_input, decimal_input);
+	PRINT("\nData has been read and is %d (decimal), %x (in hex) \n", decimal_input, decimal_input);
 	
 	convert_decimal_to_binary(decimal_input,binary_input,8); //8 is the number of bits in the binary
 
@@ -46,11 +46,11 @@ positions are assigned starting from left, not from the right as is the general 
 i.e., as, bit 1, bit 2 and so on.. so bit 1=1, bit 2=0, bit3=0 and so on till bit 8=0. 
 Array index is also starting from 1 and not 0, to avoid confusion */
 
-	printf("\nIn binary, the data to be encoded is:\n");
+	PRINT("\nIn binary, the data to be encoded is:\n");
 	for(i=1; i<=8; i++)
-	    printf("%d",binary_input[i]);
+	    PRINT("%d",binary_input[i]);
 
-printf("\n \n");
+PRINT("\n \n");
 
 
 //Encode data from 8 bit to 12 bits
@@ -62,9 +62,9 @@ j=1;
 			
 		if(i==1)
 			{
-				printf("Parity bit: Position %d\n", i);
+				PRINT("Parity bit: Position %d\n", i);
 				//hamming_code[i]=9;
-				//printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
+				//PRINT("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
 			}
 		else
 		if(i !=1)
@@ -73,34 +73,34 @@ j=1;
 		if( (i != 1 ) && power_of_two == 0 )
 			{
 			hamming_code[i]=binary_input[j];
-			printf("hamming_code[%d]= binary_input[%d]= %d\n\n",i,j,hamming_code[i]);
+			PRINT("hamming_code[%d]= binary_input[%d]= %d\n\n",i,j,hamming_code[i]);
 
 			j++;
 			}
-		//else printf("Calculating parity bits..\n");
+		//else PRINT("Calculating parity bits..\n");
 			
 	}
 
-	printf("\nHamming code template, with all parity bits set to zero is:\n");
+	PRINT("\nHamming code template, with all parity bits set to zero is:\n");
 	for(i=1;i<=12;++i)
-		printf("%d ",hamming_code[i]);
-	printf("\n");
+		PRINT("%d ",hamming_code[i]);
+	PRINT("\n");
 
 
 	calculate_parity_bits(hamming_code,parity);
 
 
 	//Concatenating the parity bits to the hamming code. Data bits have already been added previously.
-	printf("Concatenating parity bits\n");
+	PRINT("Concatenating parity bits\n");
 
 	j=1;
 	for(i=1;i<=12;i++)
 	{
 			if( i == 1 )
 				{
-				printf("parity[%d] = %d\n",j, parity[j]);
+				PRINT("parity[%d] = %d\n",j, parity[j]);
 				hamming_code[i]= parity[j];
-				printf("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
+				PRINT("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
 				j++;
 				}
 
@@ -109,42 +109,42 @@ j=1;
 
 			if(  power_of_two == 1 )
 				{
-				printf("parity[%d] = %d\n",j, parity[j]);
+				PRINT("parity[%d] = %d\n",j, parity[j]);
 				hamming_code[i]= parity[j];
-				printf("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
+				PRINT("hamming_code[%d]= parity[%d]= %d\n\n",i,j,hamming_code[i]);
 				j++;
 				}
 	}
 
-	printf("\n");
-	printf("************************************************\n");
-	printf("binary_input that is being encoded is:\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
+	PRINT("binary_input that is being encoded is:\n");
 	for(i=1; i<=8; i++)
-	    printf("%d ",binary_input[i]);
-	printf("\n");
-	printf("************************************************\n");
+	    PRINT("%d ",binary_input[i]);
+	PRINT("\n");
+	PRINT("************************************************\n");
 
-	printf("\n");
-	printf("************************************************\n");
-	printf("Parity bits are:\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
+	PRINT("Parity bits are:\n");
 	for(i=1;i<=4;i++)
-		printf("%d ", parity[i]);
+		PRINT("%d ", parity[i]);
 
-	printf("\n");
-	printf("************************************************\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
 
-	printf("\n");
-	printf("************************************************\n");
-	printf("Single error correcting Even parity Hamming code:\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
+	PRINT("Single error correcting Even parity Hamming code:\n");
 	for(i=1;i<=12;++i)
-		printf("%d ",hamming_code[i]);
+		PRINT("%d ",hamming_code[i]);
 
-	printf("\n");
-	printf("************************************************\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
 
 	
 
-	//printf("Calculating SECDED Hamming code\n");
+	//PRINT("Calculating SECDED Hamming code\n");
 
 //Calculating the extra parity bit, hamming code bit 13.. Even parity.. even number of ones
 	for(i=0;i<=12;i++)
@@ -154,14 +154,14 @@ j=1;
 
 	parity[5]=hamming_code[13]; //save it in parity array as well
 	
-	printf("\n");
-	printf("************************************************\n");
-	printf("SECDED Even parity Hamming code:\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
+	PRINT("SECDED Even parity Hamming code:\n");
 	for(i=1;i<=13;++i)
-		printf("%d ",hamming_code[i]);
+		PRINT("%d ",hamming_code[i]);
 
-	printf("\n");
-	printf("************************************************\n");
+	PRINT("\n");
+	PRINT("************************************************\n");
 
 	hamming_code_decimal= convert_binary_to_decimal(hamming_code,13);
 	
@@ -181,18 +181,18 @@ int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={
 int decoded_data_decimal= 0;
 //Error detection
 	
-	
+	PRINT("Decimal received is:%d (dec), %x (hex)\n",decimal_received,decimal_received);
 	convert_decimal_to_binary(decimal_received,binary_received, 13);
 	
 //Save it in an array
-	printf("\nIn binary, the data received is:\n");
+	PRINT("\nIn binary, the data received is:\n");
 	for(i=1; i<=13; i++)
     {
-	 printf("%d ",binary_received[i]);
+	 PRINT("%d ",binary_received[i]);
 	 binary_received_original[i]=binary_received[i];
 	}
 	
-	printf("\n");
+	PRINT("\n");
 
 	detect_error(binary_received, &bit_in_error, parity, &double_error);
 
@@ -204,25 +204,25 @@ int decoded_data_decimal= 0;
 	
     }
 
-	printf("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
+	printf("Decimal corrected(if there was a single error) is: (hex) %x\n",decimal_received);
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
 
-	printf("\nIn binary, the Corrected encoded data(If there was a single error) is:\n");
+	PRINT("\nIn binary, the Corrected encoded data(If there was a single error) is:\n");
 	for(i=1; i<=13; i++)
-	    printf("%d ",binary_corrected[i]);
+	    PRINT("%d ",binary_corrected[i]);
 
-	printf("\n");
+	PRINT("\n");
 
 	
 
 	decode_received_data(binary_corrected,decoded_data_binary);
 
-	printf("\nIn binary, the decoded data is:\n");
+	PRINT("\nIn binary, the decoded data is:\n");
 	for(i=1; i<=8; i++)
-	    printf("%d ",decoded_data_binary[i]);
+	    PRINT("%d ",decoded_data_binary[i]);
 
-	printf("\n");
+	PRINT("\n");
 
 	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
 
@@ -243,28 +243,28 @@ int check_if_power_of_two (int num, int *power_of_two)
 		expo_result = pow(2,i);		
 		if(num >= expo_result )
 		{
-		//printf("Checking if number %d is divisible by %d\n", num, expo_result);
+		//PRINT("Checking if number %d is divisible by %d\n", num, expo_result);
  			
 		if(num % expo_result == 0)	
 				{
 					*power_of_two = 1;
-					//printf("Number %d is divisible by %d and hence is a parity position\n", num, expo_result);
+					//PRINT("Number %d is divisible by %d and hence is a parity position\n", num, expo_result);
 				}
 
 			else
 				{
 					*power_of_two = 0;
-					//printf("Number %d is NOT divisible by %d and hence is a data position, not parity\n", num, expo_result);
+					//PRINT("Number %d is NOT divisible by %d and hence is a data position, not parity\n", num, expo_result);
 				}
 
 		}
 	}
 
 /*if (*power_of_two ==1)
-	printf("Parity bit: Position %d\n", num);
+	PRINT("Parity bit: Position %d\n", num);
 
 else
-	printf("Data bit: Position %d \n", num);*/
+	PRINT("Data bit: Position %d \n", num);*/
 
 return 0;
 
@@ -278,10 +278,10 @@ int convert_decimal_to_binary(int decimal_input, int binary_input[], int num_of_
 	for(i=num_of_bits;i>0;i--)
 	{
 		binary_input[i]= decimal_input % 2 ;
-		//printf("binary_input[%d]=%d\n",i,binary_input[i]);
+		//PRINT("binary_input[%d]=%d\n",i,binary_input[i]);
 	
 		decimal_input= decimal_input/2;
-		//printf("Decimal input after dividing by 2 is %d\n",decimal_input);
+		//PRINT("Decimal input after dividing by 2 is %d\n",decimal_input);
 				
 	
 	}
@@ -323,11 +323,11 @@ int calculate_parity_bits(int hamming_code[], int parity[])
 	parity[3]= p4;
 	parity[4]= p8;
 
-		printf("\nParity bits are:\n");
+		PRINT("\nParity bits are:\n");
 		for(i=1;i<=4;i++)
-			printf("parity[%d]=%d\n", i, parity[i]);
+			PRINT("parity[%d]=%d\n", i, parity[i]);
 
-		printf("\n\n");
+		PRINT("\n\n");
 
 return 0;
 }
@@ -362,11 +362,11 @@ int detect_error(int binary_received[], int *bit_in_error, int parity[], int *do
 	binary_received[13] = 0;
 
 
-	printf("\nIn binary, the data received, with parity bits set to 0 is:\n");
+	PRINT("\nIn binary, the data received, with parity bits set to 0 is:\n");
 	for(i=1; i<=13; i++)
-	    printf("%d ",binary_received[i]);
+	    PRINT("%d ",binary_received[i]);
 	
-	printf("\n");
+	PRINT("\n");
 
 	//Calculating parity bits of received data
 
@@ -377,31 +377,31 @@ int detect_error(int binary_received[], int *bit_in_error, int parity[], int *do
 		{
 			if(parity_calculated_from_Rx[i] != parity_received[i])
 			{
-				printf("Parity[%d] is in error\n",i);
+				PRINT("Parity[%d] is in error\n",i);
 			
 				switch (i)
 		   		{
 				    case 1:
 					position=1;
-					printf("Position %d is in error\n",position);
+					PRINT("Position %d is in error\n",position);
 				    break;
 
 					case 2:
 					position=2;
-					printf("Position %d is in error\n",position);
+					PRINT("Position %d is in error\n",position);
 				    break;
 
 					case 3:
 					position=4;
-					printf("Position %d is in error\n",position);
+					PRINT("Position %d is in error\n",position);
 				    break;
 
 					case 4:
 					position=8;
-					printf("Position %d is in error\n",position);
+					PRINT("Position %d is in error\n",position);
 				    break;
 				
-					default: printf("Error in parity index\n");
+					default: PRINT("Error in parity index\n");
 					break;
 				} //close switch
 
@@ -449,20 +449,20 @@ return 0;
 int flip_bit_for_correction(int *decimal_received,int binary_received_or[], int *bit_in_error)
 {
 int i=0;
-printf("\nCorrecting the received data:\n");
+PRINT("\nCorrecting the received data:\n");
 
-	printf("\nIn binary, the erroneous data received was:\n");
+	PRINT("\nIn binary, the erroneous data received was:\n");
 	for(i=1; i<=13; i++)
-	    printf("%d ",binary_received_or[i]);
+	    PRINT("%d ",binary_received_or[i]);
 
-	printf("\n");
+	PRINT("\n");
 
 /*Bit error is also assigned from the left to right
 For eg., if data is 1 0 0 1 1 0 1 0
 positions are assigned starting from left, not from the right as is the general convention.
 i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
 
-	printf("Erroneous Data in decimal: %d, in hex: %x \n\n",*decimal_received,*decimal_received);
+	PRINT("Erroneous Data in decimal: %d, in hex: %x \n\n",*decimal_received,*decimal_received);
 
  switch(*bit_in_error)
 	{
@@ -519,7 +519,7 @@ i.e., if bit 1 is in error, it means that the leftmost bit is in error*/
 		    break;
 
 		   	default: 
-			printf("No error, nothing to correct\n");
+			PRINT("No error, nothing to correct\n");
 			//fprintf(fnew,"Invalid bit flip case\n");
 		    break;
 	}
@@ -543,9 +543,9 @@ j=1;
 			
 		if(i==1)
 			{
-				printf("Parity bit: Position %d\n", i);
+				PRINT("Parity bit: Position %d\n", i);
 				//hamming_code[i]=9;
-				//printf("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
+				//PRINT("hamming_code[%d]= %d\n\n",i,hamming_code[i]);
 			}
 		else
 		if(i !=1)
@@ -554,11 +554,11 @@ j=1;
 		if( (i != 1 ) && pow_of_two == 0 )
 			{
 			decoded_data_binary[j]=binary_received[i];
-			//printf("decoded_data[%d]=  %d\n\n",j,decoded_data_binary[j]);
+			//PRINT("decoded_data[%d]=  %d\n\n",j,decoded_data_binary[j]);
 
 			j++;
 			}
-		//else printf("Calculating parity bits..\n");
+		//else PRINT("Calculating parity bits..\n");
 			
 	}
 
