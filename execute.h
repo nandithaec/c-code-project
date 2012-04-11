@@ -77,20 +77,21 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 //But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
 //That means, the instruction at the current PC value has been modified into a RETURN instruction through a bit flip
-		
+if (cp->flip_bit_flag_for_illegal_inst==1)
+	{
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) 
 		{
 		
 			printf("\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
-
+	}
 		
 		PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
@@ -123,18 +124,22 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 //But this if condition will be entered only if the processor is executing this instruction after the random mem location taht is flipped is same as the PC value
 //That means, the instruction at the current PC value has been modified into a RETFIE instruction through a bit flip
-
+if (cp->flip_bit_flag_for_illegal_inst==1)
+	{
+	//Check for this condition only when the next bit flips
+		cp->flip_bit_flag_for_illegal_inst==0;
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
 			printf("\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-
+			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
+	}
 //printf("\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
 		//fprintf(fnew,"\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
   		//cp->other_errors= (cp->other_errors)+1;
@@ -1329,21 +1334,23 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 //That means, the instruction at the current PC value has been modified into a CALL instruction through a bit flip
 
 	//W is the accumulator and immediate_value is the immediate value to be added
+if (cp->flip_bit_flag_for_illegal_inst==1)
+	{
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
 			printf("\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
-	
+	}
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 	
 	
@@ -1386,21 +1393,23 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 //That means, the instruction at the current PC value has been modified into a GOTO instruction through a bit flip
 
 	//W is the accumulator and immediate_value is the immediate value to be added
+if (cp->flip_bit_flag_for_illegal_inst==1)
+	{
 	if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
 			printf("\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
 			fprintf(fnew,"\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
 			
-			printf("PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got executed (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 		
 			cp->control_flow_change++;
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 		}
-
+	}
 	//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 	PRINT("Before execution: Contents (hex) of PC= %x\n", r1-> PC);		
