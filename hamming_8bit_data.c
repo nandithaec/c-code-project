@@ -15,11 +15,11 @@ Array index is also starting from 1 and not 0, to avoid confusion.
 
 
 
-int hamming_encoding(int , int[],int*, int[]);
-int error_detect_correct_decode(int , int*, int[]);
+int hamming_encoding(int , int[], int[]);
+int error_detect_correct_decode(int , int[]);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
-int	convert_binary_to_decimal(int[], int*, int);
+int	convert_binary_to_decimal(int[], int);
 int calculate_parity_bits(int[], int[]);
 int detect_error(int[], int*, int[], int *);
 int decode_received_data(int[],int[]);
@@ -37,23 +37,24 @@ printf("\nHamming code----- Encoding\n");
     printf("Enter the number to be encoded, in decimal (not binary) :\n ");
 	scanf("%d", &decimal_input);
 
-hamming_encoding(decimal_input, hamming_code, &hamming_code_decimal, parity);
+hamming_code_decimal = hamming_encoding(decimal_input, hamming_code, parity); //hamming_code is the binary array
 
+printf("main()..Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
 
-printf("Enter the received encoded Hamming coded data in decimal (not binary):\n ");
+printf("Enter the received encoded Hamming coded data in decimal (not binary), to be detected for error and decoded:\n ");
 	scanf("%d", &decimal_received);
 
-error_detect_correct_decode( decimal_received, &decoded_data_decimal, parity );
+decoded_data_decimal= error_detect_correct_decode( decimal_received, parity);
 
 return 0;
 }
 
 
-int hamming_encoding(int decimal_input, int hamming_code[], int *hamming_code_decimal, int parity[])
+int hamming_encoding(int decimal_input, int hamming_code[], int parity[])
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
-	
+	int	hamming_code_decimal=0;
 
 	int power_of_two=0;
    
@@ -190,20 +191,22 @@ j=1;
 	printf("\n");
 	printf("************************************************\n");
 
-	convert_binary_to_decimal(hamming_code, hamming_code_decimal,13);
-	printf("Hamming code in decimal is %d, in hex is %x\n",*hamming_code_decimal,*hamming_code_decimal);
+	hamming_code_decimal= convert_binary_to_decimal(hamming_code,13);
+	
+	printf("Hamming code in decimal is %d, in hex is %x\n",hamming_code_decimal,hamming_code_decimal);
 
 
-return 0;
+return hamming_code_decimal;
 
 }
 
-int error_detect_correct_decode(int decimal_received, int *decoded_data_decimal, int parity[])
+int error_detect_correct_decode(int decimal_received, int parity[])
 {
 
 
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
 int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
+int decoded_data_decimal= 0;
 //Error detection
 	
 	
@@ -249,11 +252,11 @@ int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={
 
 	printf("\n");
 
-	convert_binary_to_decimal(decoded_data_binary, decoded_data_decimal,8);
+	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
 
-	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",*decoded_data_decimal,*decoded_data_decimal);
+	printf("\nDecoded data in decimal is: %d, in hex is: %x\n",decoded_data_decimal,decoded_data_decimal);
 
-    return 0;
+    return decoded_data_decimal;
 }
 
 //*****************Ending critical functions***********************
@@ -317,18 +320,18 @@ return 0;
 
 
 
-int	convert_binary_to_decimal(int hamming_code[], int *hamming_code_decimal,int num_of_bits)
+int	convert_binary_to_decimal(int hamming_code[],int num_of_bits)
 {
-	int i=0,j=0;
+	int i=0,j=0, decimal=0;
 	
 	for(i=num_of_bits;i>0;i--)
 	{
-		*hamming_code_decimal= *hamming_code_decimal+ (hamming_code[i] * pow(2,j));
+		decimal= decimal+ (hamming_code[i] * pow(2,j));
 		j++;
 	}
 
 
-return 0;
+return decimal;
 }
 
 

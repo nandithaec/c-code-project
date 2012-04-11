@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 15
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
@@ -19,6 +19,8 @@
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
 #define PC_MATRIX_MULT_RANGE 2000
+#define HAMMING_WIDTH 14
+#define PARITY_WIDTH 7
 
 #define DEBUG
 //#ifdef DEBUG
@@ -59,6 +61,16 @@ struct registers
 	int minPC;
 	int Last_valid_PC;
 	int duplicate_matrix_mult[PC_MATRIX_MULT_RANGE];
+
+//For hamming code
+	int GP_Reg_encoded[REG_MAX]; //Hamming encoded: General purpose register file map 255 locations accessed through reg_index or reg_file_addr
+	int hamming_code[HAMMING_WIDTH];
+	int parity[PARITY_WIDTH];
+	int initial_PCL_encoded;
+	int initial_PCLATH_encoded;
+	int PCLATH_encoded; //8 bit register -- actual value taken from GP_Reg
+    int PCL_encoded;//8 bit register- actual value taken from GP_Reg
+	int temp_PC;
 
 };
 
@@ -318,11 +330,27 @@ int initialise_regs(struct registers *r)
 
 				for(i=0;i<PC_MATRIX_MULT_RANGE;++i)
 	                r->duplicate_matrix_mult[i]=0;
+		
 
 
 				r->minPC=0;
 				r->max_PC_count_matrix_mult=0;
 				r->Last_valid_PC=0;
+
+//Hamming
+			for(i=0;i<REG_MAX;++i)
+                r->GP_Reg_encoded[i]=0; //Hamming encoded Reg file map: clear all registers in register file map
+
+			for(i=0;i<HAMMING_WIDTH;++i)
+	                r->hamming_code[i]=0;
+
+			for(i=0;i<PARITY_WIDTH;++i)
+	                r->parity[i]=0;
+
+
+			r->initial_PCL_encoded =0;
+			r->initial_PCLATH_encoded=0;
+			r->temp_PC=0;
 
                 PRINT("-----------------------------------------------------------------\n");
                 PRINT("Initial values (hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",r->PCL, r->PCLATH, r->PC);
@@ -492,7 +520,7 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
 
 	printf("r->max_PC_count_matrix_mult=%x\n",r->max_PC_count_matrix_mult);
 	printf("r->PC_array_for_matrix_mult[0]=%x\n",r->PC_array_for_matrix_mult[0]);
-	printf("\nr->max_instr=: %x\n\n", r->max_instr);
+	printf("r->max_instr= %x\n\n", r->max_instr);
 	printf("Last valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
 	fprintf(fnew,"Last valid PC value is (in hex): %x\n\n", r->Last_valid_PC -1);
 
