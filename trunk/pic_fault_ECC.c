@@ -34,7 +34,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_0p8_ECC.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_1p0_ECC.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -138,11 +138,8 @@ int endloop=0, num_of_inst=0;
 				
 				 //Instruction fetch    
                 instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
-					//Increment program counter
-				PC_increment(&pic_registers);
-				exit(0);
 
-                //Instruction decode
+				//Instruction decode
 				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fPC, finstr, start_seconds);
 				
                 post_decode= pre_decode; //Copy the structure
@@ -184,7 +181,7 @@ int endloop=0, num_of_inst=0;
 				//Increment program counter
 				//PC_increment(&pic_registers);
 
-			
+
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
