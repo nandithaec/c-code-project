@@ -258,7 +258,7 @@ fprintf(fnew,"\nCalculating the number of errors: \n");
 printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);    
 fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);
 
-printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
+/*printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
 fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
 
 for(c=0; c< (crash_param.first_error); c++)
@@ -280,7 +280,7 @@ for(c=0; c< (crash_param.first_error); c++)
 	fprintf(fnew,"%llu\n",crash_param.errors_repeated[c]); 
 	total_error_count= 	total_error_count + crash_param.errors_repeated[c];
 }
-
+*/
 //printf("\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 //fprintf(fnew,"\nInstruction cycle at which the other errors (like illegal destination/opcode) occured:\n");
 

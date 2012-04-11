@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 3
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
@@ -514,7 +514,7 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 	int i=0, j=0, count=0;
     char line[FILE_CHARS]; 
  	int instr_for_matrix_mult=0;
-
+	fprintf(fnew,"Loaded matrix multiplication program into memory\n\n");
 	//reset_PC_to_beginninng(r); //Initial PC values are set in this function
 		
 	finstr = fopen( "matrix_assembly_instruction_only.c", "rt" );
@@ -542,8 +542,9 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 			count= r->PC_array_for_matrix_mult[j]; //PC value
             r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
 		     program_memory[count]= instr_for_matrix_mult;
+		
 
-			fprintf(fnew,"program_memory[PC=%x]: %x\n", count, program_memory[count]);
+			//fprintf(fnew,"program_memory[PC=%x]: %x\n", count, program_memory[count]);
  // old program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
            
@@ -1165,6 +1166,8 @@ int bit_flips(struct registers *r2,  int program_memory[], struct crash_paramete
 	if((less< cp->random_number) && (cp->random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
         printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
+		fprintf(fnew,"\nFlip function called: Random number generated: %d\n",cp->random_number);
+
 		if(cp->flip_bit_flag==0) //If you enter this if statement without previous bit flips, then set thsi to 1.
 			cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
 
@@ -1233,6 +1236,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
         
         printf("Bit flipped, Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
+fprintf(fnew,"Bit flipped, Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
+
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
        		 {
@@ -1245,8 +1250,10 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 			printf("Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 			fprintf(fnew,"Program crash due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 
-			//printf("Random number that got generated this time was: %d\n", cp->random_number );
-			//fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
+
+			printf("Random number that got generated this time was: %d\n", cp->random_number );
+			fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
+
     
            // PRINT("Content of the reg[%x] is (in hex): %x\n", cp-> random_reg[cp->reg_count], r2->GP_Reg[cp-> random_reg[cp->reg_count]]);
 
@@ -1279,7 +1286,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
-                cp->random_mem[cp->mem_count] = rand() % 1500; // Random number between 0 and 8192. Store it in an array to keep track and compare later
+         cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
 				
 				//cp->random_mem[cp->mem_count] = 2; //Forcing a value
 
@@ -1288,7 +1295,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
                 cp->random_bit_mem = rand() % 14 ; // Random number between 0 and 13
 			//	cp->random_bit_mem = 10 ; //Forcing a value
 
-               // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp-> random_mem[cp->mem_count],cp->random_bit_mem);
+    // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp-> random_mem[cp->mem_count],cp->random_bit_mem);
 //printf("Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 //fprintf(fnew,"Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
@@ -1357,6 +1364,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
                 }
         
         printf("Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+
+fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 //     fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 	cp->reg_count = cp->reg_count + 1;
@@ -1519,13 +1528,15 @@ if (cp->flip_bit_flag_for_illegal_inst==1) //Check only if a bit has flipped
 {
 	cp->flip_bit_flag_for_illegal_inst=0; //reset it
 
-	printf("random number: %x\n", cp->random_mem[(cp->mem_count)-1] );
+	printf("cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1], cp->random_bit_mem );
+	fprintf(fnew,"cp->random_mem inside check_illegal: %x, cp->random_bit_mem=%x \n", cp->random_mem[(cp->mem_count)-1],cp->random_bit_mem );
 
 	if( ((r2->starting_PC_value) < (cp-> random_mem[(cp->mem_count)-1])) && 
          ((cp-> random_mem[(cp->mem_count)-1]) < r2->Last_valid_PC) )           
 	{
 
 	printf("Checking if the random number generated is within the range of valid PC values in the program\n");
+	fprintf(fnew,"Checking if the random number generated is within the range of valid PC values in the program\n");
 /*Mem count has been incremented at the end of the bit flips function. And this check program error has been called after the bitflips function.
 Hence, the condition should check for the mem_count -1 */
 
