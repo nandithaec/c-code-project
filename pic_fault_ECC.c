@@ -186,7 +186,7 @@ int endloop=0, num_of_inst=0;
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
                     PRINT("Program execution number %d completed\n",repeat_program_execution);
-                    reset_PC_to_beginninng(&pic_registers);
+                    reset_PC_to_beginninng(&pic_registers, fnew);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
 					

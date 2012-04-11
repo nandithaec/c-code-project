@@ -8,6 +8,13 @@ Array index is also starting from 1 and not 0, to avoid confusion.
  
 -Nanditha April 3rd 2012 */
 
+#define DEBUG
+#ifdef DEBUG
+#define PRINT printf
+#else
+ #define PRINT print_null
+#endif
+void print_null (char* n,...) {return;}
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -24,7 +31,7 @@ int calculate_parity_bits(int[], int[]);
 int detect_error(int[], int*, int *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
-
+int only_decode(int );
 
 int main()
 {
@@ -43,6 +50,8 @@ printf("main()..Hamming code in decimal is %d, in hex is %x\n",hamming_code_deci
 
 printf("Enter the received encoded Hamming coded data in decimal (not binary), to be detected for error and decoded:\n ");
 	scanf("%d", &decimal_received);
+
+decoded_data_decimal= only_decode( decimal_received);
 
 decoded_data_decimal= error_detect_correct_decode( decimal_received);
 
@@ -258,6 +267,48 @@ int decoded_data_decimal= 0;
 
     return decoded_data_decimal;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+int only_decode(int decimal_received)
+{
+
+printf("****Invoking only_decode()****\n");
+int  binary_received[14]={0},i=0,binary_corrected[14]={0};
+int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
+int decoded_data_decimal= 0;
+
+	PRINT("\nEncoded data received is:%d (dec), %x (hex),\n",decimal_received,decimal_received);
+	
+	convert_decimal_to_binary(decimal_received,binary_received, 13);
+	
+//Save it in an array
+	PRINT("\nIn binary, the data received is:\n");
+	for(i=1; i<=13; i++)
+    {
+	 PRINT("%d ",binary_received[i]);
+	 binary_received_original[i]=binary_received[i];
+	}
+	
+	PRINT("\n");
+
+
+	decode_received_data(binary_received,decoded_data_binary);
+
+	PRINT("\nIn binary, the decoded data is:\n");
+	for(i=1; i<=8; i++)
+	    PRINT("%d ",decoded_data_binary[i]);
+
+	PRINT("\n");
+
+	decoded_data_decimal= convert_binary_to_decimal(decoded_data_binary,8);
+
+	printf("Decoded data in decimal is: %d, in hex is: %x\n***Ending only_decode()***\n\n",decoded_data_decimal,decoded_data_decimal);
+
+    return decoded_data_decimal;
+}
+
+
 
 //*****************Ending critical functions***********************
 

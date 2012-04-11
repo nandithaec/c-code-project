@@ -197,7 +197,7 @@ int PC_increment(struct registers *);
 int increment_PC_double_pointer(struct registers **);
 int increment_PC(struct registers *);
 
-int reset_PC_to_beginninng(struct registers *);
+int reset_PC_to_beginninng(struct registers *, FILE *);
 int initialise_regs(struct registers*);
 int initialise_crash_param(struct crash_parameters *);
 
@@ -433,7 +433,7 @@ return 0;
     //int starting_PC_value = 0;
 	int instr_from_file=0;
 
-	reset_PC_to_beginninng(r); //Initial PC values are set in this function
+	reset_PC_to_beginninng(r, fnew); //Initial PC values are set in this function
 		
  		r->max_instr= r->PC; // new value of max_instr is initialised to the PC value that is read from the disassembly listing
         r->starting_PC_value = r->PC;
@@ -484,7 +484,7 @@ int	read_PC_array_for_matrix_mult(FILE *fPC, int program_memory[], struct regist
     //int starting_PC_value = 0;
 	int PC_for_matrix_mult=0;
 
-	//reset_PC_to_beginninng(r); //Initial PC values are set in this function
+	//reset_PC_to_beginninng(r,fnew); //Initial PC values are set in this function
 		
 
 	fPC = fopen( "matrix_assembly_PConly.c", "rt" );
@@ -548,7 +548,7 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
     char line[FILE_CHARS]; 
  	int instr_for_matrix_mult=0;
 	fprintf(fnew,"Loaded matrix multiplication program into memory\n\n");
-	//reset_PC_to_beginninng(r); //Initial PC values are set in this function
+	//reset_PC_to_beginninng(r, fnew); //Initial PC values are set in this function
 		
 	finstr = fopen( "matrix_assembly_instruction_only.c", "rt" );
 
@@ -619,7 +619,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int reset_PC_to_beginninng(struct registers *r)
+int reset_PC_to_beginninng(struct registers *r, FILE *fnew)
 {
 	int temp=0;
 //----------------------------------------------------------------------------------------------------------------------------
@@ -640,7 +640,7 @@ int reset_PC_to_beginninng(struct registers *r)
         //----------------------------------------------------------------------------------------------------------------------------
 
 		printf("PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
-		//fprintf(fnew,"PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+		fprintf(fnew,"PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
 
 return 0;
 }
@@ -1358,7 +1358,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 	
 		printf("Bit flipped, Content of the reg[%x] was flipped\n", cp-> random_reg[cp->reg_count]);	
 
-		fprintf(fnew,"Bit flipped, Content of the reg[%x] was flipped\n", cp-> random_reg[cp->reg_count]);	
+		//fprintf(fnew,"Bit flipped, Content of the reg[%x] was flipped\n", cp-> random_reg[cp->reg_count]);	
 
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
@@ -1408,8 +1408,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 	printf("\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:\n");
 	fprintf(fnew,"\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:\n");
 
-    printf("GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
-    fprintf(fnew,"GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
+    printf("GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
+    fprintf(fnew,"GP_Reg[0x02] = %x, GP_Reg[0x82] = %x, GP_Reg[0x0A] = %x, GP_Reg[0x8A] = %x\n\n", r2->GP_Reg[0x02], r2->GP_Reg[0x82], r2->GP_Reg[0x0A], r2->GP_Reg[0x8A]);
 
   //  exit(0);
 
@@ -1502,7 +1502,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
         
         printf("Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
-fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+//fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 //     fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 	cp->reg_count = cp->reg_count + 1;
@@ -2001,7 +2001,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 		cp->instr_cycles=0; //Reset instruction cycles after every crash
 
 		//Reset program counter to beginning of the program
-        reset_PC_to_beginninng(r2);
+        reset_PC_to_beginninng(r2, fnew);
 		printf("***PC reset after crash***\n");
 		fprintf(fnew,"***PC reset after crash***\n");
 
