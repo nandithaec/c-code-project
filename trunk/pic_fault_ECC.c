@@ -7,6 +7,7 @@
 
 #include "decode_fault.h"
 #include "execute.h"
+#include "hamming_8bit_data.h"
 //#include "bit_flips.h"
 
 
@@ -19,25 +20,21 @@ int main()
 
 {
         int  i=0, c=0;
-       // int decode_bits=0;
         int bit=0, immediate_value=0;
         int program_memory[PROGRAM_MEM_SIZE] ={0};//Fill the unused array elements wih NOP
-//      int program[PROGRAM_MEM_SIZE] ={0};
         char instr_mnemonic[MNEMONIC_SIZE];
-        //int PCL = 0, PC = 0, PCLATH=0;
+        
         int loop=0;
-     //   char line[FILE_CHARS];  
-       // int instr_from_file=0;
-     //   int starting_PC_value = 0;
+		int read_PCL_from_user=0, read_PCLATH_from_user=0;
        
         int repeat_program_execution=0;
-       // int initial_PCL=0, initial_PCLATH=0;
+
         unsigned long long int total_instr_cycles=0,mean_instr_cycles=0,  mean_seconds=0, total_seconds=0, successful_cycles=0,total_error_count=0;
 		float percentage_crash=0.0,percentage_error=0.0, percentage_success=0.0;
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_0p8_apr11.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_0p8_ECC.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -66,28 +63,33 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-                printf("Enter starting PCL value (in hex): \n");
+                printf("Enter starting PCL value (in decimal, not hex): \n");
+				scanf("%d", &read_PCL_from_user); //9F or 159
+                
+				pic_registers.GP_Reg_encoded[2] = hamming_encoding(read_PCL_from_user, pic_registers.hamming_code, pic_registers.parity);
+                pic_registers.initial_PCL_encoded = pic_registers.GP_Reg_encoded[2];
+ 
+                printf("Enter starting PCLATH value (in decimal, not hex): \n");
+                scanf("%d", &read_PCLATH_from_user); //02
 
-                scanf("%x", &pic_registers.GP_Reg[2]); //9F
-				//pic_registers.GP_Reg[2]= 0x9F;
-                pic_registers.initial_PCL=pic_registers.GP_Reg[2];
+                pic_registers.GP_Reg_encoded[0x0A]=  hamming_encoding(read_PCLATH_from_user, pic_registers.hamming_code, pic_registers.parity);
+				pic_registers.initial_PCLATH_encoded = pic_registers.GP_Reg_encoded[0x0A];
 
-                printf("Enter starting PCLATH value (in hex): \n");
-                scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
-               // pic_registers.GP_Reg[0x0A]=0x02;
-				pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];
+                pic_registers.GP_Reg_encoded[0x82]= pic_registers.GP_Reg_encoded[2]; //PCL Bank 1 and Bank 0
+                pic_registers.PCL_encoded= pic_registers.GP_Reg_encoded[2];
 
-                pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //PCL Bank 1 and Bank 0
-                pic_registers.PCL= pic_registers.GP_Reg[2];
+                pic_registers.GP_Reg_encoded[0x8A]= pic_registers.GP_Reg_encoded[0x0A]; //PCLATH Bank 1 and Bank 0
+                pic_registers.PCLATH_encoded= pic_registers.GP_Reg_encoded[0x0A];
 
-                pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
-                pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
-
-                pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
-
+				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded,  pic_registers.parity); //decoded PCL
+				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded,  pic_registers.parity); //decoded PCLATH
+                
+				pic_registers.temp_PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
+				pic_registers.PC = hamming_encoding(pic_registers.temp_PC, pic_registers.hamming_code, pic_registers.parity);
 				pic_registers.starting_PC_value = pic_registers.PC;
-        PRINT("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
-
+       	
+	 printf("New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
+	 fprintf(fnew,"New values as read from the user(hex): PCL=%x, PCLATH=%x, PC(testing) = %x \n",pic_registers.GP_Reg[2], pic_registers.PCLATH, pic_registers.PC); 
 
 //*******************Read instructions********************
   //      FILE *fp;               
@@ -108,8 +110,8 @@ int endloop=0, num_of_inst=0;
         printf("\n");
 		fprintf(fnew,"\n");
 
-	//	printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
-	//	fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
+		printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
+		fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
 		printf("Executing...\n");
 		fprintf(fnew,"Executing...\n");
 
