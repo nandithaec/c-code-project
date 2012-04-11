@@ -662,7 +662,7 @@ int instruction_fetch(struct registers *r, int program_memory[],struct crash_par
     PRINT("-------------------------------------------------------------------\n");
     PRINT("INSTRUCTION FETCH >>\n");
 
-    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
+    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->PCL,r->PCLATH, r->PC);
 	PRINT("Instruction fetched is:\n");
 	//fprintf(fnew,"Instruction fetched is:\n");
 
@@ -674,7 +674,7 @@ int instruction_fetch(struct registers *r, int program_memory[],struct crash_par
 }                       
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],struct crash_parameters *cp,FILE *fnew)
 { //This function is not used
     int i=0, array_PC_index=0, PC_not_found=1;
@@ -724,6 +724,7 @@ int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],stru
         
 }                       
 
+*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -1421,6 +1422,13 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82] );
 		r2->GP_Reg[0x0A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x0A] );
 		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A] );
+
+
+		r-> PCL = r->GP_Reg[2];
+		r->PCLATH = r-> GP_Reg[0x0A]
+		
+		//Calculating PC
+		r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
 
 	printf("\nERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:\n");
