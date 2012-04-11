@@ -180,7 +180,7 @@ int  binary_received[14]={0},i=0,binary_corrected[14]={0};
 int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
 int decoded_data_decimal= 0;
 //Error detection
-	
+	PRINT("\nEncoded data received is:%d (dec), %x (hex),\n",decimal_received,decimal_received);
 	
 	convert_decimal_to_binary(decimal_received,binary_received, 13);
 	

@@ -23,11 +23,11 @@
 #define PARITY_WIDTH 7
 
 #define DEBUG
-#ifdef DEBUG
-#define PRINT printf
-#else
+//#ifdef DEBUG
+//#define PRINT printf
+//#else
  #define PRINT print_null
-#endif
+//#endif
 void print_null (char* n,...) {return;}
 unsigned int previous_time = -1;
 //All declarations
@@ -731,7 +731,7 @@ int increment_PC(struct registers *r)
 int temp_PCLATH=0, temp_PCL=0;
 
 
-temp_PCL = error_detect_correct_decode( (r-> GP_Reg_encoded[2]),  r->parity )  ; //decoded PCL 
+temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2] )  ; //decoded PCL 
 PRINT("temp_PCL=%x\n", temp_PCL);
 
 	if (temp_PCL == 0xFF)
@@ -739,11 +739,11 @@ PRINT("temp_PCL=%x\n", temp_PCL);
 	//Increment PCLATH once PCL reaches 0xFF
 
 	//Decode the encoded PCLATH and increment it
-		temp_PCLATH = error_detect_correct_decode( (r-> GP_Reg_encoded[0x0A]), r->parity )  ; //decoded PCLATH i.e., 0x0A location 
+		temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A] )  ; //decoded PCLATH i.e., 0x0A location 
 		temp_PCLATH = temp_PCLATH + 1; 
 	
 	//Encode the incremented PCLATH and write it back
-		r-> GP_Reg_encoded[0x0A]= hamming_encoding(temp_PCLATH, r->hamming_code, r->parity);
+		r-> GP_Reg_encoded[0x0A]= hamming_encoding(temp_PCLATH);
 		//r-> GP_Reg[0x0A] = r-> GP_Reg[0x0A] + 1; //Increment PCLATH
 	}
 
@@ -751,32 +751,37 @@ PRINT("temp_PCL=%x\n", temp_PCL);
 //PCL= GP_Reg[2] and GP_Reg[0x82]
 		temp_PCL= (temp_PCL + 1) & 0xFF; //Increment and limit PCL to 8 bits only
 		PRINT("Incremented temp_PCL: %x\n", temp_PCL);
+
 //Encode the incremented PCL and write it back
-		r-> GP_Reg_encoded[2]= hamming_encoding(temp_PCL, r->hamming_code, r->parity);
+		r-> GP_Reg_encoded[2]= hamming_encoding(temp_PCL);
 		PRINT("Encoded GP_Reg[2]: %x\n",r-> GP_Reg_encoded[2]);
 		r-> GP_Reg_encoded[0x82]= r-> GP_Reg_encoded[2]; //Bank 1 and Bank 0
         r-> PCL_encoded= r-> GP_Reg_encoded[2];
-		PRINT("Decoding PCL_encoded\n");
-		r-> PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2],  r->parity); //decoded PCL
-		PRINT("Decoded PCL_encoded: %x\n", r-> PCL);
+
+		
 //old code
 		// r-> GP_Reg[2]= (r-> GP_Reg[2] + 1) & 0xFF; //Limit PCL to 8 bits only
         //r-> GP_Reg[0x82]= r-> GP_Reg[2]; //Bank 1 and Bank 0
 
-	PRINT("Encoding 0x0A\n");
+	PRINT("\nDecoding content in 0x0A\n");
 //PCLATH
-        temp_PCLATH = error_detect_correct_decode( (r-> GP_Reg_encoded[0x0A]),  r->parity )  ; //decoded PCLATH i.e., 0x0A location 
+        temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A] )  ; //decoded PCLATH i.e., 0x0A location 
 
-		PRINT("temp_PCLATH=%x\n", temp_PCLATH);
+		PRINT("temp_PCLATH decoded=%x\n", temp_PCLATH);
 		r-> GP_Reg_encoded[0x8A]= r-> GP_Reg_encoded[0x0A]; //Bank 1 and Bank 0
         r-> PCLATH_encoded= r-> GP_Reg_encoded[0x0A];
 
 //PC needs to be calculated from PCL and PCLATH.. Decode the values
 		
-		PRINT("Decoding PCL_encoded\n");
-		r->PCLATH = error_detect_correct_decode( r-> PCLATH_encoded, r->parity); //decoded PCLATH
-        
-		PRINT("Calculating PC\n");
+		PRINT("\nDecoding PCL_encoded\n");
+		r-> PCL = error_detect_correct_decode(r-> PCL_encoded); //decoded PCL
+		PRINT("Decoded PCL: %x\n", r-> PCL);
+
+		PRINT("\nDecoding PCLATH_encoded\n");
+		r->PCLATH = error_detect_correct_decode( r-> PCLATH_encoded); //decoded PCLATH
+        PRINT("Decoded PCLATH: %x\n", r-> PCLATH);
+
+		PRINT("\nCalculating PC\n");
 		r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 
 		PRINT("Exiting increment_PC()\n");
@@ -792,7 +797,7 @@ int increment_PC_double_pointer(struct registers **r)
 	if ((*r)-> GP_Reg[2] == 0xFF)
 	{
 
-		(*r)-> GP_Reg[0x0A]= (error_detect_correct_decode( ((*r)-> GP_Reg[0x0A]),  (*r)->parity )) +1 ; //decoded PCL i.e., 0x0A location + 1
+		(*r)-> GP_Reg[0x0A]= (error_detect_correct_decode( (*r)-> GP_Reg[0x0A] )) +1 ; //decoded PCL i.e., 0x0A location + 1
 
 		//(*r)-> GP_Reg[0x0A] = (*r)-> GP_Reg[0x0A] + 1; //Increment PCLATH
 	}
