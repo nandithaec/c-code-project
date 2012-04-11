@@ -66,13 +66,13 @@ For matrix multiplication use this section after reading instruction from file..
                 printf("Enter starting PCL value (in decimal, not hex) (159 dec, 29F hex): \n");
 				scanf("%d", &read_PCL_from_user); //9F or 159
                 
-				pic_registers.GP_Reg_encoded[2] = hamming_encoding(read_PCL_from_user, pic_registers.hamming_code, pic_registers.parity);
+				pic_registers.GP_Reg_encoded[2] = hamming_encoding(read_PCL_from_user);
                 pic_registers.initial_PCL_encoded = pic_registers.GP_Reg_encoded[2];
  
                 printf("Enter starting PCLATH value (in decimal, not hex) (2 dec/hex): \n");
                 scanf("%d", &read_PCLATH_from_user); //02
 
-                pic_registers.GP_Reg_encoded[0x0A]=  hamming_encoding(read_PCLATH_from_user, pic_registers.hamming_code, pic_registers.parity);
+                pic_registers.GP_Reg_encoded[0x0A]=  hamming_encoding(read_PCLATH_from_user);
 				pic_registers.initial_PCLATH_encoded = pic_registers.GP_Reg_encoded[0x0A];
 
                 pic_registers.GP_Reg_encoded[0x82]= pic_registers.GP_Reg_encoded[2]; //PCL Bank 1 and Bank 0
@@ -83,9 +83,9 @@ For matrix multiplication use this section after reading instruction from file..
 
 				//PC needs to be calculated from PCL and PCLATH
 				PRINT("In main, decoding PCL\n");
-				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded,  pic_registers.parity); //decoded PCL
+				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded); //decoded PCL
 				PRINT("In main, decoding PCLATH\n");
-				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded,  pic_registers.parity); //decoded PCLATH
+				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded); //decoded PCLATH
                 
 				pic_registers.PC = (pic_registers.PCL | (pic_registers.PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. Program counter is 13 bits
 //				pic_registers.PC_encoded = hamming_encoding(pic_registers.temp_PC, pic_registers.hamming_code, pic_registers.parity);
