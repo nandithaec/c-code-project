@@ -6,30 +6,30 @@ positions are assigned starting from left, not from the right as is the general 
 i.e., as, bit 1, bit 2 and so on.. so bit 1=1, bit 2=0, bit3=0 and so on till bit 8=0. 
 Array index is also starting from 1 and not 0, to avoid confusion.
  
--Nanditha April 11th 2012 */
+-Nanditha April 3rd 2012 */
 
 
 
-
-int hamming_encoding(int , int[], int[]);
-int error_detect_correct_decode(int , int[]);
+int hamming_encoding(int);
+int error_detect_correct_decode(int);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int);
 int calculate_parity_bits(int[], int[]);
-int detect_error(int[], int*, int[], int *);
+int detect_error(int[], int*, int *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 
 
-int hamming_encoding(int decimal_input, int hamming_code[], int parity[])
+
+int hamming_encoding(int decimal_input)
 {
     int i=0, j=0, p1=0, p2=0, p4=0, p8=0;
 	int binary_input[10]={0}; //8-bit data
 	int	hamming_code_decimal=0;
-
+	int parity[7]= {0};
 	int power_of_two=0;
-   
+    int hamming_code[14]={0};
     
 	
 	PRINT("\nData has been read and is %d (decimal), %x (in hex) \n", decimal_input, decimal_input);
@@ -172,7 +172,7 @@ return hamming_code_decimal;
 
 }
 
-int error_detect_correct_decode(int decimal_received, int parity[])
+int error_detect_correct_decode(int decimal_received)
 {
 
 
@@ -181,7 +181,7 @@ int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={
 int decoded_data_decimal= 0;
 //Error detection
 	
-	PRINT("Decimal received is:%d (dec), %x (hex)\n",decimal_received,decimal_received);
+	
 	convert_decimal_to_binary(decimal_received,binary_received, 13);
 	
 //Save it in an array
@@ -194,7 +194,7 @@ int decoded_data_decimal= 0;
 	
 	PRINT("\n");
 
-	detect_error(binary_received, &bit_in_error, parity, &double_error);
+	detect_error(binary_received, &bit_in_error, &double_error);
 
 //Error correction for single errors
 	if (bit_in_error !=0 &&  // If bit_in_error=1, that means there was an error
@@ -204,7 +204,7 @@ int decoded_data_decimal= 0;
 	
     }
 
-	printf("Decimal corrected(if there was a single error) is: (hex) %x\n",decimal_received);
+	printf("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
 
@@ -333,7 +333,7 @@ return 0;
 }
 
 
-int detect_error(int binary_received[], int *bit_in_error, int parity[], int *double_error)
+int detect_error(int binary_received[], int *bit_in_error, int *double_error)
 {
 
 	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra_received=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
