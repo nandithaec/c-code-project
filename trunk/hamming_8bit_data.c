@@ -227,19 +227,19 @@ int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={
     {
 	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
 	
+    }
 
-	printf("Inside main, decimal corrected is: %x\n",decimal_received);
+	printf("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
 
-	printf("\nIn binary, the corrected encoded data is:\n");
+	printf("\nIn binary, the Corrected encoded data(If there was a single error) is:\n");
 	for(i=1; i<=13; i++)
 	    printf("%d ",binary_corrected[i]);
 
 	printf("\n");
 
-	}
-
+	
 
 	decode_received_data(binary_corrected,decoded_data_binary);
 
