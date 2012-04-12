@@ -198,11 +198,11 @@ struct crash_parameters
 int read_instr_from_file(FILE *,int program_memory[],struct registers *, FILE *);
 
 int	read_PC_array_for_matrix_mult(FILE *, int program_memory[], struct registers * , FILE *);
-int	read_instr_for_matrix_mult(FILE *, int program_memory[], struct registers *, FILE *);
+int	read_instr_for_matrix_mult(FILE *, int program_memory[],int[], struct registers *, FILE *);
 
 
-int instruction_fetch(struct registers*, int [],struct crash_parameters *);
-int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],struct crash_parameters *cp, FILE *);
+int instruction_fetch(struct registers*, int [], int[],struct crash_parameters *);
+//int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],struct crash_parameters *cp, FILE *);
 
 int PC_increment(struct registers *, FILE *,struct crash_parameters *);
 //int increment_PC_double_pointer(struct registers **);
@@ -213,34 +213,35 @@ int initialise_regs(struct registers*);
 int initialise_crash_param(struct crash_parameters *);
 
 int instruction_decode(struct registers *, struct instructions *, int[] ,struct crash_parameters *, FILE *, FILE *, time_t start_seconds);
-int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1, int program_memory[] ,struct crash_parameters *cp, FILE *, FILE *, FILE*, time_t start_seconds);
+int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1, int program_memory[], int [], struct crash_parameters *cp, FILE *, FILE *, FILE*, time_t start_seconds);
 
-int decode_byte_instr(struct instructions *i1,struct crash_parameters *,struct registers *, int [], FILE *, FILE *, FILE *, time_t start_seconds);
-int decode_bit_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *, FILE *,time_t start_seconds, int[]);
-int call_goto_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *,FILE *, time_t start_seconds, int[]);
-int literal_control_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *, FILE *, time_t start_seconds, int[]);
+int decode_byte_instr(struct instructions *i1,struct crash_parameters *,struct registers *, int [], int[], FILE *, FILE *, FILE *, time_t start_seconds);
+int decode_bit_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *, FILE *,time_t start_seconds, int[], int[]);
+int literal_control_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *, FILE *, time_t start_seconds, int[], int[]);
+int call_goto_instr(struct registers *, struct instructions *i1, struct crash_parameters *, FILE *, FILE *,FILE *, time_t start_seconds, int[], int[]);
 
 
-int instruction_execute(struct registers *, struct instructions *, int [], struct crash_parameters *, FILE *, FILE *, FILE *, time_t start_seconds);
+
+int instruction_execute(struct registers *, struct instructions *, int [], int [], struct crash_parameters *, FILE *, FILE *, FILE *, time_t start_seconds);
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *, FILE *);
+int bit_flips(struct registers *, int [],int[], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *, FILE *);
 int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
-int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
-int check_illegal_instr(struct registers *,  int [], struct crash_parameters *, time_t ,struct instructions *, FILE *, FILE *, FILE *);
-int report_crash(struct registers *,  int program_memory[], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *, FILE *);
+int check_pgm_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], int [], FILE *);
+int check_illegal_instr(struct registers *,  int [], int[], struct crash_parameters *, time_t ,struct instructions *, FILE *, FILE *, FILE *);
+int report_crash(struct registers *,  int program_memory[], int [], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *, FILE *);
 
 	
-int handle_byte_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
+int handle_byte_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
 
 	
-int handle_bit_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
+int handle_bit_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
 
-int handle_literal_instruction_error(struct registers *r2,int program_memory[],struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
+int handle_literal_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
 
 int report_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
-int reset_after_crash(struct registers *,  int program_memory[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *, FILE *);
+int reset_after_crash(struct registers *,  int program_memory[], int[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *, FILE *);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //----------------------------------------Function definitions---------------------------------------------------------//
@@ -556,7 +557,7 @@ return 0;
 
 
 
-int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct registers *r, FILE *fnew)
+int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[],int program_memory_encoded[], struct registers *r, FILE *fnew)
 {//Read instruction for matrix multiplication
 
 	int i=0, j=0, count=0;
@@ -580,20 +581,18 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[], struct regist
 			// get a line, up to 80 chars from file.  done if NULL 
             sscanf (line, "%x", &instr_for_matrix_mult);
 
-//working
+//working.. using complicate method of fetching using array index
        		// r->instr_array_for_matrix_mult[j]= instr_for_matrix_mult;
-		   //  program_memory[j]= instr_for_matrix_mult;
+		    //  program_memory[j]= instr_for_matrix_mult;
 
 
-
-//Duplicate working, used just for printing into file, for better readability and debugging
+//Uses simple fetch()
 			count= r->PC_array_for_matrix_mult[j]; //PC value
             r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
-		     program_memory[count]= instr_for_matrix_mult;
+		    program_memory_encoded[count]= hamming_encoding_14bit(instr_for_matrix_mult); //encode the instruction
 		
+			fprintf(fnew,"program_memory_encoded[PC=%x]: %x\n", count, program_memory_encoded[count]);
 
-			//fprintf(fnew,"program_memory[PC=%x]: %x\n", count, program_memory[count]);
- // old program_memory[r->PC_array_for_matrix_mult[j]]= instr_for_matrix_mult;
 			j++; 
            
        }
@@ -662,9 +661,10 @@ return 0;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int instruction_fetch(struct registers *r, int program_memory[],struct crash_parameters *cp)
+int instruction_fetch(struct registers *r, int program_memory[],int program_memory_encoded[], struct crash_parameters *cp)
 {
    
+	program_memory[r-> PC]= error_correct_detect_decode_14bit(program_memory_encoded[r-> PC]);
     r-> instruction = program_memory[r-> PC];
     
     PRINT("-------------------------------------------------------------------\n");
@@ -901,7 +901,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1, int program_memory[] ,struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
+int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1, int program_memory[], int program_memory_encoded[], struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
 {
 
   int opcode = 0;
@@ -923,19 +923,19 @@ int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1
         switch (i1->decode_bits)
         {
                 case 0:
-                        decode_byte_instr(i1,cp,r1,program_memory,fnew, fPC, finstr, start_seconds);
+                        decode_byte_instr(i1,cp,r1,program_memory,program_memory_encoded,fnew, fPC, finstr, start_seconds);
                         break;
 
                 case 1:
-                        decode_bit_instr(r1,i1,cp,fnew, fPC, finstr, start_seconds, program_memory);  
+                        decode_bit_instr(r1,i1,cp,fnew, fPC, finstr, start_seconds, program_memory,program_memory_encoded);  
                         break;
 
                 case 2:
-                        call_goto_instr(r1,i1,cp,fnew, fPC, finstr, start_seconds,program_memory);  
+                        call_goto_instr(r1,i1,cp,fnew, fPC, finstr, start_seconds,program_memory,program_memory_encoded);  
                         break;
 
                 case 3:
-                        literal_control_instr(r1, i1,cp,fnew, fPC, finstr, start_seconds,program_memory);    
+                        literal_control_instr(r1, i1,cp,fnew, fPC, finstr, start_seconds,program_memory,program_memory_encoded,);    
                         break;
 
                 default:
@@ -953,7 +953,7 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, struct registers *r1, int program_memory[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
+int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, struct registers *r1, int program_memory[],int program_memory_encoded[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
 
 {
         
@@ -980,9 +980,9 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
                 {
                         i1->instr_mnemonic_enum = RETURN;
                         PRINT("Instruction mnemonic = RETURN\n");
-					//printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
+		//printf("Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
 		//fprintf(fnew,"Instruction fetched from program_memory[%x] is %x\n",((r1-> PC)), program_memory[(r1-> PC)]);
-		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+		
                 }
         else if (i1-> instruction==0x0009)
                 {
@@ -1097,7 +1097,7 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
 						 fprintf(fnew,"\nCRASH: Crash due to illegal opcode\n");
 						 
 						 cp->crash_dueto_illegal_opcode++;
-						 report_crash(r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+						 report_crash(r1,  program_memory, program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
 
                 break;
 
@@ -1109,7 +1109,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[])
+int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[], int program_memory_encoded[])
 {
                                                 
         i1-> reg_file_addr = (i1->instruction) & 0x007F;
@@ -1149,7 +1149,7 @@ int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash
 						  
 						 cp->crash_dueto_illegal_opcode++;
 						 
-						 report_crash(r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+						 report_crash(r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
                 break;
 
         }
@@ -1161,7 +1161,7 @@ return 0;
         
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int literal_control_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[])
+int literal_control_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[], int program_memory_encoded[])
 {
                                                 
         i1-> immediate_value = (i1-> instruction) & 0x00FF;
@@ -1217,7 +1217,7 @@ PRINT("INSTRUCTION DECODE >> Literal and control instructions\n");
 						 fprintf(fnew,"\nCRASH: Crash due to illegal opcode\n");
 						 
 						 cp->crash_dueto_illegal_opcode++;
-						 report_crash(r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+						 report_crash(r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
                 break;
 
         }
@@ -1227,7 +1227,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int call_goto_instr(struct registers *r1, struct instructions *i1,struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[])
+int call_goto_instr(struct registers *r1, struct instructions *i1,struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[], int program_memory_encoded[])
 {
                                                 
         i1-> immediate_value = (i1-> instruction) & 0x07FF;
@@ -1251,7 +1251,7 @@ PRINT("INSTRUCTION DECODE >> CALL/GOTO instructions\n");
 						fprintf(fnew,"\nCRASH: Crash due to illegal opcode\n");
   					    
 						cp->crash_dueto_illegal_opcode++;
-						report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+						report_crash( r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
                 break;
 
         }
@@ -1262,7 +1262,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
+int bit_flips(struct registers *r2,  int program_memory[],int program_memory_encoded[],  struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
 
 {
       	PRINT("bit flip call\n");
@@ -1333,7 +1333,7 @@ printf("****Encoded Content of the location[%x] before flipping, is (in hex)****
 	printf("random_bit=%d\n", random_bit);
 	fprintf(fnew,"random_bit=%d\n", random_bit);
 
-	if(random_bit==5==0|| random_bit==5 || random_bit==9 || random_bit==11 || random_bit==12)
+	if(random_bit==0|| random_bit==5 || random_bit==9 || random_bit==11 || random_bit==12)
 	{
 		printf("Parity bit is flipped, not data bit%d\n", random_bit);
 		fprintf(fnew,"Parity bit is flipped, not data bit\n", random_bit);
@@ -1478,7 +1478,7 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 
 //------------------------Reset conditions after crash---------------------------------------
 
-			//reset_after_crash(r2, program_memory, cp, start_seconds, fnew, fPC, finstr);
+			//reset_after_crash(r2, program_memory,program_memory_encoded, cp, start_seconds, fnew, fPC, finstr);
 //-------------------------------------------------------------------------------
    		  }
 
@@ -1488,82 +1488,93 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 		// generate random number: 
          cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
 				
-				//cp->random_mem[cp->mem_count] = 2; //Forcing a value
-
-			//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
+	//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
 
                 cp->random_bit_mem = rand() % 14 ; // Random number between 0 and 13
-			//	cp->random_bit_mem = 10 ; //Forcing a value
-
-    // printf("Program memory location selected:%x, random bit to flip in this location is %d\n",cp-> random_mem[cp->mem_count],cp->random_bit_mem);
+		
+  
 //printf("Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 //fprintf(fnew,"Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
+ printf("****Content of the mem[%x] before flipping, is (in hex)**** %x\n",random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
+
+fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
+
         //Bit 0 is the LSB (rightmost) and Bit 13 is MSB (leftmost)
-                switch(cp->random_bit_mem)
-                {
-                        case 0:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 0);
-                        break;
-                
-                        case 1:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 1);
-                        break;
+            switch(cp->random_bit_mem)
+            {
+                    case 0:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 0);
+                    break;
+            
+                    case 1:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 1);
+                    break;
 
-                        case 2:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 2);
-                        break;
+                    case 2:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 2);
+                    break;
 
-                        case 3:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 3);
-                        break;
+                    case 3:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 3);
+                    break;
 
-                        case 4:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 4);
-                        break;
+                    case 4:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 4);
+                    break;
 
-                        case 5:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 5);
-                        break;
+                    case 5:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 5);
+                    break;
 
-                        case 6:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 6);
-                        break;
+                    case 6:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 6);
+                    break;
 
-                        case 7:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 7);
-                        break;
+                    case 7:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 7);
+                    break;
 
-                        case 8:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+                    case 8:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						case 9:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+					case 9:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						case 10:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+					case 10:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						case 11:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+					case 11:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						case 12:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+					case 12:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						case 13:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
-                        break;
+					case 13:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    break;
 
- 						default: printf("Invalid bit flip case\n");
-                        fprintf(fnew,"Invalid bit flip case\n");
-						break;
-                }
-        
-        printf("Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+					default: printf("Invalid bit flip case\n");
+                    fprintf(fnew,"Invalid bit flip case\n");
+					break;
+            }
+    
+       
+printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+
+fprintf(fnew,"****Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+
+	printf("In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
+	
+	fprintf(fnew,"In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
+
+
+        printf("Bit flipped, Content of the program_memory_encoded[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
 
 //fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 //     fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1580,7 +1591,7 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Check for program error (error in data)
 
-int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
+int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], int program_memory_encoded[], FILE *fnew)
 {
 //Check if the data being accessed by the instruction has been flipped.. hence leading to incorrect data
 	int i=0,j=0;
@@ -1720,6 +1731,7 @@ return 0;
 //Condition for program crash if illegal instruction. This is only if the program_memory contents are flipped
 int check_illegal_instr(struct registers *r2,  
                         int program_memory[], 
+						int program_memory_encoded[], 
                         struct crash_parameters *cp, 
 						time_t start_seconds,
 						struct instructions *i1,
@@ -1781,7 +1793,7 @@ Hence, the condition should check for the mem_count -1 */
 		if ( (cp->random_bit_mem !=12) || (cp->random_bit_mem !=13) ) //Decode_bits hasnt changed. So, the category of instructions remains same as in the decode function
 		{
 			//Fetch instruction from the location which has its instruction flipped. PC = (cp-> random_mem[(cp->mem_count)-1])	
-			cp->erroneous_instruction = program_memory[cp-> random_mem[(cp->mem_count)-1]];
+			cp->erroneous_instruction = only_decode_14bit_hamming(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]);
 
 			crash_decode_bits= (cp->erroneous_instruction & 0x3000)>> 12;  // bits 13 and 14
 	        PRINT("Decode bits while verifying program crash= %d \n", crash_decode_bits);
@@ -1791,13 +1803,13 @@ Hence, the condition should check for the mem_count -1 */
 		    {
 		        case 0: //handle_byte_instruction_error()
 		                //Byte instruction
-						handle_byte_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fPC, finstr);
+						handle_byte_instruction_error(r2,program_memory, program_memory_encoded,  cp,start_seconds,i1,fnew,fPC, finstr);
 						
 		        break;
 
 		        case 1: //handle_bit_instruction_error()
 		                //Bit instruction
-						handle_bit_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fPC, finstr);
+						handle_bit_instruction_error(r2,program_memory, program_memory_encoded, cp,start_seconds,i1,fnew,fPC, finstr);
 				 
 		        break;
 
@@ -1809,13 +1821,13 @@ Hence, the condition should check for the mem_count -1 */
 						fprintf(fnew,"\nCRASH:Control flow instruction has got modified (resulted in CALL/GOTO)\n");
 				  		
 						cp->control_flow_change++;
-						report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+						report_crash( r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 
 		        break;
 
 		        case 3: //handle_literal_instruction_error()
 		                //Literal and control instruction
-						handle_literal_instruction_error(r2,program_memory, cp,start_seconds,i1,fnew,fPC, finstr);
+						handle_literal_instruction_error(r2,program_memory, program_memory_encoded, cp,start_seconds,i1,fnew,fPC, finstr);
 		        break;
 
 		        default:
@@ -1833,7 +1845,7 @@ Hence, the condition should check for the mem_count -1 */
 			 fprintf(fnew,"\nCRASH: Crash due to illegal opcode\n");
 			 
 			 cp->crash_dueto_illegal_opcode++;
-			 report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+			 report_crash( r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 		}
 	} //close if PC range
@@ -1847,7 +1859,8 @@ return 0;
 	
 int handle_byte_instruction_error(struct registers *r2,  
                         int program_memory[], 
-                        struct crash_parameters *cp, 
+                       	int program_memory_encoded[],
+						struct crash_parameters *cp, 
 						time_t start_seconds,
 						struct instructions *i1,
 						FILE *fnew, 		
@@ -1868,7 +1881,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 			printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 	   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 			// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-			report_crash( r2,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash( r2,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 		}
 
@@ -1914,7 +1927,7 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int handle_bit_instruction_error(struct registers *r2,  
                         int program_memory[], 
-                        struct crash_parameters *cp, 
+                        int program_memory_encoded[], struct crash_parameters *cp, 
 						time_t start_seconds,
 						struct instructions *i1,
 						FILE *fnew, 		
@@ -1934,7 +1947,7 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 					printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 			   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
 					// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-					report_crash(r2,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+					report_crash(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 				}
 
 			}
@@ -1967,7 +1980,7 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int handle_literal_instruction_error(struct registers *r2,  
                         int program_memory[], 
-                        struct crash_parameters *cp, 
+                        int program_memory_encoded[],struct crash_parameters *cp, 
 						time_t start_seconds,
 						struct instructions *i1,
 						FILE *fnew, 		
@@ -2000,7 +2013,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int report_crash(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
+int report_crash(struct registers *r2,  int program_memory[],int  program_memory_encoded[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
 {
 	
 		int ii=0;
@@ -2033,7 +2046,7 @@ int report_crash(struct registers *r2,  int program_memory[], struct crash_param
 		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
 		//**********************Reset conditions after mem crash*******************************
-		reset_after_crash(r2,  program_memory, cp, start_seconds, fnew, fPC, finstr);
+		reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr);
 
 
 return 0;
@@ -2043,9 +2056,6 @@ return 0;
 
 int report_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], FILE *fnew)
 {
-		
-		//cp->store_same_reg_modification[cp->same_reg++] = r2->GP_Reg[cp-> random_reg[j]];
-
 		
 		if(cp->incorrect_data_flag ==1) //If error is due to incorrect data, save the cycles in his array. This saves only the cycle at which the first error occured
 		{
@@ -2085,7 +2095,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds, FILE *fnew, FILE *fPC, FILE *finstr)
+int reset_after_crash(struct registers *r2,  int program_memory[], int program_memory_encoded[],struct crash_parameters *cp, time_t start_seconds, FILE *fnew, FILE *fPC, FILE *finstr)
 
 {
 
@@ -2120,7 +2130,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 		//this is for matrix multiplication program
 		fprintf(fnew,"***Reloading instructions to program memory***\n");
 		read_PC_array_for_matrix_mult(fPC,program_memory,r2,fnew);
-		read_instr_for_matrix_mult(finstr,program_memory,r2,fnew);
+		read_instr_for_matrix_mult(finstr,program_memory,program_memory_encoded,r2,fnew);
 
 return 0;
 
