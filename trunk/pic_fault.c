@@ -37,7 +37,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_0p01_apr11.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_0.5e-4_apr11.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -66,13 +66,13 @@ finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-                printf("Enter starting PCL value (in hex): \n");
+                printf("Enter starting PCL value (in hex - 9f): \n");
 
                 scanf("%x", &pic_registers.GP_Reg[2]); //9F
 				//pic_registers.GP_Reg[2]= 0x9F;
                 pic_registers.initial_PCL=pic_registers.GP_Reg[2];
 
-                printf("Enter starting PCLATH value (in hex): \n");
+                printf("Enter starting PCLATH value (in hex -2): \n");
                 scanf("%x", &pic_registers.GP_Reg[0x0A]); //02
                // pic_registers.GP_Reg[0x0A]=0x02;
 				pic_registers.initial_PCLATH=pic_registers.GP_Reg[0x0A];

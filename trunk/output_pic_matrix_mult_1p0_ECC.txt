@@ -1,6 +1,6 @@
 Hello
-At the start of execution: 1334173698 seconds since January 1, 1970 
-New values as read from the user(hex): PCL=0, PCLATH=2, PC(testing) = 29f 
+At the start of execution: 1334206388 seconds since January 1, 1970 
+New values as read from the user(hex): PCL=9f, PCLATH=2, PC(testing) = 29f 
 Maximum number of instructions in the program is: 395
 
 Last valid PC value is (in hex): 3fe
@@ -14,1696 +14,1912 @@ Status register contents:(hex) at the beginning of all operations: 0
 Probability of a bit flip is set to: 1
 Executing...
 
-Flip function called: Random number generated: 58
-****Content of the location[230] before flipping, is (in hex)**** 0
+Flip function called: Random number generated: 12
+Content of the location[7d] before flipping, is (in hex)0
+Bit flipped, Content of the reg[7d] was flipped to 10
 
-Bit flipped, Content of the reg[e6] was flipped to 1
+Flip function called: Random number generated: 73
+Content of the location[df] before flipping, is (in hex)0
+Bit flipped, Content of the reg[df] was flipped to 20
 
-Flip function called: Random number generated: 67
-****Content of the location[142] before flipping, is (in hex)**** 0
+Flip function called: Random number generated: 30
+Content of the location[50] before flipping, is (in hex)0
+Bit flipped, Content of the reg[50] was flipped to 2
 
-Bit flipped, Content of the reg[8e] was flipped to 4
+Flip function called: Random number generated: 19
+Content of the location[41] before flipping, is (in hex)0
+Bit flipped, Content of the reg[41] was flipped to 2
 
-Flip function called: Random number generated: 76
-****Content of the location[147] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[93] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[0]=34b
 
-Flip function called: Random number generated: 50
-****Content of the location[62] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[3e] was flipped to 20
-Reg file address 3e
-cp->store_PC_same[0]=36a
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=36a, instruction opcode being executed (in hex)=1be
-Number of instruction cycles executed before the error: 79963
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=34b, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 36572
 
 ******Unique errors so far= 1. Repeated errors are counted but not printed******
-Reg file address 3e
-cp->store_PC_same[1]=379
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=379, instruction opcode being executed (in hex)=83e
-Number of instruction cycles executed before the error: 79977
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[1]=3ef
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3ef, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 36726
 
 ******Unique errors so far= 2. Repeated errors are counted but not printed******
-Reg file address 3e
-cp->store_PC_same[2]=386
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=386, instruction opcode being executed (in hex)=83e
-Number of instruction cycles executed before the error: 79990
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[2]=3f0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3f0, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 36727
 
 ******Unique errors so far= 3. Repeated errors are counted but not printed******
-Reg file address 3e
-cp->store_PC_same[3]=3be
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3be, instruction opcode being executed (in hex)=7be
-Number of instruction cycles executed before the error: 80043
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[3]=2b1
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2b1, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 36759
 
 ******Unique errors so far= 4. Repeated errors are counted but not printed******
-Reg file address 3e
-cp->store_PC_same[4]=3cd
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3cd, instruction opcode being executed (in hex)=23e
-Number of instruction cycles executed before the error: 80056
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[4]=2ec
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2ec, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 36814
 
 ******Unique errors so far= 5. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 48
-****Content of the location[90] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[5a] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[5]=2ed
 
-Flip function called: Random number generated: 86
-****Content of the location[123] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[7b] was flipped to 8
-
-Flip function called: Random number generated: 14
-****Content of the location[89] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[59] was flipped to 1
-
-Flip function called: Random number generated: 64
-****Content of the location[185] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[b9] was flipped to 20
-
-Flip function called: Random number generated: 9
-****Content of the location[153] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[99] was flipped to 0
-
-Flip function called: Random number generated: 24
-****Content of the location[254] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[fe] was flipped to 4
-
-Flip function called: Random number generated: 72
-****Content of the location[140] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[8c] was flipped to 0
-
-Flip function called: Random number generated: 96
-****Content of the location[201] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[c9] was flipped to 20
-
-Flip function called: Random number generated: 50
-****Content of the location[134] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[86] was flipped to 10
-
-Flip function called: Random number generated: 11
-****Content of the location[102] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[66] was flipped to 2
-
-Flip function called: Random number generated: 78
-****Content of the location[252] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[fc] was flipped to 10
-
-Flip function called: Random number generated: 15
-****Content of the location[92] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[5c] was flipped to 10
-
-Flip function called: Random number generated: 1
-****Content of the location[87] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[57] was flipped to 4
-
-Flip function called: Random number generated: 50
-****Content of the location[68] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[44] was flipped to 2
-
-Flip function called: Random number generated: 50
-****Content of the location[81] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[51] was flipped to 8
-
-Flip function called: Random number generated: 17
-****Content of the location[43] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[2b] was flipped to 4
-
-Flip function called: Random number generated: 22
-****Content of the location[190] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[be] was flipped to 1
-
-Flip function called: Random number generated: 10
-****Content of the location[14] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[e] was flipped to 10
-Reg file address e
-cp->store_PC_same[5]=399
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=399, instruction opcode being executed (in hex)=8e
-Number of instruction cycles executed before the error: 735388
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2ed, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 36815
 
 ******Unique errors so far= 6. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 13
-****Content of the location[250] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[fa] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[6]=2fe
 
-Flip function called: Random number generated: 31
-****Content of the location[42] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[2a] was flipped to 4
-
-Flip function called: Random number generated: 31
-****Content of the location[200] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[c8] was flipped to 20
-
-Flip function called: Random number generated: 17
-****Content of the location[139] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[8b] was flipped to 8
-
-Flip function called: Random number generated: 2
-****Content of the location[69] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[45] was flipped to 0
-
-Flip function called: Random number generated: 90
-****Content of the location[106] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[6a] was flipped to 20
-
-Flip function called: Random number generated: 8
-****Content of the location[180] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[b4] was flipped to 1
-
-Flip function called: Random number generated: 24
-****Content of the location[123] before flipping, is (in hex)**** 8
-
-Bit flipped, Content of the reg[7b] was flipped to 9
-
-Flip function called: Random number generated: 29
-****Content of the location[110] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[6e] was flipped to 10
-
-Flip function called: Random number generated: 69
-****Content of the location[98] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[62] was flipped to 0
-
-ERROR: Byte instruction: Opcode has changed, will lead to an error in program
-PC value (in hex)=2d3, erroneous instruction (in hex) = bc3
-The bit that has got flipped is: 11
-Number of instruction cycles executed before the error: 1099545
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2fe, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 36831
 
 ******Unique errors so far= 7. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 40
-****Content of the location[210] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[d2] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[7]=339
 
-Flip function called: Random number generated: 87
-****Content of the location[85] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[55] was flipped to 0
-
-Flip function called: Random number generated: 60
-****Content of the location[48] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[30] was flipped to 20
-
-Flip function called: Random number generated: 61
-****Content of the location[208] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[d0] was flipped to 8
-
-Flip function called: Random number generated: 77
-****Content of the location[27] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[1b] was flipped to 4
-Reg file address 1b
-cp->store_PC_same[6]=3a9
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3a9, instruction opcode being executed (in hex)=9b
-Number of instruction cycles executed before the error: 1281884
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=339, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 36886
 
 ******Unique errors so far= 8. Repeated errors are counted but not printed******
-Reg file address 1b
-cp->store_PC_same[7]=3ad
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3ad, instruction opcode being executed (in hex)=71b
-Number of instruction cycles executed before the error: 1281888
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+Reg file address 41
+cp->store_PC_same[8]=33a
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=33a, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 36887
 
 ******Unique errors so far= 9. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 64
-****Content of the location[173] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[ad] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 47
-****Content of the location[43] before flipping, is (in hex)**** 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[2b] was flipped to 5
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 16
-****Content of the location[95] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[5f] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 94
-****Content of the location[98] before flipping, is (in hex)**** 0
+Content of the location[91] before flipping, is (in hex)0
+Bit flipped, Content of the reg[91] was flipped to 1
 
-Bit flipped, Content of the reg[62] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 24
-****Content of the location[151] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[97] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 96
-****Content of the location[54] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[36] was flipped to 0
-Reg file address 36
-cp->store_PC_same[8]=2df
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2df, instruction opcode being executed (in hex)=836
-Number of instruction cycles executed before the error: 1500484
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+Flip function called: Random number generated: 49
+Content of the location[3d] before flipping, is (in hex)0
+Bit flipped, Content of the reg[3d] was flipped to 1
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+Reg file address 3d
+cp->store_PC_same[9]=2f0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2f0, instruction opcode being executed (in hex)=83d
+Number of instruction cycles executed before the error: 61312
 
 ******Unique errors so far= 10. Repeated errors are counted but not printed******
-Reg file address 36
-cp->store_PC_same[9]=2a5
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2a5, instruction opcode being executed (in hex)=b6
-Number of instruction cycles executed before the error: 1500760
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+Reg file address 3d
+cp->store_PC_same[10]=3c7
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3c7, instruction opcode being executed (in hex)=83d
+Number of instruction cycles executed before the error: 61515
 
 ******Unique errors so far= 11. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 56
-****Content of the location[10] before flipping, is (in hex)**** 3
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[a] was flipped to 7
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Crash number:1 detected
-Program crash was due to PC value at location a getting affected
-PC value (in hex)=35f, instruction opcode that was getting executed (in hex)=714
-Random number that got generated this time was: 56
-Time of crash number 1 is 1334173742 seconds since January 1, 1970
-At crash 1,time since the beginning of program execution is: 44 (in seconds)
-Number of instruction cycles executed before the crash: 1536683
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:
-GP_Reg[0x02] = 5f, GP_Reg[0x82] = 5f, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+Reg file address 3d
+cp->store_PC_same[11]=3f3
 
-Flip function called: Random number generated: 8
-****Content of the location[25] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[19] was flipped to 8
-Reg file address 19
-cp->store_PC_same[10]=395
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=395, instruction opcode being executed (in hex)=99
-Number of instruction cycles executed before the error: 1570497
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3f3, instruction opcode being executed (in hex)=83d
+Number of instruction cycles executed before the error: 61555
 
 ******Unique errors so far= 12. Repeated errors are counted but not printed******
-Reg file address 19
-cp->store_PC_same[11]=396
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=396, instruction opcode being executed (in hex)=819
-Number of instruction cycles executed before the error: 1570498
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+Reg file address 3d
+cp->store_PC_same[12]=2a3
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2a3, instruction opcode being executed (in hex)=bd
+Number of instruction cycles executed before the error: 61570
 
 ******Unique errors so far= 13. Repeated errors are counted but not printed******
 
-Flip function called: Random number generated: 60
-****Content of the location[141] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[8d] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 95
-****Content of the location[157] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[9d] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 77
-****Content of the location[221] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[dd] was flipped to 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 87
-****Content of the location[227] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[e3] was flipped to 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 46
-****Content of the location[35] before flipping, is (in hex)**** 0
+Content of the location[ab] before flipping, is (in hex)0
+Bit flipped, Content of the reg[ab] was flipped to 0
 
-Bit flipped, Content of the reg[23] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 76
-****Content of the location[115] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[73] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 35
-****Content of the location[179] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[b3] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 35
-****Content of the location[8] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 54
-****Content of the location[93] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[5d] was flipped to 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 32
-****Content of the location[8] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 40
-****Content of the location[56] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[38] was flipped to 1
-Reg file address 38
-cp->store_PC_same[12]=342
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=342, instruction opcode being executed (in hex)=838
-Number of instruction cycles executed before the error: 1970927
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 14. Repeated errors are counted but not printed******
-Reg file address 38
-cp->store_PC_same[13]=2a9
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2a9, instruction opcode being executed (in hex)=b8
-Number of instruction cycles executed before the error: 1971115
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 15. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 57
-****Content of the location[4] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[4] was flipped to 4
-Reg file address 4
-cp->store_PC_same[14]=2c9
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2c9, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2006894
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 16. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[15]=2cd
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2cd, instruction opcode being executed (in hex)=a84
-Number of instruction cycles executed before the error: 2006898
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 17. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[16]=316
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=316, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2006966
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 18. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[17]=31a
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=31a, instruction opcode being executed (in hex)=a84
-Number of instruction cycles executed before the error: 2006970
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 19. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[18]=363
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=363, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2007038
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 20. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[19]=367
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=367, instruction opcode being executed (in hex)=a84
-Number of instruction cycles executed before the error: 2007042
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 21. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[20]=37f
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=37f, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2007065
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 22. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[21]=383
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=383, instruction opcode being executed (in hex)=a84
-Number of instruction cycles executed before the error: 2007069
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 23. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[22]=397
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=397, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2007088
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 24. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[23]=39a
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=39a, instruction opcode being executed (in hex)=a84
-Number of instruction cycles executed before the error: 2007091
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 25. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[24]=3b0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b0, instruction opcode being executed (in hex)=84
-Number of instruction cycles executed before the error: 2007112
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 26. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[25]=3b4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b4, instruction opcode being executed (in hex)=f84
-Number of instruction cycles executed before the error: 2007116
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 27. Repeated errors are counted but not printed******
-Reg file address 4
-cp->store_PC_same[26]=3bc
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3bc, instruction opcode being executed (in hex)=384
-Number of instruction cycles executed before the error: 2007123
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 28. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 65
-****Content of the location[138] before flipping, is (in hex)**** 2
-
-Bit flipped, Content of the reg[8a] was flipped to 3
-
-Crash number:2 detected
-Program crash was due to PC value at location 8a getting affected
-PC value (in hex)=2cf, instruction opcode that was getting executed (in hex)=80
-Random number that got generated this time was: 65
-Time of crash number 2 is 1334173756 seconds since January 1, 1970
-At crash 2,time since the beginning of program execution is: 58 (in seconds)
-Number of instruction cycles executed before the crash: 2040331
-
-***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***
-
-ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:
-GP_Reg[0x02] = cf, GP_Reg[0x82] = cf, GP_Reg[0x0A] = 2, GP_Reg[0x8A] = 2
-
-
-Flip function called: Random number generated: 86
-****Content of the location[139] before flipping, is (in hex)**** 8
-
-Bit flipped, Content of the reg[8b] was flipped to c
-
-ERROR: Literal and control instruction: Opcode has changed, will lead to an error in program
-PC value (in hex)=31b, erroneous instruction (in hex) = 3001
-The bit that has got flipped is: 0
-Number of instruction cycles executed before the error: 2073443
-
-******Unique errors so far= 29. Repeated errors are counted but not printed******
-
-Flip function called: Random number generated: 10
-****Content of the location[29] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[1d] was flipped to 2
-Reg file address 1d
-cp->store_PC_same[27]=3ae
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3ae, instruction opcode being executed (in hex)=9d
-Number of instruction cycles executed before the error: 2106079
-
-******Unique errors so far= 30. Repeated errors are counted but not printed******
-Reg file address 1d
-cp->store_PC_same[28]=3af
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3af, instruction opcode being executed (in hex)=81d
-Number of instruction cycles executed before the error: 2106080
-
-******Unique errors so far= 31. Repeated errors are counted but not printed******
-
-Flip function called: Random number generated: 91
-****Content of the location[131] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[83] was flipped to 10
-
-Flip function called: Random number generated: 68
-****Content of the location[168] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[a8] was flipped to 10
-
-Flip function called: Random number generated: 76
-****Content of the location[105] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[69] was flipped to 8
-
-Flip function called: Random number generated: 19
-****Content of the location[225] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[e1] was flipped to 2
-
-Flip function called: Random number generated: 14
-****Content of the location[30] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[1e] was flipped to 0
-
-Flip function called: Random number generated: 9
-****Content of the location[162] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[a2] was flipped to 20
-
-Flip function called: Random number generated: 29
-****Content of the location[136] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[88] was flipped to 2
-
-Flip function called: Random number generated: 54
-****Content of the location[85] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[55] was flipped to 20
-
-Flip function called: Random number generated: 28
-****Content of the location[177] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[b1] was flipped to 0
-
-Flip function called: Random number generated: 51
-****Content of the location[45] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[2d] was flipped to 4
-
-Flip function called: Random number generated: 61
-****Content of the location[83] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[53] was flipped to 10
-
-Flip function called: Random number generated: 9
-****Content of the location[251] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[fb] was flipped to 2
-
-Flip function called: Random number generated: 89
-****Content of the location[9] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[9] was flipped to 0
-
-Flip function called: Random number generated: 49
-****Content of the location[190] before flipping, is (in hex)**** 1
-
-Bit flipped, Content of the reg[be] was flipped to 5
-
-Flip function called: Random number generated: 42
-****Content of the location[170] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[aa] was flipped to 1
-
-Flip function called: Random number generated: 46
-****Content of the location[224] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[e0] was flipped to 10
-
-Flip function called: Random number generated: 70
-****Content of the location[167] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[a7] was flipped to 10
-
-Flip function called: Random number generated: 83
-****Content of the location[2] before flipping, is (in hex)**** 80
-
-Bit flipped, Content of the reg[2] was flipped to 90
-
-Crash number:3 detected
-Program crash was due to PC value at location 2 getting affected
-PC value (in hex)=380, instruction opcode that was getting executed (in hex)=1383
-Random number that got generated this time was: 83
-Time of crash number 3 is 1334173776 seconds since January 1, 1970
-At crash 3,time since the beginning of program execution is: 78 (in seconds)
-Number of instruction cycles executed before the crash: 2679658
-
-***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***
-
-ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:
-GP_Reg[0x02] = 80, GP_Reg[0x82] = 80, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
-
-
-Flip function called: Random number generated: 24
-****Content of the location[210] before flipping, is (in hex)**** 20
-
-Bit flipped, Content of the reg[d2] was flipped to 0
-
-Flip function called: Random number generated: 13
-****Content of the location[144] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[90] was flipped to 2
-
-Flip function called: Random number generated: 89
-****Content of the location[172] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[ac] was flipped to 2
-
-Flip function called: Random number generated: 1
-****Content of the location[236] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[ec] was flipped to 1
-
-Flip function called: Random number generated: 68
-****Content of the location[18] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[12] was flipped to 2
-Reg file address 12
-cp->store_PC_same[29]=306
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=306, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836106
-
-******Unique errors so far= 32. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[30]=309
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=309, instruction opcode being executed (in hex)=d92
-Number of instruction cycles executed before the error: 2836109
-
-******Unique errors so far= 33. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[31]=30e
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=30e, instruction opcode being executed (in hex)=712
-Number of instruction cycles executed before the error: 2836113
-
-******Unique errors so far= 34. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[32]=326
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=326, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836136
-
-******Unique errors so far= 35. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[33]=329
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=329, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836139
-
-******Unique errors so far= 36. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[34]=33c
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=33c, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836156
-
-******Unique errors so far= 37. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[35]=33f
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=33f, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836159
-
-******Unique errors so far= 38. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[36]=353
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=353, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836178
-
-******Unique errors so far= 39. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[37]=356
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=356, instruction opcode being executed (in hex)=d92
-Number of instruction cycles executed before the error: 2836181
-
-******Unique errors so far= 40. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[38]=35b
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=35b, instruction opcode being executed (in hex)=712
-Number of instruction cycles executed before the error: 2836185
-
-******Unique errors so far= 41. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[39]=36f
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=36f, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836205
-
-******Unique errors so far= 42. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[40]=372
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=372, instruction opcode being executed (in hex)=d92
-Number of instruction cycles executed before the error: 2836208
-
-******Unique errors so far= 43. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[41]=377
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=377, instruction opcode being executed (in hex)=712
-Number of instruction cycles executed before the error: 2836212
-
-******Unique errors so far= 44. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[42]=3c6
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3c6, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836287
-
-******Unique errors so far= 45. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[43]=3c9
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3c9, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836290
-
-******Unique errors so far= 46. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[44]=3dc
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3dc, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836307
-
-******Unique errors so far= 47. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[45]=3df
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3df, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836310
-
-******Unique errors so far= 48. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[46]=3f2
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3f2, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836327
-
-******Unique errors so far= 49. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[47]=3f5
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3f5, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836330
-
-******Unique errors so far= 50. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[48]=2b9
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2b9, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836365
-
-******Unique errors so far= 51. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[49]=2bc
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2bc, instruction opcode being executed (in hex)=d92
-Number of instruction cycles executed before the error: 2836368
-
-******Unique errors so far= 52. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[50]=2c1
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2c1, instruction opcode being executed (in hex)=712
-Number of instruction cycles executed before the error: 2836372
-
-******Unique errors so far= 53. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[51]=2d9
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2d9, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836395
-
-******Unique errors so far= 54. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[52]=2dc
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2dc, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836398
-
-******Unique errors so far= 55. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[53]=2ef
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2ef, instruction opcode being executed (in hex)=92
-Number of instruction cycles executed before the error: 2836415
-
-******Unique errors so far= 56. Repeated errors are counted but not printed******
-Reg file address 12
-cp->store_PC_same[54]=2f2
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2f2, instruction opcode being executed (in hex)=212
-Number of instruction cycles executed before the error: 2836418
-
-******Unique errors so far= 57. Repeated errors are counted but not printed******
-
-Flip function called: Random number generated: 89
-****Content of the location[183] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[b7] was flipped to 2
-
-Flip function called: Random number generated: 58
-****Content of the location[229] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[e5] was flipped to 20
-
-Flip function called: Random number generated: 38
-****Content of the location[190] before flipping, is (in hex)**** 5
-
-Bit flipped, Content of the reg[be] was flipped to 1
-
-Flip function called: Random number generated: 80
-****Content of the location[30] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[1e] was flipped to 0
-
-Flip function called: Random number generated: 16
-****Content of the location[96] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[60] was flipped to 20
-
-Flip function called: Random number generated: 26
-****Content of the location[33] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[21] was flipped to 2
-
-Flip function called: Random number generated: 84
-****Content of the location[133] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[85] was flipped to 0
-
-Flip function called: Random number generated: 51
-****Content of the location[139] before flipping, is (in hex)**** c
-
-Bit flipped, Content of the reg[8b] was flipped to 8
-
-Flip function called: Random number generated: 69
-****Content of the location[71] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[47] was flipped to 4
-
-Flip function called: Random number generated: 53
-****Content of the location[28] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[1c] was flipped to 20
-Reg file address 1c
-cp->store_PC_same[55]=3ab
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3ab, instruction opcode being executed (in hex)=9c
-Number of instruction cycles executed before the error: 3029235
-
-******Unique errors so far= 58. Repeated errors are counted but not printed******
-Reg file address 1c
-cp->store_PC_same[56]=3ac
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3ac, instruction opcode being executed (in hex)=71c
-Number of instruction cycles executed before the error: 3029236
-
-******Unique errors so far= 59. Repeated errors are counted but not printed******
-
-Flip function called: Random number generated: 14
-****Content of the location[168] before flipping, is (in hex)**** 10
-
-Bit flipped, Content of the reg[a8] was flipped to 14
-
-Flip function called: Random number generated: 39
-****Content of the location[254] before flipping, is (in hex)**** 4
-
-Bit flipped, Content of the reg[fe] was flipped to c
-
-Flip function called: Random number generated: 37
-****Content of the location[66] before flipping, is (in hex)**** 0
-
-Bit flipped, Content of the reg[42] was flipped to 20
-Reg file address 42
-cp->store_PC_same[57]=2c3
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2c3, instruction opcode being executed (in hex)=842
-Number of instruction cycles executed before the error: 3086610
-
-******Unique errors so far= 60. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[58]=2d1
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2d1, instruction opcode being executed (in hex)=7c2
-Number of instruction cycles executed before the error: 3086624
-
-******Unique errors so far= 61. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[59]=2e0
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2e0, instruction opcode being executed (in hex)=242
-Number of instruction cycles executed before the error: 3086637
-
-******Unique errors so far= 62. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[60]=301
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=301, instruction opcode being executed (in hex)=1c2
-Number of instruction cycles executed before the error: 3086668
-
-******Unique errors so far= 63. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[61]=310
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=310, instruction opcode being executed (in hex)=842
-Number of instruction cycles executed before the error: 3086682
-
-******Unique errors so far= 64. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[62]=31e
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=31e, instruction opcode being executed (in hex)=7c2
-Number of instruction cycles executed before the error: 3086696
-
-******Unique errors so far= 65. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[63]=32d
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=32d, instruction opcode being executed (in hex)=242
-Number of instruction cycles executed before the error: 3086709
-
-******Unique errors so far= 66. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[64]=34e
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=34e, instruction opcode being executed (in hex)=1c2
-Number of instruction cycles executed before the error: 3086740
-
-******Unique errors so far= 67. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[65]=35d
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=35d, instruction opcode being executed (in hex)=842
-Number of instruction cycles executed before the error: 3086754
-
-******Unique errors so far= 68. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[66]=391
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=391, instruction opcode being executed (in hex)=842
-Number of instruction cycles executed before the error: 3086804
-
-******Unique errors so far= 69. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[67]=3aa
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3aa, instruction opcode being executed (in hex)=842
-Number of instruction cycles executed before the error: 3086828
-
-******Unique errors so far= 70. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[68]=3d5
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3d5, instruction opcode being executed (in hex)=7c2
-Number of instruction cycles executed before the error: 3086868
-
-******Unique errors so far= 71. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[69]=3e3
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3e3, instruction opcode being executed (in hex)=242
-Number of instruction cycles executed before the error: 3086880
-
-******Unique errors so far= 72. Repeated errors are counted but not printed******
-Reg file address 42
-cp->store_PC_same[70]=2b4
-
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2b4, instruction opcode being executed (in hex)=1c2
-Number of instruction cycles executed before the error: 3086927
-
-******Unique errors so far= 73. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 97
-****Content of the location[195] before flipping, is (in hex)**** 0
+Content of the location[e6] before flipping, is (in hex)0
+Bit flipped, Content of the reg[e6] was flipped to 10
 
-Bit flipped, Content of the reg[c3] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 25
-****Content of the location[46] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[2e] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 40
-****Content of the location[52] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[34] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 67
-****Content of the location[220] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[dc] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 43
-****Content of the location[46] before flipping, is (in hex)**** 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[2e] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 28
-****Content of the location[38] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[26] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 45
-****Content of the location[13] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[d] was flipped to 0
-Reg file address d
-cp->store_PC_same[71]=385
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=385, instruction opcode being executed (in hex)=8d
-Number of instruction cycles executed before the error: 3149683
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 74. Repeated errors are counted but not printed******
-Reg file address d
-cp->store_PC_same[72]=3b9
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b9, instruction opcode being executed (in hex)=80d
-Number of instruction cycles executed before the error: 3149732
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 75. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 2
-****Content of the location[140] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8c] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 57
-****Content of the location[128] before flipping, is (in hex)**** 0
+Content of the location[b6] before flipping, is (in hex)0
+Bit flipped, Content of the reg[b6] was flipped to 0
 
-Bit flipped, Content of the reg[80] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 27
-****Content of the location[202] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[ca] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 13
-****Content of the location[145] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[91] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Byte instruction: Opcode has changed, will lead to an error in program
-PC value (in hex)=2d1, erroneous instruction (in hex) = 6c2
-The bit that has got flipped is: 11
-Number of instruction cycles executed before the error: 3176215
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 76. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 85
-****Content of the location[138] before flipping, is (in hex)**** 3
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8a] was flipped to 23
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Crash number:4 detected
-Program crash was due to PC value at location 8a getting affected
-PC value (in hex)=37c, instruction opcode that was getting executed (in hex)=713
-Random number that got generated this time was: 85
-Time of crash number 4 is 1334173806 seconds since January 1, 1970
-At crash 4,time since the beginning of program execution is: 108 (in seconds)
-Number of instruction cycles executed before the crash: 3184098
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-***STARTING ERROR CORRECTION ON ALL PC REG LOCATIONS***
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH are:
-GP_Reg[0x02] = 7c, GP_Reg[0x82] = 7c, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 39
-****Content of the location[7] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[7] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 10
-****Content of the location[167] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[a7] was flipped to 30
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 41
-****Content of the location[221] before flipping, is (in hex)**** 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[dd] was flipped to 24
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 91
-****Content of the location[106] before flipping, is (in hex)**** 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[6a] was flipped to 30
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 69
-****Content of the location[89] before flipping, is (in hex)**** 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[59] was flipped to 21
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 3
-****Content of the location[220] before flipping, is (in hex)**** 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[dc] was flipped to 21
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 96
-****Content of the location[180] before flipping, is (in hex)**** 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[b4] was flipped to 5
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 55
-****Content of the location[70] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[46] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 52
-****Content of the location[131] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[83] was flipped to 14
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 61
-****Content of the location[97] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[61] was flipped to 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+Flip function called: Random number generated: 14
+Content of the location[10] before flipping, is (in hex)0
+Bit flipped, Content of the reg[10] was flipped to 20
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 80
-****Content of the location[162] before flipping, is (in hex)**** 20
+Content of the location[ca] before flipping, is (in hex)0
+Bit flipped, Content of the reg[ca] was flipped to 8
 
-Bit flipped, Content of the reg[a2] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 51
-****Content of the location[254] before flipping, is (in hex)**** c
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[fe] was flipped to d
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 57
-****Content of the location[247] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[f7] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 90
-****Content of the location[31] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[1f] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 62
-****Content of the location[79] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[4f] was flipped to 20
-Reg file address 4f
-cp->store_PC_same[73]=3b8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b8, instruction opcode being executed (in hex)=cf
-Number of instruction cycles executed before the error: 3302984
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 77. Repeated errors are counted but not printed******
-Reg file address 4f
-cp->store_PC_same[74]=3ba
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3ba, instruction opcode being executed (in hex)=74f
-Number of instruction cycles executed before the error: 3302986
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 78. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 65
-****Content of the location[139] before flipping, is (in hex)**** 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8b] was flipped to c
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 20
-****Content of the location[14] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[e] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+Flip function called: Random number generated: 73
+Content of the location[9d] before flipping, is (in hex)0
+Bit flipped, Content of the reg[9d] was flipped to 2
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+Flip function called: Random number generated: 91
+Content of the location[ac] before flipping, is (in hex)0
+Bit flipped, Content of the reg[ac] was flipped to 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+Flip function called: Random number generated: 74
+Content of the location[dc] before flipping, is (in hex)0
+Bit flipped, Content of the reg[dc] was flipped to 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
 Flip function called: Random number generated: 55
-****Content of the location[77] before flipping, is (in hex)**** 0
+Content of the location[77] before flipping, is (in hex)0
+Bit flipped, Content of the reg[77] was flipped to 0
 
-Bit flipped, Content of the reg[4d] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 92
-****Content of the location[45] before flipping, is (in hex)**** 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[2d] was flipped to 24
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 51
-****Content of the location[38] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[26] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 36
-****Content of the location[224] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[e0] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 33
-****Content of the location[140] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[8c] was flipped to 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 77
-****Content of the location[119] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[77] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 78
-****Content of the location[86] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[56] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 90
-****Content of the location[165] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[a5] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 70
-****Content of the location[136] before flipping, is (in hex)**** 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[88] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Byte instruction: Destination register has changed, will lead to an error in program
-PC value (in hex)=2cc, erroneous instruction (in hex) = 0
-The bit that has got flipped is: 7
-Number of instruction cycles executed before the error: 3376728
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 79. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 72
-****Content of the location[173] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[ad] was flipped to 14
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 37
-****Content of the location[40] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[28] was flipped to 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 81
-****Content of the location[78] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[4e] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 87
-****Content of the location[0] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[0] was flipped to 0
-Reg file address 0
-cp->store_PC_same[75]=2cf
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2cf, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400741
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 80. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[76]=319
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=319, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400810
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 81. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[77]=31c
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=31c, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400813
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 82. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[78]=366
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=366, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400882
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 83. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[79]=369
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=369, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400885
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 84. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[80]=381
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=381, instruction opcode being executed (in hex)=800
-Number of instruction cycles executed before the error: 3400908
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 85. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[81]=384
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=384, instruction opcode being executed (in hex)=800
-Number of instruction cycles executed before the error: 3400911
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 86. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[82]=398
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=398, instruction opcode being executed (in hex)=800
-Number of instruction cycles executed before the error: 3400930
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 87. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[83]=39b
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=39b, instruction opcode being executed (in hex)=800
-Number of instruction cycles executed before the error: 3400933
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 88. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[84]=3b3
+Flip function called: Random number generated: 85
+Content of the location[10] before flipping, is (in hex)20
+Bit flipped, Content of the reg[10] was flipped to 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b3, instruction opcode being executed (in hex)=780
-Number of instruction cycles executed before the error: 3400956
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 89. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[85]=3b5
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3b5, instruction opcode being executed (in hex)=800
-Number of instruction cycles executed before the error: 3400958
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 90. Repeated errors are counted but not printed******
-Reg file address 0
-cp->store_PC_same[86]=3bb
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=3bb, instruction opcode being executed (in hex)=80
-Number of instruction cycles executed before the error: 3400963
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 91. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 30
-****Content of the location[190] before flipping, is (in hex)**** 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[be] was flipped to 9
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 34
-****Content of the location[202] before flipping, is (in hex)**** 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[ca] was flipped to 10
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 62
-****Content of the location[182] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[b6] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 54
-****Content of the location[240] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[f0] was flipped to 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 39
-****Content of the location[210] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[d2] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 4
-****Content of the location[133] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[85] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 82
-****Content of the location[247] before flipping, is (in hex)**** 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[f7] was flipped to a
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 95
-****Content of the location[47] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[2f] was flipped to 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 64
-****Content of the location[9] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[9] was flipped to 2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 96
-****Content of the location[143] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[8f] was flipped to 8
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 93
-****Content of the location[62] before flipping, is (in hex)**** 20
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[3e] was flipped to 30
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 45
-****Content of the location[49] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[31] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Flip function called: Random number generated: 42
-****Content of the location[19] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Bit flipped, Content of the reg[13] was flipped to 8
-Reg file address 13
-cp->store_PC_same[87]=2c2
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2c2, instruction opcode being executed (in hex)=93
-Number of instruction cycles executed before the error: 3437469
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 92. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[88]=2c6
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=2c6, instruction opcode being executed (in hex)=713
-Number of instruction cycles executed before the error: 3437473
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 93. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[89]=30f
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=30f, instruction opcode being executed (in hex)=93
-Number of instruction cycles executed before the error: 3437541
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 94. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[90]=313
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=313, instruction opcode being executed (in hex)=713
-Number of instruction cycles executed before the error: 3437545
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 95. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[91]=35c
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=35c, instruction opcode being executed (in hex)=93
-Number of instruction cycles executed before the error: 3437613
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 96. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[92]=360
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=360, instruction opcode being executed (in hex)=713
-Number of instruction cycles executed before the error: 3437617
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 97. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[93]=378
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=378, instruction opcode being executed (in hex)=93
-Number of instruction cycles executed before the error: 3437640
+Flip function called: Random number generated: 76
+Content of the location[a3] before flipping, is (in hex)0
+Bit flipped, Content of the reg[a3] was flipped to 4
 
-******Unique errors so far= 98. Repeated errors are counted but not printed******
-Reg file address 13
-cp->store_PC_same[94]=37c
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=37c, instruction opcode being executed (in hex)=713
-Number of instruction cycles executed before the error: 3437644
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-******Unique errors so far= 99. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 50
-****Content of the location[129] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[81] was flipped to 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 79
-****Content of the location[43] before flipping, is (in hex)**** 5
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[2b] was flipped to 5
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 27
-****Content of the location[62] before flipping, is (in hex)**** 30
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[3e] was flipped to 30
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Flip function called: Random number generated: 23
-****Content of the location[219] before flipping, is (in hex)**** 0
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-Bit flipped, Content of the reg[db] was flipped to 1
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-CRASH:Control flow instruction has got modified (resulted in CALL/GOTO)
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Crash number:5
-Random number that got generated this time was: 23
-Number of instruction cycles executed before the crash: 3438996
-Time of crash number 5 is 1334173854 seconds since January 1, 1970
-At crash 5,time since the beginning of program execution is: 156 (in seconds)
-***PC reset after crash***
-PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
-***All general purpose registers reset after crash***
-***Program memory reset after crash***
-***Reloading instructions to program memory***
-Maximum number of instructions in the program is: 395
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Last valid PC value is (in hex): 3fe
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Loaded matrix multiplication program into memory
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Instructions read as is, from the file.. not according to increasing order of PC
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Reg file address e
-cp->store_PC_same[95]=29f
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 1
+After error correction, content of the reg location was: 0
 
-ERROR: Incorrect data being fetched from memory
-PC value (in hex)=29f, instruction opcode being executed (in hex)=3002
-Number of instruction cycles executed before the error: 3438996
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-******Unique errors so far= 100. Repeated errors are counted but not printed******
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Total number of instructions in the program = 395
-Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Total number of times the program got excecuted = 10389
-Max instr cycles executed (will not be same as number of instructions since program can have loops): 1
-Status register contents:(hex) at the end of all operations: 4
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Number of instruction cycles executed before each crash:
-1536683
-2040331
-2679658
-3184098
-3438996
-Seconds elapsed before each crash: 
-45
-59
-79
-109
-156
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Calculating the number of errors: 
+ERROR: Incorrect data was being fetched from memory..Correcting it.
+Before error correction, content of the reg location was: 2
+After error correction, content of the reg location was: 0
 
-Number of errors at unique PC values (not counting repetition):96
-Total number of errors due to incorrect data being fetched (counting repetition):10649
+ERROR: Incorrect data was being fetched from memory..Correcting it.
 
-Total number of instruction cycles executed:12879766
-Total number of crashes:5
-Total number of errors: 100
-Summing up all errors which repeat every program run,Total number of errors: 10653
-Total number of successful instruction cycle executions without errors/crashes:12869108
-
-Number of crashes due to Program counter getting manipulated: 4 
-Number of crashes due to illegal memory access: 0 
-Number of crashes due to illegal opcode: 0 
-Total number of errors due to incorrect control flow: 1
-Total number of errors due to incorrect data being fetched from memory: 10649
-Total number of errors due to incorrect data in the instruction: 1
-Total number of errors due to opcode change: 3
-Percentage of successful executions:99.917250
-
-Probability of a bit flip is set to: 1
-Mean time to failure in terms of the number of instruction cycles: 2575953
-Mean time to failure in terms of seconds: 89
-
+ERROR: Incorrect data was being fetch
