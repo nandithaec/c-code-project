@@ -21,8 +21,9 @@ int main()
 {
         int  i=0, c=0;
         int bit=0, immediate_value=0;
-        int program_memory[PROGRAM_MEM_SIZE] ={0};//Fill the unused array elements wih NOP
-        char instr_mnemonic[MNEMONIC_SIZE];
+        int program_memory[PROGRAM_MEM_SIZE] = {0};//Fill the unused array elements wih NOP
+        int program_memory_encoded[PROGRAM_MEM_SIZE] = {0}; 
+		char instr_mnemonic[MNEMONIC_SIZE];
         
         int loop=0;
 		int read_PCL_from_user=0, read_PCLATH_from_user=0;
@@ -106,7 +107,7 @@ For matrix multiplication use this section after reading instruction from file..
 		//read_instr_from_file(fp,program_memory,&pic_registers,fnew); //simple add program
 
 		read_PC_array_for_matrix_mult(fPC,program_memory,&pic_registers,fnew);
-		read_instr_for_matrix_mult(finstr,program_memory,&pic_registers,fnew);
+		read_instr_for_matrix_mult(finstr,program_memory,program_memory_encoded,&pic_registers,fnew);
 		//fclose(fnew);
 		//exit(0);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,25 +143,25 @@ int endloop=0, num_of_inst=0;
 		            
 				
 				 //Instruction fetch    
-                instruction_fetch(&pic_registers, program_memory,&crash_param); //pic_registers.instruction is the instruction that is fetched
+                instruction_fetch(&pic_registers, program_memory,program_memory_encoded, &crash_param); //pic_registers.instruction is the instruction that is fetched
 
 				//Instruction decode
-				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory, &crash_param, fnew, fPC, finstr, start_seconds);
+				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory,program_memory_encoded, &crash_param, fnew, fPC, finstr, start_seconds);
 				
                 post_decode= pre_decode; //Copy the structure
                       				
 				//Bit flip function called every cycle
 	    	
-				bit_flips(&pic_registers, program_memory, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
+				bit_flips(&pic_registers, program_memory,program_memory_encoded, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
 							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
-				check_illegal_instr(&pic_registers, program_memory,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
+				check_illegal_instr(&pic_registers, program_memory,program_memory_encoded,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 				{
-					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,fnew);
+					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,program_memory_encoded, fnew);
 				}	
 			
 			
@@ -176,7 +177,7 @@ int endloop=0, num_of_inst=0;
 
 				//execute
 				PRINT("execute\n");
-				instruction_execute(&pic_registers,&post_decode,program_memory,&crash_param, fnew, fPC, finstr, start_seconds);
+				instruction_execute(&pic_registers,&post_decode,program_memory,program_memory_encoded, &crash_param, fnew, fPC, finstr, start_seconds);
 				
 
 				crash_param.instr_cycles= crash_param.instr_cycles++; //Increment instruction cycles every cycle
