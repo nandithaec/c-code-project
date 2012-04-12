@@ -34,7 +34,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_1p0_ECC.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_1p0_ECC_errorGPreg.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -83,12 +83,12 @@ For matrix multiplication use this section after reading instruction from file..
 
 				//PC needs to be calculated from PCL and PCLATH
 				PRINT("In main, decoding PCL\n");
-				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded); //decoded PCL
+				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded, fnew); //decoded PCL
 				pic_registers.GP_Reg[2]=pic_registers.PCL;
 				pic_registers.GP_Reg[0x82]=pic_registers.PCL;
 
 				PRINT("In main, decoding PCLATH\n");
-				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded); //decoded PCLATH
+				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded, fnew); //decoded PCLATH
                 pic_registers.GP_Reg[0x0A]=pic_registers.PCLATH;
 				pic_registers.GP_Reg[0x8A]=pic_registers.PCLATH;
 
@@ -185,7 +185,7 @@ int endloop=0, num_of_inst=0;
                 
 
 				//Increment program counter
-				PC_increment(&pic_registers);
+				PC_increment(&pic_registers, fnew);
 
 
 				//Repeat program

@@ -675,7 +675,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 //comment out: r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
 	PRINT("PC will be incremented to(testing)= %d\n", (r1->PC)+1);
@@ -689,7 +689,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			increment_PC(r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -887,7 +887,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 		
 		}
@@ -899,7 +899,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			increment_PC(r1); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -1063,7 +1063,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==0)	
-			increment_PC(r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
@@ -1119,7 +1119,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==1)	
-			increment_PC(r1); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 		
 		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
