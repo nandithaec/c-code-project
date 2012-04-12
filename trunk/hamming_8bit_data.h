@@ -10,12 +10,12 @@ Array index is also starting from 1 and not 0, to avoid confusion.
 
 
 int hamming_encoding(int);
-int error_detect_correct_decode(int, FILE *, struct crash_parameters *);
+int error_detect_correct_decode(int decimal_received, FILE *fnew, struct crash_parameters *cp, struct registers *r2,  int program_memory[],int  program_memory_encoded[],  time_t start_seconds,struct instructions *i1,  FILE *fPC, FILE *finstr);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int);
 int calculate_parity_bits(int[], int[]);
-int detect_error(int[], int*, int *, FILE *,struct crash_parameters *);
+int detect_error(int[], int*, FILE *,struct crash_parameters *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 int only_decode(int);
@@ -171,12 +171,12 @@ return hamming_code_decimal;
 
 }
 
-int error_detect_correct_decode(int decimal_received, FILE *fnew, struct crash_parameters *cp)
+int error_detect_correct_decode(int decimal_received, FILE *fnew, struct crash_parameters *cp, struct registers *r2,  int program_memory[],int  program_memory_encoded[],  time_t start_seconds,struct instructions *i1, FILE *fPC, FILE *finstr)
 {
 
 PRINT("****Invoking error_detect_correct_decode()****\n");
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
-int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
+int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0};
 int decoded_data_decimal= 0;
 //Error detection
 	PRINT("\nEncoded data received is:%d (dec), %x (hex),\n",decimal_received,decimal_received);
@@ -193,15 +193,22 @@ int decoded_data_decimal= 0;
 	
 	PRINT("\n");
 
-	detect_error(binary_received, &bit_in_error, &double_error, fnew, cp);
+	detect_error(binary_received, &bit_in_error, fnew, cp);
 
 //Error correction for single errors
 	if (bit_in_error !=0 &&  // If bit_in_error=1, that means there was an error
-		 double_error== 0) 		//double_error=0 means it is a single error and can be corrected
+		 cp->double_error== 0) 		//double_error=0 means it is a single error and can be corrected
     {
 	flip_bit_for_correction(&decimal_received,binary_received_original,&bit_in_error);
 	
     }
+
+//Double error
+	if(cp->double_error== 1) 
+	{
+		cp->double_error=0;
+		report_crash_and_reset(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+	}
 
 	PRINT("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
 
@@ -237,7 +244,7 @@ int only_decode(int decimal_received)
 
 PRINT("****Invoking only_decode()****\n");
 int  binary_received[14]={0},i=0,binary_corrected[14]={0};
-int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0}, double_error=0 ;
+int  binary_received_original[14]={0}, bit_in_error=0, decoded_data_binary[10]={0};
 int decoded_data_decimal= 0;
 
 	PRINT("\nEncoded data received is:%d (dec), %x (hex),\n",decimal_received,decimal_received);
@@ -373,7 +380,7 @@ return 0;
 }
 
 
-int detect_error(int binary_received[], int *bit_in_error, int *double_error, FILE *fnew, struct crash_parameters *cp)
+int detect_error(int binary_received[], int *bit_in_error, FILE *fnew, struct crash_parameters *cp)
 {
 
 	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra_received=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
@@ -456,13 +463,13 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 	{
 		PRINT("No error in the parity bits, received data is correct\n");
 		//fprintf(fnew,"No error in the parity bits, received data is correct\n");
-		double_error=0;
+		cp->double_error=0;
 	}
 	else if (*bit_in_error == 0 && parity_extra_received != parity_extra_calculated_from_Rx) //error in parity_extra only
 	{
 		PRINT("Error in the extra parity bit only, received data is correct\n");
 		fprintf(fnew,"Error in the extra parity bit only, received data is correct\n");
-		double_error=0;
+		cp->double_error=0;
 	}
 
 	else if (*bit_in_error != 0 ) //There is an error in one of the data or parity bits other than the extra parity bit
@@ -473,7 +480,7 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 			printf("SINGLE ERROR, can be corrected\n");
 			fprintf(fnew,"SINGLE ERROR, can be corrected\n");
 	
-			*double_error=0;
+			cp->double_error=0;
 			if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
 			{
 				printf("Bit in error is %d and is a parity bit. ****DATA BIT NOT IN ERROR****\n", *bit_in_error);
@@ -512,7 +519,8 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 				cp->double_error_detected++;
 				printf("DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
 				fprintf(fnew,"DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
-				*double_error=1;
+				cp->double_error=1;
+				
 			}
 		
 			else if(parity_extra_received == double_error_check)	//Two parity bits are in error..
@@ -520,7 +528,8 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 				cp->double_error_detected++;
 				PRINT("DOUBLE ERROR: CANNOT CORRECT\n");
 				fprintf(fnew,"DOUBLE ERROR:  CANNOT CORRECT\n");
-				*double_error=1;
+				cp->double_error=1;
+				
 			}
 
 		}
@@ -529,7 +538,8 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 			cp->double_error_detected++;
 			printf("DOUBLE DATA ERROR .. CANNOT CORRECT\n");
 			fprintf(fnew,"DOUBLE DATA ERROR .. CANNOT CORRECT\n");
-			*double_error=1;
+			cp->double_error=1;
+			
 		}
 
 	}

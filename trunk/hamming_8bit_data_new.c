@@ -247,6 +247,12 @@ int decoded_data_decimal= 0;
 	
     }
 
+	else if(double_error== 1) 
+	{
+		double_error=0;
+		PRINT("DOUBLE ERROR\n");
+	}
+
 	PRINT("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
 
 	convert_decimal_to_binary(decimal_received,binary_corrected,13);
