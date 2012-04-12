@@ -187,6 +187,10 @@ struct crash_parameters
 	int errors_so_far;
 	int other_errors;
 
+//hamming
+	int single_error_corrected;
+	int double_error_detected;
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,11 +204,11 @@ int	read_instr_for_matrix_mult(FILE *, int program_memory[], struct registers *,
 int instruction_fetch(struct registers*, int [],struct crash_parameters *);
 int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],struct crash_parameters *cp, FILE *);
 
-int PC_increment(struct registers *, FILE *);
+int PC_increment(struct registers *, FILE *,struct crash_parameters *);
 //int increment_PC_double_pointer(struct registers **);
-int increment_PC(struct registers *, FILE *);
+int increment_PC(struct registers *, FILE *,struct crash_parameters *);
 
-int reset_PC_to_beginninng(struct registers *, FILE *);
+int reset_PC_to_beginninng(struct registers *, FILE *,struct crash_parameters *);
 int initialise_regs(struct registers*);
 int initialise_crash_param(struct crash_parameters *);
 
@@ -427,6 +431,10 @@ int initialise_crash_param(struct crash_parameters *cp)
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
                 cp->store_same_reg_modification[i]=0;
 
+
+//hamming
+		cp-> single_error_corrected=0;
+		cp-> double_error_detected=0;
 return 0;
 }
 
@@ -626,20 +634,20 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int reset_PC_to_beginninng(struct registers *r, FILE *fnew)
+int reset_PC_to_beginninng(struct registers *r, FILE *fnew, struct crash_parameters *cp)
 {
 	int temp=0;
 //----------------------------------------------------------------------------------------------------------------------------
         //Reset program counter to beginning of the program
-        temp = error_detect_correct_decode(r->initial_PCL_encoded, fnew); //decode initial PCL
+        temp = error_detect_correct_decode(r->initial_PCL_encoded, fnew, cp); //decode initial PCL
 		r->GP_Reg_encoded[2] = hamming_encoding(temp);
-		r->GP_Reg[2] = error_detect_correct_decode(r->GP_Reg_encoded[2], fnew);
+		r->GP_Reg[2] = error_detect_correct_decode(r->GP_Reg_encoded[2], fnew, cp);
         r->GP_Reg[0x82]= r->GP_Reg[2]; //PCL Bank 1 and Bank 0
         r->PCL= r->GP_Reg[2];
 
-        temp = error_detect_correct_decode(r->initial_PCLATH_encoded, fnew); //decode initial PCL
+        temp = error_detect_correct_decode(r->initial_PCLATH_encoded, fnew, cp); //decode initial PCL
 		r->GP_Reg_encoded[0x0A] = hamming_encoding(temp);
-		r->GP_Reg[0x0A] = error_detect_correct_decode(r->GP_Reg_encoded[0x0A], fnew);
+		r->GP_Reg[0x0A] = error_detect_correct_decode(r->GP_Reg_encoded[0x0A], fnew, cp);
 	    r->GP_Reg[0x8A]= r->GP_Reg[0x0A]; //PCLATH Bank 1 and Bank 0
         r->PCLATH= r->GP_Reg[0x0A];
 
@@ -728,25 +736,25 @@ int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],stru
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-int PC_increment(struct registers *r, FILE *fnew)
+int PC_increment(struct registers *r, FILE *fnew,  struct crash_parameters *cp)
 {
 
 	PRINT("To increment PC\n");
 	//Increment PC
-    increment_PC(r, fnew);
+    increment_PC(r, fnew, cp);
 	PRINT("After Incrementing PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r-> GP_Reg[0x0A], r->PC);
 	
 	return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int increment_PC(struct registers *r, FILE *fnew)
+int increment_PC(struct registers *r, FILE *fnew, struct crash_parameters *cp)
 {
 
 int temp_PCLATH=0, temp_PCL=0;
 
 
-temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2], fnew )  ; //decoded PCL 
+temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2], fnew, cp )  ; //decoded PCL 
 //PRINT("temp_PCL=%x\n", temp_PCL);
 
 	if (temp_PCL == 0xFF)
@@ -754,7 +762,7 @@ temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2], fnew )  ; //decod
 	//Increment PCLATH once PCL reaches 0xFF
 
 	//Decode the encoded PCLATH and increment it
-		temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A],fnew )  ; //decoded PCLATH i.e., 0x0A location 
+		temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A],fnew, cp )  ; //decoded PCLATH i.e., 0x0A location 
 		temp_PCLATH = temp_PCLATH + 1; 
 	
 	//Encode the incremented PCLATH and write it back
@@ -780,7 +788,7 @@ temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2], fnew )  ; //decod
 
 	//PRINT("\nDecoding content in 0x0A\n");
 //PCLATH
-        temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A],fnew )  ; //decoded PCLATH i.e., 0x0A location 
+        temp_PCLATH = error_detect_correct_decode( r-> GP_Reg_encoded[0x0A],fnew, cp )  ; //decoded PCLATH i.e., 0x0A location 
 
 		//PRINT("temp_PCLATH decoded=%x\n", temp_PCLATH);
 		r-> GP_Reg_encoded[0x8A]= r-> GP_Reg_encoded[0x0A]; //Bank 1 and Bank 0
@@ -789,13 +797,13 @@ temp_PCL = error_detect_correct_decode( r-> GP_Reg_encoded[2], fnew )  ; //decod
 //PC needs to be calculated from PCL and PCLATH.. Decode the values
 		
 	//	PRINT("\nDecoding PCL_encoded\n");
-		r-> PCL = error_detect_correct_decode(r-> PCL_encoded, fnew); //decoded PCL
+		r-> PCL = error_detect_correct_decode(r-> PCL_encoded, fnew, cp); //decoded PCL
 		r->GP_Reg[2] = r-> PCL;
 		r-> GP_Reg[0x82]= r->GP_Reg[2];
 	//	PRINT("Decoded PCL: %x\n", r-> PCL);
 
 		//PRINT("\nDecoding PCLATH_encoded\n");
-		r->PCLATH = error_detect_correct_decode( r-> PCLATH_encoded, fnew); //decoded PCLATH
+		r->PCLATH = error_detect_correct_decode( r-> PCLATH_encoded, fnew, cp); //decoded PCLATH
 		r-> GP_Reg[0x0A] = r->PCLATH;
 		r-> GP_Reg[0x8A] = r-> GP_Reg[0x0A];
        // PRINT("Decoded PCLATH: %x\n", r-> PCLATH);
@@ -1325,6 +1333,12 @@ printf("****Encoded Content of the location[%x] before flipping, is (in hex)****
 	printf("random_bit=%d\n", random_bit);
 	fprintf(fnew,"random_bit=%d\n", random_bit);
 
+	if(random_bit==5==0|| random_bit==5 || random_bit==9 || random_bit==11 || random_bit==12)
+	{
+		printf("Parity bit is flipped, not data bit%d\n", random_bit);
+		fprintf(fnew,"Parity bit is flipped, not data bit\n", random_bit);
+	}
+
         switch(random_bit)
         {
                 case 0:
@@ -1440,10 +1454,10 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 		printf("\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
 		fprintf(fnew,"\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
 
-		r2->GP_Reg[0x02]= error_detect_correct_decode( r2->GP_Reg_encoded[0x02], fnew );
-		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82], fnew );
-		r2->GP_Reg[0x0A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x0A], fnew );
-		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A], fnew );
+		r2->GP_Reg[0x02]= error_detect_correct_decode( r2->GP_Reg_encoded[0x02], fnew, cp );
+		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82], fnew, cp );
+		r2->GP_Reg[0x0A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x0A], fnew, cp );
+		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A], fnew, cp );
 
 
 		r2-> PCL = r2->GP_Reg[2];
@@ -1589,9 +1603,9 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				{
 				cp-> reg_index_match = 1;
 				printf("\n*****Reg file address: %x, matches with random reg:%x. Register bit flip array index=%d*****\n",i1-> reg_index,cp-> random_reg[i], i);
-				printf("Bit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
+				printf("\nBit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
 
-			fprintf(fnew,"Bit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
+			fprintf(fnew,"\nBit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
 				}
 		}
 	
@@ -1615,7 +1629,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 			fprintf(fnew,"Before error correction, content of the reg location %x was: %x\n",i1->reg_index, only_decode(r2->GP_Reg_encoded[i1->reg_index]));
 
 			//Error correction
-			r2->GP_Reg[i1->reg_index]= error_detect_correct_decode(r2->GP_Reg_encoded[i1->reg_index], fnew); //correct error and decode
+			r2->GP_Reg[i1->reg_index]= error_detect_correct_decode(r2->GP_Reg_encoded[i1->reg_index], fnew, cp); //correct error and decode
 			r2->GP_Reg_encoded[i1->reg_index] = hamming_encoding(r2->GP_Reg[i1->reg_index]); //encode and write it back
 
 			printf("After error correction, content of the reg location %x was: %x\n", i1->reg_index, r2->GP_Reg[i1->reg_index]);
@@ -2080,7 +2094,7 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 		cp->instr_cycles=0; //Reset instruction cycles after every crash
 
 		//Reset program counter to beginning of the program
-        reset_PC_to_beginninng(r2, fnew);
+        reset_PC_to_beginninng(r2, fnew, cp);
 		printf("***PC reset after crash***\n");
 		fprintf(fnew,"***PC reset after crash***\n");
 

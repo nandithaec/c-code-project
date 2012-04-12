@@ -83,12 +83,12 @@ For matrix multiplication use this section after reading instruction from file..
 
 				//PC needs to be calculated from PCL and PCLATH
 				PRINT("In main, decoding PCL\n");
-				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded, fnew); //decoded PCL
+				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded, fnew, &crash_param); //decoded PCL
 				pic_registers.GP_Reg[2]=pic_registers.PCL;
 				pic_registers.GP_Reg[0x82]=pic_registers.PCL;
 
 				PRINT("In main, decoding PCLATH\n");
-				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded, fnew); //decoded PCLATH
+				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded, fnew, &crash_param); //decoded PCLATH
                 pic_registers.GP_Reg[0x0A]=pic_registers.PCLATH;
 				pic_registers.GP_Reg[0x8A]=pic_registers.PCLATH;
 
@@ -185,14 +185,14 @@ int endloop=0, num_of_inst=0;
                 
 
 				//Increment program counter
-				PC_increment(&pic_registers, fnew);
+				PC_increment(&pic_registers, fnew, &crash_param);
 
 
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
                     PRINT("Program execution number %d completed\n",repeat_program_execution);
-                    reset_PC_to_beginninng(&pic_registers, fnew);
+                    reset_PC_to_beginninng(&pic_registers, fnew, &crash_param);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
 					
@@ -319,6 +319,12 @@ fprintf(fnew,"Total number of crashes:%d\n",MAX_CRASHES);
 
 printf("Total number of errors: %d\n",crash_param.errors_so_far);
 fprintf(fnew,"Total number of errors: %d\n",crash_param.errors_so_far);
+
+printf("Total number of single errors corrected: %d\n",crash_param.single_error_corrected);
+fprintf(fnew,"Total number of single errors corrected: %d\n",crash_param.single_error_corrected);
+
+printf("Total number of double errors detected: %d\n",crash_param.double_error_detected);
+fprintf(fnew,"Total number of double errors detected: %d\n",crash_param.double_error_detected);
 
 printf("Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
 fprintf(fnew,"Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
