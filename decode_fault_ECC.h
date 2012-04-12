@@ -664,7 +664,7 @@ return 0;
 int instruction_fetch(struct registers *r, int program_memory[],int program_memory_encoded[], struct crash_parameters *cp)
 {
    
-	program_memory[r-> PC]= error_correct_detect_decode_14bit(program_memory_encoded[r-> PC]);
+	program_memory[r-> PC]= error_detect_correct_decode_14bit(program_memory_encoded[r-> PC]);
     r-> instruction = program_memory[r-> PC];
     
     PRINT("-------------------------------------------------------------------\n");
@@ -1490,7 +1490,7 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 				
 	//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
 
-                cp->random_bit_mem = rand() % 14 ; // Random number between 0 and 13
+                cp->random_bit_mem = rand() % 19 ; // Random number between 0 and 18. .19 bits in total
 		
   
 //printf("Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1500,7 +1500,7 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 
 fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
 
-        //Bit 0 is the LSB (rightmost) and Bit 13 is MSB (leftmost)
+        //Bit 0 is the LSB (rightmost) and Bit 18 is MSB (leftmost)
             switch(cp->random_bit_mem)
             {
                     case 0:
@@ -1540,23 +1540,43 @@ fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",
                     break;
 
 					case 9:
-                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 9);
                     break;
 
 					case 10:
-                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 10);
                     break;
 
 					case 11:
-                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 11);
                     break;
 
 					case 12:
-                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 12);
                     break;
 
 					case 13:
-                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 13);
+                    break;
+
+					case 14:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 14);
+                    break;
+				
+					case 15:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 15);
+                    break;
+
+					case 16:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 16);
+                    break;
+
+					case 17:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 17);
+                    break;
+
+					case 18:
+                    program_memory_encoded[cp-> random_mem[cp->mem_count]]=    program_memory_encoded[cp-> random_mem[cp->mem_count]] ^(1 << 18);
                     break;
 
 					default: printf("Invalid bit flip case\n");
@@ -1795,6 +1815,10 @@ Hence, the condition should check for the mem_count -1 */
 			//Fetch instruction from the location which has its instruction flipped. PC = (cp-> random_mem[(cp->mem_count)-1])	
 			cp->erroneous_instruction = only_decode_14bit_hamming(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]);
 
+			printf("PC value (in hex)=%x, erroneous instruction was (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], cp->erroneous_instruction );
+			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction was (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], cp->erroneous_instruction);
+
+
 			crash_decode_bits= (cp->erroneous_instruction & 0x3000)>> 12;  // bits 13 and 14
 	        PRINT("Decode bits while verifying program crash= %d \n", crash_decode_bits);
 
@@ -1873,13 +1897,22 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
 
 		
+
 		if ( ( 0x4F < cp->crash_reg_index && cp->crash_reg_index < 0x7F ) ||
 			 ( 0xCF < cp->crash_reg_index && cp->crash_reg_index < 0xFF ) ) 
 
 		{
 			(cp-> crash_dueto_illegal_mem)++;
-			printf("\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
-	   		fprintf(fnew,"\nCRASH: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]); //correct the incorrect opcode
+
+			printf("\nCRASH AVOIDED: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+	   		fprintf(fnew,"\nCRASH AVOIDED: Program crash due to illegal memory access: Trying to access location %x\n", cp->crash_reg_index);
+
+			printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
+			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
+			
 			// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
 			report_crash( r2,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
@@ -1891,8 +1924,15 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 //report error
 		{
 		cp->incorrect_data_in_instr++;
-		printf("\nERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program\n");
-		fprintf(fnew,"\nERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program\n");
+		
+		program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]); //correct the incorrect opcode
+
+		printf("\nERROR AVOIDED: Byte instruction: Reg file address from which data needs to be fetched, had changed, would've lead to an error in program\n");
+		fprintf(fnew,"\nERROR AVOIDED: Byte instruction: Reg file address from which data needs to be fetched, had changed, would've lead to an error in program\n");
+
+		printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
+		fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 		report_error(cp,r2,i1,program_memory,fnew);
 		
 		}
@@ -1905,18 +1945,30 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		{
 			cp-> opcode_change++;
 			
+			printf("\nERROR AVOIDED: Byte instruction: Opcode has changed, will lead to an error in program\n");
+			fprintf(fnew,"\nERROR AVOIDED: Byte instruction: Opcode has changed, will lead to an error in program\n");
+			
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]); //correct the incorrect opcode
 
-			printf("\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
-			fprintf(fnew,"\nERROR: Byte instruction: Opcode has changed, will lead to an error in program\n");
+			printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
+			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 			report_error(cp,r2,i1,program_memory,fnew);
 		}
+
 		else if (cp->random_bit_mem == 7) //Destination has changed. report error
 		// Code for report error
 		{
 			cp->incorrect_data_in_instr++;
 			
-			printf("\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
-			fprintf(fnew,"\nERROR: Byte instruction: Destination register has changed, will lead to an error in program\n");
+			printf("\nERROR AVOIDED: Byte instruction: Destination register has changed, will lead to an error in program\n");
+			fprintf(fnew,"\nERROR AVOIDED: Byte instruction: Destination register has changed, will lead to an error in program\n");
+			
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]); //correct the incorrect opcode
+
+			printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
+			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 			report_error(cp,r2,i1,program_memory,fnew);
 		}
 
@@ -2046,7 +2098,7 @@ int report_crash(struct registers *r2,  int program_memory[],int  program_memory
 		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
 		//**********************Reset conditions after mem crash*******************************
-		reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr);
+		//reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr);
 
 
 return 0;
