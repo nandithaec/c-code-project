@@ -9,14 +9,13 @@ Array index is also starting from 1 and not 0, to avoid confusion.
 -Nanditha April 3rd 2012 */
 
 
-
 int hamming_encoding(int);
-int error_detect_correct_decode(int, FILE *);
+int error_detect_correct_decode(int, FILE *, struct crash_parameters *);
 int check_if_power_of_two (int, int*);
 int convert_decimal_to_binary(int, int[],int);
 int	convert_binary_to_decimal(int[], int);
 int calculate_parity_bits(int[], int[]);
-int detect_error(int[], int*, int *, FILE *);
+int detect_error(int[], int*, int *, FILE *,struct crash_parameters *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 int only_decode(int);
@@ -172,7 +171,7 @@ return hamming_code_decimal;
 
 }
 
-int error_detect_correct_decode(int decimal_received, FILE *fnew)
+int error_detect_correct_decode(int decimal_received, FILE *fnew, struct crash_parameters *cp)
 {
 
 PRINT("****Invoking error_detect_correct_decode()****\n");
@@ -194,7 +193,7 @@ int decoded_data_decimal= 0;
 	
 	PRINT("\n");
 
-	detect_error(binary_received, &bit_in_error, &double_error, fnew);
+	detect_error(binary_received, &bit_in_error, &double_error, fnew, cp);
 
 //Error correction for single errors
 	if (bit_in_error !=0 &&  // If bit_in_error=1, that means there was an error
@@ -374,13 +373,13 @@ return 0;
 }
 
 
-int detect_error(int binary_received[], int *bit_in_error, int *double_error, FILE *fnew)
+int detect_error(int binary_received[], int *bit_in_error, int *double_error, FILE *fnew, struct crash_parameters *cp)
 {
 
 	int p1_received=0, p2_received=0, p4_received=0, p8_received=0, parity_extra_received=0, parity_received[5]={0}, parity_calculated_from_Rx[5]={0};
 	int parity_extra_calculated_from_Rx=0;
 	int i=0;
-	int position=0;
+	int position=0, possible_double_error=0, double_error_check=0;
 	
 	parity_received[1]= binary_received[1];
 	parity_received[2]= binary_received[2];
@@ -481,20 +480,60 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 				fprintf(fnew,"Bit in error is %d and is a parity bit. ****DATA BIT NOT IN ERROR****\n", *bit_in_error);
 			}
 			else
-			{
-				printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
-				fprintf(fnew,"Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
+			{	
+				cp->single_error_corrected++;
+				printf("Bit in error is %d and is a data bit. NEEDS ERROR CORRECTION.\n", *bit_in_error);
+				fprintf(fnew,"Bit in error is %d and is a data bit. NEEDS ERROR CORRECTION.\n", *bit_in_error);
 			}		
 		} 
 		
 			
 		else if(parity_extra_received == parity_extra_calculated_from_Rx) //2 bits have flipped, hence parity_extra turns out to be same as original (even parity)
 		{
-			printf("DOUBLE ERROR OR TWO PARITY BITS GOT FLIPPED AND CANNOT DETECT DOUBLE ERROR.. Cannot be corrected\n");
-			fprintf(fnew,"DOUBLE ERROR OR TWO PARITY BITS GOT FLIPPED AND CANNOT DETECT DOUBLE ERROR.. Cannot be corrected\n");
-			*double_error=1;
+			possible_double_error=1;
+			
 		}
 	}
+
+	if(possible_double_error==1)
+	{
+		possible_double_error==0; //reset it
+		
+		for(i=1;i<=4;i++)
+		{	
+		double_error_check = double_error_check ^ parity_received[i];
+		}
+
+
+		if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
+		{ //if one of the bits flipped is a parity bit			
+			if(parity_extra_received != double_error_check)	//One parity bit and one data are in error..
+			{			
+				cp->double_error_detected++;
+				printf("DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
+				fprintf(fnew,"DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
+				*double_error=1;
+			}
+		
+			else if(parity_extra_received == double_error_check)	//Two parity bits are in error..
+			{
+				cp->double_error_detected++;
+				PRINT("DOUBLE ERROR: CANNOT CORRECT\n");
+				fprintf(fnew,"DOUBLE ERROR:  CANNOT CORRECT\n");
+				*double_error=1;
+			}
+
+		}
+		else // if none of the parity bits have flipped,and since the parity_extra_received == parity_extra_calculated_from_Rx
+		{
+			cp->double_error_detected++;
+			printf("DOUBLE DATA ERROR .. CANNOT CORRECT\n");
+			fprintf(fnew,"DOUBLE DATA ERROR .. CANNOT CORRECT\n");
+			*double_error=1;
+		}
+
+	}
+
 /*Bit error is also assigned from the left to right
 For eg., if data is 1 0 0 1 1 0 1 0
 positions are assigned starting from left, not from the right as is the general convention.
