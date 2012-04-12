@@ -1,0 +1,1827 @@
+Hello
+At the start of execution: 1334221732 seconds since January 1, 1970 
+New values as read from the user(hex): PCL=9f, PCLATH=2, PC(testing) = 29f 
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 1
+Executing...
+
+Flip function called: Random number generated: 49
+Encoded Content of the location[66] before flipping, is (in hex)0
+Content of the location[66] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[66] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[66] was flipped to 40
+
+Flip function called: Random number generated: 52
+Encoded Content of the location[79] before flipping, is (in hex)0
+Content of the location[79] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[79] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[79] was flipped to 0
+
+Flip function called: Random number generated: 4
+Encoded Content of the location[de] before flipping, is (in hex)0
+Content of the location[de] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[de] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[de] was flipped to 0
+
+Flip function called: Random number generated: 97
+Encoded Content of the location[e5] before flipping, is (in hex)0
+Content of the location[e5] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[e5] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[e5] was flipped to 0
+
+Flip function called: Random number generated: 8
+Encoded Content of the location[26] before flipping, is (in hex)0
+Content of the location[26] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[26] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[26] was flipped to 0
+
+Flip function called: Random number generated: 11
+Encoded Content of the location[e7] before flipping, is (in hex)0
+Content of the location[e7] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[e7] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[e7] was flipped to 20
+
+Flip function called: Random number generated: 2
+Encoded Content of the location[b1] before flipping, is (in hex)0
+Content of the location[b1] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[b1] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[b1] was flipped to 20
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[db] before flipping, is (in hex)0
+Content of the location[db] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[db] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[db] was flipped to 2
+
+Flip function called: Random number generated: 73
+Encoded Content of the location[52] before flipping, is (in hex)0
+Content of the location[52] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[52] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[52] was flipped to 80
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[f5] before flipping, is (in hex)0
+Content of the location[f5] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[f5] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[f5] was flipped to 4
+
+Flip function called: Random number generated: 69
+Encoded Content of the location[34] before flipping, is (in hex)0
+Content of the location[34] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[34] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[34] was flipped to 80
+
+Flip function called: Random number generated: 20
+Encoded Content of the location[7e] before flipping, is (in hex)0
+Content of the location[7e] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[7e] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[7e] was flipped to 8
+
+Flip function called: Random number generated: 60
+Encoded Content of the location[e4] before flipping, is (in hex)0
+Content of the location[e4] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[e4] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[e4] was flipped to 0
+
+Flip function called: Random number generated: 78
+Encoded Content of the location[a2] before flipping, is (in hex)0
+Content of the location[a2] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[a2] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[a2] was flipped to 8
+
+Flip function called: Random number generated: 58
+Encoded Content of the location[b5] before flipping, is (in hex)0
+Content of the location[b5] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[b5] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[b5] was flipped to 40
+
+Flip function called: Random number generated: 15
+Encoded Content of the location[52] before flipping, is (in hex)400
+Content of the location[52] before flipping, is (in hex)80
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[52] after flipping, is (in hex)408
+In bit flip(), Bit flipped, Content of the reg[52] was flipped to 84
+
+Flip function called: Random number generated: 51
+Encoded Content of the location[d9] before flipping, is (in hex)0
+Content of the location[d9] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[d9] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[d9] was flipped to 80
+
+Flip function called: Random number generated: 76
+Encoded Content of the location[91] before flipping, is (in hex)0
+Content of the location[91] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[91] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[91] was flipped to 40
+
+Flip function called: Random number generated: 45
+Encoded Content of the location[bb] before flipping, is (in hex)0
+Content of the location[bb] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[bb] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[bb] was flipped to 0
+
+ERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program
+PC value (in hex)=381, erroneous instruction was (in hex) = 840
+The bit that has got flipped is: 6
+Number of instruction cycles executed before the error: 238554
+
+******Unique errors so far= 1. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 84
+Encoded Content of the location[3c] before flipping, is (in hex)0
+Content of the location[3c] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[3c] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[3c] was flipped to 4
+
+Flip function called: Random number generated: 81
+Encoded Content of the location[f2] before flipping, is (in hex)0
+Content of the location[f2] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[f2] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[f2] was flipped to 80
+
+Flip function called: Random number generated: 86
+Encoded Content of the location[8f] before flipping, is (in hex)0
+Content of the location[8f] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[8f] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[8f] was flipped to 0
+
+Flip function called: Random number generated: 46
+Encoded Content of the location[27] before flipping, is (in hex)0
+Content of the location[27] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[27] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[27] was flipped to 40
+
+Flip function called: Random number generated: 3
+Encoded Content of the location[db] before flipping, is (in hex)4
+Content of the location[db] before flipping, is (in hex)2
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[db] after flipping, is (in hex)c
+In bit flip(), Bit flipped, Content of the reg[db] was flipped to 6
+
+Flip function called: Random number generated: 86
+Encoded Content of the location[fd] before flipping, is (in hex)0
+Content of the location[fd] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[fd] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[fd] was flipped to 0
+
+Flip function called: Random number generated: 72
+Encoded Content of the location[7d] before flipping, is (in hex)0
+Content of the location[7d] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[7d] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[7d] was flipped to 2
+
+Flip function called: Random number generated: 58
+Encoded Content of the location[43] before flipping, is (in hex)0
+Content of the location[43] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[43] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[43] was flipped to 8
+
+Flip function called: Random number generated: 83
+Encoded Content of the location[cc] before flipping, is (in hex)0
+Content of the location[cc] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[cc] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[cc] was flipped to 40
+
+Flip function called: Random number generated: 78
+Encoded Content of the location[e1] before flipping, is (in hex)0
+Content of the location[e1] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[e1] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[e1] was flipped to 80
+
+Flip function called: Random number generated: 13
+Encoded Content of the location[35] before flipping, is (in hex)0
+Content of the location[35] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[35] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[35] was flipped to 0
+
+Flip function called: Random number generated: 65
+Encoded Content of the location[b7] before flipping, is (in hex)0
+Content of the location[b7] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[b7] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[b7] was flipped to 20
+
+Flip function called: Random number generated: 96
+Encoded Content of the location[85] before flipping, is (in hex)0
+Content of the location[85] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[85] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[85] was flipped to 4
+
+Flip function called: Random number generated: 94
+Encoded Content of the location[38] before flipping, is (in hex)0
+Content of the location[38] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[38] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[38] was flipped to 1
+
+Flip function called: Random number generated: 81
+Encoded Content of the location[60] before flipping, is (in hex)0
+Content of the location[60] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[60] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[60] was flipped to 80
+
+Flip function called: Random number generated: 64
+Encoded Content of the location[84] before flipping, is (in hex)0
+Content of the location[84] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[84] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[84] was flipped to 0
+
+Flip function called: Random number generated: 67
+Encoded Content of the location[b5] before flipping, is (in hex)100
+Content of the location[b5] before flipping, is (in hex)40
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[b5] after flipping, is (in hex)900
+In bit flip(), Bit flipped, Content of the reg[b5] was flipped to 40
+
+Bit flipped, Content of the random reg[43] is (in hex) 8
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 324, opcode= 843
+Before error correction, content of the reg location 43 was: 8
+SINGLE ERROR, can be corrected
+Bit in error is 9 and is a data bit. NEEDS ERROR CORRECTION.
+After error correction, content of the reg location 43 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=324, instruction opcode being executed (in hex)=843
+Number of instruction cycles executed before the error: 476766
+
+******Unique errors so far= 2. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 46
+Encoded Content of the location[b9] before flipping, is (in hex)0
+Content of the location[b9] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[b9] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[b9] was flipped to 0
+
+Bit flipped, Content of the random reg[3c] is (in hex) 4
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3cc, opcode= 83c
+Before error correction, content of the reg location 3c was: 4
+SINGLE ERROR, can be corrected
+Bit in error is 10 and is a data bit. NEEDS ERROR CORRECTION.
+After error correction, content of the reg location 3c was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3cc, instruction opcode being executed (in hex)=83c
+Number of instruction cycles executed before the error: 490826
+
+******Unique errors so far= 3. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 18
+Encoded Content of the location[9b] before flipping, is (in hex)0
+Content of the location[9b] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[9b] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[9b] was flipped to 1
+
+Flip function called: Random number generated: 64
+Encoded Content of the location[63] before flipping, is (in hex)0
+Content of the location[63] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[63] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[63] was flipped to 20
+
+Flip function called: Random number generated: 3
+Encoded Content of the location[ab] before flipping, is (in hex)0
+Content of the location[ab] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[ab] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[ab] was flipped to 0
+
+Flip function called: Random number generated: 44
+Encoded Content of the location[30] before flipping, is (in hex)0
+Content of the location[30] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[30] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[30] was flipped to 0
+
+Flip function called: Random number generated: 85
+Encoded Content of the location[77] before flipping, is (in hex)0
+Content of the location[77] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[77] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[77] was flipped to 0
+
+Flip function called: Random number generated: 95
+Encoded Content of the location[ff] before flipping, is (in hex)0
+Content of the location[ff] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[ff] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[ff] was flipped to 1
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[38] before flipping, is (in hex)2
+Content of the location[38] before flipping, is (in hex)1
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[38] after flipping, is (in hex)82
+In bit flip(), Bit flipped, Content of the reg[38] was flipped to 21
+
+Flip function called: Random number generated: 33
+Encoded Content of the location[c3] before flipping, is (in hex)0
+Content of the location[c3] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[c3] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[c3] was flipped to 40
+
+Flip function called: Random number generated: 50
+Encoded Content of the location[9c] before flipping, is (in hex)0
+Content of the location[9c] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[9c] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[9c] was flipped to 0
+
+Flip function called: Random number generated: 29
+Encoded Content of the location[2a] before flipping, is (in hex)0
+Content of the location[2a] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[2a] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[2a] was flipped to 0
+
+Flip function called: Random number generated: 87
+Encoded Content of the location[9c] before flipping, is (in hex)1000
+Content of the location[9c] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[9c] after flipping, is (in hex)1008
+In bit flip(), Bit flipped, Content of the reg[9c] was flipped to 4
+
+Flip function called: Random number generated: 26
+Encoded Content of the location[b9] before flipping, is (in hex)1000
+Content of the location[b9] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[b9] after flipping, is (in hex)1004
+In bit flip(), Bit flipped, Content of the reg[b9] was flipped to 2
+
+Flip function called: Random number generated: 62
+Encoded Content of the location[2] before flipping, is (in hex)1e22
+Content of the location[2] before flipping, is (in hex)81
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[2] after flipping, is (in hex)1e2a
+In bit flip(), Bit flipped, Content of the reg[2] was flipped to 85
+***********************************************************************
+
+Crash number:1 detected
+Program crash was due to PC value at location 2 getting affected
+Actual PC value (in hex)=381, instruction opcode that was getting executed (in hex)=840
+Random number that got generated this time was: 62
+Time of crash number 1 is 1334221783 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 51 (in seconds)
+Number of instruction cycles executed before the crash: 672473
+
+***STARTING ERROR CORRECTION ON PC REG LOCATIONS***
+SINGLE ERROR, can be corrected
+Bit in error is 10 and is a data bit. NEEDS ERROR CORRECTION.
+
+ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:
+GP_Reg[0x02] = 81, GP_Reg[0x82] = 81, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+
+***********************************************************************
+SINGLE ERROR, can be corrected
+Bit in error is 10 and is a data bit. NEEDS ERROR CORRECTION.
+
+Flip function called: Random number generated: 32
+Encoded Content of the location[c5] before flipping, is (in hex)0
+Content of the location[c5] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[c5] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[c5] was flipped to 0
+
+Flip function called: Random number generated: 98
+Encoded Content of the location[73] before flipping, is (in hex)0
+Content of the location[73] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[73] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[73] was flipped to 10
+
+Bit flipped, Content of the random reg[43] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2d5, opcode= 7c3
+Before error correction, content of the reg location 43 was: 0
+After error correction, content of the reg location 43 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2d5, instruction opcode being executed (in hex)=7c3
+Number of instruction cycles executed before the error: 714679
+
+******Unique errors so far= 4. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 88
+Encoded Content of the location[9e] before flipping, is (in hex)0
+Content of the location[9e] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[9e] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[9e] was flipped to 2
+
+Flip function called: Random number generated: 59
+Encoded Content of the location[cf] before flipping, is (in hex)0
+Content of the location[cf] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[cf] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[cf] was flipped to 10
+
+Flip function called: Random number generated: 15
+Encoded Content of the location[e8] before flipping, is (in hex)0
+Content of the location[e8] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[e8] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[e8] was flipped to 0
+
+Flip function called: Random number generated: 66
+Encoded Content of the location[f7] before flipping, is (in hex)0
+Content of the location[f7] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[f7] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[f7] was flipped to 80
+
+Flip function called: Random number generated: 51
+Encoded Content of the location[df] before flipping, is (in hex)0
+Content of the location[df] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[df] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[df] was flipped to 2
+
+Flip function called: Random number generated: 73
+Encoded Content of the location[2a] before flipping, is (in hex)20
+Content of the location[2a] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[2a] after flipping, is (in hex)820
+In bit flip(), Bit flipped, Content of the reg[2a] was flipped to 0
+
+Bit flipped, Content of the random reg[38] is (in hex) 21
+
+Bit flipped, Content of the random reg[38] is (in hex) 21
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2a9, opcode= b8
+Before error correction, content of the reg location 38 was: 21
+DOUBLE DATA ERROR .. CANNOT CORRECT
+After error correction, content of the reg location 38 was: 21
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2a9, instruction opcode being executed (in hex)=b8
+Number of instruction cycles executed before the error: 798711
+
+******Unique errors so far= 5. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 8
+Encoded Content of the location[70] before flipping, is (in hex)0
+Content of the location[70] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[70] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[70] was flipped to 2
+
+Flip function called: Random number generated: 88
+Encoded Content of the location[8e] before flipping, is (in hex)0
+Content of the location[8e] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[8e] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[8e] was flipped to 40
+
+Flip function called: Random number generated: 37
+Encoded Content of the location[a1] before flipping, is (in hex)0
+Content of the location[a1] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[a1] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[a1] was flipped to 0
+
+Flip function called: Random number generated: 61
+Encoded Content of the location[34] before flipping, is (in hex)400
+Content of the location[34] before flipping, is (in hex)80
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[34] after flipping, is (in hex)401
+In bit flip(), Bit flipped, Content of the reg[34] was flipped to 80
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[36] before flipping, is (in hex)0
+Content of the location[36] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[36] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[36] was flipped to 0
+
+Flip function called: Random number generated: 24
+Encoded Content of the location[e6] before flipping, is (in hex)0
+Content of the location[e6] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[e6] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[e6] was flipped to 0
+
+Flip function called: Random number generated: 65
+Encoded Content of the location[88] before flipping, is (in hex)0
+Content of the location[88] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[88] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[88] was flipped to 0
+
+Bit flipped, Content of the random reg[43] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 302, opcode= 1c3
+Before error correction, content of the reg location 43 was: 0
+After error correction, content of the reg location 43 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=302, instruction opcode being executed (in hex)=1c3
+Number of instruction cycles executed before the error: 896771
+
+******Unique errors so far= 6. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 96
+Encoded Content of the location[6d] before flipping, is (in hex)0
+Content of the location[6d] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[6d] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[6d] was flipped to 40
+
+Flip function called: Random number generated: 41
+Encoded Content of the location[bf] before flipping, is (in hex)0
+Content of the location[bf] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[bf] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[bf] was flipped to 0
+
+Flip function called: Random number generated: 57
+Encoded Content of the location[29] before flipping, is (in hex)0
+Content of the location[29] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[29] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[29] was flipped to 20
+
+Flip function called: Random number generated: 23
+Encoded Content of the location[5] before flipping, is (in hex)0
+Content of the location[5] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[5] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[5] was flipped to 10
+
+Flip function called: Random number generated: 22
+Encoded Content of the location[b] before flipping, is (in hex)0
+Content of the location[b] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[b] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[b] was flipped to 10
+
+Flip function called: Random number generated: 28
+Encoded Content of the location[77] before flipping, is (in hex)800
+Content of the location[77] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[77] after flipping, is (in hex)880
+In bit flip(), Bit flipped, Content of the reg[77] was flipped to 20
+
+Flip function called: Random number generated: 83
+Encoded Content of the location[f3] before flipping, is (in hex)0
+Content of the location[f3] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[f3] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[f3] was flipped to 20
+
+Flip function called: Random number generated: 32
+Encoded Content of the location[a5] before flipping, is (in hex)0
+Content of the location[a5] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[a5] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[a5] was flipped to 0
+
+Flip function called: Random number generated: 38
+Encoded Content of the location[a5] before flipping, is (in hex)1000
+Content of the location[a5] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[a5] after flipping, is (in hex)1080
+In bit flip(), Bit flipped, Content of the reg[a5] was flipped to 20
+
+Flip function called: Random number generated: 68
+Encoded Content of the location[55] before flipping, is (in hex)0
+Content of the location[55] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[55] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[55] was flipped to 0
+
+Flip function called: Random number generated: 4
+Encoded Content of the location[75] before flipping, is (in hex)0
+Content of the location[75] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[75] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[75] was flipped to 20
+
+Flip function called: Random number generated: 55
+Encoded Content of the location[40] before flipping, is (in hex)0
+Content of the location[40] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[40] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[40] was flipped to 20
+
+Bit flipped, Content of the random reg[40] is (in hex) 20
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2b8, opcode= 840
+Before error correction, content of the reg location 40 was: 20
+SINGLE ERROR, can be corrected
+Bit in error is 6 and is a data bit. NEEDS ERROR CORRECTION.
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2b8, instruction opcode being executed (in hex)=840
+Number of instruction cycles executed before the error: 1065181
+
+******Unique errors so far= 7. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 94
+Encoded Content of the location[13] before flipping, is (in hex)0
+Content of the location[13] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[13] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[13] was flipped to 0
+
+Flip function called: Random number generated: 16
+Encoded Content of the location[51] before flipping, is (in hex)0
+Content of the location[51] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[51] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[51] was flipped to 0
+
+Bit flipped, Content of the random reg[13] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2c6, opcode= 713
+Before error correction, content of the reg location 13 was: 0
+SINGLE ERROR, can be corrected
+Bit in error is 4 and is a parity bit. ****DATA BIT NOT IN ERROR****
+After error correction, content of the reg location 13 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2c6, instruction opcode being executed (in hex)=713
+Number of instruction cycles executed before the error: 1093329
+
+******Unique errors so far= 8. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 80
+Encoded Content of the location[77] before flipping, is (in hex)880
+Content of the location[77] before flipping, is (in hex)20
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[77] after flipping, is (in hex)888
+In bit flip(), Bit flipped, Content of the reg[77] was flipped to 24
+
+Flip function called: Random number generated: 12
+Encoded Content of the location[f3] before flipping, is (in hex)80
+Content of the location[f3] before flipping, is (in hex)20
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[f3] after flipping, is (in hex)280
+In bit flip(), Bit flipped, Content of the reg[f3] was flipped to 20
+
+ERROR: Byte instruction: Reg file address from which data needs to be fetched, has changed, will lead to an error in program
+PC value (in hex)=314, erroneous instruction was (in hex) = 85
+The bit that has got flipped is: 4
+Number of instruction cycles executed before the error: 1121419
+
+******Unique errors so far= 9. Repeated errors are counted but not printed******
+
+Bit flipped, Content of the random reg[3c] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3f8, opcode= 83c
+Before error correction, content of the reg location 3c was: 0
+After error correction, content of the reg location 3c was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3f8, instruction opcode being executed (in hex)=83c
+Number of instruction cycles executed before the error: 1121419
+
+******Unique errors so far= 10. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 79
+Encoded Content of the location[e9] before flipping, is (in hex)0
+Content of the location[e9] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[e9] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[e9] was flipped to 4
+
+Flip function called: Random number generated: 77
+Encoded Content of the location[94] before flipping, is (in hex)0
+Content of the location[94] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[94] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[94] was flipped to 80
+
+Flip function called: Random number generated: 42
+Encoded Content of the location[bc] before flipping, is (in hex)0
+Content of the location[bc] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[bc] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[bc] was flipped to 0
+
+Flip function called: Random number generated: 69
+Encoded Content of the location[73] before flipping, is (in hex)40
+Content of the location[73] before flipping, is (in hex)10
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[73] after flipping, is (in hex)840
+In bit flip(), Bit flipped, Content of the reg[73] was flipped to 10
+
+Flip function called: Random number generated: 95
+Encoded Content of the location[3a] before flipping, is (in hex)0
+Content of the location[3a] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[3a] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[3a] was flipped to 8
+
+Flip function called: Random number generated: 11
+Encoded Content of the location[5f] before flipping, is (in hex)0
+Content of the location[5f] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[5f] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[5f] was flipped to 8
+
+Flip function called: Random number generated: 8
+Encoded Content of the location[35] before flipping, is (in hex)200
+Content of the location[35] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[35] after flipping, is (in hex)1200
+In bit flip(), Bit flipped, Content of the reg[35] was flipped to 0
+
+Flip function called: Random number generated: 62
+Encoded Content of the location[f] before flipping, is (in hex)0
+Content of the location[f] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[f] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[f] was flipped to 10
+
+Flip function called: Random number generated: 40
+Encoded Content of the location[bc] before flipping, is (in hex)1000
+Content of the location[bc] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[bc] after flipping, is (in hex)1040
+In bit flip(), Bit flipped, Content of the reg[bc] was flipped to 10
+
+Flip function called: Random number generated: 47
+Encoded Content of the location[e8] before flipping, is (in hex)20
+Content of the location[e8] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[e8] after flipping, is (in hex)24
+In bit flip(), Bit flipped, Content of the reg[e8] was flipped to 2
+
+Bit flipped, Content of the random reg[3c] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3cc, opcode= 83c
+Before error correction, content of the reg location 3c was: 0
+After error correction, content of the reg location 3c was: 0
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[59] before flipping, is (in hex)0
+Content of the location[59] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[59] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[59] was flipped to 4
+
+Flip function called: Random number generated: 24
+Encoded Content of the location[e7] before flipping, is (in hex)80
+Content of the location[e7] before flipping, is (in hex)20
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[e7] after flipping, is (in hex)280
+In bit flip(), Bit flipped, Content of the reg[e7] was flipped to 20
+
+Flip function called: Random number generated: 21
+Encoded Content of the location[62] before flipping, is (in hex)0
+Content of the location[62] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[62] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[62] was flipped to 20
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 381, opcode= 840
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=381, instruction opcode being executed (in hex)=840
+Number of instruction cycles executed before the error: 1300708
+
+******Unique errors so far= 11. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 2
+Encoded Content of the location[18] before flipping, is (in hex)0
+Content of the location[18] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[18] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[18] was flipped to 40
+
+Flip function called: Random number generated: 6
+Encoded Content of the location[5e] before flipping, is (in hex)0
+Content of the location[5e] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[5e] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[5e] was flipped to 2
+
+Flip function called: Random number generated: 43
+Encoded Content of the location[5c] before flipping, is (in hex)0
+Content of the location[5c] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[5c] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[5c] was flipped to 0
+
+Bit flipped, Content of the random reg[43] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2d7, opcode= 843
+Before error correction, content of the reg location 43 was: 0
+After error correction, content of the reg location 43 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2d7, instruction opcode being executed (in hex)=843
+Number of instruction cycles executed before the error: 1342585
+
+******Unique errors so far= 12. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 15
+Encoded Content of the location[5a] before flipping, is (in hex)0
+Content of the location[5a] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[5a] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[5a] was flipped to 1
+
+Flip function called: Random number generated: 74
+Encoded Content of the location[e7] before flipping, is (in hex)280
+Content of the location[e7] before flipping, is (in hex)20
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[e7] after flipping, is (in hex)a80
+In bit flip(), Bit flipped, Content of the reg[e7] was flipped to 20
+
+Flip function called: Random number generated: 45
+Encoded Content of the location[a8] before flipping, is (in hex)0
+Content of the location[a8] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[a8] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[a8] was flipped to 8
+
+Flip function called: Random number generated: 1
+Encoded Content of the location[e5] before flipping, is (in hex)1000
+Content of the location[e5] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[e5] after flipping, is (in hex)1080
+In bit flip(), Bit flipped, Content of the reg[e5] was flipped to 20
+
+Flip function called: Random number generated: 58
+Encoded Content of the location[49] before flipping, is (in hex)0
+Content of the location[49] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[49] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[49] was flipped to 40
+
+Flip function called: Random number generated: 80
+Encoded Content of the location[99] before flipping, is (in hex)0
+Content of the location[99] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[99] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[99] was flipped to 0
+
+Flip function called: Random number generated: 71
+Encoded Content of the location[3c] before flipping, is (in hex)0
+Content of the location[3c] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[3c] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[3c] was flipped to 2
+
+Flip function called: Random number generated: 66
+Encoded Content of the location[e4] before flipping, is (in hex)20
+Content of the location[e4] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[e4] after flipping, is (in hex)28
+In bit flip(), Bit flipped, Content of the reg[e4] was flipped to 4
+
+Flip function called: Random number generated: 97
+Encoded Content of the location[e5] before flipping, is (in hex)1080
+Content of the location[e5] before flipping, is (in hex)20
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[e5] after flipping, is (in hex)10c0
+In bit flip(), Bit flipped, Content of the reg[e5] was flipped to 30
+
+Bit flipped, Content of the random reg[13] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 313, opcode= 713
+Before error correction, content of the reg location 13 was: 0
+After error correction, content of the reg location 13 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=313, instruction opcode being executed (in hex)=713
+Number of instruction cycles executed before the error: 1467428
+
+******Unique errors so far= 13. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 58
+Encoded Content of the location[9c] before flipping, is (in hex)1008
+Content of the location[9c] before flipping, is (in hex)4
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[9c] after flipping, is (in hex)1108
+In bit flip(), Bit flipped, Content of the reg[9c] was flipped to 44
+
+Flip function called: Random number generated: 45
+Encoded Content of the location[e7] before flipping, is (in hex)a80
+Content of the location[e7] before flipping, is (in hex)20
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[e7] after flipping, is (in hex)b80
+In bit flip(), Bit flipped, Content of the reg[e7] was flipped to 60
+
+Bit flipped, Content of the random reg[13] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2c6, opcode= 713
+Before error correction, content of the reg location 13 was: 0
+After error correction, content of the reg location 13 was: 0
+
+Flip function called: Random number generated: 25
+Encoded Content of the location[f2] before flipping, is (in hex)400
+Content of the location[f2] before flipping, is (in hex)80
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[f2] after flipping, is (in hex)500
+In bit flip(), Bit flipped, Content of the reg[f2] was flipped to c0
+
+Bit flipped, Content of the random reg[43] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2d5, opcode= 7c3
+Before error correction, content of the reg location 43 was: 0
+After error correction, content of the reg location 43 was: 0
+
+Flip function called: Random number generated: 89
+Encoded Content of the location[74] before flipping, is (in hex)0
+Content of the location[74] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[74] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[74] was flipped to 0
+
+Flip function called: Random number generated: 0
+Encoded Content of the location[e3] before flipping, is (in hex)0
+Content of the location[e3] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[e3] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[e3] was flipped to 8
+
+Flip function called: Random number generated: 50
+Encoded Content of the location[b9] before flipping, is (in hex)1004
+Content of the location[b9] before flipping, is (in hex)2
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[b9] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[b9] was flipped to 2
+
+Flip function called: Random number generated: 63
+Encoded Content of the location[26] before flipping, is (in hex)800
+Content of the location[26] before flipping, is (in hex)0
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[26] after flipping, is (in hex)900
+In bit flip(), Bit flipped, Content of the reg[26] was flipped to 40
+
+Bit flipped, Content of the random reg[18] is (in hex) 40
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 393, opcode= 718
+Before error correction, content of the reg location 18 was: 40
+SINGLE ERROR, can be corrected
+Bit in error is 5 and is a data bit. NEEDS ERROR CORRECTION.
+After error correction, content of the reg location 18 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=393, instruction opcode being executed (in hex)=718
+Number of instruction cycles executed before the error: 1578103
+
+******Unique errors so far= 14. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 29
+Encoded Content of the location[37] before flipping, is (in hex)0
+Content of the location[37] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[37] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[37] was flipped to 1
+
+Flip function called: Random number generated: 87
+Encoded Content of the location[99] before flipping, is (in hex)20
+Content of the location[99] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[99] after flipping, is (in hex)220
+In bit flip(), Bit flipped, Content of the reg[99] was flipped to 0
+
+Flip function called: Random number generated: 44
+Encoded Content of the location[74] before flipping, is (in hex)200
+Content of the location[74] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[74] after flipping, is (in hex)1200
+In bit flip(), Bit flipped, Content of the reg[74] was flipped to 0
+
+Flip function called: Random number generated: 63
+Encoded Content of the location[4c] before flipping, is (in hex)0
+Content of the location[4c] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[4c] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[4c] was flipped to 2
+
+Flip function called: Random number generated: 12
+Encoded Content of the location[4d] before flipping, is (in hex)0
+Content of the location[4d] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[4d] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[4d] was flipped to 0
+
+Flip function called: Random number generated: 60
+Encoded Content of the location[a3] before flipping, is (in hex)0
+Content of the location[a3] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[a3] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[a3] was flipped to 0
+
+Flip function called: Random number generated: 28
+Encoded Content of the location[b7] before flipping, is (in hex)80
+Content of the location[b7] before flipping, is (in hex)20
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[b7] after flipping, is (in hex)84
+In bit flip(), Bit flipped, Content of the reg[b7] was flipped to 22
+
+Flip function called: Random number generated: 29
+Encoded Content of the location[af] before flipping, is (in hex)0
+Content of the location[af] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[af] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[af] was flipped to 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 381, opcode= 840
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Flip function called: Random number generated: 44
+Encoded Content of the location[12] before flipping, is (in hex)0
+Content of the location[12] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[12] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[12] was flipped to 0
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 35b, opcode= 712
+Before error correction, content of the reg location 12 was: 0
+SINGLE ERROR, can be corrected
+Bit in error is 4 and is a parity bit. ****DATA BIT NOT IN ERROR****
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=35b, instruction opcode being executed (in hex)=712
+Number of instruction cycles executed before the error: 1701843
+
+******Unique errors so far= 15. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 29
+Encoded Content of the location[79] before flipping, is (in hex)1
+Content of the location[79] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[79] after flipping, is (in hex)81
+In bit flip(), Bit flipped, Content of the reg[79] was flipped to 20
+
+Flip function called: Random number generated: 26
+Encoded Content of the location[77] before flipping, is (in hex)888
+Content of the location[77] before flipping, is (in hex)24
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[77] after flipping, is (in hex)988
+In bit flip(), Bit flipped, Content of the reg[77] was flipped to 64
+
+Flip function called: Random number generated: 21
+Encoded Content of the location[7] before flipping, is (in hex)0
+Content of the location[7] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[7] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[7] was flipped to 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 381, opcode= 840
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Flip function called: Random number generated: 85
+Encoded Content of the location[24] before flipping, is (in hex)0
+Content of the location[24] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[24] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[24] was flipped to 4
+
+Flip function called: Random number generated: 38
+Encoded Content of the location[9b] before flipping, is (in hex)2
+Content of the location[9b] before flipping, is (in hex)1
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[9b] after flipping, is (in hex)22
+In bit flip(), Bit flipped, Content of the reg[9b] was flipped to 1
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 34a, opcode= 1c0
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=34a, instruction opcode being executed (in hex)=1c0
+Number of instruction cycles executed before the error: 1770013
+
+******Unique errors so far= 16. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 77
+Encoded Content of the location[c6] before flipping, is (in hex)0
+Content of the location[c6] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[c6] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[c6] was flipped to 0
+
+Flip function called: Random number generated: 65
+Encoded Content of the location[e4] before flipping, is (in hex)28
+Content of the location[e4] before flipping, is (in hex)4
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[e4] after flipping, is (in hex)128
+In bit flip(), Bit flipped, Content of the reg[e4] was flipped to 44
+
+Flip function called: Random number generated: 77
+Encoded Content of the location[4d] before flipping, is (in hex)1000
+Content of the location[4d] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[4d] after flipping, is (in hex)1400
+In bit flip(), Bit flipped, Content of the reg[4d] was flipped to 80
+
+Flip function called: Random number generated: 75
+Encoded Content of the location[5c] before flipping, is (in hex)800
+Content of the location[5c] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[5c] after flipping, is (in hex)808
+In bit flip(), Bit flipped, Content of the reg[5c] was flipped to 4
+
+Flip function called: Random number generated: 78
+Encoded Content of the location[d9] before flipping, is (in hex)400
+Content of the location[d9] before flipping, is (in hex)80
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[d9] after flipping, is (in hex)404
+In bit flip(), Bit flipped, Content of the reg[d9] was flipped to 82
+
+Flip function called: Random number generated: 36
+Encoded Content of the location[d6] before flipping, is (in hex)0
+Content of the location[d6] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[d6] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[d6] was flipped to 0
+
+Flip function called: Random number generated: 9
+Encoded Content of the location[c1] before flipping, is (in hex)0
+Content of the location[c1] before flipping, is (in hex)0
+random_bit=7
+Parity bit is flipped, not data bit
+Encoded Content of the location[c1] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[c1] was flipped to 20
+
+Flip function called: Random number generated: 71
+Encoded Content of the location[c7] before flipping, is (in hex)0
+Content of the location[c7] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[c7] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[c7] was flipped to 0
+
+Flip function called: Random number generated: 41
+Encoded Content of the location[54] before flipping, is (in hex)0
+Content of the location[54] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[54] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[54] was flipped to 2
+
+Flip function called: Random number generated: 49
+Encoded Content of the location[da] before flipping, is (in hex)0
+Content of the location[da] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[da] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[da] was flipped to 1
+
+Flip function called: Random number generated: 65
+Encoded Content of the location[db] before flipping, is (in hex)c
+Content of the location[db] before flipping, is (in hex)6
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[db] after flipping, is (in hex)100c
+In bit flip(), Bit flipped, Content of the reg[db] was flipped to 6
+
+Flip function called: Random number generated: 59
+Encoded Content of the location[d4] before flipping, is (in hex)0
+Content of the location[d4] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[d4] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[d4] was flipped to 4
+
+Flip function called: Random number generated: 72
+Encoded Content of the location[78] before flipping, is (in hex)0
+Content of the location[78] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[78] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[78] was flipped to 10
+
+Bit flipped, Content of the random reg[36] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2df, opcode= 836
+Before error correction, content of the reg location 36 was: 0
+SINGLE ERROR, can be corrected
+Bit in error is 1 and is a parity bit. ****DATA BIT NOT IN ERROR****
+After error correction, content of the reg location 36 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2df, instruction opcode being executed (in hex)=836
+Number of instruction cycles executed before the error: 1944019
+
+******Unique errors so far= 17. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 24
+Encoded Content of the location[8f] before flipping, is (in hex)20
+Content of the location[8f] before flipping, is (in hex)0
+random_bit=10
+Parity bit is flipped, not data bit
+Encoded Content of the location[8f] after flipping, is (in hex)420
+In bit flip(), Bit flipped, Content of the reg[8f] was flipped to 80
+
+Flip function called: Random number generated: 91
+Encoded Content of the location[6a] before flipping, is (in hex)0
+Content of the location[6a] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[6a] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[6a] was flipped to 10
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 326, opcode= 92
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=326, instruction opcode being executed (in hex)=92
+Number of instruction cycles executed before the error: 1970896
+
+******Unique errors so far= 18. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 30
+Encoded Content of the location[40] before flipping, is (in hex)0
+Content of the location[40] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[40] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[40] was flipped to 0
+
+Flip function called: Random number generated: 79
+Encoded Content of the location[f6] before flipping, is (in hex)0
+Content of the location[f6] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[f6] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[f6] was flipped to 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 305, opcode= 840
+Before error correction, content of the reg location 40 was: 0
+SINGLE ERROR, can be corrected
+Bit in error is 8 and is a parity bit. ****DATA BIT NOT IN ERROR****
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=305, instruction opcode being executed (in hex)=840
+Number of instruction cycles executed before the error: 1998007
+
+******Unique errors so far= 19. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 47
+Encoded Content of the location[86] before flipping, is (in hex)0
+Content of the location[86] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[86] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[86] was flipped to 8
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3f5, opcode= 212
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3f5, instruction opcode being executed (in hex)=212
+Number of instruction cycles executed before the error: 2011803
+
+******Unique errors so far= 20. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[86] before flipping, is (in hex)10
+Content of the location[86] before flipping, is (in hex)8
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the location[86] after flipping, is (in hex)30
+In bit flip(), Bit flipped, Content of the reg[86] was flipped to 8
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2d9, opcode= 92
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2d9, instruction opcode being executed (in hex)=92
+Number of instruction cycles executed before the error: 2024777
+
+******Unique errors so far= 21. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 44
+Encoded Content of the location[d6] before flipping, is (in hex)200
+Content of the location[d6] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[d6] after flipping, is (in hex)201
+In bit flip(), Bit flipped, Content of the reg[d6] was flipped to 0
+
+Flip function called: Random number generated: 3
+Encoded Content of the location[e6] before flipping, is (in hex)200
+Content of the location[e6] before flipping, is (in hex)0
+random_bit=1
+Parity bit is flipped, not data bit
+Encoded Content of the location[e6] after flipping, is (in hex)202
+In bit flip(), Bit flipped, Content of the reg[e6] was flipped to 1
+
+Flip function called: Random number generated: 48
+Encoded Content of the location[56] before flipping, is (in hex)0
+Content of the location[56] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[56] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[56] was flipped to 4
+
+Flip function called: Random number generated: 36
+Encoded Content of the location[c3] before flipping, is (in hex)100
+Content of the location[c3] before flipping, is (in hex)40
+random_bit=8
+Parity bit is flipped, not data bit
+Encoded Content of the location[c3] after flipping, is (in hex)0
+In bit flip(), Bit flipped, Content of the reg[c3] was flipped to 0
+
+Flip function called: Random number generated: 85
+Encoded Content of the location[86] before flipping, is (in hex)30
+Content of the location[86] before flipping, is (in hex)8
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[86] after flipping, is (in hex)830
+In bit flip(), Bit flipped, Content of the reg[86] was flipped to 8
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 2bc, opcode= d92
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2bc, instruction opcode being executed (in hex)=d92
+Number of instruction cycles executed before the error: 2094260
+
+******Unique errors so far= 22. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 67
+Encoded Content of the location[7a] before flipping, is (in hex)0
+Content of the location[7a] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the location[7a] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[7a] was flipped to 0
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3f5, opcode= 212
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Flip function called: Random number generated: 92
+Encoded Content of the location[8a] before flipping, is (in hex)1a07
+Content of the location[8a] before flipping, is (in hex)3
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[8a] after flipping, is (in hex)1a0f
+In bit flip(), Bit flipped, Content of the reg[8a] was flipped to 7
+***********************************************************************
+
+Crash number:2 detected
+Program crash was due to PC value at location 8a getting affected
+Actual PC value (in hex)=3e0, instruction opcode that was getting executed (in hex)=1d03
+Random number that got generated this time was: 92
+Time of crash number 2 is 1334221888 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 156 (in seconds)
+Number of instruction cycles executed before the crash: 2122669
+
+***STARTING ERROR CORRECTION ON PC REG LOCATIONS***
+SINGLE ERROR, can be corrected
+Bit in error is 10 and is a data bit. NEEDS ERROR CORRECTION.
+
+ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:
+GP_Reg[0x02] = e0, GP_Reg[0x82] = e0, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+
+***********************************************************************
+
+Flip function called: Random number generated: 14
+Encoded Content of the location[d5] before flipping, is (in hex)0
+Content of the location[d5] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[d5] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[d5] was flipped to 0
+
+Flip function called: Random number generated: 97
+Encoded Content of the location[f8] before flipping, is (in hex)0
+Content of the location[f8] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[f8] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[f8] was flipped to 4
+
+Flip function called: Random number generated: 58
+Encoded Content of the location[f4] before flipping, is (in hex)0
+Content of the location[f4] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[f4] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[f4] was flipped to 2
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 36e, opcode= 840
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=36e, instruction opcode being executed (in hex)=840
+Number of instruction cycles executed before the error: 2179163
+
+******Unique errors so far= 23. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 19
+Encoded Content of the location[c0] before flipping, is (in hex)0
+Content of the location[c0] before flipping, is (in hex)0
+random_bit=3
+Parity bit is flipped, not data bit
+Encoded Content of the location[c0] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[c0] was flipped to 4
+
+Flip function called: Random number generated: 16
+Encoded Content of the location[c9] before flipping, is (in hex)0
+Content of the location[c9] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the location[c9] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[c9] was flipped to 0
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 329, opcode= 212
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=329, instruction opcode being executed (in hex)=212
+Number of instruction cycles executed before the error: 2207564
+
+******Unique errors so far= 24. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 26
+Encoded Content of the location[88] before flipping, is (in hex)1
+Content of the location[88] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the location[88] after flipping, is (in hex)1001
+In bit flip(), Bit flipped, Content of the reg[88] was flipped to 0
+
+Flip function called: Random number generated: 3
+Encoded Content of the location[8f] before flipping, is (in hex)420
+Content of the location[8f] before flipping, is (in hex)80
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[8f] after flipping, is (in hex)424
+In bit flip(), Bit flipped, Content of the reg[8f] was flipped to 82
+
+Flip function called: Random number generated: 91
+Encoded Content of the location[58] before flipping, is (in hex)0
+Content of the location[58] before flipping, is (in hex)0
+random_bit=6
+Parity bit is flipped, not data bit
+Encoded Content of the location[58] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[58] was flipped to 10
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+Bit flipped, Content of the random reg[40] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 3eb, opcode= 7c0
+Before error correction, content of the reg location 40 was: 0
+After error correction, content of the reg location 40 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3eb, instruction opcode being executed (in hex)=7c0
+Number of instruction cycles executed before the error: 2247797
+
+******Unique errors so far= 25. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 35
+Encoded Content of the location[45] before flipping, is (in hex)0
+Content of the location[45] before flipping, is (in hex)0
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[45] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[45] was flipped to 2
+
+Flip function called: Random number generated: 2
+Encoded Content of the location[10] before flipping, is (in hex)0
+Content of the location[10] before flipping, is (in hex)0
+random_bit=4
+Parity bit is flipped, not data bit
+Encoded Content of the location[10] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[10] was flipped to 8
+
+Flip function called: Random number generated: 81
+Encoded Content of the location[34] before flipping, is (in hex)401
+Content of the location[34] before flipping, is (in hex)80
+random_bit=2
+Parity bit is flipped, not data bit
+Encoded Content of the location[34] after flipping, is (in hex)405
+In bit flip(), Bit flipped, Content of the reg[34] was flipped to 82
+
+Bit flipped, Content of the random reg[12] is (in hex) 0
+
+POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.
+PC value= 306, opcode= 92
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=306, instruction opcode being executed (in hex)=92
+Number of instruction cycles executed before the error: 2289950
+
+******Unique errors so far= 26. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 78
+Encoded Content of the location[8a] before flipping, is (in hex)1a07
+Content of the location[8a] before flipping, is (in hex)3
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the location[8a] after flipping, is (in hex)1207
+In bit flip(), Bit flipped, Content of the reg[8a] was flipped to 3
+***********************************************************************
+
+Crash number:3 detected
+Program crash was due to PC value at location 8a getting affected
+Actual PC value (in hex)=38e, instruction opcode that was getting executed (in hex)=3026
+Random number that got generated this time was: 78
+Time of crash number 3 is 1334221901 seconds since January 1, 1970
+At crash 3,time since the beginning of program execution is: 169 (in seconds)
+Number of instruction cycles executed before the crash: 2303980
+
+***STARTING ERROR CORRECTION ON PC REG LOCATIONS***
+SINGLE ERROR, can be corrected
+Bit in error is 2 and is a parity bit. ****DATA BIT NOT IN ERROR****
+
+ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:
+GP_Reg[0x02] = 8e, GP_Reg[0x82] = 8e, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+
+***********************************************************************
+
+Total number of instructions in the program = 395
+Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+
+Total number of times the program got excecuted = 6960
+Max instr cycles executed (will not be same as number of instructions since program can have loops): 2303981
+Status register contents:(hex) at the end of all operations: 5
+
+Number of instruction cycles executed before each crash:
+672473
+2122669
+2303980
+Seconds elapsed before each crash: 
+52
+157
+170
+
+Calculating the number of errors: 
+
+Number of errors at unique PC values (not counting repetition):24
+Total number of errors due to incorrect data being fetched (counting repetition):30
+
+Total number of instruction cycles executed:5099122
+Total number of crashes:3
+Total number of errors: 26
+Total number of single errors corrected: 7
+Total number of double errors detected: 1
+Summing up all errors which repeat every program run,Total number of errors: 32
+Total number of successful instruction cycle executions without errors/crashes:5099087
+
+Number of crashes due to Program counter getting manipulated: 3 
+Number of crashes due to illegal memory access: 0 
+Number of crashes due to illegal opcode: 0 
+Total number of errors due to incorrect control flow: 0
+Total number of errors due to incorrect data being fetched from memory: 30
+Total number of errors due to incorrect data in the instruction: 2
+Total number of errors due to opcode change: 0
+Percentage of successful executions:99.999314
+
+Probability of a bit flip is set to: 1
+Mean time to failure in terms of the number of instruction cycles: 1699707
+Mean time to failure in terms of seconds: 126
+
