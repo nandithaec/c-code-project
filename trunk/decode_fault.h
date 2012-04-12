@@ -1134,6 +1134,7 @@ return 0;
 
 int bit_flips(struct registers *r2,  int program_memory[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
 
+
 {
       	PRINT("bit flip call\n");
 
@@ -1339,23 +1340,23 @@ fprintf(fnew,"Bit flipped, Content of the reg[%x] is (in hex): %x\n", cp-> rando
                         break;
 
  						case 9:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 9);
                         break;
 
  						case 10:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 10);
                         break;
 
  						case 11:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 11);
                         break;
 
  						case 12:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 12);
                         break;
 
  						case 13:
-                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 8);
+                        program_memory[cp-> random_mem[cp->mem_count]]=    program_memory[cp-> random_mem[cp->mem_count]] ^(1 << 13);
                         break;
 
  						default: printf("Invalid bit flip case\n");
