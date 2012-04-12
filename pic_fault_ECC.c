@@ -141,9 +141,8 @@ int endloop=0, num_of_inst=0;
                 //PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
 		            
-				
 				 //Instruction fetch    
-                instruction_fetch(&pic_registers, program_memory,program_memory_encoded, &crash_param); //pic_registers.instruction is the instruction that is fetched
+                instruction_fetch(&pic_registers, program_memory,program_memory_encoded, &crash_param, fnew,start_seconds, &pre_decode,fPC, finstr ); //pic_registers.instruction is the instruction that is fetched
 
 				//Instruction decode
 				instruction_decode_matrix_mult(&pic_registers, &pre_decode, program_memory,program_memory_encoded, &crash_param, fnew, fPC, finstr, start_seconds);
@@ -161,9 +160,10 @@ int endloop=0, num_of_inst=0;
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
 				{
-					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,program_memory_encoded, fnew);
+					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,program_memory_encoded, fnew, fPC, finstr, start_seconds);
 				}	
 			
+
 			
                 PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
@@ -186,14 +186,14 @@ int endloop=0, num_of_inst=0;
                 
 
 				//Increment program counter
-				PC_increment(&pic_registers, fnew, &crash_param);
+				PC_increment(&pic_registers, fnew, &crash_param, program_memory,program_memory_encoded, start_seconds,&post_decode,fPC, finstr);
 
 
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
                 {
                     PRINT("Program execution number %d completed\n",repeat_program_execution);
-                    reset_PC_to_beginninng(&pic_registers, fnew, &crash_param);
+                    reset_PC_to_beginninng(&pic_registers, fnew, &crash_param,program_memory,program_memory_encoded, start_seconds,&post_decode,fPC, finstr);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
 					

@@ -82,14 +82,23 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) 
 		{
 		
-			printf("\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
-			fprintf(fnew,"\nCRASH: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
+			printf("\nCRASH AVOIDED: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH AVOIDED: Instruction has got changed to RETURN instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+		//***********************************correct the incorrect instruction**********************************************************
+//correct the value and opcode
+//PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//Decode again, since we dont know which instruction has got modified
+	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
+
+	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	//*********************************************************************************************************************
+
+		report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
 		
@@ -131,13 +140,24 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
-			printf("\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
-			fprintf(fnew,"\nCRASH: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
+			printf("\nCRASH AVOIDED: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH AVOIDED: Instruction has got changed to RETFIE instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 			cp->control_flow_change++;
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+		//***********************************correct the incorrect instruction**********************************************************
+//correct the value and opcode
+//PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//Decode again, since we dont know which instruction has got modified
+	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
+
+	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	//*********************************************************************************************************************
+
+		report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+
 		}
 	}
 //printf("\nERROR: RETFIE instruction. Control flow has changed..will lead to incorrect results\n");
@@ -675,7 +695,9 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(r1, fnew, cp); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp,program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+
+
 
 //comment out: r1-> PC = r1-> PC + 1; //PC already incremented in fetch step. Now increment again to Skip next instruction
 	PRINT("PC will be incremented to(testing)= %d\n", (r1->PC)+1);
@@ -689,7 +711,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			increment_PC(r1, fnew, cp); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp,program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -887,7 +909,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
-			increment_PC(r1, fnew, cp); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp, program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 		
 		}
@@ -899,7 +921,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
-			increment_PC(r1, fnew, cp); //PC already incremented in fetch step. Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp, program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC already incremented in fetch step. Now increment again to Skip next instruction
 
 		}
 
@@ -1063,7 +1085,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==0)	
-			increment_PC(r1, fnew, cp); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp,program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 
 		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
@@ -1119,7 +1141,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 
 		PRINT("Bit test = %d\n",bit_test);
 		if (bit_test ==1)	
-			increment_PC(r1, fnew, cp); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
+			increment_PC(r1, fnew, cp,program_memory, program_memory_encoded,start_seconds, i1, fPC, finstr); //PC will be incremented towards the end in main(). Now increment again to Skip next instruction
 		
 		PRINT("Program counter: PC= %d\n",(r1->PC)+1);
 		PRINT("Status register contents:(hex):");
@@ -1339,15 +1361,24 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
-			printf("\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
-			fprintf(fnew,"\nCRASH: Instruction has got changed to CALL instruction: Control flow has changed..\n");
+			printf("\nCRASH AVOIDED: Instruction has got changed to CALL instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH AVOIDED: Instruction has got changed to CALL instruction: Control flow has changed..\n");
 				  		
-			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 
 			cp->control_flow_change++;
+
+//***********************************correct the incorrect instruction**********************************************************
+//correct the value and opcode
+//PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//Decode again, since we dont know which instruction has got modified
+	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
+
+	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	//*********************************************************************************************************************
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
@@ -1398,13 +1429,23 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
-			printf("\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
-			fprintf(fnew,"\nCRASH: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
+			printf("\nCRASH AVOIDED: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
+			fprintf(fnew,"\nCRASH AVOIDED: Instruction has got changed to GOTO instruction: Control flow has changed..\n");
 			
-			printf("PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-			fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got modified was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
-		
 			cp->control_flow_change++;
+		
+//***********************************correct the incorrect instruction**********************************************************
+//correct the value and opcode
+//PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//Decode again, since we dont know which instruction has got modified
+	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
+
+	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
+	//*********************************************************************************************************************
+		
 			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
