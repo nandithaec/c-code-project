@@ -250,6 +250,7 @@ int decoded_data_decimal= 0;
 	else if(double_error== 1) 
 	{
 		double_error=0;
+		//report_crash_and_reset(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 		PRINT("DOUBLE ERROR\n");
 	}
 
@@ -531,8 +532,9 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 			}
 			else
 			{
-				printf("Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
-				fprintf(fnew,"Bit in error is %d and is a data bit. Needs error correction.\n", *bit_in_error);
+				//cp->single_error_corrected++;
+				printf("Bit in error is %d and is a data bit. NEEDS ERROR CORRECTION.\n", *bit_in_error);
+				fprintf(fnew,"Bit in error is %d and is a data bit. NEEDS ERROR CORRECTION.\n", *bit_in_error);
 			}		
 		} 
 		
@@ -558,6 +560,7 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 		{ //if one of the bits flipped is a parity bit			
 			if(parity_extra_received != double_error_check)	//One parity bit and one data are in error..
 			{			
+				//cp->double_error_detected++;
 				printf("DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
 				fprintf(fnew,"DOUBLE ERROR (one parity and one data), CANNOT CORRECT\n");
 				*double_error=1;
@@ -565,6 +568,7 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 		
 			else if(parity_extra_received == double_error_check)	//Two parity bits are in error..
 			{
+				//cp->double_error_detected++;
 				PRINT("DOUBLE ERROR: CANNOT CORRECT\n");
 				fprintf(fnew,"DOUBLE ERROR:  CANNOT CORRECT\n");
 				*double_error=1;
@@ -573,6 +577,7 @@ int detect_error(int binary_received[], int *bit_in_error, int *double_error, FI
 		}
 		else // if none of the parity bits have flipped,and since the parity_extra_received == parity_extra_calculated_from_Rx
 		{
+			//cp->double_error_detected++;
 			printf("DOUBLE DATA ERROR .. CANNOT CORRECT\n");
 			fprintf(fnew,"DOUBLE DATA ERROR .. CANNOT CORRECT\n");
 			*double_error=1;

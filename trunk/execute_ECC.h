@@ -1,9 +1,9 @@
 //Execute.h 
 
-int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[], struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
+int instruction_execute(struct registers *r1, struct instructions *i1, int program_memory[],int program_memory_encoded[], struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
 {
 	PRINT("-------------------------------------------------------------------\n");
-	PRINT("INSTRUCTION EXECUTION >>\n");
+//	printf("INSTRUCTION EXECUTION >>\n");
 	int i=0;
 	int twos_comp=0, temp_sub= 0, temp_add=0, temp_rotate=0, original_regfile=0;
 	int swap_lower_nibble=0, swap_upper_nibble=0, temp_num=0;
@@ -89,7 +89,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		//***********************************correct the incorrect instruction**********************************************************
 //correct the value and opcode
 //PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
-			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r1, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 
 //Decode again, since we dont know which instruction has got modified
 	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
@@ -98,7 +102,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 
-		report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+		report_crash( r1,  program_memory,program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
 		
@@ -147,7 +151,10 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		//***********************************correct the incorrect instruction**********************************************************
 //correct the value and opcode
 //PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
-			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r1, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
 
 //Decode again, since we dont know which instruction has got modified
 	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
@@ -156,7 +163,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 
-		report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+		report_crash( r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 
 		}
 	}
@@ -1371,7 +1378,10 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 //***********************************correct the incorrect instruction**********************************************************
 //correct the value and opcode
 //PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
-			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r1, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
 
 //Decode again, since we dont know which instruction has got modified
 	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
@@ -1379,7 +1389,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash( r1,  program_memory, program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1437,7 +1447,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 //***********************************correct the incorrect instruction**********************************************************
 //correct the value and opcode
 //PC value=cp-> random_mem[(cp->mem_count)-1] will be written with the correct instruction
-			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r1, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 
 //Decode again, since we dont know which instruction has got modified
 	instruction_decode_matrix_mult(r1, i1, program_memory,program_memory_encoded, cp, fnew, fPC, finstr, start_seconds);
@@ -1446,7 +1460,7 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 		
-			report_crash( r1,  program_memory, cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash( r1,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 		}

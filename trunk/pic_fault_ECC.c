@@ -8,7 +8,7 @@
 #include "decode_fault_ECC.h"
 #include "execute_ECC.h"
 #include "hamming_8bit_data.h"
-//#include "bit_flips.h"
+#include "hamming_14bit_data.h"
 
 
 
@@ -35,12 +35,12 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_1p0_ECC_errorGPreg.txt", "w" );
-if( fnew != NULL )
-   fprintf( fnew, "Hello\n" );
+		fnew = fopen( "output_pic_matrix_mult_1p0_ECC_apr13.txt", "w" );
+		if( fnew != NULL )
+		   fprintf( fnew, "Hello\n" );
 
 
-finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
+		finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
 	
         struct registers pic_registers;
@@ -84,12 +84,12 @@ For matrix multiplication use this section after reading instruction from file..
 
 				//PC needs to be calculated from PCL and PCLATH
 				PRINT("In main, decoding PCL\n");
-				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded, fnew, &crash_param); //decoded PCL
+				pic_registers.PCL= error_detect_correct_decode( pic_registers.PCL_encoded, fnew, &crash_param, &pic_registers, program_memory, program_memory_encoded,start_seconds,&pre_decode,fPC, finstr ); //decoded PCL
 				pic_registers.GP_Reg[2]=pic_registers.PCL;
 				pic_registers.GP_Reg[0x82]=pic_registers.PCL;
 
 				PRINT("In main, decoding PCLATH\n");
-				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded, fnew, &crash_param); //decoded PCLATH
+				pic_registers.PCLATH= error_detect_correct_decode( pic_registers.PCLATH_encoded, fnew, &crash_param, &pic_registers, program_memory, program_memory_encoded,start_seconds,&pre_decode,fPC, finstr ); //decoded PCLATH
                 pic_registers.GP_Reg[0x0A]=pic_registers.PCLATH;
 				pic_registers.GP_Reg[0x8A]=pic_registers.PCLATH;
 
@@ -128,15 +128,14 @@ int endloop=0, num_of_inst=0;
 
         loop= pic_registers.starting_PC_value;
 	
-
-		//endloop = (loop+ 2);
+		endloop = (loop+ 5);
 		pre_decode.decode_bits=0; //Initialising decode_bits. This is a MUST
 
 //Repeat the same program till a certain number of crashes occur
 	while (pic_registers.PC <  pic_registers.Last_valid_PC ) //Continue program execution till the last valid opcode is reached
 	//while(loop < endloop)    
    {
-              // 	loop++;
+               //	loop++;
                 PRINT("****************************************************************\n");
                 //PRINT("INSTRUCTION NUMBER %d\n", loop - (pic_registers.starting_PC_value) + 1);
                 PRINT("Entering execution loop with repeat = %d\n", repeat_program_execution);
@@ -163,9 +162,9 @@ int endloop=0, num_of_inst=0;
 					check_pgm_error(&crash_param, &pic_registers, &pre_decode, program_memory,program_memory_encoded, fnew, fPC, finstr, start_seconds);
 				}	
 			
-
 			
-                PRINT("Instruction format (hex) = %x \n",post_decode.instruction);
+              // printf("PC=%x, Instruction (hex) = %x \n",pic_registers.PC, post_decode.instruction);
+//fprintf(fnew,"Instruction format (hex) = %x \n",post_decode.instruction);
                 PRINT("Opcode (hex) = %x \n",post_decode.opcode);
                 PRINT("Register file address (hex) = %x, Register number= %d \n", post_decode.reg_file_addr, post_decode.reg_index);
                 PRINT("Destination bit = %d, bit=%d, Immediate value (hex)= %x \n", post_decode.d, post_decode.bit, post_decode.immediate_value);
@@ -196,15 +195,14 @@ int endloop=0, num_of_inst=0;
                     reset_PC_to_beginninng(&pic_registers, fnew, &crash_param,program_memory,program_memory_encoded, start_seconds,&post_decode,fPC, finstr);
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
-					
-         
+					         
                 }
 			
-
-		 		//Repeat till a max number of crashes occue
+	//printf("Program execution number %d completed\n",repeat_program_execution);
+		 	//Repeat till a max number of crashes occue
 				if (crash_param.crash == MAX_CRASHES)
 					break; 
-				
+			
 		
 	/*if (repeat_program_execution == 5)
 		{
@@ -218,13 +216,13 @@ int endloop=0, num_of_inst=0;
 
 
 
-	
+	//printf("out Program execution number %d completed\n",repeat_program_execution);
 
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
 ///COMMENTING OUT STARTING HERE
 
 
-
+/*
 
                 printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
 				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
@@ -381,7 +379,7 @@ mean_seconds= total_seconds/MAX_CRASHES;
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
-
+*/
 fclose(fnew);
 
 return 0;

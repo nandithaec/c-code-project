@@ -479,8 +479,8 @@ int detect_error(int binary_received[], int *bit_in_error, FILE *fnew, struct cr
 		{
 			printf("SINGLE ERROR, can be corrected\n");
 			fprintf(fnew,"SINGLE ERROR, can be corrected\n");
-	
 			cp->double_error=0;
+			
 			if (*bit_in_error == 1 || *bit_in_error == 2 || *bit_in_error == 4 || *bit_in_error == 8) 
 			{
 				printf("Bit in error is %d and is a parity bit. ****DATA BIT NOT IN ERROR****\n", *bit_in_error);

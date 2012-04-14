@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 3
+#define MAX_CRASHES 5
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
@@ -190,6 +190,7 @@ struct crash_parameters
 //hamming
 	int single_error_corrected;
 	int double_error_detected;
+	int double_error;
 
 };
 
@@ -232,8 +233,12 @@ int pop (struct registers *);
 int bit_flips(struct registers *, int [],int[], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *, FILE *);
 int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], int program_memory_encoded[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds);
+
 int check_illegal_instr(struct registers *,  int [], int[], struct crash_parameters *, time_t ,struct instructions *, FILE *, FILE *, FILE *);
+
+
 int report_crash(struct registers *,  int program_memory[], int [], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *, FILE *);
+
 int report_crash_and_reset(struct registers *r2,  int program_memory[],int  program_memory_encoded[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr);
 	
 int handle_byte_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
@@ -244,7 +249,7 @@ int handle_bit_instruction_error(struct registers *r2,int program_memory[], int 
 int handle_literal_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
 
 int report_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
-int reset_after_crash(struct registers *,  int program_memory[], int[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *, FILE *);
+int reset_after_crash(struct registers *,  int program_memory[], int[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *, FILE *, struct instructions *i1);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //----------------------------------------Function definitions---------------------------------------------------------//
@@ -439,6 +444,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 //hamming
 		cp-> single_error_corrected=0;
 		cp-> double_error_detected=0;
+		cp->double_error=0;
 return 0;
 }
 
@@ -594,7 +600,7 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[],int program_me
             r->instr_array_for_matrix_mult[count]= instr_for_matrix_mult; //Store the instruction at the array index=PC value
 		    program_memory_encoded[count]= hamming_encoding_14bit(instr_for_matrix_mult); //encode the instruction
 		
-			fprintf(fnew,"program_memory_encoded[PC=%x]: %x\n", count, program_memory_encoded[count]);
+			//fprintf(fnew,"program_memory_encoded[PC=%x]: %x\n", count, program_memory_encoded[count]);
 
 			j++; 
            
@@ -640,7 +646,6 @@ int reset_PC_to_beginninng(struct registers *r, FILE *fnew, struct crash_paramet
 {
 	int temp=0;
 
-//int error_detect_correct_decode(int decimal_received, FILE *fnew, struct crash_parameters *cp, struct registers *r2,  int program_memory[],int  program_memory_encoded[],  time_t start_seconds,struct instructions *i1,  FILE *fPC, FILE *finstr);
 
 //----------------------------------------------------------------------------------------------------------------------------
         //Reset program counter to beginning of the program
@@ -669,12 +674,14 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int instruction_fetch(struct registers *r, int program_memory[],int program_memory_encoded[], struct crash_parameters *cp,FILE *fnew, time_t start_seconds,struct instructions *i1,  FILE *fPC, FILE *finstr)
 {
-   
-	program_memory[r-> PC]= error_detect_correct_decode_14bit(program_memory_encoded[r-> PC], fnew, cp, r,program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr);
+
+	PRINT("-------------------------------------------------------------------\n");
+  //  printf("INSTRUCTION FETCH >>\n");
+
+		program_memory[r-> PC]= error_detect_correct_decode_14bit(program_memory_encoded[r-> PC], fnew, cp, r,program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr);
     r-> instruction = program_memory[r-> PC];
     
-    PRINT("-------------------------------------------------------------------\n");
-    PRINT("INSTRUCTION FETCH >>\n");
+  //   printf("CLOSING INSTRUCTION FETCH >>\n");
 
     PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->PCL,r->PCLATH, r->PC);
 	PRINT("Instruction fetched is:\n");
@@ -915,7 +922,7 @@ int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1
 
 		i1->decode_bits= (r1->instruction & 0x3000)>> 12;  // bits 13 and 14
         PRINT("Decode bits= %d \n", i1->decode_bits);
-
+	//	printf("Instruction decode\n");
              
         i1->instruction= r1->instruction; //Instruction fetched . This is the most important assignment in the entire program
         i1->opcode= opcode; 
@@ -941,7 +948,7 @@ int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1
                         break;
 
                 case 3:
-                        literal_control_instr(r1, i1,cp,fnew, fPC, finstr, start_seconds,program_memory,program_memory_encoded,);    
+                        literal_control_instr(r1, i1,cp,fnew, fPC, finstr, start_seconds,program_memory,program_memory_encoded);    
                         break;
 
                 default:
@@ -1463,10 +1470,17 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 		printf("\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
 		fprintf(fnew,"\n***STARTING ERROR CORRECTION ON PC REG LOCATIONS***\n");
 
-		r2->GP_Reg[0x02]= error_detect_correct_decode( r2->GP_Reg_encoded[0x02], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr);
-		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr );
-		r2->GP_Reg[0x0A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x0A], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr );
-		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr );
+		r2->GP_Reg[0x02]= error_detect_correct_decode( r2->GP_Reg_encoded[0x02], fnew, cp, r2, program_memory, program_memory_encoded, start_seconds, i1, fPC, finstr);
+		r2->GP_Reg[0x82]= error_detect_correct_decode( r2->GP_Reg_encoded[0x82], fnew, cp, r2, program_memory, program_memory_encoded, start_seconds, i1, fPC, finstr );
+		r2->GP_Reg[0x0A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x0A], fnew, cp, r2, program_memory, program_memory_encoded, start_seconds, i1, fPC, finstr );
+		r2->GP_Reg[0x8A]= error_detect_correct_decode( r2->GP_Reg_encoded[0x8A], fnew, cp, r2, program_memory, program_memory_encoded, start_seconds, i1, fPC, finstr );
+
+
+//encode and write it back
+		r2->GP_Reg_encoded[0x02]= hamming_encoding(r2->GP_Reg[0x02]);
+		r2->GP_Reg_encoded[0x82]= hamming_encoding(r2->GP_Reg[0x82]);
+		r2->GP_Reg_encoded[0x0A]= hamming_encoding(r2->GP_Reg[0x0A]);
+		r2->GP_Reg_encoded[0x8A]= hamming_encoding(r2->GP_Reg[0x8A]);
 
 
 		r2-> PCL = r2->GP_Reg[2];
@@ -1501,13 +1515,15 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 
                 cp->random_bit_mem = rand() % 19 ; // Random number between 0 and 18. .19 bits in total
 		
-  
-//printf("Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-//fprintf(fnew,"Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+  printf("\nrandom_bit_mem=%d\n", cp->random_bit_mem);
+	fprintf(fnew,"\nrandom_bit_mem=%d\n", cp->random_bit_mem);
 
- printf("****Content of the mem[%x] before flipping, is (in hex)**** %x\n",random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
+printf("Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+fprintf(fnew,"Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
-fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
+printf("****Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp->random_mem[cp->mem_count]]));
+
+fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
 
         //Bit 0 is the LSB (rightmost) and Bit 18 is MSB (leftmost)
             switch(cp->random_bit_mem)
@@ -1630,7 +1646,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
     //Data at the reg_index (which was decoded in decode step) has changed.. and hence leads to an error in computed data
 	if (cp->flip_bit_flag==1 ) //This flag is set only when the bit is flipped.
 	//&& cp->opcode_count++ < r2->max_instr) 
-//And repeat this comparison for every opcode in the program, sine the flipped reg can be equal to the reg file in any of the instructions..
+//And repeat this comparison for every opcode in the program, since the flipped reg can be equal to the reg file in any of the instructions..
 //Hopefully another bit doesnt flip during this comparison
 	{ 
 		cp->flip_bit_flag=0; //Reset flag moved here.. no need to compare with all instructions, since correcting error the very first time..
@@ -1672,7 +1688,9 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 
 			//Error correction
 			r2->GP_Reg[i1->reg_index]= error_detect_correct_decode(r2->GP_Reg_encoded[i1->reg_index], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); //correct error and decode
-			r2->GP_Reg_encoded[i1->reg_index] = hamming_encoding(r2->GP_Reg[i1->reg_index]); //encode and write it back
+
+			//encode and write it back
+			r2->GP_Reg_encoded[i1->reg_index] = hamming_encoding(r2->GP_Reg[i1->reg_index]); 
 
 			printf("After error correction, content of the reg location %x was: %x\n", i1->reg_index, r2->GP_Reg[i1->reg_index]);
 			fprintf(fnew,"After error correction, content of the reg location %x was: %x\n",i1->reg_index, r2->GP_Reg[i1->reg_index]);
@@ -1858,9 +1876,11 @@ Hence, the condition should check for the mem_count -1 */
 	 //***********************************correct the incorrect instruction**********************************************************
 			//correct the value and opcode
 			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
-                                        
-					i1-> immediate_value = (i1-> instruction) & 0x07FF;
-					i1-> opcode = ((i1-> instruction) & 0x3800) >> 11;
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
+	i1-> immediate_value = (i1-> instruction) & 0x07FF;
+	i1-> opcode = ((i1-> instruction) & 0x3800) >> 11;
 printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
 			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
 
@@ -1913,6 +1933,7 @@ int handle_byte_instruction_error(struct registers *r2,
 {
 
 
+
 if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bits 0 to 7 are flipped, it means that the reg index has changed
 	{
 		cp->crash_reg_index = (cp->erroneous_instruction) & 0x007F; //Extract reg_index
@@ -1931,10 +1952,12 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		 //***********************************correct the incorrect instruction**********************************************************
 			//correct the incorrect reg index
 			program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
 
 			i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 			i1-> reg_file_addr = (i1->instruction) & 0x007F;
-			i1-> index=i1-> reg_file_addr;
+			i1-> reg_index=i1-> reg_file_addr;
 
 			printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
 			fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
@@ -1960,9 +1983,12 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		//correct the incorrect reg index
 		program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
 
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 		i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 		i1-> reg_file_addr = (i1->instruction) & 0x007F;
-		i1-> index=i1-> reg_file_addr;
+		i1-> reg_index=i1-> reg_file_addr;
 
 	printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
 		fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
@@ -1988,6 +2014,9 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		//correct the incorrect opcode
 		program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); //correct the incorrect instruction
 
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 		i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 		i1->opcode = (i1->instruction & 0xFF00) >> 8;
 
@@ -2010,6 +2039,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 		//***********************************correct the incorrect instruction**********************************************************
 		//correct the destination bit
 		program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 		i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 		i1->d= (i1->instruction & 0x80) >> 7;
 
@@ -2052,6 +2085,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 //***********************************correct the incorrect instruction**********************************************************
 		//correct the reg index
 		program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 		i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 
 		i1-> reg_file_addr = (i1->instruction) & 0x007F;
@@ -2077,6 +2114,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
 //***********************************correct the incorrect instruction**********************************************************
 		//correct the bit
 				program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 				i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 
 				i1-> bit= ((i1->instruction) & 0x0380) >> 7;
@@ -2100,6 +2141,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 6) ) //If one of the bit
                 //***********************************correct the incorrect instruction**********************************************************
 		//correct the opcode
 				program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 				i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program	
 				i1-> opcode = ((i1-> instruction) & 0x1C00) >> 10;
 	printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
@@ -2136,6 +2181,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bit
 			//***********************************correct the incorrect instruction**********************************************************
 		//correct the Immediate value
 				program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 				i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
  				i1-> immediate_value = (i1-> instruction) & 0x00FF;
        
@@ -2157,6 +2206,10 @@ if ( (0 < cp->random_bit_mem) && (cp->random_bit_mem <= 7) ) //If one of the bit
 			//***********************************correct the incorrect instruction**********************************************************
 		//correct the Immediate value
 				program_memory[cp-> random_mem[(cp->mem_count)-1]] = error_detect_correct_decode_14bit(program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]], fnew, cp, r2, program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr); 
+
+//encode and write it back                                        
+program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14bit(program_memory[cp-> random_mem[(cp->mem_count)-1]]);
+
 				i1->instruction= program_memory[cp-> random_mem[(cp->mem_count)-1]]; //Instruction fetched . This is the most important assignment in the entire program
 				 i1-> opcode = ((i1->instruction) & 0x3F00) >> 8;
 printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]] );
@@ -2248,7 +2301,7 @@ int report_crash_and_reset(struct registers *r2,  int program_memory[],int  prog
 		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
 		//**********************Reset conditions after mem crash*******************************
-		reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr);
+		reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr, i1);
 
 
 return 0;
@@ -2298,7 +2351,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int reset_after_crash(struct registers *r2,  int program_memory[], int program_memory_encoded[],struct crash_parameters *cp, time_t start_seconds, FILE *fnew, FILE *fPC, FILE *finstr)
+int reset_after_crash(struct registers *r2,  int program_memory[], int program_memory_encoded[],struct crash_parameters *cp, time_t start_seconds, FILE *fnew, FILE *fPC, FILE *finstr, struct instructions *i1)
 
 {
 
