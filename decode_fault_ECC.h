@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 5
+#define MAX_CRASHES 10
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
@@ -157,6 +157,7 @@ struct crash_parameters
 	unsigned long long int crash_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
 	unsigned long long int errors_repeated[NUM_OF_BITFLIPS];
 	long int crash_time_array[MAX_CRASHES];
+	long int actual_crash_time_array[MAX_CRASHES];
 	unsigned long long int program_runs;
 	int crash_dueto_illegal_mem;
 	int crash_dueto_PC;
@@ -191,6 +192,9 @@ struct crash_parameters
 	int single_error_corrected;
 	int double_error_detected;
 	int double_error;
+	int crash_avoided;
+	unsigned long long int crash_avoided_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
+	long int crash_avoided_time_array[MAX_CRASHES];
 
 };
 
@@ -237,7 +241,7 @@ int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct in
 int check_illegal_instr(struct registers *,  int [], int[], struct crash_parameters *, time_t ,struct instructions *, FILE *, FILE *, FILE *);
 
 
-int report_crash(struct registers *,  int program_memory[], int [], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *, FILE *);
+int report_crash_avoided(struct registers *,  int program_memory[], int [], struct crash_parameters *, time_t start_seconds,struct instructions *, FILE *, FILE *, FILE *);
 
 int report_crash_and_reset(struct registers *r2,  int program_memory[],int  program_memory_encoded[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr);
 	
@@ -425,6 +429,9 @@ int initialise_crash_param(struct crash_parameters *cp)
 			for(i=0;i<MAX_CRASHES;++i)
                 cp->crash_time_array[i]=0;
 			
+			for(i=0;i<MAX_CRASHES;++i)
+                cp->actual_crash_time_array[i]=0;
+
 			for(i=0;i<INSTR_CYCLES_NUMBER;++i)
                 cp->first_error_at_instr[i]=0;
 
@@ -445,6 +452,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp-> single_error_corrected=0;
 		cp-> double_error_detected=0;
 		cp->double_error=0;
+		cp->crash_avoided=0;
 return 0;
 }
 
@@ -678,9 +686,16 @@ int instruction_fetch(struct registers *r, int program_memory[],int program_memo
 	PRINT("-------------------------------------------------------------------\n");
   //  printf("INSTRUCTION FETCH >>\n");
 
-		program_memory[r-> PC]= error_detect_correct_decode_14bit(program_memory_encoded[r-> PC], fnew, cp, r,program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr);
+		program_memory[r-> PC]= error_detect_correct_decode_14bit_inside_fetch(program_memory_encoded[r-> PC], fnew, cp, r,program_memory,program_memory_encoded,start_seconds, i1, fPC, finstr);
     r-> instruction = program_memory[r-> PC];
     
+
+//encode and write it back                                        
+program_memory_encoded[r-> PC]= hamming_encoding_14bit(program_memory[r-> PC]);
+
+//encode and write back- checking
+
+
   //   printf("CLOSING INSTRUCTION FETCH >>\n");
 
     PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->PCL,r->PCLATH, r->PC);
@@ -694,58 +709,6 @@ int instruction_fetch(struct registers *r, int program_memory[],int program_memo
         
 }                       
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-int instruction_fetch_matrix_mult(struct registers *r, int program_memory[],struct crash_parameters *cp,FILE *fnew)
-{ //This function is not used
-    int i=0, array_PC_index=0, PC_not_found=1;
-
-    
-    PRINT("-------------------------------------------------------------------\n");
-    PRINT("INSTRUCTION FETCH >>\n");
-
-
-    for(i= 0; i< r->max_PC_count_matrix_mult; i++)
-    {
-	   	if(r->PC_array_for_matrix_mult[i] == r->PC) //Match the entered PC value to one of the values in the array and return the array index
-        	{
-			PRINT("PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
-			//fprintf(fnew,"PC_value[%x]= %x\n",i, r->PC_array_for_matrix_mult[i]);
-			array_PC_index = i;
-			PC_not_found=0;
-			break;
-			}
-
-	}
-
-	if(PC_not_found==1)
-		{
-		PC_not_found==0;
-		 r-> instruction = 0;
-	//	array_PC_index= ++i; //The incremented value of i after the end of PC array	
-		PRINT("PC Not found, instruction= %x\n", r-> instruction);
-		//fprintf(fnew,"PC Not found, instruction= %x\n", r-> instruction);
-		}
-
-	else
-	{ //If instruction is found, print it out
-
-    r-> instruction = program_memory[array_PC_index]; //Return instruction in this
-
-    PRINT("Current PC: PCL=%x, PCLATH=%x, PC = %x \n",r->GP_Reg[2],r->PCLATH, r->PC);
-	PRINT("Instruction fetched is:\n");
-	//fprintf(fnew,"Instruction fetched is:\n");
-
-	PRINT("program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
-	//fprintf(fnew,"program_memory[%x]=%x\n",array_PC_index, program_memory[array_PC_index]);
-
-    PRINT("-------------------------------------------------------------------\n");
-	}
-    return 0;
-        
-}                       
-
-*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -957,7 +920,9 @@ int instruction_decode_matrix_mult(struct registers *r1, struct instructions *i1
                         break;
         }
 
-		PRINT("decode done\n");
+
+
+PRINT("decode done\n");
        
 
 return 0;
@@ -1426,19 +1391,20 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 
 //Condition for program crash if Program counter value changes:
 		if (cp-> random_reg[cp->reg_count] == 0x02 || cp-> random_reg[cp->reg_count] == 0x82 || cp-> random_reg[cp->reg_count] == 0x0A || cp-> random_reg[cp->reg_count] == 0x8A)
+
        		 {
 			 			
-			cp->crash= (cp->crash)+1;
+			cp->crash_avoided = cp->crash_avoided + 1; 
 			(cp-> crash_dueto_PC) ++;
 			
 			printf("***********************************************************************\n");
 		    fprintf(fnew,"***********************************************************************\n");   
    
-			printf("\nCrash number:%d detected\n",(cp->crash));
-			fprintf(fnew,"\nCrash number:%d detected\n",(cp->crash));
+			printf("\nCrash Avoided number:%d \n",(cp->crash_avoided));
+			fprintf(fnew,"\nCrash Avoided number:%d \n",(cp->crash_avoided));
 
-			printf("Program crash was due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
-			fprintf(fnew,"Program crash was due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
+			printf("Program crash would have been due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
+			fprintf(fnew,"Program crash would have been due to PC value at location %x getting affected\n", cp-> random_reg[cp->reg_count]);
 
 			printf("Actual PC value (in hex)=%x, instruction opcode that was getting executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
 			fprintf(fnew,"Actual PC value (in hex)=%x, instruction opcode that was getting executed (in hex)=%x\n", (r2-> PC), program_memory[ (r2-> PC)]);
@@ -1452,15 +1418,15 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 
 			crash_time= time(NULL);
 			//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
-			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
-			fprintf(fnew,"Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
+			printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash_avoided, crash_time);
+			fprintf(fnew,"Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash_avoided, crash_time);
 			
-			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
-			fprintf(fnew,"At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash, (crash_time-start_seconds));
-			cp->crash_time_array[cp->crash] = (crash_time-start_seconds- (cp->crash_time_array[cp->crash] -1));
-    
+			printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash_avoided, (crash_time-start_seconds));
+			fprintf(fnew,"At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash_avoided, (crash_time-start_seconds));
+			cp->crash_avoided_time_array[cp->crash_avoided] = (crash_time-start_seconds);
+
 			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
+			cp->crash_avoided_at_instr[cp->crash_avoided] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
             fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 	
@@ -1521,9 +1487,9 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 printf("Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 fprintf(fnew,"Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
-printf("****Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp->random_mem[cp->mem_count]]));
+printf("Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp->random_mem[cp->mem_count]]));
 
-fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
+fprintf(fnew,"Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));
 
         //Bit 0 is the LSB (rightmost) and Bit 18 is MSB (leftmost)
             switch(cp->random_bit_mem)
@@ -1610,19 +1576,14 @@ fprintf(fnew,"****Content of the mem[%x] before flipping, is (in hex)**** %x\n",
             }
     
        
-printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+printf("Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
 
-fprintf(fnew,"****Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+fprintf(fnew,"Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
 
 	printf("In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
 	
 	fprintf(fnew,"In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
 
-
-        printf("Bit flipped, Content of the program_memory_encoded[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
-
-//fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-//     fprintf(fnew,"Bit flipped, Content of the program_memory[%x] is (in hex): %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 	cp->reg_count = cp->reg_count + 1;
 	cp->mem_count = cp->mem_count + 1;
@@ -1635,7 +1596,6 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Check for program error (error in data)
-
 
 
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], int program_memory_encoded[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
@@ -1699,7 +1659,7 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 			//exit(0);
 			//*************************************************************************************
 
-			for(j=0;j < cp->same_PC; j++) //hence check for additional constraints
+			for(j=0;j < cp->same_PC; j++) //print only first time the error occurs.. hence check for additional constraints
 			{
 				//printf("cp-> store_PC_same[%d]=%x\n", j, cp-> store_PC_same[j]);
 				//if(r2->GP_Reg_encoded[cp-> random_reg[i]] != cp->store_same_reg_modification[j]) // The reg content shouldnt be the same
@@ -1737,19 +1697,12 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				//*****report error because of incorrect data in the location that is being accessed********************
 				//cp->incorrect_data++;
 				cp->incorrect_data_flag=1;
-				
-				//printf("Reg file address %x\n",i1-> reg_index);
-				//fprintf(fnew,"Reg file address %x\n",i1-> reg_index);
-
+								
 				cp-> store_PC_same[cp->same_PC]= (r2-> PC); //PC 
-				//same_PC will have same value as that of same_reg
+				
 		  	
-				//printf("cp->store_PC_same[%d]=%x\n",cp->same_PC, cp-> store_PC_same[cp->same_PC]);
-				//fprintf(fnew,"cp->store_PC_same[%d]=%x\n",cp->same_PC, cp-> store_PC_same[cp->same_PC]);
-				//printf("same_PC count before incrementing=%d\n", cp->same_PC);
 				cp->same_PC= (cp->same_PC) +1; //gets incremented only if unique PC value is stored
-				//printf("Same PC incremented to %d\n",cp->same_PC);
-
+			
 				printf("\nUnique error corrected: Incorrect data was being fetched from memory\n");
 				fprintf(fnew,"\nUnique error corrected: Incorrect data was being fetched from memory\n");
 
@@ -1886,7 +1839,7 @@ printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", 
 
 			//*********************************************************************************************************************
 
-				report_crash( r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+				report_crash_avoided( r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 
 		        break;
 
@@ -1964,7 +1917,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 			//*********************************************************************************************************************
 			// printf("Content of the program_memory[%x] is (in hex): %x\n", cp->crash_reg_index, program_memory[cp->crash_reg_index]);
-			report_crash( r2,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash_avoided( r2,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 		}
 
@@ -2097,7 +2050,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	fprintf(fnew,"PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", cp-> random_mem[(cp->mem_count)-1], program_memory[cp-> random_mem[(cp->mem_count)-1]]);
 
 //*********************************************************************************************************************
-				report_crash(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+				report_crash_avoided(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 
 				}
 
@@ -2225,23 +2178,23 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int report_crash(struct registers *r2,  int program_memory[],int  program_memory_encoded[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
+int report_crash_avoided(struct registers *r2,  int program_memory[],int  program_memory_encoded[], struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
 {
 	
 		int ii=0;
 
 		time_t crash_time;
 		
-    	cp->crash= (cp->crash)+1;
+    	cp->crash_avoided= (cp->crash_avoided)+1;
 		
-		printf("\nCrash number:%d\n",(cp->crash));
-		fprintf(fnew,"\nCrash number:%d\n",(cp->crash));
+		printf("\nCrash Avoided number:%d\n",(cp->crash_avoided));
+		fprintf(fnew,"\nCrash Avoided number:%d\n",(cp->crash_avoided));
 		
     
     	 crash_time= time(NULL);  
 
 		//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
-		cp->crash_at_instr[cp->crash] = cp->instr_cycles;  //Save the cycles in an array to finally print it out
+		cp->crash_avoided_at_instr[cp->crash_avoided] = cp->instr_cycles;  //Save the cycles in an array to finally print it out
 
 		printf("Random number that got generated this time was: %d\n", cp->random_number );
 		fprintf(fnew,"Random number that got generated this time was: %d\n", cp->random_number );
@@ -2250,12 +2203,12 @@ int report_crash(struct registers *r2,  int program_memory[],int  program_memory
 		fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
 	
 		//printf("Number of successful program runs before the crash: %llu\n",cp->program_runs);
-		printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
-	    fprintf(fnew,"Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash, crash_time);
+		printf("Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash_avoided, crash_time);
+	    fprintf(fnew,"Time of crash number %d is %ld seconds since January 1, 1970\n",cp->crash_avoided, crash_time);
 
-		printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
-		fprintf(fnew,"At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
-		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
+		printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash_avoided,(crash_time-start_seconds));
+		fprintf(fnew,"At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash_avoided,(crash_time-start_seconds));
+	cp->crash_avoided_time_array[cp->crash_avoided] = (crash_time-start_seconds);
 
 		//**********************Reset conditions after mem crash*******************************
 		//reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr);
@@ -2298,9 +2251,14 @@ int report_crash_and_reset(struct registers *r2,  int program_memory[],int  prog
 
 		printf("At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
 		fprintf(fnew,"At crash %d,time since the beginning of program execution is: %ld (in seconds)\n", cp->crash,(crash_time-start_seconds));
-		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
+		//cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
 
-		//**********************Reset conditions after mem crash*******************************
+		cp->crash_time_array[cp->crash] = (crash_time-start_seconds);
+		
+		printf("\ncp->crash_time_array[%d]:%ld\n",cp->crash,cp->crash_time_array[cp->crash]);
+		fprintf(fnew,"\ncp->crash_time_array[%d]:%ld\n",cp->crash,cp->crash_time_array[cp->crash]);
+
+//**********************Reset conditions after mem crash*******************************
 		reset_after_crash(r2,  program_memory, program_memory_encoded,  cp, start_seconds, fnew, fPC, finstr, i1);
 
 

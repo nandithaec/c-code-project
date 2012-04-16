@@ -79,6 +79,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 //That means, the instruction at the current PC value has been modified into a RETURN instruction through a bit flip
 if (cp->flip_bit_flag_for_illegal_inst==1)
 	{
+		cp->flip_bit_flag_for_illegal_inst=0;
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) 
 		{
 		
@@ -102,7 +103,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 
-		report_crash( r1,  program_memory,program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
+		report_crash_avoided( r1,  program_memory,program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
 		
@@ -140,7 +141,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 if (cp->flip_bit_flag_for_illegal_inst==1)
 	{
 	//Check for this condition only when the next bit flips
-		cp->flip_bit_flag_for_illegal_inst==0;
+		cp->flip_bit_flag_for_illegal_inst=0;
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
@@ -163,7 +164,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 
-		report_crash( r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+		report_crash_avoided( r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 
 		}
 	}
@@ -1365,6 +1366,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	//W is the accumulator and immediate_value is the immediate value to be added
 if (cp->flip_bit_flag_for_illegal_inst==1)
 	{
+	cp->flip_bit_flag_for_illegal_inst=0;
 		if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
@@ -1389,7 +1391,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	printf("PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
-			report_crash( r1,  program_memory, program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash_avoided( r1,  program_memory, program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
 		}
 	}
 		//printf("Bit flipped, Content of the program_memory[%x] is (in hex) %x\n\n", cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
@@ -1436,6 +1438,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	//W is the accumulator and immediate_value is the immediate value to be added
 if (cp->flip_bit_flag_for_illegal_inst==1)
 	{
+	cp->flip_bit_flag_for_illegal_inst=0;
 	if (cp-> random_mem[(cp->mem_count) -1] == (r1-> PC)) //Control flow changes
 		{
 		
@@ -1460,7 +1463,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	fprintf(fnew,"PC value (in hex)=%x, instruction opcode that got corrected was (in hex)=%x\n", (r1-> PC), program_memory[ (r1-> PC)]);
 	//*********************************************************************************************************************
 		
-			report_crash( r1,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+			report_crash_avoided( r1,  program_memory, program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
 			
 			PRINT("Instruction cycle=%llu\n",cp->instr_cycles);
 		}
