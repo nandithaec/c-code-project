@@ -36,7 +36,7 @@ int main()
 		
 
 
-		fnew = fopen( "output_pic_matrix_mult_1p0_ECC_apr16.txt", "w" );
+		fnew = fopen( "output_pic_matrix_mult_0p01_ECC_apr16.txt", "w" );
 		if( fnew != NULL )
 		   fprintf( fnew, "Hello\n" );
 
@@ -186,9 +186,16 @@ int endloop=0, num_of_inst=0;
                 PRINT("****************************************************************\n");    
                 
 
+				if(crash_param.just_reset_PC_after_crash == 0) //no crash has happened, so can increment PC
+				{
 				//Increment program counter
 				PC_increment(&pic_registers, fnew, &crash_param, program_memory,program_memory_encoded, start_seconds,&post_decode,fPC, finstr);
-
+				}
+				else if (crash_param.just_reset_PC_after_crash == 1)
+				{
+	//reset and dont increment PC for this cycle, since it has not gone through fetch and decode.. Execute() would have executed NOP
+					crash_param.just_reset_PC_after_crash=0; 
+				}
 
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
@@ -283,6 +290,8 @@ for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index
 
 
 
+printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
+fprintf(fnew,"Total Time(seconds) taken for all crash: %llu\n", total_seconds);
 
 //printf("\nCalculating the number of errors: \n");
 //fprintf(fnew,"\nCalculating the number of errors: \n");   

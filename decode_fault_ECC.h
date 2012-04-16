@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 100
+#define PROBABILITY_INVERSE 10000
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -152,7 +152,7 @@ struct crash_parameters
 	int random_reg[NUM_OF_BITFLIPS];
 	int random_mem[NUM_OF_BITFLIPS];
 	unsigned long long int instr_cycles,instr_cycles_for_error;
-
+	int random_choose;
 	int crash;
 	unsigned long long int crash_at_instr[MAX_CRASHES]; // Store the number of clock cycles at which each time a crash occurs
 	unsigned long long int errors_repeated[NUM_OF_BITFLIPS];
@@ -187,6 +187,7 @@ struct crash_parameters
 	int incorrect_data_flag;
 	int errors_so_far;
 	int other_errors;
+	int just_reset_PC_after_crash;
 
 //hamming
 	int single_error_corrected;
@@ -252,6 +253,7 @@ int handle_bit_instruction_error(struct registers *r2,int program_memory[], int 
 
 int handle_literal_instruction_error(struct registers *r2,int program_memory[], int [], struct crash_parameters *cp,time_t start_seconds,struct instructions *i1,FILE *,FILE *, FILE *);
 
+int reset_instruction_after_crash(struct instructions *i1);
 int report_error(struct crash_parameters *, struct registers *, struct instructions *, int program_memory[], FILE *);
 int reset_after_crash(struct registers *,  int program_memory[], int[], struct crash_parameters *, time_t start_seconds, FILE *, FILE *, FILE *, struct instructions *i1);
 
@@ -418,6 +420,8 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->incorrect_data_flag=0;
 		cp->other_errors=0;
 		cp->errors_so_far=0;
+		cp->random_choose=0;
+		cp->just_reset_PC_after_crash=0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -457,6 +461,23 @@ return 0;
 }
 
 
+
+int reset_instruction_after_crash(struct instructions *i1)
+{
+
+	i1->instruction=0;
+    i1->opcode=0;
+    i1->reg_file_addr=0;
+    i1->d=0;
+    i1->reg_index=0;
+    i1->bit=0;
+    i1->immediate_value=0;
+   	i1->decode_bits;  
+	i1->instr_mnemonic_enum = NOP;
+
+return 0;
+
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*int read_instr_from_file(FILE *fp, int program_memory[], struct registers *r, FILE *fnew)
 { //this is for add program only, not for matrix multiplication
@@ -581,7 +602,7 @@ int	read_instr_for_matrix_mult(FILE *finstr, int program_memory[],int program_me
     char line[FILE_CHARS]; 
  	int instr_for_matrix_mult=0;
 	fprintf(fnew,"Loaded matrix multiplication program into memory\n\n");
-	//reset_PC_to_beginninng(r, fnew); //Initial PC values are set in this function
+
 		
 	finstr = fopen( "matrix_assembly_instruction_only.c", "rt" );
 
@@ -672,8 +693,8 @@ int reset_PC_to_beginninng(struct registers *r, FILE *fnew, struct crash_paramet
         r->PC = (r->PCL | (r->PCLATH << 8)) & 0x1FFF; //Limit to 13 bits. PC= 13 bits
         //----------------------------------------------------------------------------------------------------------------------------
 
-		PRINT("reset_PC_to_beginninng(): PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
-//		fprintf(fnew,"reset_PC_to_beginninng: PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+		PRINT("reset_PC to_beginninng(): PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
+//		fprintf(fnew,"reset_PC to_beginninng: PC is reset to its initial values (in hex): PCL=%x, PCLATH=%x, PC=%x\n",r->PCL, r->PCLATH, r->PC);
 
 return 0;
 }
@@ -1076,7 +1097,7 @@ int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, stru
 						 
 						 cp->crash_dueto_illegal_opcode++;
 						 report_crash_and_reset(r1,  program_memory, program_memory_encoded,cp, start_seconds,i1, fnew, fPC, finstr);
-
+						 reset_instruction_after_crash(i1);
                 break;
 
         }
@@ -1128,6 +1149,7 @@ int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash
 						 cp->crash_dueto_illegal_opcode++;
 						 
 						 report_crash_and_reset(r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+						 reset_instruction_after_crash(i1);
                 break;
 
         }
@@ -1196,6 +1218,7 @@ PRINT("INSTRUCTION DECODE >> Literal and control instructions\n");
 						 
 						 cp->crash_dueto_illegal_opcode++;
 						 report_crash_and_reset(r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+						 reset_instruction_after_crash(i1);
                 break;
 
         }
@@ -1230,6 +1253,7 @@ PRINT("INSTRUCTION DECODE >> CALL/GOTO instructions\n");
   					    
 						cp->crash_dueto_illegal_opcode++;
 						report_crash_and_reset( r1,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+						reset_instruction_after_crash(i1);
                 break;
 
         }
@@ -1287,8 +1311,17 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 */			cp->opcode_count = 0; //Can be used for counting double errors if it happens at the same PC location
 
 
+	PRINT("Flip flag set to %d\n",cp->flip_bit_flag);
+	PRINT("\nBit flip function called\n");
 //Set this flag to use in the function:check_illegal_instr and clear it in that function
 		cp->flip_bit_flag_for_illegal_inst=1; 
+
+
+		cp->random_choose = rand() % 2; //choose between 0 and 1
+		printf("random choose=%d\n",cp->random_choose);
+
+	if(cp->random_choose == 0)
+	{
 
 		cp->random_reg[cp->reg_count] = rand() % 256 ; // Random number between 0 and 255
 		
@@ -1296,20 +1329,18 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 	    random_bit = rand() % 13 ; // Random number between 0 and 12.. 13 bits
 	
-		PRINT("Flip flag set to %d\n",cp->flip_bit_flag);
-
-	    PRINT("\nBit flip function called\n");
+	
 	    // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp-> random_reg[cp->reg_count],random_bit);
 	    PRINT("Content of the encoded random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]);
 
 	
-printf("****Encoded Content of the location[%x] before flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+printf("Encoded Content of the reg[%x] before flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
-	fprintf(fnew,"Encoded Content of the location[%x] before flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+	fprintf(fnew,"Encoded Content of the reg[%x] before flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
-	 printf("****Content of the location[%x] before flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+	 printf("Content of the reg[%x] before flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
-	fprintf(fnew,"Content of the location[%x] before flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+	fprintf(fnew,"Content of the reg[%x] before flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
 	printf("random_bit=%d\n", random_bit);
 	fprintf(fnew,"random_bit=%d\n", random_bit);
@@ -1381,9 +1412,9 @@ printf("****Encoded Content of the location[%x] before flipping, is (in hex)****
         }
         
         
-printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+printf("Encoded Content of the reg[%x] after flipping, is (in hex)**** %x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 
-	fprintf(fnew,"Encoded Content of the location[%x] after flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
+	fprintf(fnew,"Encoded Content of the reg[%x] after flipping, is (in hex)%x\n",cp-> random_reg[cp->reg_count], (r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));
 	
 	printf("In bit flip(), Bit flipped, Content of the reg[%x] was flipped to %x\n", cp-> random_reg[cp->reg_count], only_decode(r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]));	
 	
@@ -1471,11 +1502,14 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
 //-------------------------------------------------------------------------------
    		  }
 
+	}//end if(cp->random_choose == 0)
 
+	else if (cp->random_choose == 1)
+	{
 
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
-         cp->random_mem[cp->mem_count] = rand() % 8192; // Random number between 0 and 8192. Store it in an array to keep track and compare later
+         cp->random_mem[cp->mem_count] = rand() % 8193; // Random number between 0 and 8192. Store it in an array to keep track and compare later
 				
 	//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
 
@@ -1484,8 +1518,8 @@ printf("****Encoded Content of the location[%x] after flipping, is (in hex)**** 
   printf("\nrandom_bit_mem=%d\n", cp->random_bit_mem);
 	fprintf(fnew,"\nrandom_bit_mem=%d\n", cp->random_bit_mem);
 
-printf("Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
-fprintf(fnew,"Encoded Content of the program memory location[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+printf("Encoded Content of the program mem[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
+fprintf(fnew,"Encoded Content of the program mem[%x] before bitflip is (in hex): %x\n",cp-> random_mem[cp->mem_count], program_memory[cp-> random_mem[cp->mem_count]]);
 
 printf("Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->random_mem[cp->mem_count], only_decode(program_memory_encoded[cp->random_mem[cp->mem_count]]));
 
@@ -1576,18 +1610,20 @@ fprintf(fnew,"Content of the mem[%x] before flipping, is (in hex)**** %x\n",cp->
             }
     
        
-printf("Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+printf("Encoded Content of the mem[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
 
-fprintf(fnew,"Encoded Content of the location[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
+fprintf(fnew,"Encoded Content of the mem[%x] after flipping, is (in hex)**** %x\n",cp-> random_mem[cp->mem_count], program_memory_encoded[cp-> random_mem[cp->mem_count]]);
 
 	printf("In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
 	
 	fprintf(fnew,"In bit flip(), Bit flipped, Content of the mem[%x] was flipped to %x\n", cp-> random_mem[cp->mem_count],only_decode(program_memory_encoded[cp-> random_mem[cp->mem_count]]));	
 
+	} //end if (cp->random_choose == 1)
 
 	cp->reg_count = cp->reg_count + 1;
 	cp->mem_count = cp->mem_count + 1;
- 	 }  // End the "If probability is met"
+
+ }  // End the "If probability is met"
 PRINT("Ending bitflips function\n");
 
 return 0;
@@ -1621,9 +1657,9 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 				{
 				cp-> reg_index_match = 1;
 				printf("\n*****Reg file address: %x, matches with random reg:%x. Register bit flip array index=%d*****\n",i1-> reg_index,cp-> random_reg[i], i);
-				printf("\nBit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
+				printf("\nChecking program error, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
 
-			fprintf(fnew,"\nBit flipped, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
+			fprintf(fnew,"\nChecking program error, Content of the random reg[%x] is (in hex) %x\n", cp-> random_reg[i], only_decode(r2->GP_Reg_encoded[cp-> random_reg[i]]));
 				}
 		}
 	
@@ -1631,8 +1667,8 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 		// This can be equal even if the same instruction is repeated after a certain number of cycles, hence check for PC value
 		{
 			cp->incorrect_data++; //even if error happens at same PC, count the error..
-			printf("POSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.\n");
-			fprintf(fnew,"\nPOSSIBLE ERROR: Incorrect data fetched from memory..Need to check if parity/data was in error.\n");
+			printf("POSSIBLE ERROR: Incorrect data fetched when accessing reg[%x]..Need to check if parity/data was in error.\n",i1->reg_index);
+			fprintf(fnew,"POSSIBLE ERROR: Incorrect data fetched when accessing reg[%x]..Need to check if parity/data was in error.\n",i1->reg_index);
 			
 			printf("PC value= %x, opcode= %x\n",(r2-> PC), program_memory[r2-> PC]);
 			fprintf(fnew,"PC value= %x, opcode= %x\n",(r2-> PC), program_memory[r2-> PC]);
@@ -1643,7 +1679,10 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 			cp-> reg_index_match = 0; //reset
 
 			//*************************ERROR CORRECTION****************************************
-			printf("Before error correction, content of the reg location %x was: %x\n",i1->reg_index, only_decode(r2->GP_Reg_encoded[i1->reg_index]));
+			printf("Before error correction,encoded content of the reg location %x was: %x\n",i1->reg_index, (r2->GP_Reg_encoded[i1->reg_index]));
+			fprintf(fnew,"Before error correction,encoded content of the reg location %x was: %x\n",i1->reg_index,(r2->GP_Reg_encoded[i1->reg_index]));
+
+printf("Before error correction, content of the reg location %x was: %x\n",i1->reg_index, only_decode(r2->GP_Reg_encoded[i1->reg_index]));
 			fprintf(fnew,"Before error correction, content of the reg location %x was: %x\n",i1->reg_index, only_decode(r2->GP_Reg_encoded[i1->reg_index]));
 
 			//Error correction
@@ -1655,7 +1694,10 @@ Hence, the for loop should run only till less than reg_count and not equal to re
 			printf("After error correction, content of the reg location %x was: %x\n", i1->reg_index, r2->GP_Reg[i1->reg_index]);
 			fprintf(fnew,"After error correction, content of the reg location %x was: %x\n",i1->reg_index, r2->GP_Reg[i1->reg_index]);
 
-			//fclose(fnew);
+				printf("After error correction, encoded content of the reg location %x was: %x\n", i1->reg_index, r2->GP_Reg_encoded[i1->reg_index]);
+			fprintf(fnew,"After error correction, encoded content of the reg location %x was: %x\n",i1->reg_index, r2->GP_Reg_encoded[i1->reg_index]);
+
+		//fclose(fnew);
 			//exit(0);
 			//*************************************************************************************
 
@@ -1864,6 +1906,7 @@ printf("PC value (in hex)=%x, erroneous instruction corrected (in hex) = %x\n", 
 			 
 			 cp->crash_dueto_illegal_opcode++;
 			 report_crash_and_reset( r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+			 reset_instruction_after_crash(i1);
 			
 		}
 	} //close if PC range
@@ -2320,6 +2363,10 @@ int reset_after_crash(struct registers *r2,  int program_memory[], int program_m
 
 		//Reset program counter to beginning of the program
         reset_PC_to_beginninng(r2, fnew, cp, program_memory, program_memory_encoded, start_seconds, i1, fPC, finstr);
+		//this flag will be used in main() not to increment PC in the cycle just after crash..so that the PC will not get increment without actually going through the fetch(), decode() steps
+
+		cp->just_reset_PC_after_crash=1; 
+
 		printf("***PC reset after crash***\n");
 		fprintf(fnew,"***PC reset after crash***\n");
 

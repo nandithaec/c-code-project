@@ -208,6 +208,7 @@ int decoded_data_decimal= 0;
 	{
 		cp->double_error=0;
 		report_crash_and_reset(r2,  program_memory,program_memory_encoded, cp, start_seconds,i1, fnew, fPC, finstr);
+		reset_instruction_after_crash(i1);
 	}
 
 	PRINT("Decimal corrected(if there was a single error) is: %x\n",decimal_received);
