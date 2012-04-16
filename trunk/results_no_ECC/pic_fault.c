@@ -37,7 +37,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_0p6_apr16.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_0p01_apr16.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
