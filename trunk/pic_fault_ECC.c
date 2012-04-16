@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include <stdlib.h>
+#include <math.h>
 
 #include "decode_fault_ECC.h"
 #include "execute_ECC.h"
@@ -35,7 +36,7 @@ int main()
 		
 
 
-		fnew = fopen( "output_pic_matrix_mult_1p0_ECC_apr13.txt", "w" );
+		fnew = fopen( "output_pic_matrix_mult_1p0_ECC_apr16.txt", "w" );
 		if( fnew != NULL )
 		   fprintf( fnew, "Hello\n" );
 
@@ -64,15 +65,16 @@ int main()
 For addition program use this section here..
 For matrix multiplication use this section after reading instruction from file.. Well, doesnt matter, since PC is not being assigned in the read_inst function */
 
-                printf("Enter starting PCL value (in decimal, not hex) (159 dec, 29F hex): \n");
-				scanf("%d", &read_PCL_from_user); //9F or 159
-                
+              //  printf("Enter starting PCL value (in decimal, not hex) (159 dec, 29F hex): \n");
+				//scanf("%d", &read_PCL_from_user); //9F or 159
+				printf("Assigning initial PC values: \n");
+                read_PCL_from_user= 159;
 				pic_registers.GP_Reg_encoded[2] = hamming_encoding(read_PCL_from_user);
                 pic_registers.initial_PCL_encoded = pic_registers.GP_Reg_encoded[2];
  
-                printf("Enter starting PCLATH value (in decimal, not hex) (2 dec/hex): \n");
-                scanf("%d", &read_PCLATH_from_user); //02
-
+              //  printf("Enter starting PCLATH value (in decimal, not hex) (2 dec/hex): \n");
+             //   scanf("%d", &read_PCLATH_from_user); //02
+				read_PCLATH_from_user=02;
                 pic_registers.GP_Reg_encoded[0x0A]=  hamming_encoding(read_PCLATH_from_user);
 				pic_registers.initial_PCLATH_encoded = pic_registers.GP_Reg_encoded[0x0A];
 
@@ -154,7 +156,7 @@ int endloop=0, num_of_inst=0;
 							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
-				check_illegal_instr(&pic_registers, program_memory,program_memory_encoded,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
+			//	check_illegal_instr(&pic_registers, program_memory,program_memory_encoded,&crash_param, start_seconds ,&pre_decode, fnew, fPC, finstr);
 
 				//Check reg file access error only for byte and bit oriented instructions and make sure it is not a NOP or CLRW				
 				if( (pre_decode.decode_bits ==0 || pre_decode.decode_bits ==1) && (pre_decode.instr_mnemonic_enum != NOP) && (pre_decode.instr_mnemonic_enum != CLRW))
@@ -219,40 +221,35 @@ int endloop=0, num_of_inst=0;
 	//printf("out Program execution number %d completed\n",repeat_program_execution);
 
 	//PRINT("Max instr cycles per program execution need not be same as number of instr, since some instructions can be skipped depending on checking status reg/GOTO etc): %llu\n",(crash_param.instr_cycles)/1);
+
 ///COMMENTING OUT STARTING HERE
 
 
-/*
+        printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
+		fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
+          
+	    
+        printf("\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);   
+	    fprintf(fnew,"\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);           
+       
 
-                printf("\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);   
-				fprintf(fnew,"\nTotal number of instructions in the program = %d\n",pic_registers.max_instr);         
-               
-				 printf("Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
-				fprintf(fnew,"Each instruction takes 1 instruction cycles, i.e., 1 clock cycle\n");
-              
-			    
-                printf("\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);   
-			    fprintf(fnew,"\nTotal number of times the program got excecuted = %d\n",repeat_program_execution);           
-               
+		PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+		fprintf(fnew,"Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
 
-				PRINT("Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
-				fprintf(fnew,"Max instr cycles executed (will not be same as number of instructions since program can have loops): %llu\n",crash_param.instr_cycles);
+		//printf("Status register contents:(hex) at the end of all operations: ");
+	    //fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
+      
+		//printf("%x", pic_registers.GP_Reg[3]);
+		//fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
 
-				printf("Status register contents:(hex) at the end of all operations: ");
-			    fprintf(fnew,"Status register contents:(hex) at the end of all operations: ");
-              
-				printf("%x", pic_registers.GP_Reg[3]);
-				fprintf(fnew,"%x", pic_registers.GP_Reg[3]);
+       
+		printf("\n");
+		fprintf(fnew,"\n");
 
-                printf("\n");
-				fprintf(fnew,"\n");
-        
 
-for(i=1;i <= MAX_CRASHES;i++)
-	{
-	total_instr_cycles=total_instr_cycles+ crash_param.crash_at_instr[i];
-	total_seconds=total_seconds+ crash_param.crash_time_array[i];
-	}
+printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
+
 
 printf("\nNumber of instruction cycles executed before each crash:\n");
 fprintf(fnew,"\nNumber of instruction cycles executed before each crash:\n");
@@ -263,16 +260,32 @@ for(c=1; c<= (crash_param.crash); c++)
     fprintf(fnew,"%llu\n",crash_param.crash_at_instr[c]);
 	}
    
-printf("Seconds elapsed before each crash: \n");
-fprintf(fnew,"Seconds elapsed before each crash: \n");        
+
+   
+printf("Time(seconds) taken for each crash: \n");
+fprintf(fnew,"Time(seconds) taken for each crash: \n");        
 for(c=1; c<= (crash_param.crash); c++)
-   {//Print the entire array containing the seconds at which the crash occured each time
-   printf("%ld\n",crash_param.crash_time_array[c]);             
-  fprintf(fnew,"%ld\n",crash_param.crash_time_array[c]);             
+    {//Print the entire array containing the seconds at which the crash occured each time
+	
+//Calculating the actual time taken for each crash
+	crash_param.actual_crash_time_array[c] = crash_param.crash_time_array[c]  - crash_param.crash_time_array[c-1];   
+	
+	printf("%ld\n",crash_param.actual_crash_time_array[c]);             
+    fprintf(fnew,"%ld\n",crash_param.actual_crash_time_array[c]);             
 	}
 
-printf("\nCalculating the number of errors: \n");
-fprintf(fnew,"\nCalculating the number of errors: \n");   
+
+for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index 1
+	{
+	total_instr_cycles=total_instr_cycles+ crash_param.crash_at_instr[i];
+	total_seconds=total_seconds+ crash_param.actual_crash_time_array[i];
+	}
+
+
+
+
+//printf("\nCalculating the number of errors: \n");
+//fprintf(fnew,"\nCalculating the number of errors: \n");   
 
 //printf("Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);    
 //fprintf(fnew,"Opcodes at which the errors occurred get accessed every program run and hence repeated once in every %d opcodes\n", pic_registers.max_instr);
@@ -280,8 +293,8 @@ fprintf(fnew,"\nCalculating the number of errors: \n");
 //printf("\nInstruction cycle at which the incorrect data errors first occured:\n");
 //fprintf(fnew,"\nInstruction cycle at which the incorrect data errors first occured:\n");
 
-printf("\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
-fprintf(fnew,"\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
+//printf("\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
+//fprintf(fnew,"\nNumber of errors at unique PC values (not counting repetition):%d\n",crash_param.first_error);
 
 printf("Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
 fprintf(fnew,"Total number of errors due to incorrect data being fetched (counting repetition):%llu\n",crash_param.incorrect_data);
@@ -303,34 +316,39 @@ total_error_count= total_error_count+ crash_param.incorrect_data+ crash_param.ot
    
 percentage_crash= ((double)crash_param.crash/total_instr_cycles)*100.0;
 percentage_error= ((double)crash_param.first_error/total_instr_cycles)*100.0;
-successful_cycles= (total_instr_cycles-total_error_count- MAX_CRASHES);
+successful_cycles= (total_instr_cycles-MAX_CRASHES);
 
 
-printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
-fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
 //printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
 //fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
 
 
-printf("Total number of crashes:%d\n",MAX_CRASHES);
-fprintf(fnew,"Total number of crashes:%d\n",MAX_CRASHES);
+printf("Total number of crashes (due to double errors):%d\n",MAX_CRASHES);
+fprintf(fnew,"Total number of crashes (due to double errors):%d\n",MAX_CRASHES);
 
-printf("Total number of errors: %d\n",crash_param.errors_so_far);
-fprintf(fnew,"Total number of errors: %d\n",crash_param.errors_so_far);
 
-printf("Total number of single errors corrected: %d\n",crash_param.single_error_corrected);
-fprintf(fnew,"Total number of single errors corrected: %d\n",crash_param.single_error_corrected);
+printf("Total number of crashes avoided: %d\n",crash_param.crash_avoided);
+fprintf(fnew,"Total number of crashes avoided: %d\n",crash_param.crash_avoided);
 
-printf("Total number of double errors detected: %d\n",crash_param.double_error_detected);
-fprintf(fnew,"Total number of double errors detected: %d\n",crash_param.double_error_detected);
+//printf("Total number of errors: %d\n",crash_param.errors_so_far);
+//fprintf(fnew,"Total number of errors: %d\n",crash_param.errors_so_far);
 
-printf("Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
-fprintf(fnew,"Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
+printf("Total number of single errors corrected (to avoied error/crash): %d\n",crash_param.single_error_corrected);
+fprintf(fnew,"Total number of single errors corrected (to avoied error/crash): %d\n",crash_param.single_error_corrected);
+
+printf("Total number of double errors detected (resulted in crash): %d\n",crash_param.double_error_detected);
+fprintf(fnew,"Total number of double errors detected (resulted in crash): %d\n",crash_param.double_error_detected);
+
+//printf("Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
+//fprintf(fnew,"Summing up all errors which repeat every program run,Total number of errors: %llu\n",total_error_count);
+
 
 printf("Total number of successful instruction cycle executions without errors/crashes:%llu\n\n",(successful_cycles)); //%e
 fprintf(fnew,"Total number of successful instruction cycle executions without errors/crashes:%llu\n\n",(successful_cycles)); 
 
+
+/*
 printf("Number of crashes due to Program counter getting manipulated: %d \n",crash_param.crash_dueto_PC);
 fprintf(fnew,"Number of crashes due to Program counter getting manipulated: %d \n",crash_param.crash_dueto_PC);
 
@@ -343,8 +361,6 @@ fprintf(fnew,"Number of crashes due to illegal opcode: %d \n",crash_param.crash_
 printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 fprintf(fnew,"Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
 
-printf("Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
-fprintf(fnew,"Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
 
 printf("Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr);
 fprintf(fnew,"Total number of errors due to incorrect data in the instruction: %d\n",crash_param.incorrect_data_in_instr); 
@@ -352,13 +368,14 @@ fprintf(fnew,"Total number of errors due to incorrect data in the instruction: %
 printf("Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
 fprintf(fnew,"Total number of errors due to opcode change: %d\n",crash_param.opcode_change);
 
-
+*/
 printf("Percentage of successful executions:%f\n\n", ((double) successful_cycles/total_instr_cycles)*100.0); //%e
 fprintf(fnew,"Percentage of successful executions:%f\n\n", ((double)successful_cycles/total_instr_cycles)*100.0); 
 
-printf("Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
-fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
+printf("Probability of a bit flip was set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE)); //%g gives in terms of e.g.,1e-2
+fprintf(fnew,"Probability of a bit flip was set to: %g\n",((float)(RANDOM_GUESS_RANGE-1)/PROBABILITY_INVERSE));
 
+/*
 printf("Percentage of crashes due to Program counter getting manipulated:%f percent\n",(((double)crash_param.crash_dueto_PC/MAX_CRASHES)*100.0));
 printf("Percentage of crashes due to illegal memory access:%f percent\n",(((double) crash_param.crash_dueto_illegal_mem/MAX_CRASHES)*100.0));
 printf("Percentage of crashes due to illegal memory access:%f percent\n",(((double) crash_param.crash_dueto_illegal_opcode/MAX_CRASHES)*100.0));
@@ -367,6 +384,7 @@ printf("\n");
 printf("Percentage of crashes out of total number of instruction cycles: %f percent\n",percentage_crash);
 printf("Percentage of errors out of total number of instruction cycles: %f percent\n",percentage_error);
 
+*/
 
 mean_instr_cycles= total_instr_cycles/MAX_CRASHES;
 
@@ -379,7 +397,7 @@ mean_seconds= total_seconds/MAX_CRASHES;
 printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
-*/
+
 fclose(fnew);
 
 return 0;
