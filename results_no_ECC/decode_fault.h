@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 5
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 10000
+#define PROBABILITY_INVERSE 100000
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -1281,7 +1281,7 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 		printf("\ncp->crash_time_array[%d]:%ld\n",cp->crash,cp->crash_time_array[cp->crash]);
 		fprintf(fnew,"\ncp->crash_time_array[%d]:%ld\n",cp->crash,cp->crash_time_array[cp->crash]);
 
-			//cp->program_runs= (cp->instr_cycles)/(NUM_OF_INSTR * CLOCKS_PER_INSTR * NUM_OF_PGM_RUNS);
+
 			cp->crash_at_instr[cp->crash] = cp->instr_cycles;
 			printf("Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
             fprintf(fnew,"Number of instruction cycles executed before the crash: %llu\n",cp->instr_cycles);
