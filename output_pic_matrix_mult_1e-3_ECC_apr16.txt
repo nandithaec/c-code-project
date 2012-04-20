@@ -1,0 +1,1930 @@
+Hello
+At the start of execution: 1334644064 seconds since January 1, 1970 
+New values as read from the user(hex): PCL=9f, PCLATH=2, PC(testing) = 29f 
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 0.001
+Executing...
+
+Flip function called: Random number generated: 99953
+Number of instruction cycles executed before the crash: 12104964
+Number of total instruction cycles executed: 12104964
+Encoded Content of the reg[71] before flipping, is (in hex)0
+Content of the reg[71] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[71] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[71] was flipped to 0
+
+Flip function called: Random number generated: 99906
+Number of instruction cycles executed before the crash: 30392659
+Number of total instruction cycles executed: 30392659
+Encoded Content of the reg[8a] before flipping, is (in hex)1a07
+Content of the reg[8a] before flipping, is (in hex)3
+random_bit=10
+Encoded Content of the reg[8a] after flipping, is (in hex)1e07
+In bit flip(), Bit flipped, Content of the reg[8a] was flipped to 83
+***********************************************************************
+
+Crash Avoided number:1 
+Program crash would have been due to PC value at location 8a getting affected
+Actual PC value (in hex)=39b, instruction opcode that was getting executed (in hex)=800
+Random number that got generated this time was: 99906
+Time of crash number 1 is 1334645334 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 1270 (in seconds)
+Number of instruction cycles executed before the crash: 30392659
+
+***STARTING ERROR CORRECTION ON PC REG LOCATIONS***
+SINGLE ERROR, can be corrected
+Bit in error is 3 and is a data bit. NEEDS ERROR CORRECTION.
+
+ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:
+GP_Reg[0x02] = 9b, GP_Reg[0x82] = 9b, GP_Reg[0x0A] = 3, GP_Reg[0x8A] = 3
+
+***********************************************************************
+
+Flip function called: Random number generated: 99996
+Number of instruction cycles executed before the crash: 47579056
+Number of total instruction cycles executed: 47579056
+
+random_bit_mem=12
+Encoded Content of the program mem[2f8] before bitflip is (in hex): 2afa
+Content of the mem[2f8] before flipping, is (in hex)**** 7a
+Encoded Content of the mem[2f8] after flipping, is (in hex)**** b5bf4
+In bit flip(), Bit flipped, Content of the mem[2f8] was flipped to 7a
+Hamming14 inside fetch:SINGLE ERROR, can be corrected
+Hamming14 inside fetch:Bit in error is 8 and is a parity bit. ****DATA BIT NOT IN ERROR****
+i1->instruction = 25
+
+Flip function called: Random number generated: 99918
+Number of instruction cycles executed before the crash: 63502128
+Number of total instruction cycles executed: 63502128
+
+random_bit_mem=10
+Encoded Content of the program mem[108a] before bitflip is (in hex): 0
+Content of the mem[108a] before flipping, is (in hex)**** 0
+Encoded Content of the mem[108a] after flipping, is (in hex)**** 400
+In bit flip(), Bit flipped, Content of the mem[108a] was flipped to 80
+
+Flip function called: Random number generated: 99944
+Number of instruction cycles executed before the crash: 65495699
+Number of total instruction cycles executed: 65495699
+
+random_bit_mem=11
+Encoded Content of the program mem[7b5] before bitflip is (in hex): 0
+Content of the mem[7b5] before flipping, is (in hex)**** 0
+Encoded Content of the mem[7b5] after flipping, is (in hex)**** 800
+In bit flip(), Bit flipped, Content of the mem[7b5] was flipped to 0
+
+Flip function called: Random number generated: 99901
+Number of instruction cycles executed before the crash: 74943858
+Number of total instruction cycles executed: 74943858
+Encoded Content of the reg[a3] before flipping, is (in hex)0
+Content of the reg[a3] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[a3] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[a3] was flipped to 0
+
+Flip function called: Random number generated: 99906
+Number of instruction cycles executed before the crash: 149164263
+Number of total instruction cycles executed: 149164263
+
+random_bit_mem=13
+Encoded Content of the program mem[17c6] before bitflip is (in hex): 0
+Content of the mem[17c6] before flipping, is (in hex)**** 0
+Encoded Content of the mem[17c6] after flipping, is (in hex)**** 2000
+In bit flip(), Bit flipped, Content of the mem[17c6] was flipped to 0
+
+Flip function called: Random number generated: 99965
+Number of instruction cycles executed before the crash: 162281077
+Number of total instruction cycles executed: 162281077
+Encoded Content of the reg[be] before flipping, is (in hex)0
+Content of the reg[be] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[be] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[be] was flipped to 10
+
+Flip function called: Random number generated: 99976
+Number of instruction cycles executed before the crash: 183594290
+Number of total instruction cycles executed: 183594290
+Encoded Content of the reg[ba] before flipping, is (in hex)0
+Content of the reg[ba] before flipping, is (in hex)0
+random_bit=2
+Encoded Content of the reg[ba] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[ba] was flipped to 2
+
+Flip function called: Random number generated: 99944
+Number of instruction cycles executed before the crash: 202473473
+Number of total instruction cycles executed: 202473473
+
+random_bit_mem=12
+Encoded Content of the program mem[ef9] before bitflip is (in hex): 0
+Content of the mem[ef9] before flipping, is (in hex)**** 0
+Encoded Content of the mem[ef9] after flipping, is (in hex)**** 1000
+In bit flip(), Bit flipped, Content of the mem[ef9] was flipped to 0
+
+Flip function called: Random number generated: 99919
+Number of instruction cycles executed before the crash: 202979697
+Number of total instruction cycles executed: 202979697
+
+random_bit_mem=4
+Encoded Content of the program mem[bde] before bitflip is (in hex): 0
+Content of the mem[bde] before flipping, is (in hex)**** 0
+Encoded Content of the mem[bde] after flipping, is (in hex)**** 10
+In bit flip(), Bit flipped, Content of the mem[bde] was flipped to 8
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 398, opcode= 800
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=398, instruction opcode being executed (in hex)=800
+Number of instruction cycles executed before the error: 202979697
+
+******Unique errors so far= 1. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99967
+Number of instruction cycles executed before the crash: 209177249
+Number of total instruction cycles executed: 209177249
+
+random_bit_mem=9
+Encoded Content of the program mem[1705] before bitflip is (in hex): 0
+Content of the mem[1705] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1705] after flipping, is (in hex)**** 200
+In bit flip(), Bit flipped, Content of the mem[1705] was flipped to 0
+
+Flip function called: Random number generated: 99948
+Number of instruction cycles executed before the crash: 233415888
+Number of total instruction cycles executed: 233415888
+Encoded Content of the reg[2d] before flipping, is (in hex)0
+Content of the reg[2d] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[2d] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[2d] was flipped to 40
+
+Flip function called: Random number generated: 99933
+Number of instruction cycles executed before the crash: 242181288
+Number of total instruction cycles executed: 242181288
+Encoded Content of the reg[85] before flipping, is (in hex)0
+Content of the reg[85] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[85] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[85] was flipped to 8
+
+Flip function called: Random number generated: 99946
+Number of instruction cycles executed before the crash: 246468770
+Number of total instruction cycles executed: 246468770
+Encoded Content of the reg[54] before flipping, is (in hex)0
+Content of the reg[54] before flipping, is (in hex)0
+random_bit=2
+Encoded Content of the reg[54] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[54] was flipped to 2
+
+Flip function called: Random number generated: 99966
+Number of instruction cycles executed before the crash: 257163489
+Number of total instruction cycles executed: 257163489
+
+random_bit_mem=7
+Encoded Content of the program mem[a02] before bitflip is (in hex): 0
+Content of the mem[a02] before flipping, is (in hex)**** 0
+Encoded Content of the mem[a02] after flipping, is (in hex)**** 80
+In bit flip(), Bit flipped, Content of the mem[a02] was flipped to 20
+
+Flip function called: Random number generated: 99926
+Number of instruction cycles executed before the crash: 259355449
+Number of total instruction cycles executed: 259355449
+
+random_bit_mem=8
+Encoded Content of the program mem[9b2] before bitflip is (in hex): 0
+Content of the mem[9b2] before flipping, is (in hex)**** 0
+Encoded Content of the mem[9b2] after flipping, is (in hex)**** 100
+In bit flip(), Bit flipped, Content of the mem[9b2] was flipped to 40
+
+Flip function called: Random number generated: 99926
+Number of instruction cycles executed before the crash: 322689006
+Number of total instruction cycles executed: 322689006
+
+random_bit_mem=12
+Encoded Content of the program mem[6ae] before bitflip is (in hex): 0
+Content of the mem[6ae] before flipping, is (in hex)**** 0
+Encoded Content of the mem[6ae] after flipping, is (in hex)**** 1000
+In bit flip(), Bit flipped, Content of the mem[6ae] was flipped to 0
+
+Flip function called: Random number generated: 99973
+Number of instruction cycles executed before the crash: 391056373
+Number of total instruction cycles executed: 391056373
+Encoded Content of the reg[3a] before flipping, is (in hex)0
+Content of the reg[3a] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[3a] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[3a] was flipped to 10
+
+Flip function called: Random number generated: 99955
+Number of instruction cycles executed before the crash: 422848964
+Number of total instruction cycles executed: 422848964
+Encoded Content of the reg[11] before flipping, is (in hex)0
+Content of the reg[11] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[11] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[11] was flipped to 8
+
+Flip function called: Random number generated: 99954
+Number of instruction cycles executed before the crash: 475093094
+Number of total instruction cycles executed: 475093094
+
+random_bit_mem=0
+Encoded Content of the program mem[14ae] before bitflip is (in hex): 0
+Content of the mem[14ae] before flipping, is (in hex)**** 0
+Encoded Content of the mem[14ae] after flipping, is (in hex)**** 1
+In bit flip(), Bit flipped, Content of the mem[14ae] was flipped to 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 366, opcode= 80
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=366, instruction opcode being executed (in hex)=80
+Number of instruction cycles executed before the error: 475093094
+
+******Unique errors so far= 2. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99972
+Number of instruction cycles executed before the crash: 486533819
+Number of total instruction cycles executed: 486533819
+
+random_bit_mem=0
+Encoded Content of the program mem[1ffd] before bitflip is (in hex): 0
+Content of the mem[1ffd] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1ffd] after flipping, is (in hex)**** 1
+In bit flip(), Bit flipped, Content of the mem[1ffd] was flipped to 0
+
+Flip function called: Random number generated: 99995
+Number of instruction cycles executed before the crash: 542959678
+Number of total instruction cycles executed: 542959678
+Encoded Content of the reg[72] before flipping, is (in hex)0
+Content of the reg[72] before flipping, is (in hex)0
+random_bit=3
+Encoded Content of the reg[72] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[72] was flipped to 4
+
+Flip function called: Random number generated: 99979
+Number of instruction cycles executed before the crash: 552530460
+Number of total instruction cycles executed: 552530460
+Encoded Content of the reg[e] before flipping, is (in hex)0
+Content of the reg[e] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[e] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[e] was flipped to 10
+
+Flip function called: Random number generated: 99993
+Number of instruction cycles executed before the crash: 578065620
+Number of total instruction cycles executed: 578065620
+
+random_bit_mem=8
+Encoded Content of the program mem[14d1] before bitflip is (in hex): 0
+Content of the mem[14d1] before flipping, is (in hex)**** 0
+Encoded Content of the mem[14d1] after flipping, is (in hex)**** 100
+In bit flip(), Bit flipped, Content of the mem[14d1] was flipped to 40
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 3bb, opcode= 80
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3bb, instruction opcode being executed (in hex)=80
+Number of instruction cycles executed before the error: 578065620
+
+******Unique errors so far= 3. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99982
+Number of instruction cycles executed before the crash: 703251740
+Number of total instruction cycles executed: 703251740
+
+random_bit_mem=0
+Encoded Content of the program mem[1232] before bitflip is (in hex): 0
+Content of the mem[1232] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1232] after flipping, is (in hex)**** 1
+In bit flip(), Bit flipped, Content of the mem[1232] was flipped to 0
+
+Flip function called: Random number generated: 99943
+Number of instruction cycles executed before the crash: 737500706
+Number of total instruction cycles executed: 737500706
+Encoded Content of the reg[6b] before flipping, is (in hex)0
+Content of the reg[6b] before flipping, is (in hex)0
+random_bit=3
+Encoded Content of the reg[6b] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[6b] was flipped to 4
+
+Flip function called: Random number generated: 99909
+Number of instruction cycles executed before the crash: 737573018
+Number of total instruction cycles executed: 737573018
+Encoded Content of the reg[5b] before flipping, is (in hex)0
+Content of the reg[5b] before flipping, is (in hex)0
+random_bit=1
+Encoded Content of the reg[5b] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[5b] was flipped to 1
+
+Flip function called: Random number generated: 99927
+Number of instruction cycles executed before the crash: 748706656
+Number of total instruction cycles executed: 748706656
+Encoded Content of the reg[65] before flipping, is (in hex)0
+Content of the reg[65] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[65] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[65] was flipped to 8
+
+Flip function called: Random number generated: 99909
+Number of instruction cycles executed before the crash: 763558048
+Number of total instruction cycles executed: 763558048
+
+random_bit_mem=3
+Encoded Content of the program mem[113a] before bitflip is (in hex): 0
+Content of the mem[113a] before flipping, is (in hex)**** 0
+Encoded Content of the mem[113a] after flipping, is (in hex)**** 8
+In bit flip(), Bit flipped, Content of the mem[113a] was flipped to 4
+
+Flip function called: Random number generated: 99963
+Number of instruction cycles executed before the crash: 774456462
+Number of total instruction cycles executed: 774456462
+Encoded Content of the reg[ec] before flipping, is (in hex)0
+Content of the reg[ec] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[ec] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[ec] was flipped to 0
+
+Flip function called: Random number generated: 99983
+Number of instruction cycles executed before the crash: 780893085
+Number of total instruction cycles executed: 780893085
+
+random_bit_mem=12
+Encoded Content of the program mem[317] before bitflip is (in hex): 3001
+Content of the mem[317] before flipping, is (in hex)**** 9
+Encoded Content of the mem[317] after flipping, is (in hex)**** b9012
+In bit flip(), Bit flipped, Content of the mem[317] was flipped to 9
+Hamming14 inside fetch:SINGLE ERROR, can be corrected
+Hamming14 inside fetch:Bit in error is 8 and is a parity bit. ****DATA BIT NOT IN ERROR****
+i1->instruction = 5
+
+Flip function called: Random number generated: 99938
+Number of instruction cycles executed before the crash: 784147273
+Number of total instruction cycles executed: 784147273
+
+random_bit_mem=2
+Encoded Content of the program mem[1250] before bitflip is (in hex): 0
+Content of the mem[1250] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1250] after flipping, is (in hex)**** 4
+In bit flip(), Bit flipped, Content of the mem[1250] was flipped to 2
+
+Flip function called: Random number generated: 99915
+Number of instruction cycles executed before the crash: 784581182
+Number of total instruction cycles executed: 784581182
+
+random_bit_mem=10
+Encoded Content of the program mem[c37] before bitflip is (in hex): 0
+Content of the mem[c37] before flipping, is (in hex)**** 0
+Encoded Content of the mem[c37] after flipping, is (in hex)**** 400
+In bit flip(), Bit flipped, Content of the mem[c37] was flipped to 80
+
+Flip function called: Random number generated: 99979
+Number of instruction cycles executed before the crash: 834031627
+Number of total instruction cycles executed: 834031627
+Encoded Content of the reg[b7] before flipping, is (in hex)0
+Content of the reg[b7] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[b7] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[b7] was flipped to 40
+
+Flip function called: Random number generated: 99972
+Number of instruction cycles executed before the crash: 853112544
+Number of total instruction cycles executed: 853112544
+
+random_bit_mem=12
+Encoded Content of the program mem[13de] before bitflip is (in hex): 0
+Content of the mem[13de] before flipping, is (in hex)**** 0
+Encoded Content of the mem[13de] after flipping, is (in hex)**** 1000
+In bit flip(), Bit flipped, Content of the mem[13de] was flipped to 0
+
+Flip function called: Random number generated: 99951
+Number of instruction cycles executed before the crash: 856366142
+Number of total instruction cycles executed: 856366142
+
+random_bit_mem=13
+Encoded Content of the program mem[1cb3] before bitflip is (in hex): 0
+Content of the mem[1cb3] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1cb3] after flipping, is (in hex)**** 2000
+In bit flip(), Bit flipped, Content of the mem[1cb3] was flipped to 0
+
+Flip function called: Random number generated: 99977
+Number of instruction cycles executed before the crash: 889411992
+Number of total instruction cycles executed: 889411992
+Encoded Content of the reg[72] before flipping, is (in hex)8
+Content of the reg[72] before flipping, is (in hex)4
+random_bit=3
+Encoded Content of the reg[72] after flipping, is (in hex)0
+In bit flip(), Bit flipped, Content of the reg[72] was flipped to 0
+
+Flip function called: Random number generated: 99932
+Number of instruction cycles executed before the crash: 897217921
+Number of total instruction cycles executed: 897217921
+
+random_bit_mem=17
+Encoded Content of the program mem[b85] before bitflip is (in hex): 0
+Content of the mem[b85] before flipping, is (in hex)**** 0
+Encoded Content of the mem[b85] after flipping, is (in hex)**** 20000
+In bit flip(), Bit flipped, Content of the mem[b85] was flipped to 0
+
+Flip function called: Random number generated: 99970
+Number of instruction cycles executed before the crash: 904678536
+Number of total instruction cycles executed: 904678536
+Encoded Content of the reg[ed] before flipping, is (in hex)0
+Content of the reg[ed] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[ed] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[ed] was flipped to 0
+
+Flip function called: Random number generated: 99992
+Number of instruction cycles executed before the crash: 996988673
+Number of total instruction cycles executed: 996988673
+
+random_bit_mem=11
+Encoded Content of the program mem[1800] before bitflip is (in hex): 0
+Content of the mem[1800] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1800] after flipping, is (in hex)**** 800
+In bit flip(), Bit flipped, Content of the mem[1800] was flipped to 0
+
+Flip function called: Random number generated: 99911
+Number of instruction cycles executed before the crash: 1033398189
+Number of total instruction cycles executed: 1033398189
+Encoded Content of the reg[b9] before flipping, is (in hex)0
+Content of the reg[b9] before flipping, is (in hex)0
+random_bit=3
+Encoded Content of the reg[b9] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[b9] was flipped to 4
+
+Flip function called: Random number generated: 99925
+Number of instruction cycles executed before the crash: 1040778474
+Number of total instruction cycles executed: 1040778474
+
+random_bit_mem=2
+Encoded Content of the program mem[252] before bitflip is (in hex): 0
+Content of the mem[252] before flipping, is (in hex)**** 0
+Encoded Content of the mem[252] after flipping, is (in hex)**** 4
+In bit flip(), Bit flipped, Content of the mem[252] was flipped to 2
+
+Flip function called: Random number generated: 99931
+Number of instruction cycles executed before the crash: 1053729571
+Number of total instruction cycles executed: 1053729571
+Encoded Content of the reg[b2] before flipping, is (in hex)0
+Content of the reg[b2] before flipping, is (in hex)0
+random_bit=2
+Encoded Content of the reg[b2] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[b2] was flipped to 2
+
+Flip function called: Random number generated: 99970
+Number of instruction cycles executed before the crash: 1063265666
+Number of total instruction cycles executed: 1063265666
+
+random_bit_mem=15
+Encoded Content of the program mem[1b3] before bitflip is (in hex): 0
+Content of the mem[1b3] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1b3] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[1b3] was flipped to 0
+
+Flip function called: Random number generated: 99932
+Number of instruction cycles executed before the crash: 1065824461
+Number of total instruction cycles executed: 1065824461
+Encoded Content of the reg[98] before flipping, is (in hex)0
+Content of the reg[98] before flipping, is (in hex)0
+random_bit=10
+Encoded Content of the reg[98] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[98] was flipped to 80
+
+Flip function called: Random number generated: 99920
+Number of instruction cycles executed before the crash: 1085681540
+Number of total instruction cycles executed: 1085681540
+Encoded Content of the reg[9c] before flipping, is (in hex)0
+Content of the reg[9c] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the reg[9c] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[9c] was flipped to 0
+
+Flip function called: Random number generated: 99964
+Number of instruction cycles executed before the crash: 1109835610
+Number of total instruction cycles executed: 1109835610
+Encoded Content of the reg[33] before flipping, is (in hex)0
+Content of the reg[33] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[33] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[33] was flipped to 40
+
+Flip function called: Random number generated: 99929
+Number of instruction cycles executed before the crash: 1129064793
+Number of total instruction cycles executed: 1129064793
+Encoded Content of the reg[30] before flipping, is (in hex)0
+Content of the reg[30] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[30] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[30] was flipped to 10
+
+Flip function called: Random number generated: 99993
+Number of instruction cycles executed before the crash: 1133177551
+Number of total instruction cycles executed: 1133177551
+
+random_bit_mem=7
+Encoded Content of the program mem[86e] before bitflip is (in hex): 0
+Content of the mem[86e] before flipping, is (in hex)**** 0
+Encoded Content of the mem[86e] after flipping, is (in hex)**** 80
+In bit flip(), Bit flipped, Content of the mem[86e] was flipped to 20
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 2cc, opcode= 80
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2cc, instruction opcode being executed (in hex)=80
+Number of instruction cycles executed before the error: 1133177551
+
+******Unique errors so far= 4. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99983
+Number of instruction cycles executed before the crash: 1159914653
+Number of total instruction cycles executed: 1159914653
+
+random_bit_mem=18
+Encoded Content of the program mem[a6f] before bitflip is (in hex): 0
+Content of the mem[a6f] before flipping, is (in hex)**** 0
+Encoded Content of the mem[a6f] after flipping, is (in hex)**** 40000
+In bit flip(), Bit flipped, Content of the mem[a6f] was flipped to 0
+
+Flip function called: Random number generated: 99912
+Number of instruction cycles executed before the crash: 1160270630
+Number of total instruction cycles executed: 1160270630
+Encoded Content of the reg[f2] before flipping, is (in hex)0
+Content of the reg[f2] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[f2] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[f2] was flipped to 8
+
+Flip function called: Random number generated: 99944
+Number of instruction cycles executed before the crash: 1188597146
+Number of total instruction cycles executed: 1188597146
+
+random_bit_mem=14
+Encoded Content of the program mem[553] before bitflip is (in hex): 0
+Content of the mem[553] before flipping, is (in hex)**** 0
+Encoded Content of the mem[553] after flipping, is (in hex)**** 4000
+In bit flip(), Bit flipped, Content of the mem[553] was flipped to 0
+
+Flip function called: Random number generated: 99923
+Number of instruction cycles executed before the crash: 1207512092
+Number of total instruction cycles executed: 1207512092
+Encoded Content of the reg[5d] before flipping, is (in hex)0
+Content of the reg[5d] before flipping, is (in hex)0
+random_bit=1
+Encoded Content of the reg[5d] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[5d] was flipped to 1
+
+Flip function called: Random number generated: 99952
+Number of instruction cycles executed before the crash: 1238030760
+Number of total instruction cycles executed: 1238030760
+
+random_bit_mem=6
+Encoded Content of the program mem[16b7] before bitflip is (in hex): 0
+Content of the mem[16b7] before flipping, is (in hex)**** 0
+Encoded Content of the mem[16b7] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[16b7] was flipped to 10
+
+Flip function called: Random number generated: 99943
+Number of instruction cycles executed before the crash: 1242849114
+Number of total instruction cycles executed: 1242849114
+
+random_bit_mem=13
+Encoded Content of the program mem[166d] before bitflip is (in hex): 0
+Content of the mem[166d] before flipping, is (in hex)**** 0
+Encoded Content of the mem[166d] after flipping, is (in hex)**** 2000
+In bit flip(), Bit flipped, Content of the mem[166d] was flipped to 0
+
+Flip function called: Random number generated: 99989
+Number of instruction cycles executed before the crash: 1289629584
+Number of total instruction cycles executed: 1289629584
+Encoded Content of the reg[c8] before flipping, is (in hex)0
+Content of the reg[c8] before flipping, is (in hex)0
+random_bit=7
+Encoded Content of the reg[c8] after flipping, is (in hex)80
+In bit flip(), Bit flipped, Content of the reg[c8] was flipped to 20
+
+Flip function called: Random number generated: 99911
+Number of instruction cycles executed before the crash: 1313730460
+Number of total instruction cycles executed: 1313730460
+
+random_bit_mem=7
+Encoded Content of the program mem[d9a] before bitflip is (in hex): 0
+Content of the mem[d9a] before flipping, is (in hex)**** 0
+Encoded Content of the mem[d9a] after flipping, is (in hex)**** 80
+In bit flip(), Bit flipped, Content of the mem[d9a] was flipped to 20
+
+Flip function called: Random number generated: 99908
+Number of instruction cycles executed before the crash: 1316662399
+Number of total instruction cycles executed: 1316662399
+Encoded Content of the reg[22] before flipping, is (in hex)0
+Content of the reg[22] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[22] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[22] was flipped to 40
+
+Flip function called: Random number generated: 99993
+Number of instruction cycles executed before the crash: 1332309475
+Number of total instruction cycles executed: 1332309475
+
+random_bit_mem=2
+Encoded Content of the program mem[fc8] before bitflip is (in hex): 0
+Content of the mem[fc8] before flipping, is (in hex)**** 0
+Encoded Content of the mem[fc8] after flipping, is (in hex)**** 4
+In bit flip(), Bit flipped, Content of the mem[fc8] was flipped to 2
+
+Flip function called: Random number generated: 99936
+Number of instruction cycles executed before the crash: 1337764106
+Number of total instruction cycles executed: 1337764106
+Encoded Content of the reg[6f] before flipping, is (in hex)0
+Content of the reg[6f] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the reg[6f] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[6f] was flipped to 0
+
+Checking program error, Content of the random reg[3a] is (in hex) 10
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[3a]..Need to check if parity/data was in error.
+PC value= 32c, opcode= 83a
+Before error correction,encoded content of the reg location 3a was: 40
+Before error correction, content of the reg location 3a was: 10
+SINGLE ERROR, can be corrected
+Bit in error is 7 and is a data bit. NEEDS ERROR CORRECTION.
+After error correction, content of the reg location 3a was: 0
+After error correction, encoded content of the reg location 3a was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=32c, instruction opcode being executed (in hex)=83a
+Number of instruction cycles executed before the error: 1337764106
+
+******Unique errors so far= 5. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99927
+Number of instruction cycles executed before the crash: 1340500372
+Number of total instruction cycles executed: 1340500372
+Encoded Content of the reg[32] before flipping, is (in hex)0
+Content of the reg[32] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[32] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[32] was flipped to 0
+
+Flip function called: Random number generated: 99951
+Number of instruction cycles executed before the crash: 1353582319
+Number of total instruction cycles executed: 1353582319
+
+random_bit_mem=6
+Encoded Content of the program mem[e72] before bitflip is (in hex): 0
+Content of the mem[e72] before flipping, is (in hex)**** 0
+Encoded Content of the mem[e72] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[e72] was flipped to 10
+
+Flip function called: Random number generated: 99960
+Number of instruction cycles executed before the crash: 1376676534
+Number of total instruction cycles executed: 1376676534
+Encoded Content of the reg[8f] before flipping, is (in hex)0
+Content of the reg[8f] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[8f] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[8f] was flipped to 0
+
+Flip function called: Random number generated: 99915
+Number of instruction cycles executed before the crash: 1377270907
+Number of total instruction cycles executed: 1377270907
+Encoded Content of the reg[5a] before flipping, is (in hex)0
+Content of the reg[5a] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[5a] after flipping, is (in hex)100
+In bit flip(), Bit flipped, Content of the reg[5a] was flipped to 40
+
+Flip function called: Random number generated: 99912
+Number of instruction cycles executed before the crash: 1377814301
+Number of total instruction cycles executed: 1377814301
+Encoded Content of the reg[d5] before flipping, is (in hex)0
+Content of the reg[d5] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[d5] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[d5] was flipped to 0
+
+Flip function called: Random number generated: 99925
+Number of instruction cycles executed before the crash: 1425516793
+Number of total instruction cycles executed: 1425516793
+
+random_bit_mem=15
+Encoded Content of the program mem[1fc] before bitflip is (in hex): 0
+Content of the mem[1fc] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1fc] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[1fc] was flipped to 0
+
+Flip function called: Random number generated: 99914
+Number of instruction cycles executed before the crash: 1457741715
+Number of total instruction cycles executed: 1457741715
+Encoded Content of the reg[b7] before flipping, is (in hex)100
+Content of the reg[b7] before flipping, is (in hex)40
+random_bit=10
+Encoded Content of the reg[b7] after flipping, is (in hex)500
+In bit flip(), Bit flipped, Content of the reg[b7] was flipped to c0
+
+Flip function called: Random number generated: 99981
+Number of instruction cycles executed before the crash: 1483918611
+Number of total instruction cycles executed: 1483918611
+
+random_bit_mem=18
+Encoded Content of the program mem[19ea] before bitflip is (in hex): 0
+Content of the mem[19ea] before flipping, is (in hex)**** 0
+Encoded Content of the mem[19ea] after flipping, is (in hex)**** 40000
+In bit flip(), Bit flipped, Content of the mem[19ea] was flipped to 0
+
+Flip function called: Random number generated: 99954
+Number of instruction cycles executed before the crash: 1582569912
+Number of total instruction cycles executed: 1582569912
+Encoded Content of the reg[50] before flipping, is (in hex)0
+Content of the reg[50] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the reg[50] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[50] was flipped to 0
+
+Flip function called: Random number generated: 99970
+Number of instruction cycles executed before the crash: 1583356147
+Number of total instruction cycles executed: 1583356147
+Encoded Content of the reg[64] before flipping, is (in hex)0
+Content of the reg[64] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the reg[64] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[64] was flipped to 0
+
+Flip function called: Random number generated: 99955
+Number of instruction cycles executed before the crash: 1593310792
+Number of total instruction cycles executed: 1593310792
+Encoded Content of the reg[a9] before flipping, is (in hex)0
+Content of the reg[a9] before flipping, is (in hex)0
+random_bit=1
+Encoded Content of the reg[a9] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[a9] was flipped to 1
+
+Flip function called: Random number generated: 99942
+Number of instruction cycles executed before the crash: 1611499599
+Number of total instruction cycles executed: 1611499599
+
+random_bit_mem=5
+Encoded Content of the program mem[17b1] before bitflip is (in hex): 0
+Content of the mem[17b1] before flipping, is (in hex)**** 0
+Encoded Content of the mem[17b1] after flipping, is (in hex)**** 20
+In bit flip(), Bit flipped, Content of the mem[17b1] was flipped to 0
+
+Flip function called: Random number generated: 99946
+Number of instruction cycles executed before the crash: 1664279076
+Number of total instruction cycles executed: 1664279076
+Encoded Content of the reg[de] before flipping, is (in hex)0
+Content of the reg[de] before flipping, is (in hex)0
+random_bit=10
+Encoded Content of the reg[de] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[de] was flipped to 80
+
+Flip function called: Random number generated: 99971
+Number of instruction cycles executed before the crash: 1689599507
+Number of total instruction cycles executed: 1689599507
+Encoded Content of the reg[e2] before flipping, is (in hex)0
+Content of the reg[e2] before flipping, is (in hex)0
+random_bit=3
+Encoded Content of the reg[e2] after flipping, is (in hex)8
+In bit flip(), Bit flipped, Content of the reg[e2] was flipped to 4
+
+Flip function called: Random number generated: 99977
+Number of instruction cycles executed before the crash: 1701990331
+Number of total instruction cycles executed: 1701990331
+Encoded Content of the reg[d4] before flipping, is (in hex)0
+Content of the reg[d4] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the reg[d4] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[d4] was flipped to 0
+
+Flip function called: Random number generated: 99990
+Number of instruction cycles executed before the crash: 1737605527
+Number of total instruction cycles executed: 1737605527
+
+random_bit_mem=5
+Encoded Content of the program mem[1245] before bitflip is (in hex): 0
+Content of the mem[1245] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1245] after flipping, is (in hex)**** 20
+In bit flip(), Bit flipped, Content of the mem[1245] was flipped to 0
+
+Flip function called: Random number generated: 99908
+Number of instruction cycles executed before the crash: 1753664212
+Number of total instruction cycles executed: 1753664212
+
+random_bit_mem=4
+Encoded Content of the program mem[1f13] before bitflip is (in hex): 0
+Content of the mem[1f13] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1f13] after flipping, is (in hex)**** 10
+In bit flip(), Bit flipped, Content of the mem[1f13] was flipped to 8
+
+Flip function called: Random number generated: 99987
+Number of instruction cycles executed before the crash: 1780687411
+Number of total instruction cycles executed: 1780687411
+
+random_bit_mem=15
+Encoded Content of the program mem[162a] before bitflip is (in hex): 0
+Content of the mem[162a] before flipping, is (in hex)**** 0
+Encoded Content of the mem[162a] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[162a] was flipped to 0
+
+Flip function called: Random number generated: 99942
+Number of instruction cycles executed before the crash: 1837797604
+Number of total instruction cycles executed: 1837797604
+Encoded Content of the reg[bc] before flipping, is (in hex)0
+Content of the reg[bc] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the reg[bc] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[bc] was flipped to 0
+
+Flip function called: Random number generated: 99990
+Number of instruction cycles executed before the crash: 1876854335
+Number of total instruction cycles executed: 1876854335
+Encoded Content of the reg[6c] before flipping, is (in hex)0
+Content of the reg[6c] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[6c] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[6c] was flipped to 10
+
+Flip function called: Random number generated: 99971
+Number of instruction cycles executed before the crash: 1890453388
+Number of total instruction cycles executed: 1890453388
+
+random_bit_mem=3
+Encoded Content of the program mem[141d] before bitflip is (in hex): 0
+Content of the mem[141d] before flipping, is (in hex)**** 0
+Encoded Content of the mem[141d] after flipping, is (in hex)**** 8
+In bit flip(), Bit flipped, Content of the mem[141d] was flipped to 4
+
+Flip function called: Random number generated: 99954
+Number of instruction cycles executed before the crash: 1990829406
+Number of total instruction cycles executed: 1990829406
+Encoded Content of the reg[19] before flipping, is (in hex)0
+Content of the reg[19] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[19] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[19] was flipped to 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 31c, opcode= 80
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=31c, instruction opcode being executed (in hex)=80
+Number of instruction cycles executed before the error: 1990829407
+
+******Unique errors so far= 6. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99954
+Number of instruction cycles executed before the crash: 1991724947
+Number of total instruction cycles executed: 1991724947
+
+random_bit_mem=7
+Encoded Content of the program mem[104c] before bitflip is (in hex): 0
+Content of the mem[104c] before flipping, is (in hex)**** 0
+Encoded Content of the mem[104c] after flipping, is (in hex)**** 80
+In bit flip(), Bit flipped, Content of the mem[104c] was flipped to 20
+
+Checking program error, Content of the random reg[3a] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[3a]..Need to check if parity/data was in error.
+PC value= 3e2, opcode= 83a
+Before error correction,encoded content of the reg location 3a was: 0
+Before error correction, content of the reg location 3a was: 0
+After error correction, content of the reg location 3a was: 0
+After error correction, encoded content of the reg location 3a was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3e2, instruction opcode being executed (in hex)=83a
+Number of instruction cycles executed before the error: 1991724947
+
+******Unique errors so far= 7. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99991
+Number of instruction cycles executed before the crash: 2015252341
+Number of total instruction cycles executed: 2015252341
+
+random_bit_mem=16
+Encoded Content of the program mem[126e] before bitflip is (in hex): 0
+Content of the mem[126e] before flipping, is (in hex)**** 0
+Encoded Content of the mem[126e] after flipping, is (in hex)**** 10000
+In bit flip(), Bit flipped, Content of the mem[126e] was flipped to 0
+
+Flip function called: Random number generated: 99917
+Number of instruction cycles executed before the crash: 2016548902
+Number of total instruction cycles executed: 2016548902
+Encoded Content of the reg[ae] before flipping, is (in hex)0
+Content of the reg[ae] before flipping, is (in hex)0
+random_bit=10
+Encoded Content of the reg[ae] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[ae] was flipped to 80
+
+Flip function called: Random number generated: 99918
+Number of instruction cycles executed before the crash: 2032646886
+Number of total instruction cycles executed: 2032646886
+
+random_bit_mem=4
+Encoded Content of the program mem[1826] before bitflip is (in hex): 0
+Content of the mem[1826] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1826] after flipping, is (in hex)**** 10
+In bit flip(), Bit flipped, Content of the mem[1826] was flipped to 8
+
+Flip function called: Random number generated: 99974
+Number of instruction cycles executed before the crash: 2042543027
+Number of total instruction cycles executed: 2042543027
+
+random_bit_mem=6
+Encoded Content of the program mem[1db3] before bitflip is (in hex): 0
+Content of the mem[1db3] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1db3] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[1db3] was flipped to 10
+
+Flip function called: Random number generated: 99991
+Number of instruction cycles executed before the crash: 2063757780
+Number of total instruction cycles executed: 2063757780
+
+random_bit_mem=1
+Encoded Content of the program mem[e7f] before bitflip is (in hex): 0
+Content of the mem[e7f] before flipping, is (in hex)**** 0
+Encoded Content of the mem[e7f] after flipping, is (in hex)**** 2
+In bit flip(), Bit flipped, Content of the mem[e7f] was flipped to 1
+
+Flip function called: Random number generated: 99985
+Number of instruction cycles executed before the crash: 2071830141
+Number of total instruction cycles executed: 2071830141
+
+random_bit_mem=7
+Encoded Content of the program mem[4de] before bitflip is (in hex): 0
+Content of the mem[4de] before flipping, is (in hex)**** 0
+Encoded Content of the mem[4de] after flipping, is (in hex)**** 80
+In bit flip(), Bit flipped, Content of the mem[4de] was flipped to 20
+
+Flip function called: Random number generated: 99951
+Number of instruction cycles executed before the crash: 2097601692
+Number of total instruction cycles executed: 2097601692
+
+random_bit_mem=7
+Encoded Content of the program mem[2d7] before bitflip is (in hex): 843
+Content of the mem[2d7] before flipping, is (in hex)**** 43
+Encoded Content of the mem[2d7] after flipping, is (in hex)**** c5187
+In bit flip(), Bit flipped, Content of the mem[2d7] was flipped to 63
+Hamming14 inside fetch:SINGLE ERROR, can be corrected
+Hamming14 inside fetch:Bit in error is 13 and is a data bit. NEEDS ERROR CORRECTION.
+i1->instruction = 34
+
+Flip function called: Random number generated: 99900
+Number of instruction cycles executed before the crash: 2133055074
+Number of total instruction cycles executed: 2133055074
+Encoded Content of the reg[83] before flipping, is (in hex)0
+Content of the reg[83] before flipping, is (in hex)0
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the reg[83] after flipping, is (in hex)200
+In bit flip(), Bit flipped, Content of the reg[83] was flipped to 0
+
+Flip function called: Random number generated: 99925
+Number of instruction cycles executed before the crash: 2220376319
+Number of total instruction cycles executed: 2220376319
+
+random_bit_mem=0
+Encoded Content of the program mem[1713] before bitflip is (in hex): 0
+Content of the mem[1713] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1713] after flipping, is (in hex)**** 1
+In bit flip(), Bit flipped, Content of the mem[1713] was flipped to 0
+
+Flip function called: Random number generated: 99909
+Number of instruction cycles executed before the crash: 2263317114
+Number of total instruction cycles executed: 2263317114
+
+random_bit_mem=17
+Encoded Content of the program mem[1d7e] before bitflip is (in hex): 0
+Content of the mem[1d7e] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1d7e] after flipping, is (in hex)**** 20000
+In bit flip(), Bit flipped, Content of the mem[1d7e] was flipped to 0
+
+Flip function called: Random number generated: 99978
+Number of instruction cycles executed before the crash: 2267394411
+Number of total instruction cycles executed: 2267394411
+
+random_bit_mem=15
+Encoded Content of the program mem[c24] before bitflip is (in hex): 0
+Content of the mem[c24] before flipping, is (in hex)**** 0
+Encoded Content of the mem[c24] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[c24] was flipped to 0
+
+Flip function called: Random number generated: 99923
+Number of instruction cycles executed before the crash: 2310932106
+Number of total instruction cycles executed: 2310932106
+Encoded Content of the reg[a2] before flipping, is (in hex)0
+Content of the reg[a2] before flipping, is (in hex)0
+random_bit=5
+Parity bit is flipped, not data bit
+Encoded Content of the reg[a2] after flipping, is (in hex)20
+In bit flip(), Bit flipped, Content of the reg[a2] was flipped to 0
+
+Flip function called: Random number generated: 99972
+Number of instruction cycles executed before the crash: 2330645491
+Number of total instruction cycles executed: 2330645491
+Encoded Content of the reg[51] before flipping, is (in hex)0
+Content of the reg[51] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[51] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[51] was flipped to 8
+
+Flip function called: Random number generated: 99900
+Number of instruction cycles executed before the crash: 2331794094
+Number of total instruction cycles executed: 2331794094
+Encoded Content of the reg[c6] before flipping, is (in hex)0
+Content of the reg[c6] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[c6] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[c6] was flipped to 0
+
+Flip function called: Random number generated: 99979
+Number of instruction cycles executed before the crash: 2335250858
+Number of total instruction cycles executed: 2335250858
+Encoded Content of the reg[62] before flipping, is (in hex)0
+Content of the reg[62] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[62] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[62] was flipped to 0
+
+Flip function called: Random number generated: 99962
+Number of instruction cycles executed before the crash: 2344871289
+Number of total instruction cycles executed: 2344871289
+
+random_bit_mem=3
+Encoded Content of the program mem[b5a] before bitflip is (in hex): 0
+Content of the mem[b5a] before flipping, is (in hex)**** 0
+Encoded Content of the mem[b5a] after flipping, is (in hex)**** 8
+In bit flip(), Bit flipped, Content of the mem[b5a] was flipped to 4
+
+Flip function called: Random number generated: 99931
+Number of instruction cycles executed before the crash: 2372173363
+Number of total instruction cycles executed: 2372173363
+Encoded Content of the reg[9] before flipping, is (in hex)0
+Content of the reg[9] before flipping, is (in hex)0
+random_bit=0
+Parity bit is flipped, not data bit
+Encoded Content of the reg[9] after flipping, is (in hex)1
+In bit flip(), Bit flipped, Content of the reg[9] was flipped to 0
+
+Flip function called: Random number generated: 99936
+Number of instruction cycles executed before the crash: 2378448120
+Number of total instruction cycles executed: 2378448120
+
+random_bit_mem=1
+Encoded Content of the program mem[1a2d] before bitflip is (in hex): 0
+Content of the mem[1a2d] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1a2d] after flipping, is (in hex)**** 2
+In bit flip(), Bit flipped, Content of the mem[1a2d] was flipped to 1
+
+Flip function called: Random number generated: 99916
+Number of instruction cycles executed before the crash: 2435633901
+Number of total instruction cycles executed: 2435633901
+
+random_bit_mem=14
+Encoded Content of the program mem[6e5] before bitflip is (in hex): 0
+Content of the mem[6e5] before flipping, is (in hex)**** 0
+Encoded Content of the mem[6e5] after flipping, is (in hex)**** 4000
+In bit flip(), Bit flipped, Content of the mem[6e5] was flipped to 0
+
+Flip function called: Random number generated: 99965
+Number of instruction cycles executed before the crash: 2441390245
+Number of total instruction cycles executed: 2441390245
+
+random_bit_mem=17
+Encoded Content of the program mem[1882] before bitflip is (in hex): 0
+Content of the mem[1882] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1882] after flipping, is (in hex)**** 20000
+In bit flip(), Bit flipped, Content of the mem[1882] was flipped to 0
+
+Flip function called: Random number generated: 99953
+Number of instruction cycles executed before the crash: 2447047168
+Number of total instruction cycles executed: 2447047168
+Encoded Content of the reg[16] before flipping, is (in hex)0
+Content of the reg[16] before flipping, is (in hex)0
+random_bit=6
+Encoded Content of the reg[16] after flipping, is (in hex)40
+In bit flip(), Bit flipped, Content of the reg[16] was flipped to 10
+
+Flip function called: Random number generated: 99916
+Number of instruction cycles executed before the crash: 2492663564
+Number of total instruction cycles executed: 2492663564
+
+random_bit_mem=6
+Encoded Content of the program mem[820] before bitflip is (in hex): 0
+Content of the mem[820] before flipping, is (in hex)**** 0
+Encoded Content of the mem[820] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[820] was flipped to 10
+
+Flip function called: Random number generated: 99984
+Number of instruction cycles executed before the crash: 2500081436
+Number of total instruction cycles executed: 2500081436
+
+random_bit_mem=16
+Encoded Content of the program mem[1d5d] before bitflip is (in hex): 0
+Content of the mem[1d5d] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1d5d] after flipping, is (in hex)**** 10000
+In bit flip(), Bit flipped, Content of the mem[1d5d] was flipped to 0
+
+Flip function called: Random number generated: 99933
+Number of instruction cycles executed before the crash: 2502475246
+Number of total instruction cycles executed: 2502475246
+Encoded Content of the reg[12] before flipping, is (in hex)0
+Content of the reg[12] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the reg[12] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[12] was flipped to 0
+
+Flip function called: Random number generated: 99982
+Number of instruction cycles executed before the crash: 2504855623
+Number of total instruction cycles executed: 2504855623
+
+random_bit_mem=15
+Encoded Content of the program mem[43b] before bitflip is (in hex): 0
+Content of the mem[43b] before flipping, is (in hex)**** 0
+Encoded Content of the mem[43b] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[43b] was flipped to 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 384, opcode= 800
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=384, instruction opcode being executed (in hex)=800
+Number of instruction cycles executed before the error: 2504855623
+
+******Unique errors so far= 8. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99991
+Number of instruction cycles executed before the crash: 2526223542
+Number of total instruction cycles executed: 2526223542
+Encoded Content of the reg[ea] before flipping, is (in hex)0
+Content of the reg[ea] before flipping, is (in hex)0
+random_bit=2
+Encoded Content of the reg[ea] after flipping, is (in hex)4
+In bit flip(), Bit flipped, Content of the reg[ea] was flipped to 2
+
+Flip function called: Random number generated: 99963
+Number of instruction cycles executed before the crash: 2553825414
+Number of total instruction cycles executed: 2553825414
+Encoded Content of the reg[ab] before flipping, is (in hex)0
+Content of the reg[ab] before flipping, is (in hex)0
+random_bit=4
+Encoded Content of the reg[ab] after flipping, is (in hex)10
+In bit flip(), Bit flipped, Content of the reg[ab] was flipped to 8
+
+Flip function called: Random number generated: 99972
+Number of instruction cycles executed before the crash: 2594889920
+Number of total instruction cycles executed: 2594889920
+
+random_bit_mem=15
+Encoded Content of the program mem[1ae9] before bitflip is (in hex): 0
+Content of the mem[1ae9] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1ae9] after flipping, is (in hex)**** 8000
+In bit flip(), Bit flipped, Content of the mem[1ae9] was flipped to 0
+
+Checking program error, Content of the random reg[12] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[12]..Need to check if parity/data was in error.
+PC value= 36f, opcode= 92
+Before error correction,encoded content of the reg location 12 was: 800
+Before error correction, content of the reg location 12 was: 0
+SINGLE ERROR, can be corrected
+Bit in error is 2 and is a parity bit. ****DATA BIT NOT IN ERROR****
+After error correction, content of the reg location 12 was: 0
+After error correction, encoded content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=36f, instruction opcode being executed (in hex)=92
+Number of instruction cycles executed before the error: 2594889920
+
+******Unique errors so far= 9. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99993
+Number of instruction cycles executed before the crash: 2633023237
+Number of total instruction cycles executed: 2633023237
+
+random_bit_mem=9
+Encoded Content of the program mem[6d1] before bitflip is (in hex): 0
+Content of the mem[6d1] before flipping, is (in hex)**** 0
+Encoded Content of the mem[6d1] after flipping, is (in hex)**** 200
+In bit flip(), Bit flipped, Content of the mem[6d1] was flipped to 0
+
+Flip function called: Random number generated: 99918
+Number of instruction cycles executed before the crash: 2649696213
+Number of total instruction cycles executed: 2649696213
+Encoded Content of the reg[26] before flipping, is (in hex)0
+Content of the reg[26] before flipping, is (in hex)0
+random_bit=1
+Encoded Content of the reg[26] after flipping, is (in hex)2
+In bit flip(), Bit flipped, Content of the reg[26] was flipped to 1
+
+Flip function called: Random number generated: 99934
+Number of instruction cycles executed before the crash: 2671164429
+Number of total instruction cycles executed: 2671164429
+
+random_bit_mem=18
+Encoded Content of the program mem[1779] before bitflip is (in hex): 0
+Content of the mem[1779] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1779] after flipping, is (in hex)**** 40000
+In bit flip(), Bit flipped, Content of the mem[1779] was flipped to 0
+
+Checking program error, Content of the random reg[12] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[12]..Need to check if parity/data was in error.
+PC value= 2dc, opcode= 212
+Before error correction,encoded content of the reg location 12 was: 0
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+After error correction, encoded content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=2dc, instruction opcode being executed (in hex)=212
+Number of instruction cycles executed before the error: 2671164429
+
+******Unique errors so far= 10. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99916
+Number of instruction cycles executed before the crash: 2710706829
+Number of total instruction cycles executed: 2710706829
+Encoded Content of the reg[4b] before flipping, is (in hex)0
+Content of the reg[4b] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[4b] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[4b] was flipped to 0
+
+Flip function called: Random number generated: 99946
+Number of instruction cycles executed before the crash: 2751551095
+Number of total instruction cycles executed: 2751551095
+
+random_bit_mem=6
+Encoded Content of the program mem[147d] before bitflip is (in hex): 0
+Content of the mem[147d] before flipping, is (in hex)**** 0
+Encoded Content of the mem[147d] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[147d] was flipped to 10
+
+Flip function called: Random number generated: 99929
+Number of instruction cycles executed before the crash: 2758843755
+Number of total instruction cycles executed: 2758843755
+
+random_bit_mem=0
+Encoded Content of the program mem[fa7] before bitflip is (in hex): 0
+Content of the mem[fa7] before flipping, is (in hex)**** 0
+Encoded Content of the mem[fa7] after flipping, is (in hex)**** 1
+In bit flip(), Bit flipped, Content of the mem[fa7] was flipped to 0
+
+Checking program error, Content of the random reg[3a] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[3a]..Need to check if parity/data was in error.
+PC value= 32c, opcode= 83a
+Before error correction,encoded content of the reg location 3a was: 0
+Before error correction, content of the reg location 3a was: 0
+After error correction, content of the reg location 3a was: 0
+After error correction, encoded content of the reg location 3a was: 0
+
+Flip function called: Random number generated: 99936
+Number of instruction cycles executed before the crash: 2764624113
+Number of total instruction cycles executed: 2764624113
+
+random_bit_mem=18
+Encoded Content of the program mem[1a21] before bitflip is (in hex): 0
+Content of the mem[1a21] before flipping, is (in hex)**** 0
+Encoded Content of the mem[1a21] after flipping, is (in hex)**** 40000
+In bit flip(), Bit flipped, Content of the mem[1a21] was flipped to 0
+
+Flip function called: Random number generated: 99951
+Number of instruction cycles executed before the crash: 2786362619
+Number of total instruction cycles executed: 2786362619
+Encoded Content of the reg[fd] before flipping, is (in hex)0
+Content of the reg[fd] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[fd] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[fd] was flipped to 0
+
+Checking program error, Content of the random reg[12] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[12]..Need to check if parity/data was in error.
+PC value= 3f5, opcode= 212
+Before error correction,encoded content of the reg location 12 was: 0
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+After error correction, encoded content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3f5, instruction opcode being executed (in hex)=212
+Number of instruction cycles executed before the error: 2786362620
+
+******Unique errors so far= 11. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99931
+Number of instruction cycles executed before the crash: 2832600693
+Number of total instruction cycles executed: 2832600693
+Encoded Content of the reg[ac] before flipping, is (in hex)0
+Content of the reg[ac] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the reg[ac] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[ac] was flipped to 0
+
+Flip function called: Random number generated: 99983
+Number of instruction cycles executed before the crash: 2842755614
+Number of total instruction cycles executed: 2842755614
+Encoded Content of the reg[d] before flipping, is (in hex)0
+Content of the reg[d] before flipping, is (in hex)0
+random_bit=10
+Encoded Content of the reg[d] after flipping, is (in hex)400
+In bit flip(), Bit flipped, Content of the reg[d] was flipped to 80
+
+Flip function called: Random number generated: 99925
+Number of instruction cycles executed before the crash: 2873222602
+Number of total instruction cycles executed: 2873222602
+Encoded Content of the reg[85] before flipping, is (in hex)10
+Content of the reg[85] before flipping, is (in hex)8
+random_bit=10
+Encoded Content of the reg[85] after flipping, is (in hex)410
+In bit flip(), Bit flipped, Content of the reg[85] was flipped to 88
+
+Flip function called: Random number generated: 99911
+Number of instruction cycles executed before the crash: 2883658138
+Number of total instruction cycles executed: 2883658138
+
+random_bit_mem=9
+Encoded Content of the program mem[626] before bitflip is (in hex): 0
+Content of the mem[626] before flipping, is (in hex)**** 0
+Encoded Content of the mem[626] after flipping, is (in hex)**** 200
+In bit flip(), Bit flipped, Content of the mem[626] was flipped to 0
+
+Flip function called: Random number generated: 99931
+Number of instruction cycles executed before the crash: 2884845077
+Number of total instruction cycles executed: 2884845077
+Encoded Content of the reg[50] before flipping, is (in hex)20
+Content of the reg[50] before flipping, is (in hex)0
+random_bit=8
+Encoded Content of the reg[50] after flipping, is (in hex)120
+In bit flip(), Bit flipped, Content of the reg[50] was flipped to 40
+
+Flip function called: Random number generated: 99946
+Number of instruction cycles executed before the crash: 2928905764
+Number of total instruction cycles executed: 2928905764
+Encoded Content of the reg[b0] before flipping, is (in hex)0
+Content of the reg[b0] before flipping, is (in hex)0
+random_bit=12
+Parity bit is flipped, not data bit
+Encoded Content of the reg[b0] after flipping, is (in hex)1000
+In bit flip(), Bit flipped, Content of the reg[b0] was flipped to 0
+
+Checking program error, Content of the random reg[12] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[12]..Need to check if parity/data was in error.
+PC value= 3df, opcode= 212
+Before error correction,encoded content of the reg location 12 was: 0
+Before error correction, content of the reg location 12 was: 0
+After error correction, content of the reg location 12 was: 0
+After error correction, encoded content of the reg location 12 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=3df, instruction opcode being executed (in hex)=212
+Number of instruction cycles executed before the error: 2928905764
+
+******Unique errors so far= 12. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99929
+Number of instruction cycles executed before the crash: 2942850621
+Number of total instruction cycles executed: 2942850621
+Encoded Content of the reg[9f] before flipping, is (in hex)0
+Content of the reg[9f] before flipping, is (in hex)0
+random_bit=11
+Parity bit is flipped, not data bit
+Encoded Content of the reg[9f] after flipping, is (in hex)800
+In bit flip(), Bit flipped, Content of the reg[9f] was flipped to 0
+
+Flip function called: Random number generated: 99916
+Number of instruction cycles executed before the crash: 2961421668
+Number of total instruction cycles executed: 2961421668
+
+random_bit_mem=6
+Encoded Content of the program mem[c2f] before bitflip is (in hex): 0
+Content of the mem[c2f] before flipping, is (in hex)**** 0
+Encoded Content of the mem[c2f] after flipping, is (in hex)**** 40
+In bit flip(), Bit flipped, Content of the mem[c2f] was flipped to 10
+
+Flip function called: Random number generated: 99945
+Number of instruction cycles executed before the crash: 2962476334
+Number of total instruction cycles executed: 2962476334
+
+random_bit_mem=10
+Encoded Content of the program mem[695] before bitflip is (in hex): 0
+Content of the mem[695] before flipping, is (in hex)**** 0
+Encoded Content of the mem[695] after flipping, is (in hex)**** 400
+In bit flip(), Bit flipped, Content of the mem[695] was flipped to 80
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+
+Checking program error, Content of the random reg[0] is (in hex) 0
+POSSIBLE ERROR: Incorrect data fetched when accessing reg[0]..Need to check if parity/data was in error.
+PC value= 369, opcode= 80
+Before error correction,encoded content of the reg location 0 was: 0
+Before error correction, content of the reg location 0 was: 0
+After error correction, content of the reg location 0 was: 0
+After error correction, encoded content of the reg location 0 was: 0
+
+Unique error corrected: Incorrect data was being fetched from memory
+PC value (in hex)=369, instruction opcode being executed (in hex)=80
+Number of instruction cycles executed before the error: 2962476335
+
+******Unique errors so far= 13. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 99932
+Number of instruction cycles executed before the crash: 3052610841
+Number of total instruction cycles executed: 3052610841
+Encoded Content of the reg[8a] before flipping, is (in hex)1824
+Content of the reg[8a] before flipping, is (in hex)2
+random_bit=9
+Parity bit is flipped, not data bit
+Encoded Content of the reg[8a] after flipping, is (in hex)1a24
+In bit flip(), Bit flipped, Content of the reg[8a] was flipped to 2
+***********************************************************************
+
+Crash Avoided number:2 
+Program crash would have been due to PC value at location 8a getting affected
+Actual PC value (in hex)=2fb, instruction opcode that was getting executed (in hex)=2afc
+Random number that got generated this time was: 99932
+Time of crash number 2 is 1334772123 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 128059 (in seconds)
+Number of instruction cycles executed before the crash: 3052610841
+
+***STARTING ERROR CORRECTION ON PC REG LOCATIONS***
+SINGLE ERROR, can be corrected
+Bit in error is 4 and is a parity bit. ****DATA BIT NOT IN ERROR****
+Bit 4 corrected, Corrected encoded data is 6180 (in decimal), 1824 (in hex)
+
+ERROR CORRECTION: Corrected PC values (location 2 and 82 are PCL, location A and 8A are PCLATH) are:
+GP_Reg[0x02] = fb, GP_Reg[0x82] = fb, GP_Reg[0x0A] = 2, GP_Reg[0x8A] = 2
