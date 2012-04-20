@@ -37,7 +37,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_0p01_apr16.txt", "w" );
+fnew = fopen( "output_pic_matrix_mult_1e-3_apr16.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -185,9 +185,6 @@ int endloop=0, num_of_inst=0;
 
                     repeat_program_execution++; //Keep track of the number of times the program is re-executed
 					
-
-
-
          
                 }
 
@@ -331,8 +328,8 @@ successful_cycles= (total_instr_cycles-total_error_count- MAX_CRASHES);
 printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
 fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
-//printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
-//fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
+printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
 
 
 printf("Total number of crashes:%d\n",MAX_CRASHES);

@@ -10,11 +10,11 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 10
+#define MAX_CRASHES 5
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 10000
+#define PROBABILITY_INVERSE 1000000
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -1301,7 +1301,14 @@ int bit_flips(struct registers *r2,  int program_memory[],int program_memory_enc
         printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
 		fprintf(fnew,"\nFlip function called: Random number generated: %d\n",cp->random_number);
 
-		if(cp->flip_bit_flag==0) //If you enter this if statement without previous bit flips, then set thsi to 1.
+		printf("Number of instruction cycles executed : %llu\n",cp->instr_cycles);
+            fprintf(fnew,"Number of instruction cycles executed : %llu\n",cp->instr_cycles);
+
+
+		printf("Number of total instruction cycles executed: %llu\n",cp->instr_cycles_for_error);
+            fprintf(fnew,"Number of total instruction cycles executed: %llu\n",cp->instr_cycles_for_error);
+
+if(cp->flip_bit_flag==0) //If you enter this if statement without previous bit flips, then set thsi to 1.
 			cp->flip_bit_flag=1; //Set flag when bit flips function is called. Check for program errors only when this is set.
 
 		else 

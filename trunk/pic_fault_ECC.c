@@ -34,9 +34,9 @@ int main()
         unsigned long long int total_instr_cycles=0,mean_instr_cycles=0,  mean_seconds=0, total_seconds=0, successful_cycles=0,total_error_count=0;
 		float percentage_crash=0.0,percentage_error=0.0, percentage_success=0.0;
 		
+		time_t now_time;
 
-
-		fnew = fopen( "output_pic_matrix_mult_0p01_ECC_apr16.txt", "w" );
+		fnew = fopen( "output_pic_matrix_mult_1e-4_ECC_apr16.txt", "w" );
 		if( fnew != NULL )
 		   fprintf( fnew, "Hello\n" );
 
@@ -186,6 +186,17 @@ int endloop=0, num_of_inst=0;
                 PRINT("****************************************************************\n");    
                 
 
+		if((crash_param.instr_cycles_for_error % 1000000000) == 0)
+			{
+			printf("Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
+			fprintf(fnew,"Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
+
+			now_time = time(NULL);
+			printf("Time since the beginning of program execution is: %ld (in seconds)\n", now_time-start_seconds);
+			fprintf(fnew,"Time since the beginning of program execution is: %ld (in seconds)\n",  (now_time-start_seconds));
+
+			}
+
 				if(crash_param.just_reset_PC_after_crash == 0) //no crash has happened, so can increment PC
 				{
 				//Increment program counter
@@ -254,9 +265,6 @@ int endloop=0, num_of_inst=0;
 		fprintf(fnew,"\n");
 
 
-printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
-fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
-
 
 printf("\nNumber of instruction cycles executed before each crash:\n");
 fprintf(fnew,"\nNumber of instruction cycles executed before each crash:\n");
@@ -288,6 +296,9 @@ for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index
 	total_seconds=total_seconds+ crash_param.actual_crash_time_array[i];
 	}
 
+
+printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
 
 printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
@@ -329,8 +340,8 @@ successful_cycles= (total_instr_cycles-MAX_CRASHES);
 
 
 
-//printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
-//fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
+printf("\nTotal number of instruction cycles executed..(using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); //%e
+fprintf(fnew,"\nTotal number of instruction cycles executed.. (using instr_cycles_for_error) :%llu\n",(crash_param.instr_cycles_for_error)); 
 
 
 printf("Total number of crashes (due to double errors):%d\n",MAX_CRASHES);
