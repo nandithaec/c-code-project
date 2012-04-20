@@ -1,0 +1,1103 @@
+Hello
+At the start of execution: 1334582900 seconds since January 1, 1970 
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+Status register contents:(hex) at the beginning of all operations: 0
+Probability of a bit flip is set to: 0.01
+Executing...
+
+Flip function called: Random number generated: 9961
+cp->random_mem inside check_illegal: 80d, cp->random_bit_mem=a 
+
+Flip function called: Random number generated: 9968
+cp->random_mem inside check_illegal: 162, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9934
+cp->random_mem inside check_illegal: 1579, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9928
+cp->random_mem inside check_illegal: 13a4, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9939
+cp->random_mem inside check_illegal: 11bc, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9903
+cp->random_mem inside check_illegal: 1807, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9919
+
+Crash number:1
+Program crash due to PC value at location 82 getting affected
+Random number that got generated this time was: 9919
+Time of crash number 1 is 1334583444 seconds since January 1, 1970
+At crash 1,time since the beginning of program execution is: 544 (in seconds)
+
+cp->crash_time_array[1]:544
+Number of instruction cycles executed before the crash: 1414414721
+***PC reset after crash***
+PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+***Reloading instructions to program memory***
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+cp->random_mem inside check_illegal: 20f, cp->random_bit_mem=6 
+
+Flip function called: Random number generated: 9940
+cp->random_mem inside check_illegal: 1549, cp->random_bit_mem=8 
+
+Flip function called: Random number generated: 9910
+cp->random_mem inside check_illegal: 1233, cp->random_bit_mem=d 
+
+Flip function called: Random number generated: 9986
+cp->random_mem inside check_illegal: 893, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9918
+cp->random_mem inside check_illegal: 12ea, cp->random_bit_mem=c 
+Reg file address 41
+cp->store_PC_same[0]=2ec
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2ec, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 2438315036
+
+******Unique errors so far= 1. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[1]=2ed
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2ed, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 2438315037
+
+******Unique errors so far= 2. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[2]=2fe
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2fe, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 2438315051
+
+******Unique errors so far= 3. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[3]=33a
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=33a, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 2438315053
+
+******Unique errors so far= 4. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[4]=339
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=339, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 2438315170
+
+******Unique errors so far= 5. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[5]=34b
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=34b, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 2438315313
+
+******Unique errors so far= 6. Repeated errors are counted but not printed******
+Reg file address 41
+cp->store_PC_same[6]=3f0
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3f0, instruction opcode being executed (in hex)=841
+Number of instruction cycles executed before the error: 2438315315
+
+******Unique errors so far= 7. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9948
+cp->random_mem inside check_illegal: 1a6e, cp->random_bit_mem=8 
+Reg file address 41
+cp->store_PC_same[7]=3ef
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ef, instruction opcode being executed (in hex)=7c1
+Number of instruction cycles executed before the error: 2814218216
+
+******Unique errors so far= 8. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9981
+cp->random_mem inside check_illegal: 11c3, cp->random_bit_mem=7 
+Reg file address 41
+cp->store_PC_same[8]=2b1
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2b1, instruction opcode being executed (in hex)=1c1
+Number of instruction cycles executed before the error: 3461537099
+
+******Unique errors so far= 9. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9960
+cp->random_mem inside check_illegal: 1d7c, cp->random_bit_mem=9 
+
+Flip function called: Random number generated: 9949
+cp->random_mem inside check_illegal: 1f06, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9988
+cp->random_mem inside check_illegal: 57, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9966
+cp->random_mem inside check_illegal: a04, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9904
+cp->random_mem inside check_illegal: 1735, cp->random_bit_mem=d 
+
+Flip function called: Random number generated: 9991
+cp->random_mem inside check_illegal: 13a1, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9988
+cp->random_mem inside check_illegal: 1a1c, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9940
+cp->random_mem inside check_illegal: 1580, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9951
+cp->random_mem inside check_illegal: 1cc0, cp->random_bit_mem=d 
+Reg file address d
+cp->store_PC_same[9]=385
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=385, instruction opcode being executed (in hex)=8d
+Number of instruction cycles executed before the error: 5695919945
+
+******Unique errors so far= 10. Repeated errors are counted but not printed******
+Reg file address d
+cp->store_PC_same[10]=28b
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=28b, instruction opcode being executed (in hex)=c8d
+Number of instruction cycles executed before the error: 5695919984
+
+******Unique errors so far= 11. Repeated errors are counted but not printed******
+Reg file address d
+cp->store_PC_same[11]=290
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=290, instruction opcode being executed (in hex)=80d
+Number of instruction cycles executed before the error: 5695919988
+
+******Unique errors so far= 12. Repeated errors are counted but not printed******
+Reg file address d
+cp->store_PC_same[12]=298
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=298, instruction opcode being executed (in hex)=18d
+Number of instruction cycles executed before the error: 5695919994
+
+******Unique errors so far= 13. Repeated errors are counted but not printed******
+Reg file address d
+cp->store_PC_same[13]=299
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=299, instruction opcode being executed (in hex)=78d
+Number of instruction cycles executed before the error: 5695919995
+
+******Unique errors so far= 14. Repeated errors are counted but not printed******
+Reg file address d
+cp->store_PC_same[14]=3b9
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3b9, instruction opcode being executed (in hex)=80d
+Number of instruction cycles executed before the error: 5695920026
+
+******Unique errors so far= 15. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9950
+cp->random_mem inside check_illegal: 1983, cp->random_bit_mem=2 
+
+Flip function called: Random number generated: 9945
+cp->random_mem inside check_illegal: 121d, cp->random_bit_mem=6 
+
+Flip function called: Random number generated: 9988
+cp->random_mem inside check_illegal: 1aa9, cp->random_bit_mem=9 
+
+Flip function called: Random number generated: 9995
+cp->random_mem inside check_illegal: 1674, cp->random_bit_mem=1 
+Reg file address 19
+cp->store_PC_same[15]=395
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=395, instruction opcode being executed (in hex)=99
+Number of instruction cycles executed before the error: 6872529465
+
+******Unique errors so far= 16. Repeated errors are counted but not printed******
+Reg file address 19
+cp->store_PC_same[16]=396
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=396, instruction opcode being executed (in hex)=819
+Number of instruction cycles executed before the error: 6872529466
+
+******Unique errors so far= 17. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9972
+cp->random_mem inside check_illegal: 8d4, cp->random_bit_mem=7 
+
+Flip function called: Random number generated: 9998
+cp->random_mem inside check_illegal: 1cfc, cp->random_bit_mem=5 
+
+Flip function called: Random number generated: 9974
+cp->random_mem inside check_illegal: 146b, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9934
+cp->random_mem inside check_illegal: 184f, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9919
+cp->random_mem inside check_illegal: e26, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9965
+cp->random_mem inside check_illegal: 5a7, cp->random_bit_mem=9 
+Reg file address 18
+cp->store_PC_same[17]=392
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=392, instruction opcode being executed (in hex)=98
+Number of instruction cycles executed before the error: 9379649869
+
+******Unique errors so far= 18. Repeated errors are counted but not printed******
+Reg file address 18
+cp->store_PC_same[18]=393
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=393, instruction opcode being executed (in hex)=718
+Number of instruction cycles executed before the error: 9379649870
+
+******Unique errors so far= 19. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9957
+cp->random_mem inside check_illegal: 1f68, cp->random_bit_mem=7 
+
+Flip function called: Random number generated: 9933
+cp->random_mem inside check_illegal: 1104, cp->random_bit_mem=2 
+
+Flip function called: Random number generated: 9993
+cp->random_mem inside check_illegal: 15a, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9920
+cp->random_mem inside check_illegal: 1366, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9950
+cp->random_mem inside check_illegal: 442, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9904
+cp->random_mem inside check_illegal: b3a, cp->random_bit_mem=6 
+
+Flip function called: Random number generated: 9959
+cp->random_mem inside check_illegal: 17bf, cp->random_bit_mem=9 
+
+Flip function called: Random number generated: 9990
+cp->random_mem inside check_illegal: 1b75, cp->random_bit_mem=2 
+
+Flip function called: Random number generated: 9936
+cp->random_mem inside check_illegal: e30, cp->random_bit_mem=1 
+
+Flip function called: Random number generated: 9993
+cp->random_mem inside check_illegal: 1cbf, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9974
+cp->random_mem inside check_illegal: 16d, cp->random_bit_mem=4 
+Reg file address 1b
+cp->store_PC_same[19]=3a9
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3a9, instruction opcode being executed (in hex)=9b
+Number of instruction cycles executed before the error: 11522316628
+
+******Unique errors so far= 20. Repeated errors are counted but not printed******
+Reg file address 1b
+cp->store_PC_same[20]=3ad
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ad, instruction opcode being executed (in hex)=71b
+Number of instruction cycles executed before the error: 11522316632
+
+******Unique errors so far= 21. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9937
+
+Crash number:2
+Program crash due to PC value at location 2 getting affected
+Random number that got generated this time was: 9937
+Time of crash number 2 is 1334587440 seconds since January 1, 1970
+At crash 2,time since the beginning of program execution is: 4540 (in seconds)
+
+cp->crash_time_array[2]:4540
+Number of instruction cycles executed before the crash: 10444550956
+***PC reset after crash***
+PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+***Reloading instructions to program memory***
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+cp->random_mem inside check_illegal: 5a1, cp->random_bit_mem=8 
+
+Flip function called: Random number generated: 9926
+cp->random_mem inside check_illegal: 19e1, cp->random_bit_mem=1 
+
+Flip function called: Random number generated: 9968
+cp->random_mem inside check_illegal: 1afb, cp->random_bit_mem=3 
+
+Flip function called: Random number generated: 9952
+cp->random_mem inside check_illegal: 158a, cp->random_bit_mem=6 
+
+Flip function called: Random number generated: 9953
+cp->random_mem inside check_illegal: 1c42, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9906
+cp->random_mem inside check_illegal: 1394, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9913
+cp->random_mem inside check_illegal: d2, cp->random_bit_mem=d 
+Reg file address 4f
+cp->store_PC_same[21]=3b8
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3b8, instruction opcode being executed (in hex)=cf
+Number of instruction cycles executed before the error: 12750160657
+
+******Unique errors so far= 22. Repeated errors are counted but not printed******
+Reg file address 4f
+cp->store_PC_same[22]=3ba
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ba, instruction opcode being executed (in hex)=74f
+Number of instruction cycles executed before the error: 12750160659
+
+******Unique errors so far= 23. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9952
+cp->random_mem inside check_illegal: a68, cp->random_bit_mem=5 
+
+Flip function called: Random number generated: 9900
+cp->random_mem inside check_illegal: 1a47, cp->random_bit_mem=3 
+Reg file address 11
+cp->store_PC_same[23]=276
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=276, instruction opcode being executed (in hex)=191
+Number of instruction cycles executed before the error: 13028085377
+
+******Unique errors so far= 24. Repeated errors are counted but not printed******
+Reg file address 11
+cp->store_PC_same[24]=297
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=297, instruction opcode being executed (in hex)=811
+Number of instruction cycles executed before the error: 13028085399
+
+******Unique errors so far= 25. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9979
+cp->random_mem inside check_illegal: 47e, cp->random_bit_mem=1 
+
+Flip function called: Random number generated: 9949
+cp->random_mem inside check_illegal: 48d, cp->random_bit_mem=a 
+
+Flip function called: Random number generated: 9990
+cp->random_mem inside check_illegal: 56e, cp->random_bit_mem=2 
+
+Flip function called: Random number generated: 9926
+
+Crash number:3
+Program crash due to PC value at location 2 getting affected
+Random number that got generated this time was: 9926
+Time of crash number 3 is 1334588173 seconds since January 1, 1970
+At crash 3,time since the beginning of program execution is: 5273 (in seconds)
+
+cp->crash_time_array[3]:5273
+Number of instruction cycles executed before the crash: 1914505140
+***PC reset after crash***
+PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+***Reloading instructions to program memory***
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+cp->random_mem inside check_illegal: 1577, cp->random_bit_mem=3 
+
+Flip function called: Random number generated: 9909
+cp->random_mem inside check_illegal: 15f4, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9930
+cp->random_mem inside check_illegal: 5c8, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9931
+cp->random_mem inside check_illegal: ee4, cp->random_bit_mem=4 
+
+Flip function called: Random number generated: 9963
+cp->random_mem inside check_illegal: 105f, cp->random_bit_mem=b 
+
+Flip function called: Random number generated: 9954
+cp->random_mem inside check_illegal: d0, cp->random_bit_mem=9 
+
+Flip function called: Random number generated: 9938
+cp->random_mem inside check_illegal: e79, cp->random_bit_mem=5 
+Reg file address 16
+cp->store_PC_same[25]=387
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=387, instruction opcode being executed (in hex)=96
+Number of instruction cycles executed before the error: 15109576831
+
+******Unique errors so far= 26. Repeated errors are counted but not printed******
+Reg file address 16
+cp->store_PC_same[26]=38a
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=38a, instruction opcode being executed (in hex)=d96
+Number of instruction cycles executed before the error: 15109576834
+
+******Unique errors so far= 27. Repeated errors are counted but not printed******
+Reg file address 16
+cp->store_PC_same[27]=38f
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=38f, instruction opcode being executed (in hex)=716
+Number of instruction cycles executed before the error: 15109576843
+
+******Unique errors so far= 28. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9937
+cp->random_mem inside check_illegal: 1546, cp->random_bit_mem=7 
+Reg file address 3
+cp->store_PC_same[28]=304
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=304, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154430827
+
+******Unique errors so far= 29. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[29]=308
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=308, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154430831
+
+******Unique errors so far= 30. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[30]=30b
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=30b, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154430834
+
+******Unique errors so far= 31. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[31]=318
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=318, instruction opcode being executed (in hex)=1383
+Number of instruction cycles executed before the error: 15154430846
+
+******Unique errors so far= 32. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[32]=31f
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=31f, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15154430853
+
+******Unique errors so far= 33. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[33]=32a
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=32a, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154430863
+
+******Unique errors so far= 34. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[34]=32e
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=32e, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15154430866
+
+******Unique errors so far= 35. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[35]=334
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=334, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154430912
+
+******Unique errors so far= 36. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[36]=336
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=336, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15154430914
+
+******Unique errors so far= 37. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[37]=340
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=340, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154430923
+
+******Unique errors so far= 38. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[38]=344
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=344, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15154430926
+
+******Unique errors so far= 39. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[39]=300
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=300, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154430929
+
+******Unique errors so far= 40. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[40]=349
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=349, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431057
+
+******Unique errors so far= 41. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[41]=3f6
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3f6, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431067
+
+******Unique errors so far= 42. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[42]=3fa
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3fa, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15154431070
+
+******Unique errors so far= 43. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[43]=34d
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=34d, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431073
+
+******Unique errors so far= 44. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[44]=3e0
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3e0, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431083
+
+******Unique errors so far= 45. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[45]=3e4
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3e4, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15154431086
+
+******Unique errors so far= 46. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[46]=351
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=351, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431089
+
+******Unique errors so far= 47. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[47]=355
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=355, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431093
+
+******Unique errors so far= 48. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[48]=358
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=358, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431096
+
+******Unique errors so far= 49. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[49]=365
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=365, instruction opcode being executed (in hex)=1383
+Number of instruction cycles executed before the error: 15154431108
+
+******Unique errors so far= 50. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[50]=3ca
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ca, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431122
+
+******Unique errors so far= 51. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[51]=3ce
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ce, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15154431125
+
+******Unique errors so far= 52. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[52]=36d
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=36d, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431128
+
+******Unique errors so far= 53. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[53]=371
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=371, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431132
+
+******Unique errors so far= 54. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[54]=374
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=374, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431135
+
+******Unique errors so far= 55. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[55]=380
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=380, instruction opcode being executed (in hex)=1383
+Number of instruction cycles executed before the error: 15154431146
+
+******Unique errors so far= 56. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[56]=389
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=389, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431155
+
+******Unique errors so far= 57. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[57]=38c
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=38c, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431158
+
+******Unique errors so far= 58. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[58]=274
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=274, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431175
+
+******Unique errors so far= 59. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[59]=283
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=283, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431183
+
+******Unique errors so far= 60. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[60]=287
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=287, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431187
+
+******Unique errors so far= 61. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[61]=28a
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=28a, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431189
+
+******Unique errors so far= 62. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[62]=28e
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=28e, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431193
+
+******Unique errors so far= 63. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[63]=292
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=292, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431196
+
+******Unique errors so far= 64. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[64]=39e
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=39e, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15154431207
+
+******Unique errors so far= 65. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[65]=3a2
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3a2, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15154431211
+
+******Unique errors so far= 66. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[66]=3a5
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3a5, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15154431214
+
+******Unique errors so far= 67. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[67]=3b2
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3b2, instruction opcode being executed (in hex)=1383
+Number of instruction cycles executed before the error: 15154431226
+
+******Unique errors so far= 68. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[68]=3b6
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3b6, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15154431230
+
+******Unique errors so far= 69. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[69]=3bf
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3bf, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15154431238
+
+******Unique errors so far= 70. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9943
+cp->random_mem inside check_illegal: 10c7, cp->random_bit_mem=b 
+Reg file address 3
+cp->store_PC_same[70]=3d4
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3d4, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174152
+
+******Unique errors so far= 71. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[71]=3d6
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3d6, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15212174154
+
+******Unique errors so far= 72. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[72]=3ea
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ea, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174170
+
+******Unique errors so far= 73. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[73]=3ec
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=3ec, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15212174172
+
+******Unique errors so far= 74. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[74]=2a0
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2a0, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174188
+
+******Unique errors so far= 75. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[75]=2f3
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2f3, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15212174213
+
+******Unique errors so far= 76. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[76]=2f7
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2f7, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15212174216
+
+******Unique errors so far= 77. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[77]=2b3
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2b3, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174219
+
+******Unique errors so far= 78. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[78]=2dd
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2dd, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15212174229
+
+******Unique errors so far= 79. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[79]=2e1
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2e1, instruction opcode being executed (in hex)=1c03
+Number of instruction cycles executed before the error: 15212174232
+
+******Unique errors so far= 80. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[80]=2b7
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2b7, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174235
+
+******Unique errors so far= 81. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[81]=2bb
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2bb, instruction opcode being executed (in hex)=1003
+Number of instruction cycles executed before the error: 15212174239
+
+******Unique errors so far= 82. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[82]=2be
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2be, instruction opcode being executed (in hex)=1d03
+Number of instruction cycles executed before the error: 15212174242
+
+******Unique errors so far= 83. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[83]=2cb
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2cb, instruction opcode being executed (in hex)=1383
+Number of instruction cycles executed before the error: 15212174254
+
+******Unique errors so far= 84. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[84]=2d2
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2d2, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15212174261
+
+******Unique errors so far= 85. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[85]=2e7
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2e7, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174320
+
+******Unique errors so far= 86. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[86]=2e9
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2e9, instruction opcode being executed (in hex)=1803
+Number of instruction cycles executed before the error: 15212174322
+
+******Unique errors so far= 87. Repeated errors are counted but not printed******
+Reg file address 3
+cp->store_PC_same[87]=2fc
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=2fc, instruction opcode being executed (in hex)=1283
+Number of instruction cycles executed before the error: 15212174465
+
+******Unique errors so far= 88. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9941
+cp->random_mem inside check_illegal: 556, cp->random_bit_mem=a 
+
+Flip function called: Random number generated: 9917
+
+Crash number:4
+Program crash due to PC value at location 2 getting affected
+Random number that got generated this time was: 9917
+Time of crash number 4 is 1334588835 seconds since January 1, 1970
+At crash 4,time since the beginning of program execution is: 5935 (in seconds)
+
+cp->crash_time_array[4]:5935
+Number of instruction cycles executed before the crash: 1737558764
+***PC reset after crash***
+PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+***Reloading instructions to program memory***
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+cp->random_mem inside check_illegal: 1bce, cp->random_bit_mem=5 
+Reg file address d
+cp->store_PC_same[88]=29f
+
+ERROR: Incorrect data being fetched from memory
+PC value (in hex)=29f, instruction opcode being executed (in hex)=3002
+Number of instruction cycles executed before the error: 15511029581
+
+******Unique errors so far= 89. Repeated errors are counted but not printed******
+
+Flip function called: Random number generated: 9918
+cp->random_mem inside check_illegal: f55, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9911
+cp->random_mem inside check_illegal: 806, cp->random_bit_mem=0 
+
+Flip function called: Random number generated: 9929
+cp->random_mem inside check_illegal: 177c, cp->random_bit_mem=c 
+
+Flip function called: Random number generated: 9958
+cp->random_mem inside check_illegal: 1b95, cp->random_bit_mem=2 
+
+Flip function called: Random number generated: 9918
+cp->random_mem inside check_illegal: c0d, cp->random_bit_mem=8 
+
+Flip function called: Random number generated: 9916
+
+Crash number:5
+Program crash due to PC value at location 2 getting affected
+Random number that got generated this time was: 9916
+Time of crash number 5 is 1334589875 seconds since January 1, 1970
+At crash 5,time since the beginning of program execution is: 6975 (in seconds)
+
+cp->crash_time_array[5]:6975
+Number of instruction cycles executed before the crash: 2726560799
+***PC reset after crash***
+PC is reset to its initial values (in hex): PCL=9f, PCLATH=2, PC=29f
+***All general purpose registers reset after crash***
+***Program memory reset after crash***
+***Reloading instructions to program memory***
+Maximum number of instructions in the program is: 395
+
+Last valid PC value is (in hex): 3fe
+
+Loaded matrix multiplication program into memory
+
+Instructions read as is, from the file.. not according to increasing order of PC
+
+
+cp->random_mem inside check_illegal: 1750, cp->random_bit_mem=3 
+
+Total number of instructions in the program = 395
+Each instruction takes 1 instruction cycles, i.e., 1 clock cycle
+
+Total number of times the program got excecuted = 9449530
+Max instr cycles executed (will not be same as number of instructions since program can have loops): 1
+Status register contents:(hex) at the end of all operations: 10
+
+Number of instruction cycles executed before each crash:
+1414414721
+10444550956
+1914505140
+1737558764
+2726560799
+Time(seconds) taken for each crash: 
+544
+3996
+733
+662
+1040
+Total Time(seconds) taken for all crash: 6975
+
+Calculating the number of errors: 
+
+Number of errors at unique PC values (not counting repetition):89
+Total number of errors due to incorrect data being fetched (counting repetition):2429
+
+Total number of instruction cycles executed:18237590380
+Total number of crashes:5
+Total number of errors: 89
+Summing up all errors which repeat every program run,Total number of errors: 2429
+Total number of successful instruction cycle executions without errors/crashes:18237587946
+
+Number of crashes due to Program counter getting manipulated: 5 
+Number of crashes due to illegal memory access: 0 
+Number of crashes due to illegal opcode: 0 
+Total number of errors due to incorrect control flow: 0
+Total number of errors due to incorrect data being fetched from memory: 2429
+Total number of errors due to incorrect data in the instruction: 0
+Total number of errors due to opcode change: 0
+Percentage of successful executions:99.999987
+
+Probability of a bit flip is set to: 0.01
+Mean time to failure in terms of the number of instruction cycles: 3647518076
+Mean time to failure in terms of seconds: 1395
+
