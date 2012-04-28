@@ -13,7 +13,7 @@
 
 
 
-FILE *fnew;
+FILE *fnew, *fmem, *freg;
 FILE *fPC;
 FILE *finstr;
 
@@ -36,10 +36,18 @@ int main()
 		
 		time_t now_time;
 
-		fnew = fopen( "output_pic_matrix_mult_1e-4_ECC_apr16.txt", "w" );
+		fnew = fopen( "output_pic_matrix_mult_0p6_ECC_graph_apr27.txt", "w" );
+		fmem = fopen( "mem_random_number_plot_apr27.txt", "w" );
+		freg = fopen( "reg_random_number_plot_apr27.txt", "w" );
+
 		if( fnew != NULL )
 		   fprintf( fnew, "Hello\n" );
+	
+		if( fmem != NULL )
+		   fprintf( fmem, "Memory Random numbers\n" );
 
+		if( freg != NULL )
+		   fprintf( freg, "Reg location random numbers\n" );
 
 		finstr = fopen( "matrix_assembly_instruction_only.txt", "r" );
 
@@ -152,7 +160,7 @@ int endloop=0, num_of_inst=0;
                       				
 				//Bit flip function called every cycle
 	    	
-				bit_flips(&pic_registers, program_memory,program_memory_encoded, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr);
+				bit_flips(&pic_registers, program_memory,program_memory_encoded, &crash_param, start_seconds, &post_decode,fnew,fPC, finstr, fmem, freg);
 							
 
 				//Check illegal memory access crash only if the memory location where the bit is flipped is being accessed by the opcode
@@ -353,6 +361,9 @@ fprintf(fnew,"Total number of crashes avoided: %d\n",crash_param.crash_avoided);
 
 //printf("Total number of errors: %d\n",crash_param.errors_so_far);
 //fprintf(fnew,"Total number of errors: %d\n",crash_param.errors_so_far);
+
+printf("Total number of bit flips: %d\n",crash_param.bit_flipped);
+fprintf(fnew,"Total number of bit flips: %d\n",crash_param.bit_flipped);
 
 printf("Total number of single errors corrected (to avoied error/crash): %d\n",crash_param.single_error_corrected);
 fprintf(fnew,"Total number of single errors corrected (to avoied error/crash): %d\n",crash_param.single_error_corrected);
