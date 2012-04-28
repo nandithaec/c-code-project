@@ -14,7 +14,7 @@
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
-#define PROBABILITY_INVERSE 1000000
+#define PROBABILITY_INVERSE 150
 #define RANDOM_GUESS_RANGE 101
 #define INSTR_CYCLES_NUMBER 10000
 #define NUM_OF_BITFLIPS 10000
@@ -188,6 +188,7 @@ struct crash_parameters
 	int errors_so_far;
 	int other_errors;
 	int just_reset_PC_after_crash;
+	int bit_flipped;
 
 //hamming
 	int single_error_corrected;
@@ -235,7 +236,7 @@ int instruction_execute(struct registers *, struct instructions *, int [], int [
 int push(struct registers *);
 int pop (struct registers *);
 
-int bit_flips(struct registers *, int [],int[], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *, FILE *);
+int bit_flips(struct registers *, int [],int[], struct crash_parameters *, time_t, struct instructions *, FILE *, FILE *, FILE *,FILE *, FILE *);
 int check_pgm_crash(struct crash_parameters *, time_t, struct registers*);
 int check_pgm_error(struct crash_parameters *cp, struct registers *r2, struct instructions *i1, int program_memory[], int program_memory_encoded[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds);
 
@@ -422,6 +423,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->errors_so_far=0;
 		cp->random_choose=0;
 		cp->just_reset_PC_after_crash=0;
+		cp->bit_flipped = 0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -1267,7 +1269,7 @@ return 0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int bit_flips(struct registers *r2,  int program_memory[],int program_memory_encoded[],  struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr)
+int bit_flips(struct registers *r2,  int program_memory[],int program_memory_encoded[],  struct crash_parameters *cp, time_t start_seconds,struct instructions *i1, FILE *fnew, FILE *fPC, FILE *finstr, FILE *fmem, FILE *freg)
 
 {
       	PRINT("bit flip call\n");
@@ -1298,13 +1300,15 @@ int bit_flips(struct registers *r2,  int program_memory[],int program_memory_enc
 //Flip bits only under this condition
 	if((less< cp->random_number) && (cp->random_number < more)) // probability of generating some number within the range: (1/ (probability_inverse))
 	{
-        printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
+
+		cp->bit_flipped ++ ;       
+		 printf("\nFlip function called: Random number generated: %d\n",cp->random_number);
 		fprintf(fnew,"\nFlip function called: Random number generated: %d\n",cp->random_number);
 
 		printf("Number of instruction cycles executed : %llu\n",cp->instr_cycles);
             fprintf(fnew,"Number of instruction cycles executed : %llu\n",cp->instr_cycles);
 
-
+	
 		printf("Number of total instruction cycles executed: %llu\n",cp->instr_cycles_for_error);
             fprintf(fnew,"Number of total instruction cycles executed: %llu\n",cp->instr_cycles_for_error);
 
@@ -1336,6 +1340,8 @@ a bit has flipped even before all instructions have been checked for errors. Hen
 
 	    random_bit = rand() % 13 ; // Random number between 0 and 12.. 13 bits
 	
+	printf("Random number in register location: %d \n", cp->random_reg[cp->reg_count]); //Print the random bit flipped in the memory to a file
+	fprintf(freg,"%d \n", cp->random_reg[cp->reg_count]); //Print the random bit flipped in the memory to a file
 	
 	    // printf("Random reg selected:%d, random bit to flip in this reg is %d\n",cp-> random_reg[cp->reg_count],random_bit);
 	    PRINT("Content of the encoded random reg location[%d] is (in hex) %x\n",cp-> random_reg[cp->reg_count],r2->GP_Reg_encoded[cp-> random_reg[cp->reg_count]]);
@@ -1517,7 +1523,11 @@ printf("Encoded Content of the reg[%x] after flipping, is (in hex)**** %x\n",cp-
 		//Flip 1 bit in program memory - will change the opcode
 		// generate random number: 
          cp->random_mem[cp->mem_count] = rand() % 8193; // Random number between 0 and 8192. Store it in an array to keep track and compare later
-				
+
+	printf("Random number in memory location: %d \n", cp->random_mem[cp->mem_count]); //Print the random bit flipped in the memory to a file
+			
+	fprintf(fmem,"%d \n", cp->random_mem[cp->mem_count]); //Print the random bit flipped in the memory to a file
+
 	//mem_count just keeps count of how many memory locations have been flipped. And is the array index for the array whoch stores the flipped location address
 
                 cp->random_bit_mem = rand() % 19 ; // Random number between 0 and 18. .19 bits in total
@@ -1751,6 +1761,7 @@ printf("Before error correction, content of the reg location %x was: %x\n",i1->r
 				
 		  	
 				cp->same_PC= (cp->same_PC) +1; //gets incremented only if unique PC value is stored
+
 			
 				printf("\nUnique error corrected: Incorrect data was being fetched from memory\n");
 				fprintf(fnew,"\nUnique error corrected: Incorrect data was being fetched from memory\n");
