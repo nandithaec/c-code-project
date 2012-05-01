@@ -168,6 +168,7 @@ struct crash_parameters
 	int incorrect_data_flag;
 	int errors_so_far;
 	int other_errors;
+	int just_reset_PC_after_crash;
 
 };
 
@@ -364,6 +365,7 @@ int initialise_crash_param(struct crash_parameters *cp)
 		cp->incorrect_data_flag=0;
 		cp->other_errors=0;
 		cp->errors_so_far=0;
+		cp->just_reset_PC_after_crash=0;
 
 		//clear all locations
 			for(i=0;i<NUM_OF_BITFLIPS;++i)
@@ -1882,6 +1884,8 @@ int reset_after_crash(struct registers *r2,  int program_memory[], struct crash_
 	int i=0, ii=0;
 
 		cp->instr_cycles=0; //Reset instruction cycles after every crash
+
+		cp->just_reset_PC_after_crash=1; 
 
 		//Reset program counter to beginning of the program
         reset_PC_to_beginninng(r2);
