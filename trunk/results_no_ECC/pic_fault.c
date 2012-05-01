@@ -37,7 +37,7 @@ int main()
 		
 
 
-fnew = fopen( "output_pic_matrix_mult_1e-3_apr16.txt", "w" );
+fnew = fopen( "output_pic_demo_noECC.txt", "w" );
 if( fnew != NULL )
    fprintf( fnew, "Hello\n" );
 
@@ -374,11 +374,12 @@ fprintf(fnew,"Probability of a bit flip is set to: %g\n",((float)(RANDOM_GUESS_R
 
 printf("Percentage of crashes due to Program counter getting manipulated:%f percent\n",(((double)crash_param.crash_dueto_PC/MAX_CRASHES)*100.0));
 printf("Percentage of crashes due to illegal memory access:%f percent\n",(((double) crash_param.crash_dueto_illegal_mem/MAX_CRASHES)*100.0));
-printf("Percentage of crashes due to illegal memory access:%f percent\n",(((double) crash_param.crash_dueto_illegal_opcode/MAX_CRASHES)*100.0));
+printf("Percentage of crashes due to illegal opcode:%f percent\n",(((double) crash_param.crash_dueto_illegal_opcode/MAX_CRASHES)*100.0));
 
 printf("\n");
-printf("Percentage of crashes out of total number of instruction cycles: %f percent\n",percentage_crash);
-printf("Percentage of errors out of total number of instruction cycles: %f percent\n",percentage_error);
+
+//printf("Percentage of crashes out of total number of instruction cycles: %f percent\n",percentage_crash);
+//printf("Percentage of errors out of total number of instruction cycles: %f percent\n",percentage_error);
 
 
 mean_instr_cycles= total_instr_cycles/MAX_CRASHES;

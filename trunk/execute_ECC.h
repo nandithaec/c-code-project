@@ -286,6 +286,12 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
+
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -313,6 +319,12 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -354,6 +366,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		
 		}
@@ -366,6 +383,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -398,7 +420,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -410,6 +436,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -442,7 +473,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -454,6 +489,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -486,7 +526,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -498,6 +542,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -532,6 +581,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_add & 0x100) >>8) == 0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
@@ -552,6 +606,12 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
+		
 		if (((temp_add & 0x100) >>8) == 0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
 			
@@ -617,6 +677,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		
 		}
@@ -629,6 +694,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -660,7 +730,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -672,6 +746,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -1214,7 +1293,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1240,7 +1323,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1268,7 +1355,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1298,6 +1389,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		PRINT("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -1337,6 +1433,11 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 	if( r1-> W == 0)
 		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+	else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 	if (((temp_add & 0x100) >>8) == 0)
 		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register

@@ -258,6 +258,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -285,6 +290,12 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
+
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -326,7 +337,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -338,6 +353,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -370,7 +390,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -382,6 +406,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -414,7 +443,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -426,6 +459,12 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
+
 
 		}
 
@@ -458,7 +497,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -470,6 +513,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -504,6 +552,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_add & 0x100) >>8) == 0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
@@ -523,6 +576,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_add & 0x100) >>8) == 0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
@@ -589,8 +647,12 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
-		
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
+			
 		}
 
 	else if (i1-> d==1) //d=1 means- destination is the file register
@@ -601,6 +663,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -632,7 +699,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 		
 		}
 
@@ -644,6 +715,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		}
 
@@ -1184,7 +1260,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1210,7 +1290,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1238,7 +1322,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
-
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		PRINT("Status register contents:(hex):");
 
@@ -1268,6 +1356,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 		PRINT("Contents of destination is W= %x \n", r1-> W);
 		if( r1-> W ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+		else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 		if (((temp_sub & 0x100) >>8) == 0)
 			{	
@@ -1307,6 +1400,11 @@ if (cp->flip_bit_flag_for_illegal_inst==1)
 	PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 	if( r1-> W == 0)
 		r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
+	else
+		{
+		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFB; //Z flag reset in the status register
+		PRINT("Zero flag reset\n");
+		}
 
 	if (((temp_add & 0x100) >>8) == 0)
 		r1-> GP_Reg[3] = r1-> GP_Reg[3] & 0xFE; //C flag reset in the status register
