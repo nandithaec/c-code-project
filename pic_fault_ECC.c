@@ -36,7 +36,7 @@ int main()
 		
 		time_t now_time;
 
-		fnew = fopen( "output_pic_matrix_mult_0p6_ECC_graph_apr27.txt", "w" );
+		fnew = fopen( "output_pic_demo_ECC.txt", "w" );
 		fmem = fopen( "mem_random_number_plot_apr27.txt", "w" );
 		freg = fopen( "reg_random_number_plot_apr27.txt", "w" );
 
@@ -194,7 +194,7 @@ int endloop=0, num_of_inst=0;
                 PRINT("****************************************************************\n");    
                 
 
-		if((crash_param.instr_cycles_for_error % 1000000000) == 0)
+		if((crash_param.instr_cycles_for_error % 1000000) == 0)
 			{
 			printf("Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
 			fprintf(fnew,"Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
@@ -232,7 +232,7 @@ int endloop=0, num_of_inst=0;
 					break; 
 			
 		
-	/*if (repeat_program_execution == 5)
+	/*if (repeat_program_execution == 50000)
 		{
 	printf("Program execution number %d completed\n",repeat_program_execution);
 		break; //used only when running the program without bitflips, check pgm error/crash
@@ -283,7 +283,7 @@ for(c=1; c<= (crash_param.crash); c++)
     fprintf(fnew,"%llu\n",crash_param.crash_at_instr[c]);
 	}
    
-
+/*
    
 printf("Time(seconds) taken for each crash: \n");
 fprintf(fnew,"Time(seconds) taken for each crash: \n");        
@@ -296,7 +296,7 @@ for(c=1; c<= (crash_param.crash); c++)
 	printf("%ld\n",crash_param.actual_crash_time_array[c]);             
     fprintf(fnew,"%ld\n",crash_param.actual_crash_time_array[c]);             
 	}
-
+*/
 
 for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index 1
 	{
@@ -309,8 +309,8 @@ printf("\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycle
 fprintf(fnew,"\nTotal number of instruction cycles executed:%llu\n",(total_instr_cycles)); 
 
 
-printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
-fprintf(fnew,"Total Time(seconds) taken for all crash: %llu\n", total_seconds);
+//printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
+//fprintf(fnew,"Total Time(seconds) taken for all crash: %llu\n", total_seconds);
 
 //printf("\nCalculating the number of errors: \n");
 //fprintf(fnew,"\nCalculating the number of errors: \n");   
@@ -425,8 +425,8 @@ fprintf(fnew,"Mean time to failure in terms of the number of instruction cycles:
 
 mean_seconds= total_seconds/MAX_CRASHES;
 
-printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
-fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+//printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+//fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
 
 fclose(fnew);

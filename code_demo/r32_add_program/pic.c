@@ -109,13 +109,15 @@ for(i=0;i<REG_MAX;++i)
 
 //Read in the program counter initial value
 
-		printf("Enter starting PCL value (in hex): \n");
-		scanf("%x", &pic_registers.GP_Reg[2]);
+		printf("Entered starting PCL value (in hex): \n");
+		//scanf("%x", &pic_registers.GP_Reg[2]);
+		pic_registers.GP_Reg[2]=0;
 		pic_registers.GP_Reg[0x82]= pic_registers.GP_Reg[2]; //Bank 1 and Bank 0
 		pic_registers.PCL= pic_registers.GP_Reg[2];
 
-		printf("Enter starting PCLATH value (in hex): \n");
-		scanf("%x", &pic_registers.GP_Reg[0x0A]);
+		printf("Entered starting PCLATH value (in hex): \n");
+		//scanf("%x", &pic_registers.GP_Reg[0x0A]);
+		pic_registers.GP_Reg[0x0A]=0;
 		pic_registers.GP_Reg[0x8A]= pic_registers.GP_Reg[0x0A]; //Bank 1 and Bank 0
 		pic_registers.PCLATH= pic_registers.GP_Reg[0x0A];
 

@@ -34,7 +34,7 @@ int main()
        // int initial_PCL=0, initial_PCLATH=0;
         unsigned long long int total_instr_cycles=0,mean_instr_cycles=0,  mean_seconds=0, total_seconds=0, successful_cycles=0,total_error_count=0;
 		float percentage_crash=0.0,percentage_error=0.0, percentage_success=0.0;
-		
+			time_t now_time;
 
 
 fnew = fopen( "output_pic_demo_noECC.txt", "w" );
@@ -173,9 +173,28 @@ int endloop=0, num_of_inst=0;
                 PRINT("****************************************************************\n");    
                 
 
+				if((crash_param.instr_cycles_for_error % 10000000) == 0)
+					{
+					printf("Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
+					fprintf(fnew,"Instruction cycles executed has reached: %llu\n",crash_param.instr_cycles_for_error);
+
+					now_time = time(NULL);
+					printf("Time since the beginning of program execution is: %ld (in seconds)\n", now_time-start_seconds);
+					fprintf(fnew,"Time since the beginning of program execution is: %ld (in seconds)\n",  (now_time-start_seconds));
+
+					}
+
+				if(crash_param.just_reset_PC_after_crash == 0) //no crash has happened, so can increment PC
+				{
 				//Increment program counter
 				PC_increment(&pic_registers);
+				}
 
+				else if (crash_param.just_reset_PC_after_crash == 1)
+				{
+				//reset and dont increment PC for this cycle, since it has not gone through fetch and decode.. Execute() would have executed NOP
+					crash_param.just_reset_PC_after_crash=0; 
+				}
 			
 				//Repeat program
                 if (pic_registers.PC ==  pic_registers.Last_valid_PC) //If end of program is reached
@@ -193,8 +212,8 @@ int endloop=0, num_of_inst=0;
 					break; 
 				
 		
-	//if (repeat_program_execution == 5)
-	//	break; //used only when running the program without bitflips, check pgm error/crash
+				//if (repeat_program_execution == 500000)
+				//	break; //used only when running the program without bitflips, check pgm error/crash
 		
      
 
@@ -244,6 +263,7 @@ for(c=1; c<= (crash_param.crash); c++)
     fprintf(fnew,"%llu\n",crash_param.crash_at_instr[c]);
     }
    
+/*
 printf("Time(seconds) taken for each crash: \n");
 fprintf(fnew,"Time(seconds) taken for each crash: \n");        
 for(c=1; c<= (crash_param.crash); c++)
@@ -255,7 +275,7 @@ for(c=1; c<= (crash_param.crash); c++)
 	printf("%ld\n",crash_param.actual_crash_time_array[c]);             
     fprintf(fnew,"%ld\n",crash_param.actual_crash_time_array[c]);             
 	}
-
+*/
 
 for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index 1
 	{
@@ -263,8 +283,8 @@ for(i=1;i <= MAX_CRASHES;i++) //<= is important since we are starting from index
 	total_seconds=total_seconds+ crash_param.actual_crash_time_array[i];
 	}
 
-printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
-fprintf(fnew,"Total Time(seconds) taken for all crash: %llu\n", total_seconds);
+//printf("Total Time(seconds) taken for all crash: %llu\n", total_seconds);
+//fprintf(fnew,"Total Time(seconds) taken for all crash: %llu\n", total_seconds);
 
 printf("\nCalculating the number of errors: \n");
 fprintf(fnew,"\nCalculating the number of errors: \n");   
@@ -353,8 +373,8 @@ fprintf(fnew,"Number of crashes due to illegal memory access: %d \n",crash_param
 printf("Number of crashes due to illegal opcode: %d \n",crash_param.crash_dueto_illegal_opcode);
 fprintf(fnew,"Number of crashes due to illegal opcode: %d \n",crash_param.crash_dueto_illegal_opcode);
 
-printf("Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
-fprintf(fnew,"Total number of errors due to incorrect control flow: %d\n",crash_param.control_flow_change);
+printf("Total number of crashes due to incorrect control flow: %d\n",crash_param.control_flow_change);
+fprintf(fnew,"Total number of crashes due to incorrect control flow: %d\n",crash_param.control_flow_change);
 
 printf("Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
 fprintf(fnew,"Total number of errors due to incorrect data being fetched from memory: %llu\n",crash_param.incorrect_data);
@@ -390,8 +410,8 @@ fprintf(fnew,"Mean time to failure in terms of the number of instruction cycles:
 
 mean_seconds= total_seconds/MAX_CRASHES;
 
-printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
-fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+//printf("Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
+//fprintf(fnew,"Mean time to failure in terms of seconds: %llu\n\n", mean_seconds);
 
 
 

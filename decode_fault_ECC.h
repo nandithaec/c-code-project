@@ -10,7 +10,7 @@
 #define CONFIG_WORD_SIZE 14
 #define MEM_WIDTH 14
 #define FILE_CHARS 80
-#define MAX_CRASHES 5
+#define MAX_CRASHES 1
 #define NUM_OF_PGM_RUNS 10
 #define NUM_OF_INSTR 395
 #define CLOCKS_PER_INSTR 4
