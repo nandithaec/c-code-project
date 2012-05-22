@@ -832,11 +832,20 @@ return 0;
 int decode_byte_instr(struct instructions *i1, struct crash_parameters *cp, struct registers *r1, int program_memory[], FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds)
 
 {
-        
-        i1-> reg_file_addr = (i1->instruction) & 0x007F;
+        int temp_reg_index=0; 
+        temp_reg_index = (i1->instruction) & 0x007F;
         i1->d= (i1->instruction & 0x80) >> 7;
 //      i1->reg_index = (i1->reg_file_addr) - 12; // Reg file starts only from 0CH = 12
-        i1->reg_index = (i1->reg_file_addr); // Reg file starts only from 0CH = 12
+         if (temp_reg_index == 0) //location 0 is INDF register.. used for Indirect addressing. Read content of FSR register and use it as the address or the new reg_index
+		{
+			i1-> reg_file_addr = r1-> GP_Reg[0x04]; //FSR register is at location 4. Content of FSR is the new reg_index
+		}
+		else 
+		{
+			i1-> reg_file_addr = temp_reg_index; //use the decoded reg_index obtained from the instruction as it is.
+		}
+
+		i1->reg_index = (i1->reg_file_addr); // Reg file starts only from 0CH = 12
         i1->opcode = (i1->instruction & 0xFF00) >> 8;
 		
         PRINT("---------------------------------------------------------------------\n");
@@ -988,9 +997,18 @@ return 0;
 int decode_bit_instr(struct registers *r1, struct instructions *i1, struct crash_parameters *cp, FILE *fnew, FILE *fPC, FILE *finstr, time_t start_seconds, int program_memory[])
 {
                                                 
-        i1-> reg_file_addr = (i1->instruction) & 0x007F;
+        int temp_reg_index=0;         
+		temp_reg_index = (i1->instruction) & 0x007F;
         i1-> bit= ((i1->instruction) & 0x0380) >> 7;
-//      i1-> reg_index = (i1-> reg_file_addr) - 12; // Reg file starts only from 0CH = 12
+		if (temp_reg_index == 0) //location 0 is INDF register.. used for Indirect addressing. Read content of FSR register and use it as the address or the new reg_index
+		{
+			i1-> reg_file_addr = r1-> GP_Reg[0x04]; //FSR register is at location 4. Content of FSR is the new reg_index
+		}
+		else 
+		{
+			i1-> reg_file_addr = temp_reg_index; //use the decoded reg_index obtained from the instruction as it is.
+		}
+
         i1-> reg_index = (i1-> reg_file_addr) ; // Reg file starts only from 0CH = 12
         i1-> opcode = ((i1-> instruction) & 0x1C00) >> 10;
         PRINT("-------------------------------------------------------------------\n");

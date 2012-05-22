@@ -19,7 +19,7 @@ int detect_error(int[], int*, FILE *,struct crash_parameters *);
 int decode_received_data(int[],int[]);
 int flip_bit_for_correction(int*,int[],int*); 
 int only_decode(int);
-
+int powerof(int base,int exp);
 
 int hamming_encoding(int decimal_input)
 {
@@ -288,7 +288,7 @@ int check_if_power_of_two (int num, int *power_of_two)
 		
 	for(i=1;i<5;i++)
 	{
-		expo_result = pow(2,i);		
+		expo_result = powerof(2,i);		
 		if(num >= expo_result )
 		{
 		//PRINT("Checking if number %d is divisible by %d\n", num, expo_result);
@@ -346,7 +346,7 @@ int	convert_binary_to_decimal(int hamming_code[],int num_of_bits)
 	
 	for(i=num_of_bits;i>0;i--)
 	{
-		decimal= decimal+ (hamming_code[i] * pow(2,j));
+		decimal= decimal+ (hamming_code[i] * powerof(2,j));
 		j++;
 	}
 
@@ -677,6 +677,19 @@ return 0;
 
 
 
+int powerof(int base,int exp)
+{
+
+	int i=0, result=1;
+	
+	for(i=0; i<exp; i++)
+	{
+		result = 	result*base;
+	}
+
+return result;
+}	
+	
 
 
 
