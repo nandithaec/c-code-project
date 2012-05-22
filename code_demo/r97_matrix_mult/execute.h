@@ -235,7 +235,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 	/*	W is the accumulator and d is the destination bit
 	d=0 means- destination is W register i.e., accumulator 
 	d=1 means- destination is the file register */
-	PRINT("Before execution: Contents of Reg file (hex)= %x, W (hex)= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);		
+	PRINT("Before execution: Contents of Reg file %x is (in hex)= %x, W (hex)= %x\n ", i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);		
 		
 	PRINT("After execution:\n");
 	
@@ -285,7 +285,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 		PRINT("temp_sub (hex)= %x\n",temp_sub);
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination (Reg file %x) is (in hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		else
@@ -547,7 +547,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 	//	W is the accumulator and d is the destination bit
 
 	
-	PRINT("Before execution: Contents (hex) of Reg file= %x, W= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);		
+	PRINT("Before execution: Contents (hex) of Reg file %x is %x, W= %x\n ",i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);		
 		
 	PRINT("After execution:\n");
 	
@@ -581,7 +581,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 		temp_add = (r1-> GP_Reg[i1-> reg_index] + r1-> W);
 		r1-> GP_Reg[i1-> reg_index] = temp_add & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination (Reg file %x) is (in hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		else
@@ -803,7 +803,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	PRINT("Before execution (hex): Contents of Reg file, = %x, status reg is: %x\n", r1-> GP_Reg[i1-> reg_index], r1-> GP_Reg[3]);	
 	
 	original_regfile= r1-> GP_Reg[i1-> reg_index];
 	PRINT("After execution:\n");
@@ -833,7 +833,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			else //Carry = 1
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x80;
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x is (hex)= %x \n",i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 
 
 		}
@@ -841,9 +841,9 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 	// LSB of reg file will go to carry through right shift
 	if ((original_regfile & 0x00000001) ==1) 
-			r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the LSB of the reg file
+			r1-> GP_Reg[3]= r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the LSB of the reg file
 	else
-			r1-> GP_Reg[3] & 0xFE; //Set carry to 0
+			r1-> GP_Reg[3]= r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
 		PRINT("Status register contents:(hex):");
 
@@ -861,7 +861,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	PRINT("Before execution (hex): Contents of Reg file, = %x, status reg is: %x\n", r1-> GP_Reg[i1-> reg_index], r1-> GP_Reg[3]);		
 	
 	original_regfile= r1-> GP_Reg[i1-> reg_index];
 	PRINT("After execution:\n");
@@ -897,7 +897,7 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 			else //Carry = 1
 				r1-> GP_Reg[i1-> reg_index] = temp_rotate | 0x01;
 
-		PRINT("Contents of destination after left shift is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination after left shift is Reg file %x is (hex)= %x \n",i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 
 
 		}
@@ -905,9 +905,9 @@ int instruction_execute(struct registers *r1, struct instructions *i1, int progr
 
  // MSB of reg file will go to carry through right shift
 	if(((original_regfile & 0x80) >>7) == 1)
-		r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the MSB of the reg file
+		r1-> GP_Reg[3]= r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the MSB of the reg file
 	else
-		r1-> GP_Reg[3] & 0xFE; //Set carry to 0
+		r1-> GP_Reg[3]= r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
 	PRINT("Status register contents:(hex):");
 

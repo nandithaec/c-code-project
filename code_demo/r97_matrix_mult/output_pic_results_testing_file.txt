@@ -1,5 +1,5 @@
 Hello
-At the start of execution: 1335894133 seconds since January 1, 1970 
+At the start of execution: 1337709912 seconds since January 1, 1970 
 
 PC values read are: (in hex) 
 PC_value[0]= 274
@@ -2894,12 +2894,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -3317,12 +3329,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -3926,12 +3950,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -4349,12 +4385,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -5060,12 +5108,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -5483,12 +5543,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -6092,12 +6164,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001
@@ -6515,12 +6599,24 @@ program_memory[3]=2a78
 PC_value[4]= 278
 Instruction fetched is:
 program_memory[4]=1c0c
-PC_value[5]= 279
+PC_value[6]= 27a
 Instruction fetched is:
-program_memory[5]=2a7b
-PC_value[7]= 27b
+program_memory[6]=2a7c
+PC_value[8]= 27c
 Instruction fetched is:
-program_memory[7]=2a82
+program_memory[8]=80e
+PC_value[9]= 27d
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 27e
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 280
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 281
+Instruction fetched is:
+program_memory[d]=791
 PC_value[e]= 282
 Instruction fetched is:
 program_memory[e]=3001

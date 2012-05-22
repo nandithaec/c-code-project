@@ -268,7 +268,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	/*	W is the accumulator and d is the destination bit
 	d=0 means- destination is W register i.e., accumulator 
 	d=1 means- destination is the file register */
-	PRINT("Before execution: Contents of Reg file (hex)= %x, W (hex)= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);		
+	PRINT("Before execution: Contents of Reg file %x: (hex)= %x, W (hex)= %x\n ",i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);		
 		
 	PRINT("After execution:\n");
 	
@@ -316,7 +316,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 		PRINT("temp_sub (hex)= %x\n",temp_sub);
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x: (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
@@ -354,7 +354,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	PRINT("Before execution (hex): Contents of Reg file %x= %x\n ", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);		
 		
 	PRINT("After execution:\n");
 	
@@ -380,7 +380,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		
 		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] -1) & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x: (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
 		else
@@ -408,7 +408,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x, W= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);
+	PRINT("Before execution (hex): Contents of Reg file %x = %x, W= %x\n ", i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);
 		
 	PRINT("After execution:\n");
 	
@@ -433,7 +433,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		
 		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] | r1-> W) & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x: (hex)= %x \n",i1-> reg_index,  r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = (r1-> GP_Reg[3] | 0x04); //Z flag set in the status register
 		else
@@ -461,7 +461,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x, W= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);
+	PRINT("Before execution (hex): Contents of Reg file %x = %x, W= %x\n ", i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);
 		
 	PRINT("After execution:\n");
 	
@@ -486,7 +486,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		
 		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] & r1-> W) & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		else
@@ -568,7 +568,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 	//	W is the accumulator and d is the destination bit
 
 	
-	PRINT("Before execution: Contents (hex) of Reg file= %x, W= %x\n ", r1-> GP_Reg[i1-> reg_index], r1-> W);		
+	PRINT("Before execution: Contents (hex) of Reg file %x = %x, W= %x\n ",i1-> reg_index, r1-> GP_Reg[i1-> reg_index], r1-> W);		
 		
 	PRINT("After execution:\n");
 	
@@ -602,7 +602,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		temp_add = (r1-> GP_Reg[i1-> reg_index] + r1-> W);
 		r1-> GP_Reg[i1-> reg_index] = temp_add & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x: (hex)= %x \n",i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 
@@ -652,7 +652,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		if(i1-> d==0)
 			PRINT("Contents of destination is W (hex)= %x \n", r1-> W);
 		else
-			PRINT("Contents of destination is reg_file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+			PRINT("Contents of destination is reg_file %x: (hex)= %x \n",i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 
 			
 			PRINT("Status register contents:(hex):");
@@ -665,7 +665,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 	case 15: //COMF
 		
-		PRINT("Contents of reg file before execution (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of reg file %x before execution (hex)= %x \n", i1-> reg_index,r1-> GP_Reg[i1-> reg_index]);
 		PRINT("COMF instruction\n");
 		
 		
@@ -691,7 +691,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		
 		r1-> GP_Reg[i1-> reg_index] = ~(r1-> GP_Reg[i1-> reg_index]) & 0x000000FF;  //limit to 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x: (hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( (r1-> GP_Reg[i1-> reg_index]) ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		else
@@ -718,7 +718,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 //	W is the accumulator and d is the destination bit
 
-	PRINT("Before execution (hex): Contents of Reg file= %x\n ", r1-> GP_Reg[i1-> reg_index]);		
+	PRINT("Before execution (hex): Contents of Reg file %x = %x\n ",i1-> reg_index,  r1-> GP_Reg[i1-> reg_index]);		
 		
 	PRINT("After execution:\n");
 	
@@ -743,7 +743,7 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 		
 		r1-> GP_Reg[i1-> reg_index] = (r1-> GP_Reg[i1-> reg_index] + 1) & 0x000000FF; //Keep only 8 bits
 
-		PRINT("Contents of destination is Reg file (hex)= %x \n", r1-> GP_Reg[i1-> reg_index]);
+		PRINT("Contents of destination is Reg file %x :(hex)= %x \n", i1-> reg_index, r1-> GP_Reg[i1-> reg_index]);
 		if( r1-> GP_Reg[i1-> reg_index] ==0)
 			r1-> GP_Reg[3] = r1-> GP_Reg[3] | 0x04; //Z flag set in the status register
 		else
@@ -860,9 +860,9 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
 	// LSB of reg file will go to carry through right shift
 	if ((original_regfile & 0x00000001) ==1) 
-			r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the LSB of the reg file
+			r1-> GP_Reg[3]= r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the LSB of the reg file
 	else
-			r1-> GP_Reg[3] & 0xFE; //Set carry to 0
+			r1-> GP_Reg[3]= r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
 		PRINT("Status register contents:(hex):");
 
@@ -924,9 +924,9 @@ program_memory_encoded[cp-> random_mem[(cp->mem_count)-1]]= hamming_encoding_14b
 
  // MSB of reg file will go to carry through right shift
 	if(((original_regfile & 0x80) >>7) == 1)
-		r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the MSB of the reg file
+		r1-> GP_Reg[3]= r1-> GP_Reg[3] | 0x01; //Set the carry to 1, that is the MSB of the reg file
 	else
-		r1-> GP_Reg[3] & 0xFE; //Set carry to 0
+		r1-> GP_Reg[3]= r1-> GP_Reg[3] & 0xFE; //Set carry to 0
 
 	PRINT("Status register contents:(hex):");
 
