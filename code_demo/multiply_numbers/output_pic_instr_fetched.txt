@@ -1,0 +1,124 @@
+Hello..multiplying two numbers.. 4 * 2
+At the start of execution: 1337497230 seconds since January 1, 1970 
+
+PC values read are: (in hex) 
+PC_value[0]= 3e8
+PC_value[1]= 3e9
+PC_value[2]= 3ea
+PC_value[3]= 3eb
+PC_value[4]= 3ec
+PC_value[5]= 3ed
+PC_value[6]= 3ee
+PC_value[7]= 3ef
+PC_value[8]= 3f0
+PC_value[9]= 3f1
+PC_value[a]= 3f2
+PC_value[b]= 3f3
+PC_value[c]= 3f4
+PC_value[d]= 3f5
+PC_value[e]= 3f6
+PC_value[f]= 3f7
+PC_value[10]= 3f8
+PC_value[11]= 3f9
+PC_value[12]= 3fa
+PC_value[13]= 3fb
+PC_value[14]= 3fc
+PC_value[15]= 3fd
+PC_value[16]= 3fe
+
+Maximum number of instructions in the program is: 23
+
+
+Last valid PC value is (in hex): 3ff
+
+program_memory[0]: 3004
+program_memory[1]: 1283
+program_memory[2]: 90
+program_memory[3]: 3000
+program_memory[4]: 91
+program_memory[5]: 18e
+program_memory[6]: 18f
+program_memory[7]: 811
+program_memory[8]: 8d
+program_memory[9]: 810
+program_memory[a]: 8c
+program_memory[b]: 3001
+program_memory[c]: cf
+program_memory[d]: 1003
+program_memory[e]: d8c
+program_memory[f]: d8d
+program_memory[10]: bcf
+program_memory[11]: 2bf5
+program_memory[12]: 80c
+program_memory[13]: 8e
+program_memory[14]: 80d
+program_memory[15]: 8f
+program_memory[16]: 2bff
+Status register contents:(hex) at the beginning of all operations: 0
+Executing...
+PC_value[0]= 3e8
+Instruction fetched is:
+program_memory[0]=3004
+PC_value[1]= 3e9
+Instruction fetched is:
+program_memory[1]=1283
+PC_value[2]= 3ea
+Instruction fetched is:
+program_memory[2]=90
+PC_value[3]= 3eb
+Instruction fetched is:
+program_memory[3]=3000
+PC_value[4]= 3ec
+Instruction fetched is:
+program_memory[4]=91
+PC_value[5]= 3ed
+Instruction fetched is:
+program_memory[5]=18e
+PC_value[6]= 3ee
+Instruction fetched is:
+program_memory[6]=18f
+PC_value[7]= 3ef
+Instruction fetched is:
+program_memory[7]=811
+PC_value[8]= 3f0
+Instruction fetched is:
+program_memory[8]=8d
+PC_value[9]= 3f1
+Instruction fetched is:
+program_memory[9]=810
+PC_value[a]= 3f2
+Instruction fetched is:
+program_memory[a]=8c
+PC_value[b]= 3f3
+Instruction fetched is:
+program_memory[b]=3001
+PC_value[c]= 3f4
+Instruction fetched is:
+program_memory[c]=cf
+PC_value[d]= 3f5
+Instruction fetched is:
+program_memory[d]=1003
+PC_value[e]= 3f6
+Instruction fetched is:
+program_memory[e]=d8c
+PC_value[f]= 3f7
+Instruction fetched is:
+program_memory[f]=d8d
+PC_value[10]= 3f8
+Instruction fetched is:
+program_memory[10]=bcf
+PC_value[12]= 3fa
+Instruction fetched is:
+program_memory[12]=80c
+PC_value[13]= 3fb
+Instruction fetched is:
+program_memory[13]=8e
+PC_value[14]= 3fc
+Instruction fetched is:
+program_memory[14]=80d
+PC_value[15]= 3fd
+Instruction fetched is:
+program_memory[15]=8f
+PC_value[16]= 3fe
+Instruction fetched is:
+program_memory[16]=2bff

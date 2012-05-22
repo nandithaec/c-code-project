@@ -1,0 +1,110 @@
+1283 //   BCF STATUS, 0x5
+0190 //   CLRF product
+0191 //   CLRF 0x11
+2B95 //   GOTO 0x395
+1C0C //   BTFSS multiplier, 0x0
+2B98 //   GOTO 0x398
+2B99 //   GOTO 0x399
+2B9F //   GOTO 0x39F
+080E //   MOVF multiplicand, W
+0790 //   ADDWF product, F
+1803 //   BTFSC STATUS, 0x0
+0A91 //   INCF 0x11, F
+080F //   MOVF 0xF, W
+0791 //   ADDWF 0x11, F
+3001 //   MOVLW 0x1
+1003 //   BCF STATUS, 0x0
+0D8E //   RLF multiplicand, F
+0D8F //   RLF 0xF, F
+3EFF //   ADDLW 0xFF
+1D03 //   BTFSS STATUS, 0x2
+2BA0 //   GOTO 0x3A0
+3001 //   MOVLW 0x1
+1003 //   BCF STATUS, 0x0
+0C8D //   RRF 0xD, F
+0C8C //   RRF multiplier, F
+3EFF //   ADDLW 0xFF
+1D03 //   BTFSS STATUS, 0x2
+2BA7 //   GOTO 0x3A7
+080D //   MOVF 0xD, W
+040C //   IORWF multiplier, W
+1D03 //   BTFSS STATUS, 0x2
+2BB2 //   GOTO 0x3B2
+2BB3 //   GOTO 0x3B3
+2B95 //   GOTO 0x395
+2BB4 //   GOTO 0x3B4
+0811 //   MOVF 0x11, W
+018D //   CLRF 0xD
+078D //   ADDWF 0xD, F
+0810 //   MOVF product, W
+018C //   CLRF multiplier
+078C //   ADDWF multiplier, F
+2BBB //   GOTO 0x3BB
+0008 //   RETURN
+1283 //   BCF STATUS, 0x5
+0194 //   CLRF i
+0195 //   CLRF 0x15
+3001 //   MOVLW 0x1
+0092 //   MOVWF a
+3000 //   MOVLW 0x0
+0093 //   MOVWF 0x13
+3001 //   MOVLW 0x1
+0094 //   MOVWF i
+3000 //   MOVLW 0x0
+0095 //   MOVWF 0x15
+0815 //   MOVF 0x15, W
+3A80 //   XORLW 0x80
+00CF //   MOVWF 0x4F
+3080 //   MOVLW 0x80
+024F //   SUBWF 0x4F, W
+1D03 //   BTFSS STATUS, 0x2
+2BD0 //   GOTO 0x3D0
+3005 //   MOVLW 0x5
+0214 //   SUBWF i, W
+1C03 //   BTFSS STATUS, 0x0
+2BD3 //   GOTO 0x3D3
+2BD4 //   GOTO 0x3D4
+2BD6 //   GOTO 0x3D6
+2BFF //   GOTO 0x3FF
+2BFF //   GOTO 0x3FF
+3001 //   MOVLW 0x1
+0794 //   ADDWF i, F
+1803 //   BTFSC STATUS, 0x0
+0A95 //   INCF 0x15, F
+3000 //   MOVLW 0x0
+0795 //   ADDWF 0x15, F
+0815 //   MOVF 0x15, W
+3A80 //   XORLW 0x80
+00CF //   MOVWF 0x4F
+3080 //   MOVLW 0x80
+024F //   SUBWF 0x4F, W
+1D03 //   BTFSS STATUS, 0x2
+2BFA //   GOTO 0x3FA
+3005 //   MOVLW 0x5
+0214 //   SUBWF i, W
+1C03 //   BTFSS STATUS, 0x0
+2BFD //   GOTO 0x3FD
+2BFE //   GOTO 0x3FE
+2BD6 //   GOTO 0x3D6
+2BFF //   GOTO 0x3FF
+1283 //   BCF STATUS, 0x5
+0813 //   MOVF 0x13, W
+018D //   CLRF 0xD
+078D //   ADDWF 0xD, F
+0812 //   MOVF a, W
+018C //   CLRF multiplier
+078C //   ADDWF multiplier, F
+0815 //   MOVF 0x15, W
+018F //   CLRF 0xF
+078F //   ADDWF 0xF, F
+0814 //   MOVF i, W
+018E //   CLRF multiplicand
+078E //   ADDWF multiplicand, F
+2391 //   CALL 0x391
+1283 //   BCF STATUS, 0x5
+080D //   MOVF 0xD, W
+0193 //   CLRF 0x13
+0793 //   ADDWF 0x13, F
+080C //   MOVF multiplier, W
+0192 //   CLRF a
+0792 //   ADDWF a, F
