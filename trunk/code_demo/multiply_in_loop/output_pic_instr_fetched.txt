@@ -1,0 +1,1366 @@
+Hello.. multiplying numbers in a loop
+At the start of execution: 1337543873 seconds since January 1, 1970 
+
+PC values read are: (in hex) 
+PC_value[0]= 391
+PC_value[1]= 392
+PC_value[2]= 393
+PC_value[3]= 394
+PC_value[4]= 395
+PC_value[5]= 396
+PC_value[6]= 397
+PC_value[7]= 398
+PC_value[8]= 399
+PC_value[9]= 39a
+PC_value[a]= 39b
+PC_value[b]= 39c
+PC_value[c]= 39d
+PC_value[d]= 39e
+PC_value[e]= 39f
+PC_value[f]= 3a0
+PC_value[10]= 3a1
+PC_value[11]= 3a2
+PC_value[12]= 3a3
+PC_value[13]= 3a4
+PC_value[14]= 3a5
+PC_value[15]= 3a6
+PC_value[16]= 3a7
+PC_value[17]= 3a8
+PC_value[18]= 3a9
+PC_value[19]= 3aa
+PC_value[1a]= 3ab
+PC_value[1b]= 3ac
+PC_value[1c]= 3ad
+PC_value[1d]= 3ae
+PC_value[1e]= 3af
+PC_value[1f]= 3b0
+PC_value[20]= 3b1
+PC_value[21]= 3b2
+PC_value[22]= 3b3
+PC_value[23]= 3b4
+PC_value[24]= 3b5
+PC_value[25]= 3b6
+PC_value[26]= 3b7
+PC_value[27]= 3b8
+PC_value[28]= 3b9
+PC_value[29]= 3ba
+PC_value[2a]= 3bb
+PC_value[2b]= 3bc
+PC_value[2c]= 3bd
+PC_value[2d]= 3be
+PC_value[2e]= 3bf
+PC_value[2f]= 3c0
+PC_value[30]= 3c1
+PC_value[31]= 3c2
+PC_value[32]= 3c3
+PC_value[33]= 3c4
+PC_value[34]= 3c5
+PC_value[35]= 3c6
+PC_value[36]= 3c7
+PC_value[37]= 3c8
+PC_value[38]= 3c9
+PC_value[39]= 3ca
+PC_value[3a]= 3cb
+PC_value[3b]= 3cc
+PC_value[3c]= 3cd
+PC_value[3d]= 3ce
+PC_value[3e]= 3cf
+PC_value[3f]= 3d0
+PC_value[40]= 3d1
+PC_value[41]= 3d2
+PC_value[42]= 3d3
+PC_value[43]= 3d4
+PC_value[44]= 3d5
+PC_value[45]= 3eb
+PC_value[46]= 3ec
+PC_value[47]= 3ed
+PC_value[48]= 3ee
+PC_value[49]= 3ef
+PC_value[4a]= 3f0
+PC_value[4b]= 3f1
+PC_value[4c]= 3f2
+PC_value[4d]= 3f3
+PC_value[4e]= 3f4
+PC_value[4f]= 3f5
+PC_value[50]= 3f6
+PC_value[51]= 3f7
+PC_value[52]= 3f8
+PC_value[53]= 3f9
+PC_value[54]= 3fa
+PC_value[55]= 3fb
+PC_value[56]= 3fc
+PC_value[57]= 3fd
+PC_value[58]= 3fe
+PC_value[59]= 3d6
+PC_value[5a]= 3d7
+PC_value[5b]= 3d8
+PC_value[5c]= 3d9
+PC_value[5d]= 3da
+PC_value[5e]= 3db
+PC_value[5f]= 3dc
+PC_value[60]= 3dd
+PC_value[61]= 3de
+PC_value[62]= 3df
+PC_value[63]= 3e0
+PC_value[64]= 3e1
+PC_value[65]= 3e2
+PC_value[66]= 3e3
+PC_value[67]= 3e4
+PC_value[68]= 3e5
+PC_value[69]= 3e6
+PC_value[6a]= 3e7
+PC_value[6b]= 3e8
+PC_value[6c]= 3e9
+PC_value[6d]= 3ea
+
+Maximum number of instructions in the program is: 110
+
+
+Last valid PC value is (in hex): 3ff
+
+program_memory[0]: 1283
+program_memory[1]: 190
+program_memory[2]: 191
+program_memory[3]: 2b95
+program_memory[4]: 1c0c
+program_memory[5]: 2b98
+program_memory[6]: 2b99
+program_memory[7]: 2b9f
+program_memory[8]: 80e
+program_memory[9]: 790
+program_memory[a]: 1803
+program_memory[b]: a91
+program_memory[c]: 80f
+program_memory[d]: 791
+program_memory[e]: 3001
+program_memory[f]: 1003
+program_memory[10]: d8e
+program_memory[11]: d8f
+program_memory[12]: 3eff
+program_memory[13]: 1d03
+program_memory[14]: 2ba0
+program_memory[15]: 3001
+program_memory[16]: 1003
+program_memory[17]: c8d
+program_memory[18]: c8c
+program_memory[19]: 3eff
+program_memory[1a]: 1d03
+program_memory[1b]: 2ba7
+program_memory[1c]: 80d
+program_memory[1d]: 40c
+program_memory[1e]: 1d03
+program_memory[1f]: 2bb2
+program_memory[20]: 2bb3
+program_memory[21]: 2b95
+program_memory[22]: 2bb4
+program_memory[23]: 811
+program_memory[24]: 18d
+program_memory[25]: 78d
+program_memory[26]: 810
+program_memory[27]: 18c
+program_memory[28]: 78c
+program_memory[29]: 2bbb
+program_memory[2a]: 8
+program_memory[2b]: 1283
+program_memory[2c]: 194
+program_memory[2d]: 195
+program_memory[2e]: 3001
+program_memory[2f]: 92
+program_memory[30]: 3000
+program_memory[31]: 93
+program_memory[32]: 3001
+program_memory[33]: 94
+program_memory[34]: 3000
+program_memory[35]: 95
+program_memory[36]: 815
+program_memory[37]: 3a80
+program_memory[38]: cf
+program_memory[39]: 3080
+program_memory[3a]: 24f
+program_memory[3b]: 1d03
+program_memory[3c]: 2bd0
+program_memory[3d]: 3005
+program_memory[3e]: 214
+program_memory[3f]: 1c03
+program_memory[40]: 2bd3
+program_memory[41]: 2bd4
+program_memory[42]: 2bd6
+program_memory[43]: 2bff
+program_memory[44]: 2bff
+program_memory[45]: 3001
+program_memory[46]: 794
+program_memory[47]: 1803
+program_memory[48]: a95
+program_memory[49]: 3000
+program_memory[4a]: 795
+program_memory[4b]: 815
+program_memory[4c]: 3a80
+program_memory[4d]: cf
+program_memory[4e]: 3080
+program_memory[4f]: 24f
+program_memory[50]: 1d03
+program_memory[51]: 2bfa
+program_memory[52]: 3005
+program_memory[53]: 214
+program_memory[54]: 1c03
+program_memory[55]: 2bfd
+program_memory[56]: 2bfe
+program_memory[57]: 2bd6
+program_memory[58]: 2bff
+program_memory[59]: 1283
+program_memory[5a]: 813
+program_memory[5b]: 18d
+program_memory[5c]: 78d
+program_memory[5d]: 812
+program_memory[5e]: 18c
+program_memory[5f]: 78c
+program_memory[60]: 815
+program_memory[61]: 18f
+program_memory[62]: 78f
+program_memory[63]: 814
+program_memory[64]: 18e
+program_memory[65]: 78e
+program_memory[66]: 2391
+program_memory[67]: 1283
+program_memory[68]: 80d
+program_memory[69]: 193
+program_memory[6a]: 793
+program_memory[6b]: 80c
+program_memory[6c]: 192
+program_memory[6d]: 792
+Status register contents:(hex) at the beginning of all operations: 0
+Executing...
+PC_value[2b]= 3bc
+Instruction fetched is:
+program_memory[2b]=1283
+PC_value[2c]= 3bd
+Instruction fetched is:
+program_memory[2c]=194
+PC_value[2d]= 3be
+Instruction fetched is:
+program_memory[2d]=195
+PC_value[2e]= 3bf
+Instruction fetched is:
+program_memory[2e]=3001
+PC_value[2f]= 3c0
+Instruction fetched is:
+program_memory[2f]=92
+PC_value[30]= 3c1
+Instruction fetched is:
+program_memory[30]=3000
+PC_value[31]= 3c2
+Instruction fetched is:
+program_memory[31]=93
+PC_value[32]= 3c3
+Instruction fetched is:
+program_memory[32]=3001
+PC_value[33]= 3c4
+Instruction fetched is:
+program_memory[33]=94
+PC_value[34]= 3c5
+Instruction fetched is:
+program_memory[34]=3000
+PC_value[35]= 3c6
+Instruction fetched is:
+program_memory[35]=95
+PC_value[36]= 3c7
+Instruction fetched is:
+program_memory[36]=815
+PC_value[37]= 3c8
+Instruction fetched is:
+program_memory[37]=3a80
+PC_value[38]= 3c9
+Instruction fetched is:
+program_memory[38]=cf
+PC_value[39]= 3ca
+Instruction fetched is:
+program_memory[39]=3080
+PC_value[3a]= 3cb
+Instruction fetched is:
+program_memory[3a]=24f
+PC_value[3b]= 3cc
+Instruction fetched is:
+program_memory[3b]=1d03
+PC_value[3d]= 3ce
+Instruction fetched is:
+program_memory[3d]=3005
+PC_value[3e]= 3cf
+Instruction fetched is:
+program_memory[3e]=214
+PC_value[3f]= 3d0
+Instruction fetched is:
+program_memory[3f]=1c03
+PC_value[40]= 3d1
+Instruction fetched is:
+program_memory[40]=2bd3
+PC_value[42]= 3d3
+Instruction fetched is:
+program_memory[42]=2bd6
+PC_value[59]= 3d6
+Instruction fetched is:
+program_memory[59]=1283
+PC_value[5a]= 3d7
+Instruction fetched is:
+program_memory[5a]=813
+PC_value[5b]= 3d8
+Instruction fetched is:
+program_memory[5b]=18d
+PC_value[5c]= 3d9
+Instruction fetched is:
+program_memory[5c]=78d
+PC_value[5d]= 3da
+Instruction fetched is:
+program_memory[5d]=812
+PC_value[5e]= 3db
+Instruction fetched is:
+program_memory[5e]=18c
+PC_value[5f]= 3dc
+Instruction fetched is:
+program_memory[5f]=78c
+PC_value[60]= 3dd
+Instruction fetched is:
+program_memory[60]=815
+PC_value[61]= 3de
+Instruction fetched is:
+program_memory[61]=18f
+PC_value[62]= 3df
+Instruction fetched is:
+program_memory[62]=78f
+PC_value[63]= 3e0
+Instruction fetched is:
+program_memory[63]=814
+PC_value[64]= 3e1
+Instruction fetched is:
+program_memory[64]=18e
+PC_value[65]= 3e2
+Instruction fetched is:
+program_memory[65]=78e
+PC_value[66]= 3e3
+Instruction fetched is:
+program_memory[66]=2391
+PC_value[0]= 391
+Instruction fetched is:
+program_memory[0]=1283
+PC_value[1]= 392
+Instruction fetched is:
+program_memory[1]=190
+PC_value[2]= 393
+Instruction fetched is:
+program_memory[2]=191
+PC_value[3]= 394
+Instruction fetched is:
+program_memory[3]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[6]= 397
+Instruction fetched is:
+program_memory[6]=2b99
+PC_value[8]= 399
+Instruction fetched is:
+program_memory[8]=80e
+PC_value[9]= 39a
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 39b
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 39d
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 39e
+Instruction fetched is:
+program_memory[d]=791
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[20]= 3b1
+Instruction fetched is:
+program_memory[20]=2bb3
+PC_value[22]= 3b3
+Instruction fetched is:
+program_memory[22]=2bb4
+PC_value[23]= 3b4
+Instruction fetched is:
+program_memory[23]=811
+PC_value[24]= 3b5
+Instruction fetched is:
+program_memory[24]=18d
+PC_value[25]= 3b6
+Instruction fetched is:
+program_memory[25]=78d
+PC_value[26]= 3b7
+Instruction fetched is:
+program_memory[26]=810
+PC_value[27]= 3b8
+Instruction fetched is:
+program_memory[27]=18c
+PC_value[28]= 3b9
+Instruction fetched is:
+program_memory[28]=78c
+PC_value[29]= 3ba
+Instruction fetched is:
+program_memory[29]=2bbb
+PC_value[2a]= 3bb
+Instruction fetched is:
+program_memory[2a]=8
+PC_value[67]= 3e4
+Instruction fetched is:
+program_memory[67]=1283
+PC_value[68]= 3e5
+Instruction fetched is:
+program_memory[68]=80d
+PC_value[69]= 3e6
+Instruction fetched is:
+program_memory[69]=193
+PC_value[6a]= 3e7
+Instruction fetched is:
+program_memory[6a]=793
+PC_value[6b]= 3e8
+Instruction fetched is:
+program_memory[6b]=80c
+PC_value[6c]= 3e9
+Instruction fetched is:
+program_memory[6c]=192
+PC_value[6d]= 3ea
+Instruction fetched is:
+program_memory[6d]=792
+PC_value[45]= 3eb
+Instruction fetched is:
+program_memory[45]=3001
+PC_value[46]= 3ec
+Instruction fetched is:
+program_memory[46]=794
+PC_value[47]= 3ed
+Instruction fetched is:
+program_memory[47]=1803
+PC_value[49]= 3ef
+Instruction fetched is:
+program_memory[49]=3000
+PC_value[4a]= 3f0
+Instruction fetched is:
+program_memory[4a]=795
+PC_value[4b]= 3f1
+Instruction fetched is:
+program_memory[4b]=815
+PC_value[4c]= 3f2
+Instruction fetched is:
+program_memory[4c]=3a80
+PC_value[4d]= 3f3
+Instruction fetched is:
+program_memory[4d]=cf
+PC_value[4e]= 3f4
+Instruction fetched is:
+program_memory[4e]=3080
+PC_value[4f]= 3f5
+Instruction fetched is:
+program_memory[4f]=24f
+PC_value[50]= 3f6
+Instruction fetched is:
+program_memory[50]=1d03
+PC_value[52]= 3f8
+Instruction fetched is:
+program_memory[52]=3005
+PC_value[53]= 3f9
+Instruction fetched is:
+program_memory[53]=214
+PC_value[54]= 3fa
+Instruction fetched is:
+program_memory[54]=1c03
+PC_value[55]= 3fb
+Instruction fetched is:
+program_memory[55]=2bfd
+PC_value[57]= 3fd
+Instruction fetched is:
+program_memory[57]=2bd6
+PC_value[59]= 3d6
+Instruction fetched is:
+program_memory[59]=1283
+PC_value[5a]= 3d7
+Instruction fetched is:
+program_memory[5a]=813
+PC_value[5b]= 3d8
+Instruction fetched is:
+program_memory[5b]=18d
+PC_value[5c]= 3d9
+Instruction fetched is:
+program_memory[5c]=78d
+PC_value[5d]= 3da
+Instruction fetched is:
+program_memory[5d]=812
+PC_value[5e]= 3db
+Instruction fetched is:
+program_memory[5e]=18c
+PC_value[5f]= 3dc
+Instruction fetched is:
+program_memory[5f]=78c
+PC_value[60]= 3dd
+Instruction fetched is:
+program_memory[60]=815
+PC_value[61]= 3de
+Instruction fetched is:
+program_memory[61]=18f
+PC_value[62]= 3df
+Instruction fetched is:
+program_memory[62]=78f
+PC_value[63]= 3e0
+Instruction fetched is:
+program_memory[63]=814
+PC_value[64]= 3e1
+Instruction fetched is:
+program_memory[64]=18e
+PC_value[65]= 3e2
+Instruction fetched is:
+program_memory[65]=78e
+PC_value[66]= 3e3
+Instruction fetched is:
+program_memory[66]=2391
+PC_value[0]= 391
+Instruction fetched is:
+program_memory[0]=1283
+PC_value[1]= 392
+Instruction fetched is:
+program_memory[1]=190
+PC_value[2]= 393
+Instruction fetched is:
+program_memory[2]=191
+PC_value[3]= 394
+Instruction fetched is:
+program_memory[3]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[6]= 397
+Instruction fetched is:
+program_memory[6]=2b99
+PC_value[8]= 399
+Instruction fetched is:
+program_memory[8]=80e
+PC_value[9]= 39a
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 39b
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 39d
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 39e
+Instruction fetched is:
+program_memory[d]=791
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[20]= 3b1
+Instruction fetched is:
+program_memory[20]=2bb3
+PC_value[22]= 3b3
+Instruction fetched is:
+program_memory[22]=2bb4
+PC_value[23]= 3b4
+Instruction fetched is:
+program_memory[23]=811
+PC_value[24]= 3b5
+Instruction fetched is:
+program_memory[24]=18d
+PC_value[25]= 3b6
+Instruction fetched is:
+program_memory[25]=78d
+PC_value[26]= 3b7
+Instruction fetched is:
+program_memory[26]=810
+PC_value[27]= 3b8
+Instruction fetched is:
+program_memory[27]=18c
+PC_value[28]= 3b9
+Instruction fetched is:
+program_memory[28]=78c
+PC_value[29]= 3ba
+Instruction fetched is:
+program_memory[29]=2bbb
+PC_value[2a]= 3bb
+Instruction fetched is:
+program_memory[2a]=8
+PC_value[67]= 3e4
+Instruction fetched is:
+program_memory[67]=1283
+PC_value[68]= 3e5
+Instruction fetched is:
+program_memory[68]=80d
+PC_value[69]= 3e6
+Instruction fetched is:
+program_memory[69]=193
+PC_value[6a]= 3e7
+Instruction fetched is:
+program_memory[6a]=793
+PC_value[6b]= 3e8
+Instruction fetched is:
+program_memory[6b]=80c
+PC_value[6c]= 3e9
+Instruction fetched is:
+program_memory[6c]=192
+PC_value[6d]= 3ea
+Instruction fetched is:
+program_memory[6d]=792
+PC_value[45]= 3eb
+Instruction fetched is:
+program_memory[45]=3001
+PC_value[46]= 3ec
+Instruction fetched is:
+program_memory[46]=794
+PC_value[47]= 3ed
+Instruction fetched is:
+program_memory[47]=1803
+PC_value[49]= 3ef
+Instruction fetched is:
+program_memory[49]=3000
+PC_value[4a]= 3f0
+Instruction fetched is:
+program_memory[4a]=795
+PC_value[4b]= 3f1
+Instruction fetched is:
+program_memory[4b]=815
+PC_value[4c]= 3f2
+Instruction fetched is:
+program_memory[4c]=3a80
+PC_value[4d]= 3f3
+Instruction fetched is:
+program_memory[4d]=cf
+PC_value[4e]= 3f4
+Instruction fetched is:
+program_memory[4e]=3080
+PC_value[4f]= 3f5
+Instruction fetched is:
+program_memory[4f]=24f
+PC_value[50]= 3f6
+Instruction fetched is:
+program_memory[50]=1d03
+PC_value[52]= 3f8
+Instruction fetched is:
+program_memory[52]=3005
+PC_value[53]= 3f9
+Instruction fetched is:
+program_memory[53]=214
+PC_value[54]= 3fa
+Instruction fetched is:
+program_memory[54]=1c03
+PC_value[55]= 3fb
+Instruction fetched is:
+program_memory[55]=2bfd
+PC_value[57]= 3fd
+Instruction fetched is:
+program_memory[57]=2bd6
+PC_value[59]= 3d6
+Instruction fetched is:
+program_memory[59]=1283
+PC_value[5a]= 3d7
+Instruction fetched is:
+program_memory[5a]=813
+PC_value[5b]= 3d8
+Instruction fetched is:
+program_memory[5b]=18d
+PC_value[5c]= 3d9
+Instruction fetched is:
+program_memory[5c]=78d
+PC_value[5d]= 3da
+Instruction fetched is:
+program_memory[5d]=812
+PC_value[5e]= 3db
+Instruction fetched is:
+program_memory[5e]=18c
+PC_value[5f]= 3dc
+Instruction fetched is:
+program_memory[5f]=78c
+PC_value[60]= 3dd
+Instruction fetched is:
+program_memory[60]=815
+PC_value[61]= 3de
+Instruction fetched is:
+program_memory[61]=18f
+PC_value[62]= 3df
+Instruction fetched is:
+program_memory[62]=78f
+PC_value[63]= 3e0
+Instruction fetched is:
+program_memory[63]=814
+PC_value[64]= 3e1
+Instruction fetched is:
+program_memory[64]=18e
+PC_value[65]= 3e2
+Instruction fetched is:
+program_memory[65]=78e
+PC_value[66]= 3e3
+Instruction fetched is:
+program_memory[66]=2391
+PC_value[0]= 391
+Instruction fetched is:
+program_memory[0]=1283
+PC_value[1]= 392
+Instruction fetched is:
+program_memory[1]=190
+PC_value[2]= 393
+Instruction fetched is:
+program_memory[2]=191
+PC_value[3]= 394
+Instruction fetched is:
+program_memory[3]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[5]= 396
+Instruction fetched is:
+program_memory[5]=2b98
+PC_value[7]= 398
+Instruction fetched is:
+program_memory[7]=2b9f
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[1f]= 3b0
+Instruction fetched is:
+program_memory[1f]=2bb2
+PC_value[21]= 3b2
+Instruction fetched is:
+program_memory[21]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[6]= 397
+Instruction fetched is:
+program_memory[6]=2b99
+PC_value[8]= 399
+Instruction fetched is:
+program_memory[8]=80e
+PC_value[9]= 39a
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 39b
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 39d
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 39e
+Instruction fetched is:
+program_memory[d]=791
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[20]= 3b1
+Instruction fetched is:
+program_memory[20]=2bb3
+PC_value[22]= 3b3
+Instruction fetched is:
+program_memory[22]=2bb4
+PC_value[23]= 3b4
+Instruction fetched is:
+program_memory[23]=811
+PC_value[24]= 3b5
+Instruction fetched is:
+program_memory[24]=18d
+PC_value[25]= 3b6
+Instruction fetched is:
+program_memory[25]=78d
+PC_value[26]= 3b7
+Instruction fetched is:
+program_memory[26]=810
+PC_value[27]= 3b8
+Instruction fetched is:
+program_memory[27]=18c
+PC_value[28]= 3b9
+Instruction fetched is:
+program_memory[28]=78c
+PC_value[29]= 3ba
+Instruction fetched is:
+program_memory[29]=2bbb
+PC_value[2a]= 3bb
+Instruction fetched is:
+program_memory[2a]=8
+PC_value[67]= 3e4
+Instruction fetched is:
+program_memory[67]=1283
+PC_value[68]= 3e5
+Instruction fetched is:
+program_memory[68]=80d
+PC_value[69]= 3e6
+Instruction fetched is:
+program_memory[69]=193
+PC_value[6a]= 3e7
+Instruction fetched is:
+program_memory[6a]=793
+PC_value[6b]= 3e8
+Instruction fetched is:
+program_memory[6b]=80c
+PC_value[6c]= 3e9
+Instruction fetched is:
+program_memory[6c]=192
+PC_value[6d]= 3ea
+Instruction fetched is:
+program_memory[6d]=792
+PC_value[45]= 3eb
+Instruction fetched is:
+program_memory[45]=3001
+PC_value[46]= 3ec
+Instruction fetched is:
+program_memory[46]=794
+PC_value[47]= 3ed
+Instruction fetched is:
+program_memory[47]=1803
+PC_value[49]= 3ef
+Instruction fetched is:
+program_memory[49]=3000
+PC_value[4a]= 3f0
+Instruction fetched is:
+program_memory[4a]=795
+PC_value[4b]= 3f1
+Instruction fetched is:
+program_memory[4b]=815
+PC_value[4c]= 3f2
+Instruction fetched is:
+program_memory[4c]=3a80
+PC_value[4d]= 3f3
+Instruction fetched is:
+program_memory[4d]=cf
+PC_value[4e]= 3f4
+Instruction fetched is:
+program_memory[4e]=3080
+PC_value[4f]= 3f5
+Instruction fetched is:
+program_memory[4f]=24f
+PC_value[50]= 3f6
+Instruction fetched is:
+program_memory[50]=1d03
+PC_value[52]= 3f8
+Instruction fetched is:
+program_memory[52]=3005
+PC_value[53]= 3f9
+Instruction fetched is:
+program_memory[53]=214
+PC_value[54]= 3fa
+Instruction fetched is:
+program_memory[54]=1c03
+PC_value[55]= 3fb
+Instruction fetched is:
+program_memory[55]=2bfd
+PC_value[57]= 3fd
+Instruction fetched is:
+program_memory[57]=2bd6
+PC_value[59]= 3d6
+Instruction fetched is:
+program_memory[59]=1283
+PC_value[5a]= 3d7
+Instruction fetched is:
+program_memory[5a]=813
+PC_value[5b]= 3d8
+Instruction fetched is:
+program_memory[5b]=18d
+PC_value[5c]= 3d9
+Instruction fetched is:
+program_memory[5c]=78d
+PC_value[5d]= 3da
+Instruction fetched is:
+program_memory[5d]=812
+PC_value[5e]= 3db
+Instruction fetched is:
+program_memory[5e]=18c
+PC_value[5f]= 3dc
+Instruction fetched is:
+program_memory[5f]=78c
+PC_value[60]= 3dd
+Instruction fetched is:
+program_memory[60]=815
+PC_value[61]= 3de
+Instruction fetched is:
+program_memory[61]=18f
+PC_value[62]= 3df
+Instruction fetched is:
+program_memory[62]=78f
+PC_value[63]= 3e0
+Instruction fetched is:
+program_memory[63]=814
+PC_value[64]= 3e1
+Instruction fetched is:
+program_memory[64]=18e
+PC_value[65]= 3e2
+Instruction fetched is:
+program_memory[65]=78e
+PC_value[66]= 3e3
+Instruction fetched is:
+program_memory[66]=2391
+PC_value[0]= 391
+Instruction fetched is:
+program_memory[0]=1283
+PC_value[1]= 392
+Instruction fetched is:
+program_memory[1]=190
+PC_value[2]= 393
+Instruction fetched is:
+program_memory[2]=191
+PC_value[3]= 394
+Instruction fetched is:
+program_memory[3]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[5]= 396
+Instruction fetched is:
+program_memory[5]=2b98
+PC_value[7]= 398
+Instruction fetched is:
+program_memory[7]=2b9f
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[1f]= 3b0
+Instruction fetched is:
+program_memory[1f]=2bb2
+PC_value[21]= 3b2
+Instruction fetched is:
+program_memory[21]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[6]= 397
+Instruction fetched is:
+program_memory[6]=2b99
+PC_value[8]= 399
+Instruction fetched is:
+program_memory[8]=80e
+PC_value[9]= 39a
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 39b
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 39d
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 39e
+Instruction fetched is:
+program_memory[d]=791
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[1f]= 3b0
+Instruction fetched is:
+program_memory[1f]=2bb2
+PC_value[21]= 3b2
+Instruction fetched is:
+program_memory[21]=2b95
+PC_value[4]= 395
+Instruction fetched is:
+program_memory[4]=1c0c
+PC_value[6]= 397
+Instruction fetched is:
+program_memory[6]=2b99
+PC_value[8]= 399
+Instruction fetched is:
+program_memory[8]=80e
+PC_value[9]= 39a
+Instruction fetched is:
+program_memory[9]=790
+PC_value[a]= 39b
+Instruction fetched is:
+program_memory[a]=1803
+PC_value[c]= 39d
+Instruction fetched is:
+program_memory[c]=80f
+PC_value[d]= 39e
+Instruction fetched is:
+program_memory[d]=791
+PC_value[e]= 39f
+Instruction fetched is:
+program_memory[e]=3001
+PC_value[f]= 3a0
+Instruction fetched is:
+program_memory[f]=1003
+PC_value[10]= 3a1
+Instruction fetched is:
+program_memory[10]=d8e
+PC_value[11]= 3a2
+Instruction fetched is:
+program_memory[11]=d8f
+PC_value[12]= 3a3
+Instruction fetched is:
+program_memory[12]=3eff
+PC_value[13]= 3a4
+Instruction fetched is:
+program_memory[13]=1d03
+PC_value[15]= 3a6
+Instruction fetched is:
+program_memory[15]=3001
+PC_value[16]= 3a7
+Instruction fetched is:
+program_memory[16]=1003
+PC_value[17]= 3a8
+Instruction fetched is:
+program_memory[17]=c8d
+PC_value[18]= 3a9
+Instruction fetched is:
+program_memory[18]=c8c
+PC_value[19]= 3aa
+Instruction fetched is:
+program_memory[19]=3eff
+PC_value[1a]= 3ab
+Instruction fetched is:
+program_memory[1a]=1d03
+PC_value[1c]= 3ad
+Instruction fetched is:
+program_memory[1c]=80d
+PC_value[1d]= 3ae
+Instruction fetched is:
+program_memory[1d]=40c
+PC_value[1e]= 3af
+Instruction fetched is:
+program_memory[1e]=1d03
+PC_value[20]= 3b1
+Instruction fetched is:
+program_memory[20]=2bb3
+PC_value[22]= 3b3
+Instruction fetched is:
+program_memory[22]=2bb4
+PC_value[23]= 3b4
+Instruction fetched is:
+program_memory[23]=811
+PC_value[24]= 3b5
+Instruction fetched is:
+program_memory[24]=18d
+PC_value[25]= 3b6
+Instruction fetched is:
+program_memory[25]=78d
+PC_value[26]= 3b7
+Instruction fetched is:
+program_memory[26]=810
+PC_value[27]= 3b8
+Instruction fetched is:
+program_memory[27]=18c
+PC_value[28]= 3b9
+Instruction fetched is:
+program_memory[28]=78c
+PC_value[29]= 3ba
+Instruction fetched is:
+program_memory[29]=2bbb
+PC_value[2a]= 3bb
+Instruction fetched is:
+program_memory[2a]=8
+PC_value[67]= 3e4
+Instruction fetched is:
+program_memory[67]=1283
+PC_value[68]= 3e5
+Instruction fetched is:
+program_memory[68]=80d
+PC_value[69]= 3e6
+Instruction fetched is:
+program_memory[69]=193
+PC_value[6a]= 3e7
+Instruction fetched is:
+program_memory[6a]=793
+PC_value[6b]= 3e8
+Instruction fetched is:
+program_memory[6b]=80c
+PC_value[6c]= 3e9
+Instruction fetched is:
+program_memory[6c]=192
+PC_value[6d]= 3ea
+Instruction fetched is:
+program_memory[6d]=792
+PC_value[45]= 3eb
+Instruction fetched is:
+program_memory[45]=3001
+PC_value[46]= 3ec
+Instruction fetched is:
+program_memory[46]=794
+PC_value[47]= 3ed
+Instruction fetched is:
+program_memory[47]=1803
+PC_value[49]= 3ef
+Instruction fetched is:
+program_memory[49]=3000
+PC_value[4a]= 3f0
+Instruction fetched is:
+program_memory[4a]=795
+PC_value[4b]= 3f1
+Instruction fetched is:
+program_memory[4b]=815
+PC_value[4c]= 3f2
+Instruction fetched is:
+program_memory[4c]=3a80
+PC_value[4d]= 3f3
+Instruction fetched is:
+program_memory[4d]=cf
+PC_value[4e]= 3f4
+Instruction fetched is:
+program_memory[4e]=3080
+PC_value[4f]= 3f5
+Instruction fetched is:
+program_memory[4f]=24f
+PC_value[50]= 3f6
+Instruction fetched is:
+program_memory[50]=1d03
+PC_value[52]= 3f8
+Instruction fetched is:
+program_memory[52]=3005
+PC_value[53]= 3f9
+Instruction fetched is:
+program_memory[53]=214
+PC_value[54]= 3fa
+Instruction fetched is:
+program_memory[54]=1c03
+PC_value[56]= 3fc
+Instruction fetched is:
+program_memory[56]=2bfe
+PC_value[58]= 3fe
+Instruction fetched is:
+program_memory[58]=2bff

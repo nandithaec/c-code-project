@@ -1,0 +1,4316 @@
+At the start of execution: 1337543760 seconds since January 1, 1970 
+Initialising crash parameters
+Initialising all registers
+-----------------------------------------------------------------
+Initial values (hex): PCL=0, PCLATH=0, PC(testing) = 0 
+Read starting PCL value (in hex) (in hex - E8):: 
+Read starting PCLATH value (in hex) (in hex - 3): 
+New values as read from the user(hex): PCL=cc, PCLATH=3, PC(testing) = 3cc 
+
+Maximum number of instructions in the program is: 51
+
+
+Last valid PC value is (in hex): 3ff
+
+Status register contents:(hex) at the beginning of all operations: 0
+Executing...
+****************************************************************
+INSTRUCTION NUMBER 1
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[0]= 3cc
+Current PC: PCL=cc, PCLATH=3, PC = 3cc 
+Instruction fetched is:
+program_memory[0]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=cd, PCLATH=3, PC = 3cd 
+****************************************************************
+INSTRUCTION NUMBER 2
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1]= 3cd
+Current PC: PCL=cd, PCLATH=3, PC = 3cd 
+Instruction fetched is:
+program_memory[1]=18e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18e 
+Opcode (hex) = 1 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[e] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ce, PCLATH=3, PC = 3ce 
+****************************************************************
+INSTRUCTION NUMBER 3
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2]= 3ce
+Current PC: PCL=ce, PCLATH=3, PC = 3ce 
+Instruction fetched is:
+program_memory[2]=18f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18f 
+Opcode (hex) = 1 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[f] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=cf, PCLATH=3, PC = 3cf 
+****************************************************************
+INSTRUCTION NUMBER 4
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[3]= 3cf
+Current PC: PCL=cf, PCLATH=3, PC = 3cf 
+Instruction fetched is:
+program_memory[3]=18c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18c 
+Opcode (hex) = 1 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[c] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=d0, PCLATH=3, PC = 3d0 
+****************************************************************
+INSTRUCTION NUMBER 5
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[4]= 3d0
+Current PC: PCL=d0, PCLATH=3, PC = 3d0 
+Instruction fetched is:
+program_memory[4]=18d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18d 
+Opcode (hex) = 1 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[d] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=d1, PCLATH=3, PC = 3d1 
+****************************************************************
+INSTRUCTION NUMBER 6
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[5]= 3d1
+Current PC: PCL=d1, PCLATH=3, PC = 3d1 
+Instruction fetched is:
+program_memory[5]=18e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18e 
+Opcode (hex) = 1 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[e] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=d2, PCLATH=3, PC = 3d2 
+****************************************************************
+INSTRUCTION NUMBER 7
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[6]= 3d2
+Current PC: PCL=d2, PCLATH=3, PC = 3d2 
+Instruction fetched is:
+program_memory[6]=18f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = CLRF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 18f 
+Opcode (hex) = 1 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 7
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+Contents of reg file before execution (hex)= 0 
+CLRF instruction
+Contents of reg file[f] cleared after execution (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=d3, PCLATH=3, PC = 3d3 
+****************************************************************
+INSTRUCTION NUMBER 8
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[7]= 3d3
+Current PC: PCL=d3, PCLATH=3, PC = 3d3 
+Instruction fetched is:
+program_memory[7]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=d4, PCLATH=3, PC = 3d4 
+****************************************************************
+INSTRUCTION NUMBER 9
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[8]= 3d4
+Current PC: PCL=d4, PCLATH=3, PC = 3d4 
+Instruction fetched is:
+program_memory[8]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=d5, PCLATH=3, PC = 3d5 
+****************************************************************
+INSTRUCTION NUMBER 10
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[9]= 3d5
+Current PC: PCL=d5, PCLATH=3, PC = 3d5 
+Instruction fetched is:
+program_memory[9]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=d6, PCLATH=3, PC = 3d6 
+****************************************************************
+INSTRUCTION NUMBER 11
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[a]= 3d6
+Current PC: PCL=d6, PCLATH=3, PC = 3d6 
+Instruction fetched is:
+program_memory[a]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=d7, PCLATH=3, PC = 3d7 
+****************************************************************
+INSTRUCTION NUMBER 12
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[b]= 3d7
+Current PC: PCL=d7, PCLATH=3, PC = 3d7 
+Instruction fetched is:
+program_memory[b]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=d8, PCLATH=3, PC = 3d8 
+****************************************************************
+INSTRUCTION NUMBER 13
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[c]= 3d8
+Current PC: PCL=d8, PCLATH=3, PC = 3d8 
+Instruction fetched is:
+program_memory[c]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 986
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=da, PCLATH=3, PC = 3da 
+****************************************************************
+INSTRUCTION NUMBER 14
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[e]= 3da
+Current PC: PCL=da, PCLATH=3, PC = 3da 
+Instruction fetched is:
+program_memory[e]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=db, PCLATH=3, PC = 3db 
+****************************************************************
+INSTRUCTION NUMBER 15
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[f]= 3db
+Current PC: PCL=db, PCLATH=3, PC = 3db 
+Instruction fetched is:
+program_memory[f]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 0, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= fb 
+Zero flag reset within SUBWF:
+Result is negative
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=dc, PCLATH=3, PC = 3dc 
+****************************************************************
+INSTRUCTION NUMBER 16
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[10]= 3dc
+Current PC: PCL=dc, PCLATH=3, PC = 3dc 
+Instruction fetched is:
+program_memory[10]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 989
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=dd, PCLATH=3, PC = 3dd 
+****************************************************************
+INSTRUCTION NUMBER 17
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[11]= 3dd
+Current PC: PCL=dd, PCLATH=3, PC = 3dd 
+Instruction fetched is:
+program_memory[11]=2bdf
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bdf 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3df 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3dd
+After execution: Contents (hex) of PC= 3df
+****************************************************************
+After Incrementing PC: PCL=df, PCLATH=3, PC = 3df 
+****************************************************************
+INSTRUCTION NUMBER 18
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[13]= 3df
+Current PC: PCL=df, PCLATH=3, PC = 3df 
+Instruction fetched is:
+program_memory[13]=2be2
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2be2 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3e2 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3df
+After execution: Contents (hex) of PC= 3e2
+****************************************************************
+After Incrementing PC: PCL=e2, PCLATH=3, PC = 3e2 
+****************************************************************
+INSTRUCTION NUMBER 19
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2a]= 3e2
+Current PC: PCL=e2, PCLATH=3, PC = 3e2 
+Instruction fetched is:
+program_memory[2a]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e3, PCLATH=3, PC = 3e3 
+****************************************************************
+INSTRUCTION NUMBER 20
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2b]= 3e3
+Current PC: PCL=e3, PCLATH=3, PC = 3e3 
+Instruction fetched is:
+program_memory[2b]=80e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80e 
+Opcode (hex) = 8 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e4, PCLATH=3, PC = 3e4 
+****************************************************************
+INSTRUCTION NUMBER 21
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2c]= 3e4
+Current PC: PCL=e4, PCLATH=3, PC = 3e4 
+Instruction fetched is:
+program_memory[2c]=70c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70c 
+Opcode (hex) = 7 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e5, PCLATH=3, PC = 3e5 
+****************************************************************
+INSTRUCTION NUMBER 22
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2d]= 3e5
+Current PC: PCL=e5, PCLATH=3, PC = 3e5 
+Instruction fetched is:
+program_memory[2d]=8c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8c 
+Opcode (hex) = 0 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [c] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=e6, PCLATH=3, PC = 3e6 
+****************************************************************
+INSTRUCTION NUMBER 23
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2e]= 3e6
+Current PC: PCL=e6, PCLATH=3, PC = 3e6 
+Instruction fetched is:
+program_memory[2e]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e7, PCLATH=3, PC = 3e7 
+****************************************************************
+INSTRUCTION NUMBER 24
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2f]= 3e7
+Current PC: PCL=e7, PCLATH=3, PC = 3e7 
+Instruction fetched is:
+program_memory[2f]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 4 
+Bit test = 0
+Program counter: PC= 1001
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e9, PCLATH=3, PC = 3e9 
+****************************************************************
+INSTRUCTION NUMBER 25
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[31]= 3e9
+Current PC: PCL=e9, PCLATH=3, PC = 3e9 
+Instruction fetched is:
+program_memory[31]=70d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70d 
+Opcode (hex) = 7 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ea, PCLATH=3, PC = 3ea 
+****************************************************************
+INSTRUCTION NUMBER 26
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[32]= 3ea
+Current PC: PCL=ea, PCLATH=3, PC = 3ea 
+Instruction fetched is:
+program_memory[32]=8d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8d 
+Opcode (hex) = 0 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [d] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=eb, PCLATH=3, PC = 3eb 
+****************************************************************
+INSTRUCTION NUMBER 27
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[16]= 3eb
+Current PC: PCL=eb, PCLATH=3, PC = 3eb 
+Instruction fetched is:
+program_memory[16]=3001
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3001 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 1 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 1 
+****************************************************************
+After Incrementing PC: PCL=ec, PCLATH=3, PC = 3ec 
+****************************************************************
+INSTRUCTION NUMBER 28
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[17]= 3ec
+Current PC: PCL=ec, PCLATH=3, PC = 3ec 
+Instruction fetched is:
+program_memory[17]=78e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78e 
+Opcode (hex) = 7 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 1
+ After execution:
+Contents of destination is Reg file (hex)= 1 
+Zero flag reset within ADDWF, (destination = register file)
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ed, PCLATH=3, PC = 3ed 
+****************************************************************
+INSTRUCTION NUMBER 29
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[18]= 3ed
+Current PC: PCL=ed, PCLATH=3, PC = 3ed 
+Instruction fetched is:
+program_memory[18]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1007
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ef, PCLATH=3, PC = 3ef 
+****************************************************************
+INSTRUCTION NUMBER 30
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1a]= 3ef
+Current PC: PCL=ef, PCLATH=3, PC = 3ef 
+Instruction fetched is:
+program_memory[1a]=3000
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3000 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 1 
+Contents of W(hex) after execution= 0 
+****************************************************************
+After Incrementing PC: PCL=f0, PCLATH=3, PC = 3f0 
+****************************************************************
+INSTRUCTION NUMBER 31
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1b]= 3f0
+Current PC: PCL=f0, PCLATH=3, PC = 3f0 
+Instruction fetched is:
+program_memory[1b]=78f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78f 
+Opcode (hex) = 7 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is Reg file (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f1, PCLATH=3, PC = 3f1 
+****************************************************************
+INSTRUCTION NUMBER 32
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1c]= 3f1
+Current PC: PCL=f1, PCLATH=3, PC = 3f1 
+Instruction fetched is:
+program_memory[1c]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f2, PCLATH=3, PC = 3f2 
+****************************************************************
+INSTRUCTION NUMBER 33
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1d]= 3f2
+Current PC: PCL=f2, PCLATH=3, PC = 3f2 
+Instruction fetched is:
+program_memory[1d]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=f3, PCLATH=3, PC = 3f3 
+****************************************************************
+INSTRUCTION NUMBER 34
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1e]= 3f3
+Current PC: PCL=f3, PCLATH=3, PC = 3f3 
+Instruction fetched is:
+program_memory[1e]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=f4, PCLATH=3, PC = 3f4 
+****************************************************************
+INSTRUCTION NUMBER 35
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1f]= 3f4
+Current PC: PCL=f4, PCLATH=3, PC = 3f4 
+Instruction fetched is:
+program_memory[1f]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=f5, PCLATH=3, PC = 3f5 
+****************************************************************
+INSTRUCTION NUMBER 36
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[20]= 3f5
+Current PC: PCL=f5, PCLATH=3, PC = 3f5 
+Instruction fetched is:
+program_memory[20]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f6, PCLATH=3, PC = 3f6 
+****************************************************************
+INSTRUCTION NUMBER 37
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[21]= 3f6
+Current PC: PCL=f6, PCLATH=3, PC = 3f6 
+Instruction fetched is:
+program_memory[21]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1016
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f8, PCLATH=3, PC = 3f8 
+****************************************************************
+INSTRUCTION NUMBER 38
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[23]= 3f8
+Current PC: PCL=f8, PCLATH=3, PC = 3f8 
+Instruction fetched is:
+program_memory[23]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=f9, PCLATH=3, PC = 3f9 
+****************************************************************
+INSTRUCTION NUMBER 39
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[24]= 3f9
+Current PC: PCL=f9, PCLATH=3, PC = 3f9 
+Instruction fetched is:
+program_memory[24]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 1, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= fc 
+Zero flag reset within SUBWF:
+Result is negative
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fa, PCLATH=3, PC = 3fa 
+****************************************************************
+INSTRUCTION NUMBER 40
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[25]= 3fa
+Current PC: PCL=fa, PCLATH=3, PC = 3fa 
+Instruction fetched is:
+program_memory[25]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1019
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fb, PCLATH=3, PC = 3fb 
+****************************************************************
+INSTRUCTION NUMBER 41
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[26]= 3fb
+Current PC: PCL=fb, PCLATH=3, PC = 3fb 
+Instruction fetched is:
+program_memory[26]=2bfd
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bfd 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3fd 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fb
+After execution: Contents (hex) of PC= 3fd
+****************************************************************
+After Incrementing PC: PCL=fd, PCLATH=3, PC = 3fd 
+****************************************************************
+INSTRUCTION NUMBER 42
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[28]= 3fd
+Current PC: PCL=fd, PCLATH=3, PC = 3fd 
+Instruction fetched is:
+program_memory[28]=2be2
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2be2 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3e2 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fd
+After execution: Contents (hex) of PC= 3e2
+****************************************************************
+After Incrementing PC: PCL=e2, PCLATH=3, PC = 3e2 
+****************************************************************
+INSTRUCTION NUMBER 43
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2a]= 3e2
+Current PC: PCL=e2, PCLATH=3, PC = 3e2 
+Instruction fetched is:
+program_memory[2a]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e3, PCLATH=3, PC = 3e3 
+****************************************************************
+INSTRUCTION NUMBER 44
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2b]= 3e3
+Current PC: PCL=e3, PCLATH=3, PC = 3e3 
+Instruction fetched is:
+program_memory[2b]=80e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80e 
+Opcode (hex) = 8 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 1 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e4, PCLATH=3, PC = 3e4 
+****************************************************************
+INSTRUCTION NUMBER 45
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2c]= 3e4
+Current PC: PCL=e4, PCLATH=3, PC = 3e4 
+Instruction fetched is:
+program_memory[2c]=70c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70c 
+Opcode (hex) = 7 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 1
+ After execution:
+Contents of destination is W (hex)= 1 
+Zero flag reset within ADDWF
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e5, PCLATH=3, PC = 3e5 
+****************************************************************
+INSTRUCTION NUMBER 46
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2d]= 3e5
+Current PC: PCL=e5, PCLATH=3, PC = 3e5 
+Instruction fetched is:
+program_memory[2d]=8c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8c 
+Opcode (hex) = 0 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [c] (hex)= 1 
+****************************************************************
+After Incrementing PC: PCL=e6, PCLATH=3, PC = 3e6 
+****************************************************************
+INSTRUCTION NUMBER 47
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2e]= 3e6
+Current PC: PCL=e6, PCLATH=3, PC = 3e6 
+Instruction fetched is:
+program_memory[2e]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e7, PCLATH=3, PC = 3e7 
+****************************************************************
+INSTRUCTION NUMBER 48
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2f]= 3e7
+Current PC: PCL=e7, PCLATH=3, PC = 3e7 
+Instruction fetched is:
+program_memory[2f]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 4 
+Bit test = 0
+Program counter: PC= 1001
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e9, PCLATH=3, PC = 3e9 
+****************************************************************
+INSTRUCTION NUMBER 49
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[31]= 3e9
+Current PC: PCL=e9, PCLATH=3, PC = 3e9 
+Instruction fetched is:
+program_memory[31]=70d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70d 
+Opcode (hex) = 7 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ea, PCLATH=3, PC = 3ea 
+****************************************************************
+INSTRUCTION NUMBER 50
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[32]= 3ea
+Current PC: PCL=ea, PCLATH=3, PC = 3ea 
+Instruction fetched is:
+program_memory[32]=8d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8d 
+Opcode (hex) = 0 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [d] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=eb, PCLATH=3, PC = 3eb 
+****************************************************************
+INSTRUCTION NUMBER 51
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[16]= 3eb
+Current PC: PCL=eb, PCLATH=3, PC = 3eb 
+Instruction fetched is:
+program_memory[16]=3001
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3001 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 1 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 1 
+****************************************************************
+After Incrementing PC: PCL=ec, PCLATH=3, PC = 3ec 
+****************************************************************
+INSTRUCTION NUMBER 52
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[17]= 3ec
+Current PC: PCL=ec, PCLATH=3, PC = 3ec 
+Instruction fetched is:
+program_memory[17]=78e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78e 
+Opcode (hex) = 7 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 1, W= 1
+ After execution:
+Contents of destination is Reg file (hex)= 2 
+Zero flag reset within ADDWF, (destination = register file)
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ed, PCLATH=3, PC = 3ed 
+****************************************************************
+INSTRUCTION NUMBER 53
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[18]= 3ed
+Current PC: PCL=ed, PCLATH=3, PC = 3ed 
+Instruction fetched is:
+program_memory[18]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1007
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ef, PCLATH=3, PC = 3ef 
+****************************************************************
+INSTRUCTION NUMBER 54
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1a]= 3ef
+Current PC: PCL=ef, PCLATH=3, PC = 3ef 
+Instruction fetched is:
+program_memory[1a]=3000
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3000 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 1 
+Contents of W(hex) after execution= 0 
+****************************************************************
+After Incrementing PC: PCL=f0, PCLATH=3, PC = 3f0 
+****************************************************************
+INSTRUCTION NUMBER 55
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1b]= 3f0
+Current PC: PCL=f0, PCLATH=3, PC = 3f0 
+Instruction fetched is:
+program_memory[1b]=78f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78f 
+Opcode (hex) = 7 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is Reg file (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f1, PCLATH=3, PC = 3f1 
+****************************************************************
+INSTRUCTION NUMBER 56
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1c]= 3f1
+Current PC: PCL=f1, PCLATH=3, PC = 3f1 
+Instruction fetched is:
+program_memory[1c]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f2, PCLATH=3, PC = 3f2 
+****************************************************************
+INSTRUCTION NUMBER 57
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1d]= 3f2
+Current PC: PCL=f2, PCLATH=3, PC = 3f2 
+Instruction fetched is:
+program_memory[1d]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=f3, PCLATH=3, PC = 3f3 
+****************************************************************
+INSTRUCTION NUMBER 58
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1e]= 3f3
+Current PC: PCL=f3, PCLATH=3, PC = 3f3 
+Instruction fetched is:
+program_memory[1e]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=f4, PCLATH=3, PC = 3f4 
+****************************************************************
+INSTRUCTION NUMBER 59
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1f]= 3f4
+Current PC: PCL=f4, PCLATH=3, PC = 3f4 
+Instruction fetched is:
+program_memory[1f]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=f5, PCLATH=3, PC = 3f5 
+****************************************************************
+INSTRUCTION NUMBER 60
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[20]= 3f5
+Current PC: PCL=f5, PCLATH=3, PC = 3f5 
+Instruction fetched is:
+program_memory[20]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f6, PCLATH=3, PC = 3f6 
+****************************************************************
+INSTRUCTION NUMBER 61
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[21]= 3f6
+Current PC: PCL=f6, PCLATH=3, PC = 3f6 
+Instruction fetched is:
+program_memory[21]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1016
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f8, PCLATH=3, PC = 3f8 
+****************************************************************
+INSTRUCTION NUMBER 62
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[23]= 3f8
+Current PC: PCL=f8, PCLATH=3, PC = 3f8 
+Instruction fetched is:
+program_memory[23]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=f9, PCLATH=3, PC = 3f9 
+****************************************************************
+INSTRUCTION NUMBER 63
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[24]= 3f9
+Current PC: PCL=f9, PCLATH=3, PC = 3f9 
+Instruction fetched is:
+program_memory[24]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 2, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= fd 
+Zero flag reset within SUBWF:
+Result is negative
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fa, PCLATH=3, PC = 3fa 
+****************************************************************
+INSTRUCTION NUMBER 64
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[25]= 3fa
+Current PC: PCL=fa, PCLATH=3, PC = 3fa 
+Instruction fetched is:
+program_memory[25]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1019
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fb, PCLATH=3, PC = 3fb 
+****************************************************************
+INSTRUCTION NUMBER 65
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[26]= 3fb
+Current PC: PCL=fb, PCLATH=3, PC = 3fb 
+Instruction fetched is:
+program_memory[26]=2bfd
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bfd 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3fd 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fb
+After execution: Contents (hex) of PC= 3fd
+****************************************************************
+After Incrementing PC: PCL=fd, PCLATH=3, PC = 3fd 
+****************************************************************
+INSTRUCTION NUMBER 66
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[28]= 3fd
+Current PC: PCL=fd, PCLATH=3, PC = 3fd 
+Instruction fetched is:
+program_memory[28]=2be2
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2be2 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3e2 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fd
+After execution: Contents (hex) of PC= 3e2
+****************************************************************
+After Incrementing PC: PCL=e2, PCLATH=3, PC = 3e2 
+****************************************************************
+INSTRUCTION NUMBER 67
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2a]= 3e2
+Current PC: PCL=e2, PCLATH=3, PC = 3e2 
+Instruction fetched is:
+program_memory[2a]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e3, PCLATH=3, PC = 3e3 
+****************************************************************
+INSTRUCTION NUMBER 68
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2b]= 3e3
+Current PC: PCL=e3, PCLATH=3, PC = 3e3 
+Instruction fetched is:
+program_memory[2b]=80e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80e 
+Opcode (hex) = 8 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 2 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e4, PCLATH=3, PC = 3e4 
+****************************************************************
+INSTRUCTION NUMBER 69
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2c]= 3e4
+Current PC: PCL=e4, PCLATH=3, PC = 3e4 
+Instruction fetched is:
+program_memory[2c]=70c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70c 
+Opcode (hex) = 7 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 1, W= 2
+ After execution:
+Contents of destination is W (hex)= 3 
+Zero flag reset within ADDWF
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e5, PCLATH=3, PC = 3e5 
+****************************************************************
+INSTRUCTION NUMBER 70
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2d]= 3e5
+Current PC: PCL=e5, PCLATH=3, PC = 3e5 
+Instruction fetched is:
+program_memory[2d]=8c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8c 
+Opcode (hex) = 0 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [c] (hex)= 3 
+****************************************************************
+After Incrementing PC: PCL=e6, PCLATH=3, PC = 3e6 
+****************************************************************
+INSTRUCTION NUMBER 71
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2e]= 3e6
+Current PC: PCL=e6, PCLATH=3, PC = 3e6 
+Instruction fetched is:
+program_memory[2e]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e7, PCLATH=3, PC = 3e7 
+****************************************************************
+INSTRUCTION NUMBER 72
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2f]= 3e7
+Current PC: PCL=e7, PCLATH=3, PC = 3e7 
+Instruction fetched is:
+program_memory[2f]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 4 
+Bit test = 0
+Program counter: PC= 1001
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e9, PCLATH=3, PC = 3e9 
+****************************************************************
+INSTRUCTION NUMBER 73
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[31]= 3e9
+Current PC: PCL=e9, PCLATH=3, PC = 3e9 
+Instruction fetched is:
+program_memory[31]=70d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70d 
+Opcode (hex) = 7 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ea, PCLATH=3, PC = 3ea 
+****************************************************************
+INSTRUCTION NUMBER 74
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[32]= 3ea
+Current PC: PCL=ea, PCLATH=3, PC = 3ea 
+Instruction fetched is:
+program_memory[32]=8d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8d 
+Opcode (hex) = 0 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [d] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=eb, PCLATH=3, PC = 3eb 
+****************************************************************
+INSTRUCTION NUMBER 75
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[16]= 3eb
+Current PC: PCL=eb, PCLATH=3, PC = 3eb 
+Instruction fetched is:
+program_memory[16]=3001
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3001 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 1 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 1 
+****************************************************************
+After Incrementing PC: PCL=ec, PCLATH=3, PC = 3ec 
+****************************************************************
+INSTRUCTION NUMBER 76
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[17]= 3ec
+Current PC: PCL=ec, PCLATH=3, PC = 3ec 
+Instruction fetched is:
+program_memory[17]=78e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78e 
+Opcode (hex) = 7 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 2, W= 1
+ After execution:
+Contents of destination is Reg file (hex)= 3 
+Zero flag reset within ADDWF, (destination = register file)
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ed, PCLATH=3, PC = 3ed 
+****************************************************************
+INSTRUCTION NUMBER 77
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[18]= 3ed
+Current PC: PCL=ed, PCLATH=3, PC = 3ed 
+Instruction fetched is:
+program_memory[18]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1007
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ef, PCLATH=3, PC = 3ef 
+****************************************************************
+INSTRUCTION NUMBER 78
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1a]= 3ef
+Current PC: PCL=ef, PCLATH=3, PC = 3ef 
+Instruction fetched is:
+program_memory[1a]=3000
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3000 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 1 
+Contents of W(hex) after execution= 0 
+****************************************************************
+After Incrementing PC: PCL=f0, PCLATH=3, PC = 3f0 
+****************************************************************
+INSTRUCTION NUMBER 79
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1b]= 3f0
+Current PC: PCL=f0, PCLATH=3, PC = 3f0 
+Instruction fetched is:
+program_memory[1b]=78f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78f 
+Opcode (hex) = 7 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is Reg file (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f1, PCLATH=3, PC = 3f1 
+****************************************************************
+INSTRUCTION NUMBER 80
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1c]= 3f1
+Current PC: PCL=f1, PCLATH=3, PC = 3f1 
+Instruction fetched is:
+program_memory[1c]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f2, PCLATH=3, PC = 3f2 
+****************************************************************
+INSTRUCTION NUMBER 81
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1d]= 3f2
+Current PC: PCL=f2, PCLATH=3, PC = 3f2 
+Instruction fetched is:
+program_memory[1d]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=f3, PCLATH=3, PC = 3f3 
+****************************************************************
+INSTRUCTION NUMBER 82
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1e]= 3f3
+Current PC: PCL=f3, PCLATH=3, PC = 3f3 
+Instruction fetched is:
+program_memory[1e]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=f4, PCLATH=3, PC = 3f4 
+****************************************************************
+INSTRUCTION NUMBER 83
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1f]= 3f4
+Current PC: PCL=f4, PCLATH=3, PC = 3f4 
+Instruction fetched is:
+program_memory[1f]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=f5, PCLATH=3, PC = 3f5 
+****************************************************************
+INSTRUCTION NUMBER 84
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[20]= 3f5
+Current PC: PCL=f5, PCLATH=3, PC = 3f5 
+Instruction fetched is:
+program_memory[20]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f6, PCLATH=3, PC = 3f6 
+****************************************************************
+INSTRUCTION NUMBER 85
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[21]= 3f6
+Current PC: PCL=f6, PCLATH=3, PC = 3f6 
+Instruction fetched is:
+program_memory[21]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1016
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f8, PCLATH=3, PC = 3f8 
+****************************************************************
+INSTRUCTION NUMBER 86
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[23]= 3f8
+Current PC: PCL=f8, PCLATH=3, PC = 3f8 
+Instruction fetched is:
+program_memory[23]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=f9, PCLATH=3, PC = 3f9 
+****************************************************************
+INSTRUCTION NUMBER 87
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[24]= 3f9
+Current PC: PCL=f9, PCLATH=3, PC = 3f9 
+Instruction fetched is:
+program_memory[24]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 3, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= fe 
+Zero flag reset within SUBWF:
+Result is negative
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fa, PCLATH=3, PC = 3fa 
+****************************************************************
+INSTRUCTION NUMBER 88
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[25]= 3fa
+Current PC: PCL=fa, PCLATH=3, PC = 3fa 
+Instruction fetched is:
+program_memory[25]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1019
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fb, PCLATH=3, PC = 3fb 
+****************************************************************
+INSTRUCTION NUMBER 89
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[26]= 3fb
+Current PC: PCL=fb, PCLATH=3, PC = 3fb 
+Instruction fetched is:
+program_memory[26]=2bfd
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bfd 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3fd 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fb
+After execution: Contents (hex) of PC= 3fd
+****************************************************************
+After Incrementing PC: PCL=fd, PCLATH=3, PC = 3fd 
+****************************************************************
+INSTRUCTION NUMBER 90
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[28]= 3fd
+Current PC: PCL=fd, PCLATH=3, PC = 3fd 
+Instruction fetched is:
+program_memory[28]=2be2
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2be2 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3e2 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fd
+After execution: Contents (hex) of PC= 3e2
+****************************************************************
+After Incrementing PC: PCL=e2, PCLATH=3, PC = 3e2 
+****************************************************************
+INSTRUCTION NUMBER 91
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2a]= 3e2
+Current PC: PCL=e2, PCLATH=3, PC = 3e2 
+Instruction fetched is:
+program_memory[2a]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e3, PCLATH=3, PC = 3e3 
+****************************************************************
+INSTRUCTION NUMBER 92
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2b]= 3e3
+Current PC: PCL=e3, PCLATH=3, PC = 3e3 
+Instruction fetched is:
+program_memory[2b]=80e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80e 
+Opcode (hex) = 8 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 3 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e4, PCLATH=3, PC = 3e4 
+****************************************************************
+INSTRUCTION NUMBER 93
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2c]= 3e4
+Current PC: PCL=e4, PCLATH=3, PC = 3e4 
+Instruction fetched is:
+program_memory[2c]=70c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70c 
+Opcode (hex) = 7 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 3, W= 3
+ After execution:
+Contents of destination is W (hex)= 6 
+Zero flag reset within ADDWF
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e5, PCLATH=3, PC = 3e5 
+****************************************************************
+INSTRUCTION NUMBER 94
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2d]= 3e5
+Current PC: PCL=e5, PCLATH=3, PC = 3e5 
+Instruction fetched is:
+program_memory[2d]=8c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8c 
+Opcode (hex) = 0 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [c] (hex)= 6 
+****************************************************************
+After Incrementing PC: PCL=e6, PCLATH=3, PC = 3e6 
+****************************************************************
+INSTRUCTION NUMBER 95
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2e]= 3e6
+Current PC: PCL=e6, PCLATH=3, PC = 3e6 
+Instruction fetched is:
+program_memory[2e]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e7, PCLATH=3, PC = 3e7 
+****************************************************************
+INSTRUCTION NUMBER 96
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2f]= 3e7
+Current PC: PCL=e7, PCLATH=3, PC = 3e7 
+Instruction fetched is:
+program_memory[2f]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 4 
+Bit test = 0
+Program counter: PC= 1001
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e9, PCLATH=3, PC = 3e9 
+****************************************************************
+INSTRUCTION NUMBER 97
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[31]= 3e9
+Current PC: PCL=e9, PCLATH=3, PC = 3e9 
+Instruction fetched is:
+program_memory[31]=70d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70d 
+Opcode (hex) = 7 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ea, PCLATH=3, PC = 3ea 
+****************************************************************
+INSTRUCTION NUMBER 98
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[32]= 3ea
+Current PC: PCL=ea, PCLATH=3, PC = 3ea 
+Instruction fetched is:
+program_memory[32]=8d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8d 
+Opcode (hex) = 0 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [d] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=eb, PCLATH=3, PC = 3eb 
+****************************************************************
+INSTRUCTION NUMBER 99
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[16]= 3eb
+Current PC: PCL=eb, PCLATH=3, PC = 3eb 
+Instruction fetched is:
+program_memory[16]=3001
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3001 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 1 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 1 
+****************************************************************
+After Incrementing PC: PCL=ec, PCLATH=3, PC = 3ec 
+****************************************************************
+INSTRUCTION NUMBER 100
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[17]= 3ec
+Current PC: PCL=ec, PCLATH=3, PC = 3ec 
+Instruction fetched is:
+program_memory[17]=78e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78e 
+Opcode (hex) = 7 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 3, W= 1
+ After execution:
+Contents of destination is Reg file (hex)= 4 
+Zero flag reset within ADDWF, (destination = register file)
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ed, PCLATH=3, PC = 3ed 
+****************************************************************
+INSTRUCTION NUMBER 101
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[18]= 3ed
+Current PC: PCL=ed, PCLATH=3, PC = 3ed 
+Instruction fetched is:
+program_memory[18]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1007
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ef, PCLATH=3, PC = 3ef 
+****************************************************************
+INSTRUCTION NUMBER 102
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1a]= 3ef
+Current PC: PCL=ef, PCLATH=3, PC = 3ef 
+Instruction fetched is:
+program_memory[1a]=3000
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3000 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 1 
+Contents of W(hex) after execution= 0 
+****************************************************************
+After Incrementing PC: PCL=f0, PCLATH=3, PC = 3f0 
+****************************************************************
+INSTRUCTION NUMBER 103
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1b]= 3f0
+Current PC: PCL=f0, PCLATH=3, PC = 3f0 
+Instruction fetched is:
+program_memory[1b]=78f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78f 
+Opcode (hex) = 7 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is Reg file (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f1, PCLATH=3, PC = 3f1 
+****************************************************************
+INSTRUCTION NUMBER 104
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1c]= 3f1
+Current PC: PCL=f1, PCLATH=3, PC = 3f1 
+Instruction fetched is:
+program_memory[1c]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f2, PCLATH=3, PC = 3f2 
+****************************************************************
+INSTRUCTION NUMBER 105
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1d]= 3f2
+Current PC: PCL=f2, PCLATH=3, PC = 3f2 
+Instruction fetched is:
+program_memory[1d]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=f3, PCLATH=3, PC = 3f3 
+****************************************************************
+INSTRUCTION NUMBER 106
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1e]= 3f3
+Current PC: PCL=f3, PCLATH=3, PC = 3f3 
+Instruction fetched is:
+program_memory[1e]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=f4, PCLATH=3, PC = 3f4 
+****************************************************************
+INSTRUCTION NUMBER 107
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1f]= 3f4
+Current PC: PCL=f4, PCLATH=3, PC = 3f4 
+Instruction fetched is:
+program_memory[1f]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=f5, PCLATH=3, PC = 3f5 
+****************************************************************
+INSTRUCTION NUMBER 108
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[20]= 3f5
+Current PC: PCL=f5, PCLATH=3, PC = 3f5 
+Instruction fetched is:
+program_memory[20]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f6, PCLATH=3, PC = 3f6 
+****************************************************************
+INSTRUCTION NUMBER 109
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[21]= 3f6
+Current PC: PCL=f6, PCLATH=3, PC = 3f6 
+Instruction fetched is:
+program_memory[21]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1016
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f8, PCLATH=3, PC = 3f8 
+****************************************************************
+INSTRUCTION NUMBER 110
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[23]= 3f8
+Current PC: PCL=f8, PCLATH=3, PC = 3f8 
+Instruction fetched is:
+program_memory[23]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=f9, PCLATH=3, PC = 3f9 
+****************************************************************
+INSTRUCTION NUMBER 111
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[24]= 3f9
+Current PC: PCL=f9, PCLATH=3, PC = 3f9 
+Instruction fetched is:
+program_memory[24]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 4, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= ff 
+Zero flag reset within SUBWF:
+Result is negative
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fa, PCLATH=3, PC = 3fa 
+****************************************************************
+INSTRUCTION NUMBER 112
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[25]= 3fa
+Current PC: PCL=fa, PCLATH=3, PC = 3fa 
+Instruction fetched is:
+program_memory[25]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1019
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=fb, PCLATH=3, PC = 3fb 
+****************************************************************
+INSTRUCTION NUMBER 113
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[26]= 3fb
+Current PC: PCL=fb, PCLATH=3, PC = 3fb 
+Instruction fetched is:
+program_memory[26]=2bfd
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bfd 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3fd 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fb
+After execution: Contents (hex) of PC= 3fd
+****************************************************************
+After Incrementing PC: PCL=fd, PCLATH=3, PC = 3fd 
+****************************************************************
+INSTRUCTION NUMBER 114
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[28]= 3fd
+Current PC: PCL=fd, PCLATH=3, PC = 3fd 
+Instruction fetched is:
+program_memory[28]=2be2
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2be2 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3e2 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fd
+After execution: Contents (hex) of PC= 3e2
+****************************************************************
+After Incrementing PC: PCL=e2, PCLATH=3, PC = 3e2 
+****************************************************************
+INSTRUCTION NUMBER 115
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2a]= 3e2
+Current PC: PCL=e2, PCLATH=3, PC = 3e2 
+Instruction fetched is:
+program_memory[2a]=1283
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BCF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1283 
+Opcode (hex) = 4 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=5, Immediate value (hex)= 0 
+Instruction mnemonic enum = 22
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BCF instruction
+Instruction cycle=0
+Contents of is Reg file (hex)= 0 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e3, PCLATH=3, PC = 3e3 
+****************************************************************
+INSTRUCTION NUMBER 116
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2b]= 3e3
+Current PC: PCL=e3, PCLATH=3, PC = 3e3 
+Instruction fetched is:
+program_memory[2b]=80e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80e 
+Opcode (hex) = 8 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 4 
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e4, PCLATH=3, PC = 3e4 
+****************************************************************
+INSTRUCTION NUMBER 117
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2c]= 3e4
+Current PC: PCL=e4, PCLATH=3, PC = 3e4 
+Instruction fetched is:
+program_memory[2c]=70c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70c 
+Opcode (hex) = 7 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 6, W= 4
+ After execution:
+Contents of destination is W (hex)= a 
+Zero flag reset within ADDWF
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=e5, PCLATH=3, PC = 3e5 
+****************************************************************
+INSTRUCTION NUMBER 118
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2d]= 3e5
+Current PC: PCL=e5, PCLATH=3, PC = 3e5 
+Instruction fetched is:
+program_memory[2d]=8c
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8c 
+Opcode (hex) = 0 
+Register file address (hex) = c, Register number (in hex)= c 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [c] (hex)= a 
+****************************************************************
+After Incrementing PC: PCL=e6, PCLATH=3, PC = 3e6 
+****************************************************************
+INSTRUCTION NUMBER 119
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2e]= 3e6
+Current PC: PCL=e6, PCLATH=3, PC = 3e6 
+Instruction fetched is:
+program_memory[2e]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e7, PCLATH=3, PC = 3e7 
+****************************************************************
+INSTRUCTION NUMBER 120
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[2f]= 3e7
+Current PC: PCL=e7, PCLATH=3, PC = 3e7 
+Instruction fetched is:
+program_memory[2f]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 4 
+Bit test = 0
+Program counter: PC= 1001
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=e9, PCLATH=3, PC = 3e9 
+****************************************************************
+INSTRUCTION NUMBER 121
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[31]= 3e9
+Current PC: PCL=e9, PCLATH=3, PC = 3e9 
+Instruction fetched is:
+program_memory[31]=70d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 70d 
+Opcode (hex) = 7 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=ea, PCLATH=3, PC = 3ea 
+****************************************************************
+INSTRUCTION NUMBER 122
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[32]= 3ea
+Current PC: PCL=ea, PCLATH=3, PC = 3ea 
+Instruction fetched is:
+program_memory[32]=8d
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 8d 
+Opcode (hex) = 0 
+Register file address (hex) = d, Register number (in hex)= d 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [d] (hex)= 0 
+****************************************************************
+After Incrementing PC: PCL=eb, PCLATH=3, PC = 3eb 
+****************************************************************
+INSTRUCTION NUMBER 123
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[16]= 3eb
+Current PC: PCL=eb, PCLATH=3, PC = 3eb 
+Instruction fetched is:
+program_memory[16]=3001
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3001 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 1 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 1 
+****************************************************************
+After Incrementing PC: PCL=ec, PCLATH=3, PC = 3ec 
+****************************************************************
+INSTRUCTION NUMBER 124
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[17]= 3ec
+Current PC: PCL=ec, PCLATH=3, PC = 3ec 
+Instruction fetched is:
+program_memory[17]=78e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78e 
+Opcode (hex) = 7 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 4, W= 1
+ After execution:
+Contents of destination is Reg file (hex)= 5 
+Zero flag reset within ADDWF, (destination = register file)
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ed, PCLATH=3, PC = 3ed 
+****************************************************************
+INSTRUCTION NUMBER 125
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[18]= 3ed
+Current PC: PCL=ed, PCLATH=3, PC = 3ed 
+Instruction fetched is:
+program_memory[18]=1803
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSC
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1803 
+Opcode (hex) = 6 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 24
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSC instruction
+Contents of is Reg file (hex)= 0 
+Bit test = 0
+Program counter: PC= 1007
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=ef, PCLATH=3, PC = 3ef 
+****************************************************************
+INSTRUCTION NUMBER 126
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1a]= 3ef
+Current PC: PCL=ef, PCLATH=3, PC = 3ef 
+Instruction fetched is:
+program_memory[1a]=3000
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3000 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 1 
+Contents of W(hex) after execution= 0 
+****************************************************************
+After Incrementing PC: PCL=f0, PCLATH=3, PC = 3f0 
+****************************************************************
+INSTRUCTION NUMBER 127
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1b]= 3f0
+Current PC: PCL=f0, PCLATH=3, PC = 3f0 
+Instruction fetched is:
+program_memory[1b]=78f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = ADDWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 78f 
+Opcode (hex) = 7 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 13
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+ADDWF instruction
+Before execution: Contents (hex) of Reg file= 0, W= 0
+ After execution:
+Contents of destination is Reg file (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f1, PCLATH=3, PC = 3f1 
+****************************************************************
+INSTRUCTION NUMBER 128
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1c]= 3f1
+Current PC: PCL=f1, PCLATH=3, PC = 3f1 
+Instruction fetched is:
+program_memory[1c]=80f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 80f 
+Opcode (hex) = 8 
+Register file address (hex) = f, Register number (in hex)= f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 14
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVF instruction
+Contents of destination is W (hex)= 0 
+Status register contents:(hex):4
+****************************************************************
+After Incrementing PC: PCL=f2, PCLATH=3, PC = 3f2 
+****************************************************************
+INSTRUCTION NUMBER 129
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1d]= 3f2
+Current PC: PCL=f2, PCLATH=3, PC = 3f2 
+Instruction fetched is:
+program_memory[1d]=3a80
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = XORLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3a80 
+Opcode (hex) = 3a 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 30
+Status register contents:(hex) at the end of decode: 4
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+XORLW instruction
+Before execution (hex): Contents of W= 0
+ After execution:
+Contents of destination is W (hex)= 80 
+Zero flag reset within XORLW:
+Status register contents:(hex):0
+****************************************************************
+After Incrementing PC: PCL=f3, PCLATH=3, PC = 3f3 
+****************************************************************
+INSTRUCTION NUMBER 130
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1e]= 3f3
+Current PC: PCL=f3, PCLATH=3, PC = 3f3 
+Instruction fetched is:
+program_memory[1e]=cf
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = MOVWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = cf 
+Opcode (hex) = 0 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 1, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 5
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVWF instruction
+Contents of destination is reg_file [4f] (hex)= 80 
+****************************************************************
+After Incrementing PC: PCL=f4, PCLATH=3, PC = 3f4 
+****************************************************************
+INSTRUCTION NUMBER 131
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[1f]= 3f4
+Current PC: PCL=f4, PCLATH=3, PC = 3f4 
+Instruction fetched is:
+program_memory[1f]=3080
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3080 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 80 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 80 
+Contents of W(hex) after execution= 80 
+****************************************************************
+After Incrementing PC: PCL=f5, PCLATH=3, PC = 3f5 
+****************************************************************
+INSTRUCTION NUMBER 132
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[20]= 3f5
+Current PC: PCL=f5, PCLATH=3, PC = 3f5 
+Instruction fetched is:
+program_memory[20]=24f
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 24f 
+Opcode (hex) = 2 
+Register file address (hex) = 4f, Register number (in hex)= 4f 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 0
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 80, W (hex)= 80
+ After execution:
+~W (hex): 80
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f6, PCLATH=3, PC = 3f6 
+****************************************************************
+INSTRUCTION NUMBER 133
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[21]= 3f6
+Current PC: PCL=f6, PCLATH=3, PC = 3f6 
+Instruction fetched is:
+program_memory[21]=1d03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1d03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=2, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1016
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=f8, PCLATH=3, PC = 3f8 
+****************************************************************
+INSTRUCTION NUMBER 134
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[23]= 3f8
+Current PC: PCL=f8, PCLATH=3, PC = 3f8 
+Instruction fetched is:
+program_memory[23]=3005
+-------------------------------------------------------------------
+Decode bits= 3 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Literal and control instructions
+Instruction mnemonic = MOVLW
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 3005 
+Opcode (hex) = 30 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 5 
+Instruction mnemonic enum = 26
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+MOVLW instruction
+Contents of W(hex) before execution= 0 
+Contents of W(hex) after execution= 5 
+****************************************************************
+After Incrementing PC: PCL=f9, PCLATH=3, PC = 3f9 
+****************************************************************
+INSTRUCTION NUMBER 135
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[24]= 3f9
+Current PC: PCL=f9, PCLATH=3, PC = 3f9 
+Instruction fetched is:
+program_memory[24]=20e
+-------------------------------------------------------------------
+Decode bits= 0 
+---------------------------------------------------------------------
+INSTRUCTION DECODE >> Byte instructions
+Instruction mnemonic = SUBWF
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 20e 
+Opcode (hex) = 2 
+Register file address (hex) = e, Register number (in hex)= e 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 8
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+SUBWF instruction
+Before execution: Contents of Reg file (hex)= 5, W (hex)= 5
+ After execution:
+~W (hex): fb
+Contents of destination is W= 0 
+Result is positive
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=fa, PCLATH=3, PC = 3fa 
+****************************************************************
+INSTRUCTION NUMBER 136
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[25]= 3fa
+Current PC: PCL=fa, PCLATH=3, PC = 3fa 
+Instruction fetched is:
+program_memory[25]=1c03
+-------------------------------------------------------------------
+Decode bits= 1 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> Bit instructions
+Instruction mnemonic = BTFSS
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 1c03 
+Opcode (hex) = 7 
+Register file address (hex) = 3, Register number (in hex)= 3 
+Destination bit = 0, bit=0, Immediate value (hex)= 0 
+Instruction mnemonic enum = 25
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+BTFSS instruction
+Contents of is Reg file (hex)= 5 
+Bit test = 1
+Program counter: PC= 1020
+Status register contents:(hex):5
+****************************************************************
+After Incrementing PC: PCL=fc, PCLATH=3, PC = 3fc 
+****************************************************************
+INSTRUCTION NUMBER 137
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[27]= 3fc
+Current PC: PCL=fc, PCLATH=3, PC = 3fc 
+Instruction fetched is:
+program_memory[27]=2bfe
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bfe 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3fe 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fc
+After execution: Contents (hex) of PC= 3fe
+****************************************************************
+After Incrementing PC: PCL=fe, PCLATH=3, PC = 3fe 
+****************************************************************
+INSTRUCTION NUMBER 138
+Entering execution loop with repeat = 0
+-------------------------------------------------------------------
+INSTRUCTION FETCH >>
+PC_value[29]= 3fe
+Current PC: PCL=fe, PCLATH=3, PC = 3fe 
+Instruction fetched is:
+program_memory[29]=2bff
+-------------------------------------------------------------------
+Decode bits= 2 
+-------------------------------------------------------------------
+INSTRUCTION DECODE >> CALL/GOTO instructions
+Instruction mnemonic = GOTO
+-------------------------------------------------------------------
+decode done
+Instruction format (hex) = 2bff 
+Opcode (hex) = 5 
+Register file address (hex) = 0, Register number (in hex)= 0 
+Destination bit = 0, bit=0, Immediate value (hex)= 3ff 
+Instruction mnemonic enum = 34
+Status register contents:(hex) at the end of decode: 5
+execute
+-------------------------------------------------------------------
+INSTRUCTION EXECUTION >>
+GOTO instruction
+Before execution: Contents (hex) of PC= 3fe
+After execution: Contents (hex) of PC= 3ff
+****************************************************************
+After Incrementing PC: PCL=ff, PCLATH=3, PC = 3ff 
